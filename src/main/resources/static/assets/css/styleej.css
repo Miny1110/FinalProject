@@ -20,7 +20,7 @@
     --theme-color1-rgb: 14, 148, 122;
     --theme-color2: linear-gradient(90.56deg, var(--theme-color1) 8.46%, var(--theme-color) 62.97%);
     --theme-color3: #BDBDBD;
-     --theme-color3-rgb: 189, 189, 189;
+    --theme-color3-rgb: 189, 189, 189;
 }
 
 @-webkit-keyframes scaleUpDown {
@@ -691,6 +691,31 @@
     font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1920 - 320)));
     z-index: 0;
     white-space: nowrap
+}
+
+.btn_btn{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #222;
+    padding: calc(7px + (14 - 7) * ((100vw - 320px) / (1920 - 320))) calc(14px + (32 - 14) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 500;
+    background: transparent;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    top: 33px;
+    left: 63px;
+    border: none;
+    font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1920 - 320)));
+    z-index: 0;
+    white-space: nowrap;
 }
 
 .btn:focus {

@@ -22753,6 +22753,54 @@ header .offcanvas-backdrop {
     gap: calc(14px + (30 - 14) * ((100vw - 320px) / (1920 - 320)));
 }
 
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group{
+    margin: 0 auto 0;
+    width: 100%;
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group .form-control {
+    padding-left: 10;
+    width: 50%;
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group {
+    background-color: #fff
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group i {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 calc(12px + (20 - 12) * ((100vw - 320px) / (1920 - 320)));
+    color: var(--theme-color);
+    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)))
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group .qna-dropdown-menu li {
+    display: block;
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group .qna-dropdown-button {
+    font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 600;
+    color: var(--theme-color);
+    z-index: 0
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group .qna-dropdown-button::after {
+    content: unset
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-qna .input-group .qna-dropdown-button i {
+    position: relative;
+    padding: 0;
+    margin-left: 5px;
+    font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)))
+}
+
 .user-dashboard-section .dashboard-right-sidebar .dashboard-qna .table{
     width: 100%;
     table-layout: fixed;

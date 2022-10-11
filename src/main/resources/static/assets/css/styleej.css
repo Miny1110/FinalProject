@@ -528,6 +528,38 @@
     line-height: 1.4
 }
 
+.breadscrumb-section .breadscrumb-order .order-box span.state {
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#1E4163), to(#1E4163));
+    background: linear-gradient(-90deg, #1E4163 0%, #1E4163 100%);
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.breadscrumb-section .breadscrumb-order .order-box span.cancle {
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#ff7272), to(#ff7272));
+    background: linear-gradient(-90deg, #ff7272 0%, #ff7272 100%);
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.breadscrumb-section .breadscrumb-order .order-box h5.state {
+    margin-top: 5px;
+    margin-bottom: 8px;
+    line-height: 1.4
+}
+
 .faq-breadscrumb {
     background-color: #f8f8f8;
     position: relative;
@@ -18561,6 +18593,16 @@ header .offcanvas-backdrop {
     margin-left: 50px
 }
 
+.cart-table table tbody tr td.review {
+    vertical-align: middle;
+    text-align: right;
+    width: 1px;
+}
+
+.cart-table table tbody tr td.review button{
+    
+}
+
 .cart-table table tbody tr td.save-remove .save {
     font-weight: 400;
     white-space: nowrap;
@@ -18800,8 +18842,18 @@ header .offcanvas-backdrop {
     color: #222
 }
 
+.summery-box .summery-total li h5.price {
+    margin-left: auto
+}
+
 .summery-box .summery-total li h4.price {
     margin-left: auto
+}
+
+.summery-box .summery-total li h5.refund {
+    margin-right: auto;
+    color: #ff7474;
+    font-weight: bold
 }
 
 [dir="rtl"] .summery-box .summery-total li h4.price {
@@ -23463,7 +23515,26 @@ header .offcanvas-backdrop {
 }
 
 .order-table table tbody tr td {
-    vertical-align: middle
+    vertical-align: middle;
+    text-align: right;
+}
+
+.order-table table tbody tr td span.review {
+    font-size: 8px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#1E4163), to(#1E4163));
+    background: linear-gradient(-90deg, #1E4163 0%, #1E4163 100%);
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 3px;
+    margin-bottom: 3px;
+
+}
+
+.order-table table tbody tr td span.review:hover {
+    cursor: pointer;
 }
 
 .search-section .search-box {

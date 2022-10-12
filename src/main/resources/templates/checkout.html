@@ -2263,7 +2263,7 @@
 
                 <form>
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
+                        <input type="text" class="form-control" id="customerZipCode" placeholder="우편번호">
                         <label for="lname">우편번호</label>
                     </div>
                         <div class="form-floating mb-4 theme-form-floating">
@@ -2280,7 +2280,7 @@
                         <span id="guide" style="color:#999;display:none"></span>
                     </div>
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" placeholder="상세주소" class="form-control" id="sample4_detailAddress" >
+                        <input type="text" placeholder="상세주소" class="form-control" id="sample4_deatailAddress" >
                         <label for="lname">상세주소</label>
                     </div>
                       <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
@@ -2315,7 +2315,7 @@
                                 }
 
                                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                document.getElementById('sample4_postcode').value = data.zonecode;
+                                document.getElementById('customerZipCode').value = data.zonecode;
                                 document.getElementById("sample4_roadAddress").value = roadAddr;
                                 document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
 

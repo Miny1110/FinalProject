@@ -11,10 +11,12 @@ public class CartController {
 	@Resource
 	private CartService cartservice;
 
-    @RequestMapping("/cart")
-    public void test(){ 
-    	System.out.println(cartservice.test());
-    }
+
+    @RequestMapping("product-bottom-thumbnail.html")
+    public String detail(){ return "product-bottom-thumbnail"; }
+    @RequestMapping("/cart.*")
+    public String cart(){ return "cart";}
+
 
 
 }

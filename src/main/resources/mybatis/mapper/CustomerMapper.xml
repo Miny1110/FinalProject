@@ -5,6 +5,6 @@
         
 <mapper namespace="com.exe.cozy.mapper.CustomerMapper">
 	<select id="test" resultType="String">
-		select id from customer
+		select customerEmail from customer
 	</select>
 </mapper>

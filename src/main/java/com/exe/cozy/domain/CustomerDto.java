@@ -2,20 +2,19 @@ package com.exe.cozy.domain;
 
 public class CustomerDto {
 	
-	private String id;
-	private String pwd;
-	public String getId() {
-		return id;
+	private String customerEmail;
+	private String customerPwd;
+	public String getCustomerEmail() {
+		return customerEmail;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
-	public String getPwd() {
-		return pwd;
+	public String getCustomerPwd() {
+		return customerPwd;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setCustomerPwd(String customerPwd) {
+		this.customerPwd = customerPwd;
 	}
-	
 
 }

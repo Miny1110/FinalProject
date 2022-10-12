@@ -22,7 +22,7 @@ public class CustomerController {
     public String test(){ 
     	System.out.println(customerService.test());
     	
-    	return "user-dashboard";
+    	return "sign-up";
     }
 
 

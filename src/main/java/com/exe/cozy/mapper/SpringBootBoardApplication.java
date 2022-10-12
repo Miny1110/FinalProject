@@ -1,4 +1,4 @@
-package com.spring.boot;
+package com.exe.cozy.mapper;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

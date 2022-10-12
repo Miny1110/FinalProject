@@ -1,6 +1,9 @@
 package com.exe.cozy.cart;
 
+import com.exe.cozy.domain.CartDto;
+
 public interface CartService {
 
-	public void insertData(CartDto cdto) throws Exception;
+
+	void insertData(CartDto cdto) throws Exception;
 }

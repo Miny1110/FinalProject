@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CartController {
-	
-	@Resource
-	private CartService cartservice;
+//
+//	@Resource
+	//private CartService cartservice;
 
 
 //    @RequestMapping("product-bottom-thumbnail.html")
@@ -20,7 +20,7 @@ public class CartController {
     
     @RequestMapping("/cart")
     public void test(){ 
-    	System.out.println(cartservice.test());
+
     }
 
 

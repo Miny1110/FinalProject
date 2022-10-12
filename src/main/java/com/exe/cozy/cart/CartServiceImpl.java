@@ -1,19 +1,22 @@
 package com.exe.cozy.cart;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.exe.cozy.domain.CartDto;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.mapper.CartMapper;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService{
-	
-	@Autowired
-	private CartMapper cartMapper;
 
-	@Override
-	public String test() {
-		return cartMapper.test();
+	private final CartMapper cartMapper;
+
+	public CartServiceImpl(CartMapper cartMapper) {
+		this.cartMapper = cartMapper;
 	}
 
+
+	@Override
+	public void insertData(CartDto cdto) throws Exception {
+
+	}
 }

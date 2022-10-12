@@ -1,4 +1,4 @@
-package com.exe.cozy.cart;
+package com.exe.cozy.customer;
 
 import javax.annotation.Resource;
 
@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class CartController {
+public class CustomerController {
 	
 	@Resource
-	private CartService cartservice;
+	private CustomerService customerService;
 
 
 //    @RequestMapping("product-bottom-thumbnail.html")
@@ -18,9 +18,11 @@ public class CartController {
 //    public String cart(){ return "cart";}
 
     
-    @RequestMapping("/cart")
-    public void test(){ 
-    	System.out.println(cartservice.test());
+    @RequestMapping("/customer")
+    public String test(){ 
+    	System.out.println(customerService.test());
+    	
+    	return "user-dashboard";
     }
 
 

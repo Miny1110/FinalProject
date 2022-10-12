@@ -9,7 +9,10 @@ import javax.annotation.Resource;
 @Controller
 public class ItemDetailController {
 
-
+    @RequestMapping("/product-bottom-thumbnail.*")
+    public String test() {
+        return "product-bottom-thumbnail";
+    }
 
 
 

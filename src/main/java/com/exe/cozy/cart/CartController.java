@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CartController {
 //
 //	@Resource
-	//private CartService cartservice;
+    //private CartService cartservice;
 
 
 //    @RequestMapping("product-bottom-thumbnail.html")
@@ -17,10 +17,10 @@ public class CartController {
 //    @RequestMapping("/cart.*")
 //    public String cart(){ return "cart";}
 
-    
-    @RequestMapping("/cart")
-    public void test(){ 
 
+    @RequestMapping("/cart.*")
+    public String test() {
+        return "cart";
     }
 
 

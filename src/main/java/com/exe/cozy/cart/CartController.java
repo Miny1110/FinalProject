@@ -19,9 +19,14 @@ public class CartController {
 
 
     @RequestMapping("/cart.*")
-    public String test() {
+    public String cart() {
         return "cart";
     }
+    @RequestMapping("/reviewWrite.*")
+    public String reviewWrite() {
+        return "reviewWrite";
+    }
+
 
 
 }

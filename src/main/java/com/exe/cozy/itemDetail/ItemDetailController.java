@@ -10,8 +10,16 @@ import javax.annotation.Resource;
 public class ItemDetailController {
 
     @RequestMapping("/product-bottom-thumbnail.*")
-    public String test() {
+    public String detailItem() {
         return "product-bottom-thumbnail";
+    }
+    @RequestMapping("/createItem.*")
+    public String createItem() {
+        return "createItem";
+    }
+  @RequestMapping("/header.*")
+    public String header() {
+        return "createItem";
     }
 
 

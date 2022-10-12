@@ -2,6 +2,5 @@ package com.exe.cozy.cart;
 
 public interface CartService {
 
-	public String test();
-	
+	public void insertData(CartDto cdto) throws Exception;
 }

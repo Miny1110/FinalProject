@@ -17,7 +17,7 @@ public class ItemDetailDto {
     private int itemPrice;
     private int itemDiscount;
     private String itemContent;
-    private String itemImage1; 
+    private String itemImage1; //큰화면 이미지
     private String itemImage2;
     private String itemImage3;
     private String itemImage4;

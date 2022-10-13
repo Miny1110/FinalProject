@@ -2,15 +2,27 @@
 <head>
     <div th:replace="head.html :: headFragment"></div>
 
+	<title>회원가입</title>
+
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
 
-<style id="__web-inspector-hide-shortcut-style__">
-.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
-{
-    visibility: hidden !important;
-}
-</style></head>
+	<style id="__web-inspector-hide-shortcut-style__">
+	.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
+	{
+	    visibility: hidden !important;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	const sendIt = () => {
+		var f = document.signUpForm;
+		
+		f.action="signUp";
+		f.submit();
+	}
+	</script>
+</head>
 
 <body>
 
@@ -22,46 +34,6 @@
     <header th:replace="header.html :: headerFragment"></header>
     <!-- Header End -->
 
-    <!-- mobile fix menu start -->
-    <div class="mobile-menu d-md-none d-block mobile-cart">
-        <ul>
-            <li class="active">
-                <a href="index.html">
-                    <i class="iconly-Home icli"></i>
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li class="mobile-category">
-                <a href="javascript:void(0)">
-                    <i class="iconly-Category icli js-link"></i>
-                    <span>Category</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="search.html" class="search-box">
-                    <i class="iconly-Search icli"></i>
-                    <span>Search</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="wishlist.html" class="notifi-wishlist">
-                    <i class="iconly-Heart icli"></i>
-                    <span>My Wish</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="cart.html">
-                    <i class="iconly-Bag-2 icli fly-cate"></i>
-                    <span>Cart</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- mobile fix menu end -->
 
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
@@ -96,22 +68,24 @@
                     <div class="log-in-box">
                         <div class="log-in-title">
                             <h3>회원가입</h3>
-                            
                         </div>
 
                         <div class="input-box">
-                            <form class="row g-4">
+		<!-- 회원가입 form 시작 -->         
+                            <form class="row g-4" name="signUpForm" method="post" action="" th:object="${CustomerDto}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="fullname" placeholder="이름을 입력하세요">
+                                        <input type="text" class="form-control" id="fullname" placeholder="이름을 입력하세요"
+                                        name="customerName">
                                         <label for="fullname">이름</label>
-                                        
                                     </div>
                                 </div>
                                 <div style="margin-top: 5;">올바른 이름을 입력해주세요</div>
+                                
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                        <input type="email" class="form-control" id="email" placeholder="Email Address"
+                                        name="customerEmail">
                                         <label for="email">이메일</label>
                                     </div>
                                 </div>
@@ -119,7 +93,8 @@
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        name="customerPwd">
                                         <label for="password">비밀번호</label>
                                     </div>
                                 </div>
@@ -127,7 +102,8 @@
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        name="customerPwdChk">
                                         <label for="password">비밀번호 확인</label>
                                     </div>
                                 </div>
@@ -135,7 +111,8 @@
                                    
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        name="customerTel">
                                         <label for="password">연락처</label>
                                     </div>
                                 </div>
@@ -143,17 +120,17 @@
                                    
                                 <div class="col-8">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        name="customerTelChk">
                                         <label for="password">인증번호</label>
                                     </div>
-                                
-                                <div style="margin-top: 5;">인증번호가 일치하지 않습니다</div></div>
-                                   
+                                <div style="margin-top: 5;">인증번호가 일치하지 않습니다</div>
+                                </div>
                                 <div class="col-4">
-                                    <button class="btn btn-animation w-100" type="submit">인증번호 요청</button>
-                                </div><div class="col-12">
-                                    <button class="btn btn-animation w-100" type="submit">회원가입</button>
-                                </div><div class="col-12">
+                                    <button class="btn btn-animation w-100">인증번호 요청</button>
+                                </div>
+                                
+                                <div class="col-12">
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
                                             <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
@@ -162,9 +139,13 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 
+                                <div class="col-12">
+                                    <button class="btn btn-animation w-100" onclick="sendIt();">회원가입</button>
+                                </div>
                             </form>
+		<!-- 회원가입 form 끝 -->  
+                            
                         </div>
 
                         <div class="other-log-in">

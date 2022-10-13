@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.exe.cozy.mapper.ItemMapper">
-    <select id="maxNum" resultType="int">
+    <select id="itemMaxNum" resultType="int">
         select nvl(max(itemnum),0) from item
     </select>
 
@@ -14,15 +14,27 @@
                          itemColor, itemSize)
         values (#{itemNum}, #{itemName}, #{itemMainType}, #{itemSubType}, #{itemPrice}, #{itemDiscount}, #{itemContent},
                 #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{itemImage5}, #{detailImage},
-                #{itemHitcount},#{itemStock}, #{itemState}, #{todaydeal},#{itemColor}, #{itemSize})
+                0,#{itemStock}, #{itemState}, #{todaydeal},#{itemColor}, #{itemSize})
     </insert>
     <select id="getItemDataCount" parameterType="hashMap" resultType="int">
         select nvl(count(*),0) from item
         where ${searchKey} like '%' || #{searchValue} || '%'
     </select>
 
+    <update id="updateItemHitCount" parameterType="int">
+        update item set itemHitcount = itemHticount+1 where itemNum=#{itemNum}
+    </update>
+
+    <!--ItemNum 으로 item 읽기-->
+    <select id="getReadItemData" parameterType="int" resultType="com.exe.cozy.domain.ItemDetailDto">
+        select itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
+               itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
+               itemColor, itemSize from itemNum=#{itemNum}
+    </select>
+
+
     <delete id="deleteItemData" parameterType="int">
-        delete item where itemNum=#[itemNum]
+        delete item where itemNum=#{itemNum}
     </delete>
 
 </mapper>

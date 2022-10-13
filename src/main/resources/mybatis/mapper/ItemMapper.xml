@@ -3,5 +3,26 @@
         PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.exe.cozy.mapper.ItemDetailMapper">
+<mapper namespace="com.exe.cozy.mapper.ItemMapper">
+    <select id="maxNum" resultType="int">
+        select nvl(max(itemnum),0) from item
+    </select>
+
+    <insert id="insertItem" parameterType="com.exe.cozy.domain.ItemDetailDto">
+        insert into item(itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
+                         itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
+                         itemColor, itemSize)
+        values (#{itemNum}, #{itemName}, #{itemMainType}, #{itemSubType}, #{itemPrice}, #{itemDiscount}, #{itemContent},
+                #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{itemImage5}, #{detailImage},
+                #{itemHitcount},#{itemStock}, #{itemState}, #{todaydeal},#{itemColor}, #{itemSize})
+    </insert>
+    <select id="getItemDataCount" parameterType="hashMap" resultType="int">
+        select nvl(count(*),0) from item
+        where ${searchKey} like '%' || #{searchValue} || '%'
+    </select>
+
+    <delete id="deleteItemData" parameterType="int">
+        delete item where itemNum=#[itemNum]
+    </delete>
+
 </mapper>

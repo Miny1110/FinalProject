@@ -5,16 +5,16 @@
 
 <mapper namespace="com.exe.cozy.mapper.ItemMapper">
     <select id="itemMaxNum" resultType="int">
-        select nvl(max(itemnum),0) from item
+        select nvl(max(itemNum),0) from item
     </select>
 
-    <insert id="insertItem" parameterType="com.exe.cozy.domain.ItemDetailDto">
+    <insert id="insertItem" parameterType="ItemDetailDto">
         insert into item(itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
                          itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
                          itemColor, itemSize)
         values (#{itemNum}, #{itemName}, #{itemMainType}, #{itemSubType}, #{itemPrice}, #{itemDiscount}, #{itemContent},
                 #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{itemImage5}, #{detailImage},
-                0,#{itemStock}, #{itemState}, #{todaydeal},#{itemColor}, #{itemSize})
+                0,#{itemStock}, #{itemState}, #{todaydeal}, #{itemColor}, #{itemSize})
     </insert>
     <select id="getItemDataCount" parameterType="hashMap" resultType="int">
         select nvl(count(*),0) from item
@@ -22,14 +22,14 @@
     </select>
 
     <update id="updateItemHitCount" parameterType="int">
-        update item set itemHitcount = itemHticount+1 where itemNum=#{itemNum}
+        update item set itemHitcount=itemHitcount+1 where itemNum=#{itemNum}
     </update>
 
     <!--ItemNum 으로 item 읽기-->
-    <select id="getReadItemData" parameterType="int" resultType="com.exe.cozy.domain.ItemDetailDto">
+    <select id="getReadItemData" parameterType="int" resultType="ItemDetailDto">
         select itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
                itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
-               itemColor, itemSize from itemNum=#{itemNum}
+               itemColor, itemSize from item where itemNum=#{itemNum}
     </select>
 
 

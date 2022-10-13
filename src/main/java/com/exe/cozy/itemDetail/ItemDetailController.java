@@ -46,7 +46,7 @@ public class ItemDetailController {
 
     }
 
-    @RequestMapping("/product-bottom-thumbnail.*") /**item 상세페에지 view*/
+    @RequestMapping("/itemDetail") /**item 상세페에지 view*/
     public ModelAndView detail(HttpServletRequest request) throws Exception {
         int itemNum = Integer.parseInt(request.getParameter("itemNum"));
         /* detail 페이지 완성되면 이거 풀기
@@ -58,7 +58,7 @@ public class ItemDetailController {
         if(searchValue!=null && !searchValue.equals("")) {
             searchValue = URLDecoder.decode(searchValue,"UTF-8");} */
         
-        itemDetailService.updateItemHitCount(itemNum);
+        //itemDetailService.updateItemHitCount(itemNum);
         
         ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
         
@@ -80,13 +80,17 @@ public class ItemDetailController {
             param += "&searchValue=" + URLEncoder.encode(searchValue,"UTF-8");
         }*/
 
+        int salePrice = idto.getItemPrice() - idto.getItemDiscount();
+
+        System.out.println(salePrice);
         ModelAndView mav = new ModelAndView();
 
         mav.addObject("idto",idto);
+        mav.addObject("salePrice",salePrice);
         //mav.addObject("params",param);
         //mav.addObject("pageNum", pageNum);
 
-        mav.setViewName("product-bottom-thumbnail");
+        mav.setViewName("itemDetail");
         return mav;
 
 

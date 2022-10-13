@@ -35,23 +35,70 @@
 		return;
 	}
 	
-	/* 이메일 유효성 검사 */
-	function emailChk(){
-		var email = $("#customerEmail").val();
-		var emailMsg = document.querySelector("#emailMsg");
-		
-		if(!email){
-			emailMsg.innerHTML = "이메일을 입력해주세요.";
+	/* 이메일 유효성 검사 & 중복검사 */
+    function emailChk(){
+    	var email = $("#customerEmail").val();
+    	var emailMsg = document.querySelector("#emailMsg");
+    	
+    	if(!email){
+    		emailMsg.innerHTML = "이메일을 입력해주세요.";
 			$("#emailMsg").css("color","#ff7474");
-		}else if(!isValidEmail(email)){
+    	}else if(!isValidEmail(email)){
 			emailMsg.innerHTML = "유효한 이메일이 아닙니다.";
 			$("#emailMsg").css("color","#ff7474");
 			$("#customerEmail").val("");
 		}else{
-			emailMsg.innerHTML = "";
-		}
-		return;
-	}
+			 $.ajax({
+		            url:'./emailChk', //Controller에서 요청 받을 주소
+		            type:'post', //POST 방식으로 전달
+		            data:{email:email},
+		            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+		                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+		                	emailMsg.innerHTML = "";
+							$("#emailDobuleChk").val("true");
+		                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+		                	emailMsg.innerHTML = "이미 가입된 이메일입니다";
+							$("#emailMsg").css("color","#ff7474");
+							$("#customerEmail").val("");
+							$("#emailDobuleChk").val("false");
+		                }
+		            },
+		            error:function(){
+		                alert("에러입니다");
+		            }
+			});
+    	}
+    	return;
+    }
+ 
+    
+    /* function emailChk(){
+    	var email = $("#customerEmail").val();
+    	var emailMsg = document.querySelector("#emailMsg");
+    	
+    	
+    	
+        $.ajax({
+            url:'./emailChk', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            data:{email:email},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                	emailMsg.innerHTML = "사용가능";
+					$("#emailDobuleChk").val("true");
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                	emailMsg.innerHTML = "이미 가입된 이메일입니다";
+					$("#emailMsg").css("color","#ff7474");
+					$("#customerEmail").val("");
+					$("#emailDobuleChk").val("false");
+                }
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+        }; */
+	
 	
 	/* 비밀번호 유효성 검사 */
 	function pwdChk(){
@@ -71,12 +118,15 @@
 		}
 		
 		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
-		if((pwd != pwdChk) && pwd){
-			pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
-			$("#pwdDoubleMsg").css("color","#ff7474");
-			$("#customerPwdChk").val("");
-		}
+		var pwdChk = $("#customerPwdChk").val();
 		
+		if(pwdChk){
+			if((pwd != pwdChk) && pwd){
+				pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
+				$("#pwdDoubleMsg").css("color","#ff7474");
+				$("#customerPwdChk").val("");
+			}
+		}
 		return;
 	}
 	
@@ -119,35 +169,41 @@
 	
 	
 	function sendIt(){
-		/* var f = document.signUpForm; */
+		var f = document.signUpForm;
 		
-		var chk = $("#flexCheckDefault").is(":checked");
-		var chkMsg = $("#chkMsg")
+ 		var chk = $("#flexCheckDefault").is(":checked");
+		var chkMsg = document.querySelector("#chkMsg");
 		
 		if(!chk){
 			chkMsg.innerHTML = "이용약관에 동의해주세요.";
 			$("#chkMsg").css("color","#ff7474");
-			$("#flexCheckDefault").focus();
-			
+			event.preventDefault();
 			return;
 		}
 		
-		var nameMsg = document.querySelector("#nameMsg");
-		var emailMsg = document.querySelector("#emailMsg");
-		var pwdMsg = document.querySelector("#pwdMsg");
-		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
-		var telMsg = document.querySelector("#telMsg");
+		if(chk){
+			chkMsg.innerHTML = "";
+			event.preventDefault();
+		}
 		
-		if(nameMsg || emailMsg || pwdMsg || pwdDoubleMsg || telMsg || chk){
+		var name = $("#customerName").val();
+		var email = $("#customerEmail").val();
+		var pwd = $("#customerPwd").val();
+		var pwdChk = $("#customerPwdChk").val();
+		var tel = $("#customerTel").val();
+		
+		if(!name || !email || !pwd || !pwdChk || !tel){
 			alert("내용을 입력해주세요");
+			event.preventDefault();
 			return;
-		}
+
+		} 
 		
-		alert("성공");
-		return;
+		alert(name + "님 반갑습니다.\n회원가입해주셔서 감사합니다.");
+		event.preventDefault();
 		
-		/* f.action="signUp";
-		f.submit(); */
+		f.action="signUp";
+		f.submit();
 	}
 	
 	
@@ -204,7 +260,7 @@
 
                         <div class="input-box">
                         
-		<!-- 회원가입 form 시작 -->         
+							<!-- 회원가입 form 시작 -->         
                             <form class="row g-4" name="signUpForm" method="post" th:object="${CustomerDto}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
@@ -224,6 +280,7 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 5;" id="emailMsg"></div>
+                                <input type="hidden" id="emailDobuleChk"/>
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
@@ -258,7 +315,7 @@
                                         name="customerTelChk">
                                         <label for="password">인증번호</label>
                                     </div>
-                                <div style="margin-top: 5;">인증번호가 일치하지 않습니다</div>
+                                <div style="margin-top: 5;"></div>
                                 </div>
                                 <div class="col-4">
                                     <button class="btn btn-animation w-100">인증번호 요청</button>
@@ -280,7 +337,7 @@
                                     <button class="btn btn-animation w-100" onclick="sendIt();">회원가입</button>
                                 </div>
                             </form>
-		<!-- 회원가입 form 끝 -->  
+							<!-- 회원가입 form 끝 -->  
                             
                         </div>
 

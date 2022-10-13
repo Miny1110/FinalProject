@@ -8,6 +8,10 @@
 		select customerEmail from customer
 	</select>
 	
+	<select id="emailChk" resultType="int">
+		select count(*) from customer where customerEmail=#{customerEmail}
+	</select>
+	
 	<insert id="insertData" parameterType="CustomerDto">
 		insert into customer (customerEmail,customerPwd,customerName,
 		customerTel,customerDate,customerGrade,customerType,customerPoint)

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.CustomerDto;
@@ -33,6 +36,13 @@ public class CustomerController {
     	return "sign-up";
     }
     
+    @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
+    @ResponseBody
+    public int nameCheck(@RequestParam("email") String email) {
+    	int cnt = customerService.emailChk(email);
+		return cnt;
+	}
+    
     @GetMapping("signUp")
     public ModelAndView signUp() {
     	
@@ -43,7 +53,7 @@ public class CustomerController {
     	return mav;
     }
     
-    @PostMapping("signUp_ok")
+    @PostMapping("signUp")
     public ModelAndView signUp_ok(@ModelAttribute CustomerDto dto, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();

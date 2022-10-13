@@ -16,6 +16,11 @@ public class CustomerServiceImpl implements CustomerService{
 	public String test() {
 		return customerMapper.test();
 	}
+	
+	@Override
+	public int emailChk(String customerEmail) {
+		return customerMapper.emailChk(customerEmail);
+	}
 
 	@Override
 	public void insertData(CustomerDto dto) {

@@ -25,6 +25,7 @@ public class ItemDetailController {
     MyPage myPage;
 
 
+    //createItem 창으로 이동하는거
     @GetMapping ("/createItem.*") /** item insert view*/
     public ModelAndView createItem() throws Exception{
 
@@ -32,7 +33,7 @@ public class ItemDetailController {
         mav.setViewName("createItem");
         return mav;
     }
-    @PostMapping("/createItem.*")
+    @PostMapping("/createItem_ok")
     public ModelAndView createItem_ok(ItemDetailDto idto, HttpServletRequest request) throws Exception{
 
         ModelAndView mav = new ModelAndView();
@@ -43,7 +44,6 @@ public class ItemDetailController {
 
         mav.setViewName("redirect:/index");
         return mav;
-
     }
 
     @RequestMapping("/itemDetail") /**item 상세페에지 view*/
@@ -93,7 +93,7 @@ public class ItemDetailController {
         mav.setViewName("itemDetail");
         return mav;
 
-
+     
 
 
 

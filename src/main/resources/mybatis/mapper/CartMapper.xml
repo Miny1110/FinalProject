@@ -4,7 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.exe.cozy.mapper.CartMapper">
-	<select id="test" resultType="String">
-		select id from cart
+	<!--새장바구니 번호-->
+	<select id="cartMaxNum" resultType="int">
+		select nvl(max(cartNum),0) from cart;
 	</select>
+
+<insert id="insertCart" parameterType="CartDto">
+	insert into cart (cartNum,itemNum,customerEmail,itemQty)
+	values (#{cartNum},#{itemNum},#{customerEmail},#{itemQty})
+</insert>
+	
+	<!--카트삭제-->
+	<delete id="deleteCart" parameterType="int">
+		delete cart where cartNum=#{cartNum}
+	</delete>
+
+	<!-- 카트 수량수정-->
+	<update id="updateCart" parameterType="CartDto">
+		update cart set itemQty=#{itemQty} where customerEmail = #{customerEmail}
+	</update>
+	<!-- 카트목록 -->
+	<select id="listCart" resultType="CartDto" parameterType="map">
+		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,
+		       b.itemName, b.itemPrice, b.itemDiscount, b.itemImage1
+		from cart a left outer join item b on a.itemNum = b.itemNum
+		where customerEmail = #{customerEmail}
+	</select>
+
+	<!--카트확인-->
+	<select id="checkCart" resultType="CartDto">
+		select * from cart
+		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
+	</select>
+
 </mapper>

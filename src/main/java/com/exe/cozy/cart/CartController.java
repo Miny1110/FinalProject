@@ -22,10 +22,7 @@ public class CartController {
     public String cart() {
         return "cart";
     }
-    @RequestMapping("/reviewWrite.*")
-    public String reviewWrite() {
-        return "reviewWrite";
-    }
+
 
 
 

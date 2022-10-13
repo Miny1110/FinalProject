@@ -37,3 +37,19 @@ function isValidDate(year, month, day) {
        return false;
      return true;
 }
+
+// 비밀번호 검사
+function isValidPwd(pwd) {
+	var format = /^[a-zA-Z0-9]{8,16}$/;
+    if (pwd.search(format) != -1)
+        return true; //올바른 포맷 형식
+    return false;
+}
+
+// 연락처 검사
+function isValidTel(tel) {
+	var format = /^\d{3}\d{3,4}\d{4}$/;
+    if (tel.search(format) != -1)
+        return true; //올바른 포맷 형식
+    return false;
+}

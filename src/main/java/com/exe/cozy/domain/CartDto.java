@@ -1,22 +1,17 @@
 package com.exe.cozy.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public class CartDto {
 	
-	private String id;
-	private String pwd;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	
+private int cartNum;
+private String customerEmail;
+private int itemNum;
+private int itemQty;
 	
 
 }

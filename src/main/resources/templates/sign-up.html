@@ -16,42 +16,140 @@
 	
 	<script type="text/javascript" src="../assets/js/util.js"></script>
 	<script type="text/javascript">
-	const sendIt = () => {
-		var f = document.signUpForm;
-		
-		f.action="signUp";
-		f.submit();
-	}
-	
+
+	/* 이름 유효성 검사 */
 	function nameChk(){
 		var name = $("#customerName").val();
 		var nameMsg = document.querySelector("#nameMsg");
 		
-		if(!isValidKorean(name) || !name){
+		if(!name){
+			nameMsg.innerHTML = "이름을 입력해주세요.";
+			$("#nameMsg").css("color","#ff7474");
+		}else if(!isValidKorean(name)){
 			nameMsg.innerHTML = "유효한 이름이 아닙니다.";
 			$("#nameMsg").css("color","#ff7474");
 			$("#customerName").val("");
-			$("#customerName").focus();
 		}else{
 			nameMsg.innerHTML = "";
 		}
 		return;
 	}
 	
+	/* 이메일 유효성 검사 */
 	function emailChk(){
 		var email = $("#customerEmail").val();
 		var emailMsg = document.querySelector("#emailMsg");
 		
-		if(!isValidEmail(email) || !email){
+		if(!email){
+			emailMsg.innerHTML = "이메일을 입력해주세요.";
+			$("#emailMsg").css("color","#ff7474");
+		}else if(!isValidEmail(email)){
 			emailMsg.innerHTML = "유효한 이메일이 아닙니다.";
 			$("#emailMsg").css("color","#ff7474");
 			$("#customerEmail").val("");
-			$("#customerEmail").focus();
 		}else{
 			emailMsg.innerHTML = "";
 		}
 		return;
 	}
+	
+	/* 비밀번호 유효성 검사 */
+	function pwdChk(){
+		var pwd = $("#customerPwd").val();
+		var pwdMsg = document.querySelector("#pwdMsg");
+		
+		
+		if(!pwd){
+			pwdMsg.innerHTML = "비밀번호를 입력해주세요(숫자, 영문을 포함한 8~16자)";
+			$("#pwdMsg").css("color","#ff7474");
+		}else if(!isValidPwd(pwd)){
+			pwdMsg.innerHTML = "숫자, 영문을 포함한 8~16자로 입력해주세요.";
+			$("#pwdMsg").css("color","#ff7474");
+			$("#customerPwd").val("");
+		}else{
+			pwdMsg.innerHTML = "";
+		}
+		
+		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
+		if((pwd != pwdChk) && pwd){
+			pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
+			$("#pwdDoubleMsg").css("color","#ff7474");
+			$("#customerPwdChk").val("");
+		}
+		
+		return;
+	}
+	
+	/* 비밀번호 일치 검사 */
+	function pwdDoubleChk(){
+		var pwd = $("#customerPwd").val();
+		var pwdChk = $("#customerPwdChk").val();
+		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
+		
+		if(!pwdChk){
+			pwdDoubleMsg.innerHTML = "비밀번호 확인을 해주세요.";
+			$("#pwdDoubleMsg").css("color","#ff7474");
+		}else if(pwd != pwdChk){
+			pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
+			$("#pwdDoubleMsg").css("color","#ff7474");
+			$("#customerPwdChk").val("");
+		}else{
+			pwdDoubleMsg.innerHTML = "";
+		}
+		return;
+	}
+	
+	/* 연락처 유효성 검사 */
+	function telChk(){
+		var tel = $("#customerTel").val();
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!tel){
+			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+		}else if(!isValidTel(tel)){
+			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			$("#customerTel").val("");
+		}else{
+			telMsg.innerHTML = "";
+		}
+		return;
+	}
+	
+	
+	function sendIt(){
+		/* var f = document.signUpForm; */
+		
+		var chk = $("#flexCheckDefault").is(":checked");
+		var chkMsg = $("#chkMsg")
+		
+		if(!chk){
+			chkMsg.innerHTML = "이용약관에 동의해주세요.";
+			$("#chkMsg").css("color","#ff7474");
+			$("#flexCheckDefault").focus();
+			
+			return;
+		}
+		
+		var nameMsg = document.querySelector("#nameMsg");
+		var emailMsg = document.querySelector("#emailMsg");
+		var pwdMsg = document.querySelector("#pwdMsg");
+		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(nameMsg || emailMsg || pwdMsg || pwdDoubleMsg || telMsg || chk){
+			alert("내용을 입력해주세요");
+			return;
+		}
+		
+		alert("성공");
+		return;
+		
+		/* f.action="signUp";
+		f.submit(); */
+	}
+	
 	
 	
 	</script>
@@ -107,7 +205,7 @@
                         <div class="input-box">
                         
 		<!-- 회원가입 form 시작 -->         
-                            <form class="row g-4" name="signUpForm" method="post" action="" th:object="${CustomerDto}">
+                            <form class="row g-4" name="signUpForm" method="post" th:object="${CustomerDto}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input type="text" class="form-control" id="customerName" placeholder="이름을 입력하세요"
@@ -130,29 +228,29 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input type="password" class="form-control" id="customerPwd" placeholder="Password"
-                                        name="customerPwd">
+                                        name="customerPwd" onblur="pwdChk();">
                                         <label for="password">비밀번호</label>
                                     </div>
                                 </div>
-                                <div style="margin-top: 5;">영문, 숫자를 포함한~</div>
+                                <div style="margin-top: 5;" id="pwdMsg"></div>
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input type="password" class="form-control" id="customerPwdChk" placeholder="Password"
-                                        name="customerPwdChk">
+                                        name="customerPwdChk" onblur="pwdDoubleChk();">
                                         <label for="password">비밀번호 확인</label>
                                     </div>
                                 </div>
-                                <div style="margin-top: 5;">비밀번호가 일치하지 않습니다</div>
+                                <div style="margin-top: 5;" id="pwdDoubleMsg"></div>
                                    
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
                                         <input type="tel" class="form-control" id="customerTel" placeholder="Tel"
-                                        name="customerTel">
+                                        name="customerTel" onblur="telChk();">
                                         <label for="password">연락처</label>
                                     </div>
                                 </div>
-                                <div style="margin-top: 5;">올바른 연락처 형식을 입력해주세요</div>
+                                <div style="margin-top: 5;" id="telMsg"></div>
                                    
                                 <div class="col-8">
                                     <div class="form-floating theme-form-floating">
@@ -171,7 +269,9 @@
                                         <div class="form-check ps-0 m-0 remember-box">
                                             <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                <span>이용약관</span>에 동의합니다</label>
+                                                <span>이용약관</span>에 동의합니다
+                                            </label>
+                                            <div style="margin-left: 15;" id="chkMsg"></div>
                                         </div>
                                     </div>
                                 </div>

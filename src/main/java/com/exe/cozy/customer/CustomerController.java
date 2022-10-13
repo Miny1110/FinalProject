@@ -43,7 +43,7 @@ public class CustomerController {
     	return mav;
     }
     
-    @PostMapping("signUp")
+    @PostMapping("signUp_ok")
     public ModelAndView signUp_ok(@ModelAttribute CustomerDto dto, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();

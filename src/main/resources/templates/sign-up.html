@@ -14,6 +14,7 @@
 	}
 	</style>
 	
+	<script type="text/javascript" src="../assets/js/util.js"></script>
 	<script type="text/javascript">
 	const sendIt = () => {
 		var f = document.signUpForm;
@@ -22,7 +23,37 @@
 		f.submit();
 	}
 	
-
+	function nameChk(){
+		var name = $("#customerName").val();
+		var nameMsg = document.querySelector("#nameMsg");
+		
+		if(!isValidKorean(name) || !name){
+			nameMsg.innerHTML = "유효한 이름이 아닙니다.";
+			$("#nameMsg").css("color","#ff7474");
+			$("#customerName").val("");
+			$("#customerName").focus();
+		}else{
+			nameMsg.innerHTML = "";
+		}
+		return;
+	}
+	
+	function emailChk(){
+		var email = $("#customerEmail").val();
+		var emailMsg = document.querySelector("#emailMsg");
+		
+		if(!isValidEmail(email) || !email){
+			emailMsg.innerHTML = "유효한 이메일이 아닙니다.";
+			$("#emailMsg").css("color","#ff7474");
+			$("#customerEmail").val("");
+			$("#customerEmail").focus();
+		}else{
+			emailMsg.innerHTML = "";
+		}
+		return;
+	}
+	
+	
 	</script>
 	
 </head>
@@ -79,25 +110,26 @@
                             <form class="row g-4" name="signUpForm" method="post" action="" th:object="${CustomerDto}">
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="fullname" placeholder="이름을 입력하세요"
-                                        name="customerName">
-                                        <label for="fullname">이름</label>
+                                        <input type="text" class="form-control" id="customerName" placeholder="이름을 입력하세요"
+                                        name="customerName" onblur="nameChk();">
+                                        <label for="customerName">이름</label>
                                     </div>
                                 </div>
-                                <div style="margin-top: 5;">올바른 이름을 입력해주세요</div>
+                                <div style="margin-top: 5;" id="nameMsg"></div>
                                 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Email Address"
-                                        name="customerEmail">
+                                        <input type="email" class="form-control" id="customerEmail" placeholder="Email Address"
+                                        name="customerEmail" onblur="emailChk();">
                                         <label for="email">이메일</label>
+                               
                                     </div>
                                 </div>
-                                <div style="margin-top: 5;">올바른 이메일 형식을 입력해주세요</div>
+                                <div style="margin-top: 5;" id="emailMsg"></div>
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        <input type="password" class="form-control" id="customerPwd" placeholder="Password"
                                         name="customerPwd">
                                         <label for="password">비밀번호</label>
                                     </div>
@@ -106,7 +138,7 @@
 
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        <input type="password" class="form-control" id="customerPwdChk" placeholder="Password"
                                         name="customerPwdChk">
                                         <label for="password">비밀번호 확인</label>
                                     </div>
@@ -115,7 +147,7 @@
                                    
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        <input type="tel" class="form-control" id="customerTel" placeholder="Tel"
                                         name="customerTel">
                                         <label for="password">연락처</label>
                                     </div>
@@ -124,7 +156,7 @@
                                    
                                 <div class="col-8">
                                     <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="password" placeholder="Password"
+                                        <input type="text" class="form-control" id="customerTelChk" placeholder="TelChk"
                                         name="customerTelChk">
                                         <label for="password">인증번호</label>
                                     </div>

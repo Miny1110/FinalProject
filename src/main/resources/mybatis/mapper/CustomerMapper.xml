@@ -7,4 +7,28 @@
 	<select id="test" resultType="String">
 		select customerEmail from customer
 	</select>
+	
+	<insert id="insertData" parameterType="CustomerDto">
+		insert into customer (customerEmail,customerPwd,customerName,
+		customerTel,customerDate,customerGrade,customerType,customerPoint)
+		values (#{customerEmail},#{customerPwd},#{customerName},#{customerTel},
+		sysdate,'FAMILY',0,3000)
+	</insert>
+	
+	<select id="getReadData" parameterType="String" resultType="CustomerDto">
+		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
+		customerRAddr,customerJAddr,customerDAddr,customerGrade
+		from customer where customerEmail=#{customerEmail}
+	</select>
+	
+	<update id="updateData" parameterType="CustomerDto">
+		update customer set customerPwd=#{customerPwd},customerTel=#{customerTel},
+		customerZipCode=#{customerZipCode},customerRAddr=#{customerRAddr},
+		customerJAddr=#{customerJAddr},customerDAddr=#{customerDAddr}
+		where customerEmail=#{customerEmail}
+	</update>
+	
+	<delete id="deleteData" parameterType="String">
+		delete customer where customerEmail=#{customerEmail}
+	</delete>
 </mapper>

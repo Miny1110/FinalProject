@@ -1,11 +1,19 @@
 package com.exe.cozy.customer;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.exe.cozy.domain.CustomerDto;
 
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 	
 	@Resource
@@ -18,11 +26,46 @@ public class CustomerController {
 //    public String cart(){ return "cart";}
 
     
-    @RequestMapping("/customer")
+    @RequestMapping("test")
     public String test(){ 
     	System.out.println(customerService.test());
     	
     	return "sign-up";
+    }
+    
+    @GetMapping("signUp")
+    public ModelAndView signUp() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("sign-up");
+    	
+    	return mav;
+    }
+    
+    @PostMapping("signUp")
+    public ModelAndView signUp_ok(@ModelAttribute CustomerDto dto, HttpServletRequest req) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	System.out.println(dto.getCustomerName());
+    	
+    	customerService.insertData(dto);
+    	
+    	mav.setViewName("redirect:login");
+    	return mav;
+    	
+    }
+    
+    @GetMapping("login")
+    public ModelAndView login() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("log-in");
+    	
+    	return mav;
+    	
     }
 
 

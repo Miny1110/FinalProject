@@ -38,6 +38,7 @@
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleej.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylecj.css">
 </head>
 
 <body>
@@ -1216,33 +1217,159 @@
                                 </div>
                                 <hr>
                                 <div class="col-12">
-                                    <h3><b>사이즈</b></h3><br>
-                                    <div class="form-floating theme-form-floating">
-                                        <select name="itemMainType">
-                                            <option value="">사이즈를 선택해주세요</option>
-                                            <option value="싱글">싱글</option>
-                                            <option value="슈퍼싱글">슈퍼싱글</option>
-                                            <option value="퀸">퀸</option>
-                                            <option value="사이즈4">사이즈4</option>
-                                            <option value="사이즈5">사이즈5</option>
-                                        </select>
-                                    </div><br>
-                                    <h3><b>컬러</b></h3><br>
-                                    <div class="form-floating theme-form-floating">
-                                        <select name="itemMainType">
-                                            <option value="">컬러를 선택해주세요</option>
-                                            <option value="컬러1">컬러1</option>
-                                            <option value="컬러2">컬러2</option>
-                                            <option value="컬러3">컬러3</option>
-                                            <option value="컬러4">컬러4</option>
-                                            <option value="컬러5">컬러5</option>
-                                        </select>
+                                    <div class="accordion custome-accordion" id="accordionExample"
+                                        style="width: 25%; float: left">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    <span>사이즈 옵션</span>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingOne">
+                                                <div class="accordion-body">
+
+
+                                                    <ul class="category-list custom-padding custom-height">
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                    id="itemSize" name="itemSize" value="싱글">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">싱글</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemSize" name="itemSize" value="슈퍼싱글">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">슈퍼싱글</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemSize" name="itemSize" value="더블">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">더블</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemSize" name="itemSize" value="퀸">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">퀸</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemSize" name="itemSize" value="킹">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">킹</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion custome-accordion" id="accordionExample"
+                                        style="width: 25%; float: left">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    <span>색상 옵션</span>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                                aria-labelledby="panelsStayOpen-headingOne">
+                                                <div class="accordion-body">
+
+
+                                                    <ul class="category-list custom-padding custom-height">
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="블랙">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">블랙</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="화이트">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">화이트</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="우드">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">우드</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="레드">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">레드</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="블루">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">블루</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check ps-0 m-0 category-list-box">
+                                                                <input class="checkbox_animated" type="checkbox"
+                                                                id="itemColor" name="itemColor" value="그린">
+                                                                <label class="form-check-label" for="fruit">
+                                                                    <span class="name">그린</span>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
 
                             </div>
-                        </div><br>
+                        </div><br><hr>
                         <div>
                             <ul>
                                 <li>

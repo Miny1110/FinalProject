@@ -9,7 +9,7 @@
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
-    <title>Product Right Thumbnail</title>
+    <title>상세페이지</title>
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -832,23 +832,23 @@
                                                             4 Image</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-bottom-thumbnail.html"
+                                                        <a href="itemDetail.html"
                                                             class="dropdown-item">Product Bottom Thumbnail</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-left-thumbnail.html"
+                                                        <a href="itemDetail.html"
                                                             class="dropdown-item">Product Left Thumbnail</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-left.html" class="dropdown-item">Product
+                                                        <a href="itemDetail.html" class="dropdown-item">Product
                                                             Left</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-right-thumbnail.html"
+                                                        <a href="itemDetail.html"
                                                             class="dropdown-item">Product Right Thumbnail</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-slider.html" class="dropdown-item">Product
+                                                        <a href="itemDetail.html"" class="dropdown-item">Product
                                                             Slider</a>
                                                     </li>
                                                     <li>
@@ -1050,7 +1050,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>네드 무헤드 4단 멀티 통서랍형 수납 침대 SS/Q (매트포함)</h2>
+                        <h2 th:text="${idto.itemName}"> </h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -1059,7 +1059,8 @@
                                     </a>
                                 </li>
 
-                                <li class="breadcrumb-item active">카테고리 이름</li>
+                                <li class="breadcrumb-item active" th:text="${idto.itemMainType}"></li>
+                                <li class="breadcrumb-item active" th:text="${idto.itemSubType}"</li>
                             </ol>
                         </nav>
                     </div>

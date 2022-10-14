@@ -39,6 +39,8 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleej.css">
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylecj.css">
+
+
 </head>
 
 <body>
@@ -1105,81 +1107,55 @@
                             <div class="col-12">
                                 <h3><b>대분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">대분류를 선택해주세요</option>
-                                        <option value="가전">가전</option>
-                                        <option value="가구">가구</option>
-                                        <option value="주방용품">주방용품</option>
-                                        <option value="수납&정리">수납&정리</option>
-                                        <option value="생필품">생필품</option>
+                                    <select name="itemMainType" id="productSelect">
+                                        <option value="0" selected="selected">대분류를 선택해주세요</option>
+                                        <option value="1">가전</option>
+                                        <option value="2">가구</option>
+                                        <option value="3">주방용품</option>
+                                        <option value="4">수납&정리</option>
+                                        <option value="5">생필품</option>
                                     </select>
                                 </div><br>
-                                <h3><b>중분류</b></h3><br>
-                                <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">중분류를 선택해주세요</option>
-                                        <option value="가전">냉장고</option>
-                                        <option value="가전">공기청정기</option>
-                                        <option value="가전">에어컨</option>
-                                        <option value="가전">세탁기</option>
-                                        <option value="가전">청소기</option>
-                                    </select>
-                                </div>
                                 
                                 <!-- 대분류에서 중분류 카테고리 Start -->
                                 
-                                <!--
-                                
-                                <h3><b>중분류(가구)</b></h3><br>
+                                <h3><b>중분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">중분류를 선택해주세요</option>
-                                        <option value="가구">침대</option>
-                                        <option value="가구">쇼파</option>
-                                        <option value="가구">테이블&의자</option>
-                                        <option value="가구">옷장</option>
-                                        <option value="가구">행거</option>
+                                    <select name="itemMainType" id="mallSelect">
+                                        <option value="0">중분류를 선택해주세요</option>
+                                        
+                                        <option value="electric" class="mall1">냉장고</option>
+                                        <option value="electric" class="mall1">공기청정기</option>
+                                        <option value="electric" class="mall1">에어컨</option>
+                                        <option value="electric" class="mall1">세탁기</option>
+                                        <option value="electric" class="mall1">청소기</option>
+                               
+                                        <option value="funiture" class="mall2">침대</option>
+                                        <option value="funiture" class="mall2">쇼파</option>
+                                        <option value="funiture" class="mall2">테이블&의자</option>
+                                        <option value="funiture" class="mall2">옷장</option>
+                                        <option value="funiture" class="mall2">행거</option>
+                              
+                                        <option value="kitchen" class="mall3">냄비*프라이팬*솥</option>
+                                        <option value="kitchen" class="mall3">홈세트(식기류)</option>
+                                        <option value="kitchen" class="mall3">칼</option>
+                                        <option value="kitchen" class="mall3">수저</option>
+                                        <option value="kitchen" class="mall3">도마</option>
+                              
+                                        <option value="Storage" class="mall4">선반</option>
+                                        <option value="Storage" class="mall4">수납장*트롤리</option>
+                                        <option value="Storage" class="mall4">신발장</option>
+                                        <option value="Storage" class="mall4">리빙박스*바구니</option>
+                           
+                                        <option value="necessity" class="mall5">휴지</option>
+                                        <option value="necessity" class="mall5">주방세제</option>
+                                        <option value="necessity" class="mall5">세탁세제</option>
+                                        <option value="necessity" class="mall5">바디케어</option>
+                                        <option value="necessity" class="mall5">청소용품</option>
                                     </select>
                                 </div>
-                                
-                                <h3><b>중분류(주방용품)</b></h3><br>
-                                <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">중분류를 선택해주세요</option>
-                                        <option value="주방용품">냄비*프라이팬*솥</option>
-                                        <option value="주방용품">홈세트(식기류)</option>
-                                        <option value="주방용품">칼</option>
-                                        <option value="주방용품">수저</option>
-                                        <option value="주방용품">도마</option>
-                                    </select>
-                                </div>
-                                
-                                <h3><b>중분류(수납&정리)</b></h3><br>
-                                <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">중분류를 선택해주세요</option>
-                                        <option value="수납정리">선반</option>
-                                        <option value="수납정리">수납장*트롤리</option>
-                                        <option value="수납정리">신발장</option>
-                                        <option value="수납정리">리빙박스*바구니</option>
-                                    </select>
-                                </div>
-                                
-                                <h3><b>중분류(생필품)</b></h3><br>
-                                <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType">
-                                        <option value="">중분류를 선택해주세요</option>
-                                        <option value="생필품">휴지</option>
-                                        <option value="생필품">주방세제</option>
-                                        <option value="생필품">세탁세제</option>
-                                        <option value="생필품">바디케어</option>
-                                        <option value="생필품">청소용품</option>
-                                    </select>
-                                </div>
-                                
-                                 -->
-                                <!-- 대분류에서 중분류 카테고리 End -->
                             </div>
+                            <!-- 대분류에서 중분류 카테고리 End -->
                             <br>
 
                             <div class="col-12">
@@ -1381,6 +1357,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <br/><br/><br>
+                                    
                                     <div class="accordion custome-accordion" id="accordionExample"
                                         style="width: 25%; float: left">
                                         <div class="accordion-item">
@@ -2327,6 +2306,25 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+		var malls = false;
+		
+		function update_selected() {
+		  $("#mallSelect").val(0);
+		  $("#mallSelect").find("option[value!=0]").detach();
+		
+		  $("#mallSelect").append(malls.filter(".mall" + $(this).val()));
+		}
+		
+		$(function() {
+		  malls = $("#mallSelect").find("option[value!=0]");
+		  malls.detach();
+		
+		  $("#productSelect").change(update_selected);
+		  $("#productSelect").trigger("change");
+		});
+	</script>
 </body>
 
 </html>

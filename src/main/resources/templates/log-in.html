@@ -7,6 +7,15 @@
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
     
     <script type="text/javascript">
+	// 쿠키값 읽어오기
+    var email = getCookie("cookie");
+    if(email){
+    	alert(email);
+    	$("input[name=customerEmail]").attr("value",email);
+    	/* $("#rememberEmail").attr("checked", true); */
+    }
+
+    
     /* 이메일 널값 검사 */
     function emailChk(){
     	var email = $("#customerEmail").val();
@@ -35,6 +44,7 @@
 		return;
     }
     
+    /* 이메일 기억하기 */
     /* 로그인 성공 */
     function sendIt(){
     	var f = document.loginForm;
@@ -48,9 +58,49 @@
 			return;
     	}
     	
+    	var rememberEmail = $("#rememberEmail").is(":checked");	// 체크박스가 체크되었는지를 담아준다. ( true/false 로 담긴다.)
+    	
+    	if(rememberEmail){			// 아이디, 비밀번호 저장 체크박스가 체크 된 경우 (true)
+    	    setCookie("cookie", email, 1);	// 쿠키에 저장하는 이벤트를 호출한다. Cookie_mail 이름으로 id가 7일동안 저장
+    	}else{				// 체크가 해제 된 경우 (false)
+    	    deleteCookie("cookie");	// 쿠키 정보를 지우는 이벤트를 호출한다.
+    	}
     	f.action = "login";
     	f.submit();
     }
+    
+    /* 쿠키값 저장 */
+    function setCookie(cookieName, value, exdays){
+    	var exdate = new Date();
+    	exdate.setDate(exdate.getDate() + exdays);	// 쿠키 저장 기간
+    	var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    	document.cookie = cookieName + "=" + cookieValue;
+   	}
+    
+    /* 쿠키값 읽기 */
+    function getCookie(cookieName) {
+    	cookieName = cookieName + '=';
+    	var cookieData = document.cookie;
+    	var start = cookieData.indexOf(cookieName);
+    	var cookieValue = '';
+    	  
+    	if(start != -1){
+    	  start += cookieName.length;
+    	  var end = cookieData.indexOf(';', start);
+    	if(end == -1)end = cookieData.length;
+    	 cookieValue = cookieData.substring(start, end);
+    	}
+    	return unescape(cookieValue);
+   	}
+    
+    /* 쿠키값 삭제 */
+    function deleteCookie(cookieName){
+    	var expireDate = new Date();
+    	expireDate.setDate(expireDate.getDate() - 1);
+    	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+   	}
+    
+    
     </script>
 </head>
 
@@ -108,7 +158,7 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
                                         <input type="email" class="form-control" id="customerEmail" placeholder="Email Address"
-                                        name="customerEmail" onblur="emailChk();">
+                                        name="customerEmail" onblur="emailChk();" value="">
                                         <label for="email">이메일</label>
                                     </div>
                                 </div>
@@ -125,8 +175,9 @@
 
                                 <div class="col-12">
                                     <div class="forgot-box">
-                                        <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
+                                        <div class="form-check ps-0 m-0 remember-box" >
+                                            <input class="checkbox_animated check-box" type="checkbox" id="rememberEmail"
+                                             name="rememberEmail" >
                                             <label class="form-check-label" for="flexCheckDefault">이메일 기억하기</label>
                                         </div>
                                         <a href="forgot.html" class="forgot-password">비밀번호 찾기</a>

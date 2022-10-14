@@ -85,7 +85,7 @@ public class CustomerController {
     	
     	session.setAttribute("customerEmail", customerEmail);
     	
-    	mav.setViewName("index");
+    	mav.setViewName("redirect:/");
     	
     	return mav;
     }

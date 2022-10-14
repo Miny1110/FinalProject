@@ -21,20 +21,6 @@ public class CustomerController {
 	
 	@Resource
 	private CustomerService customerService;
-
-
-//    @RequestMapping("product-bottom-thumbnail.html")
-//    public String detail(){ return "product-bottom-thumbnail"; }
-//    @RequestMapping("/cart.*")
-//    public String cart(){ return "cart";}
-
-    
-    @RequestMapping("test")
-    public String test(){ 
-    	System.out.println(customerService.test());
-    	
-    	return "sign-up";
-    }
     
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
     @ResponseBody
@@ -57,8 +43,6 @@ public class CustomerController {
     public ModelAndView signUp_ok(@ModelAttribute CustomerDto dto, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
-    	
-    	System.out.println(dto.getCustomerName());
     	
     	customerService.insertData(dto);
     	

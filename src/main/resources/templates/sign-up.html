@@ -50,7 +50,7 @@
 		}else{
 			 $.ajax({
 		            url:'./emailChk', //Controller에서 요청 받을 주소
-		            type:'post', //POST 방식으로 전달
+		            type:'POST', //POST 방식으로 전달
 		            data:{email:email},
 		            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
 		                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
@@ -70,35 +70,6 @@
     	}
     	return;
     }
- 
-    
-    /* function emailChk(){
-    	var email = $("#customerEmail").val();
-    	var emailMsg = document.querySelector("#emailMsg");
-    	
-    	
-    	
-        $.ajax({
-            url:'./emailChk', //Controller에서 요청 받을 주소
-            type:'post', //POST 방식으로 전달
-            data:{email:email},
-            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-                	emailMsg.innerHTML = "사용가능";
-					$("#emailDobuleChk").val("true");
-                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                	emailMsg.innerHTML = "이미 가입된 이메일입니다";
-					$("#emailMsg").css("color","#ff7474");
-					$("#customerEmail").val("");
-					$("#emailDobuleChk").val("false");
-                }
-            },
-            error:function(){
-                alert("에러입니다");
-            }
-        });
-        }; */
-	
 	
 	/* 비밀번호 유효성 검사 */
 	function pwdChk(){
@@ -160,14 +131,60 @@
 		}else if(!isValidTel(tel)){
 			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
 			$("#telMsg").css("color","#ff7474");
-			$("#customerTel").val("");
 		}else{
 			telMsg.innerHTML = "";
 		}
 		return;
 	}
 	
+	/* 연락처 인증번호 */
+	function telChkBtn(){
+		var customerTel = $("#customerTel").val();
+		var telChkMsg = document.querySelector("#telChkMsg");
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!customerTel){
+			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			event.preventDefault();
+			return;
+		}else if(!isValidTel(customerTel)){
+			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			$("#customerTel").val("");
+			event.preventDefault();
+			return;
+		}else if(customerTel){
+			$("#customerTel").attr("readonly",true);
+			telChkMsg.innerHTML = "인증번호가 발송되었습니다.";
+			$("#telChkMsg").css("color","green");
+			event.preventDefault();
+		}
+		
+		$.ajax({
+			url:"/check/sendSMS",
+			type:"GET",
+			data:{customerTel:customerTel},
+			success:function(res){
+				$("#customerTelChk").blur(function(){
+					if(res==$("#customerTelChk").val()){
+						telChkMsg.innerHTML = "인증이 완료되었습니다.";
+						$("#telChkMsg").css("color","green");
+						event.preventDefault();
+					}else{
+						telChkMsg.innerHTML = "인증번호가 올바르지 않습니다.";
+						$("#telChkMsg").css("color","#ff7474");
+						$("#customerTelChk").val("");
+						event.preventDefault();
+					}
+				});
+			}
+		});
+		return;
+	}
+
 	
+	/* 약관동의 & 회원가입 성공 */
 	function sendIt(){
 		var f = document.signUpForm;
 		
@@ -191,8 +208,9 @@
 		var pwd = $("#customerPwd").val();
 		var pwdChk = $("#customerPwdChk").val();
 		var tel = $("#customerTel").val();
+		var telChk = $("#customerTelChk").val();
 		
-		if(!name || !email || !pwd || !pwdChk || !tel){
+		if(!name || !email || !pwd || !pwdChk || !tel || !telChk){
 			alert("내용을 입력해주세요");
 			event.preventDefault();
 			return;
@@ -312,13 +330,13 @@
                                 <div class="col-8">
                                     <div class="form-floating theme-form-floating">
                                         <input type="text" class="form-control" id="customerTelChk" placeholder="TelChk"
-                                        name="customerTelChk">
+                                        name="customerTelChk" >
                                         <label for="password">인증번호</label>
                                     </div>
-                                <div style="margin-top: 5;"></div>
+                                <div style="margin-top: 5;" id="telChkMsg"></div>
                                 </div>
                                 <div class="col-4">
-                                    <button class="btn btn-animation w-100">인증번호 요청</button>
+                                    <button class="btn btn-animation w-100" onclick="telChkBtn();">인증번호 요청</button>
                                 </div>
                                 
                                 <div class="col-12">

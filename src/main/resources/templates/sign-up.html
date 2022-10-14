@@ -131,47 +131,56 @@
 		}else if(!isValidTel(tel)){
 			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
 			$("#telMsg").css("color","#ff7474");
-			$("#customerTel").val("");
 		}else{
 			telMsg.innerHTML = "";
 		}
 		return;
 	}
 	
+	/* 연락처 인증번호 */
 	function telChkBtn(){
-		var tel = $("#customerTel").val();
+		var customerTel = $("#customerTel").val();
 		var telChkMsg = document.querySelector("#telChkMsg");
+		var telMsg = document.querySelector("#telMsg");
 		
-		if(tel){
-			telChkMsg.innerHTML = "인증번호가 발송되었습니다.";
-			$("#telChkMsg").css("color","green");
-			event.preventDefault();
-		}else{
+		if(!customerTel){
 			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
 			$("#telMsg").css("color","#ff7474");
+			event.preventDefault();
+			return;
+		}else if(!isValidTel(customerTel)){
+			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			$("#customerTel").val("");
+			event.preventDefault();
+			return;
+		}else if(customerTel){
+			$("#customerTel").attr("readonly",true);
+			telChkMsg.innerHTML = "인증번호가 발송되었습니다.";
+			$("#telChkMsg").css("color","green");
 			event.preventDefault();
 		}
 		
 		$.ajax({
 			url:"/check/sendSMS",
 			type:"GET",
-			data:{tel:tel},
+			data:{customerTel:customerTel},
 			success:function(res){
-				function telsmsChk(){
-					if($.trim(res)==$("#customerTelChk").val()){
+				$("#customerTelChk").blur(function(){
+					if(res==$("#customerTelChk").val()){
 						telChkMsg.innerHTML = "인증이 완료되었습니다.";
 						$("#telChkMsg").css("color","green");
 						event.preventDefault();
-						return;
 					}else{
 						telChkMsg.innerHTML = "인증번호가 올바르지 않습니다.";
-						$("#telMsg").css("color","#ff7474");
-						$("#customerTel").val("");
+						$("#telChkMsg").css("color","#ff7474");
+						$("#customerTelChk").val("");
 						event.preventDefault();
 					}
-				}
+				});
 			}
-		})
+		});
+		return;
 	}
 
 	
@@ -199,8 +208,9 @@
 		var pwd = $("#customerPwd").val();
 		var pwdChk = $("#customerPwdChk").val();
 		var tel = $("#customerTel").val();
+		var telChk = $("#customerTelChk").val();
 		
-		if(!name || !email || !pwd || !pwdChk || !tel){
+		if(!name || !email || !pwd || !pwdChk || !tel || !telChk){
 			alert("내용을 입력해주세요");
 			event.preventDefault();
 			return;
@@ -320,7 +330,7 @@
                                 <div class="col-8">
                                     <div class="form-floating theme-form-floating">
                                         <input type="text" class="form-control" id="customerTelChk" placeholder="TelChk"
-                                        name="customerTelChk" onblur="telsmsChk();">
+                                        name="customerTelChk" >
                                         <label for="password">인증번호</label>
                                     </div>
                                 <div style="margin-top: 5;" id="telChkMsg"></div>

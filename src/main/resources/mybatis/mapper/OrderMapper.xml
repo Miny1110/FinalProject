@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.OrderMapper">
+
+    <!-- order 증가하게 하기-->
+    <select id="orderMaxNum" resultType="int">
+        select nvl(max(orderNum),0) from order
+    </select>
+
+    <!-- 결제하기 누르면 insert되게 하기-->
+    <insert id="insertOrder" parameterType="OrderDto">
+        insert into order (orderNum,customerEmail,itemNum,deliverNum,cartNum,
+                          itemQty,orderState,payment,deliverCost,orderDate,usePoint,
+                          itemColor,itemSize) values (#{orderNum}, #{customerEmail}, #{itemNum}, #{deliverNum}, #{cartNum}, #{itemQty}, #{orderState},
+              #{payment}, #{deliverCost}, sysdate, #{usePoint}, #{itemColor}, #{itemSize})
+    </insert>
+
+<!--    <select id="readDateOrder" resultType="int" parameterType="Order">
+        select o.orderNum,c.customerName,i.itemName,d.deliver,
+    </select>-->
+
+    
+
+
+</mapper>

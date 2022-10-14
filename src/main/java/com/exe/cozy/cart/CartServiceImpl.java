@@ -17,44 +17,32 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public int cartMaxNum() throws Exception {
-		return cartMapper.cartMaxNum();
+		return 0;
 	}
 
 	@Override
 	public int insertCart(CartDto cdto) throws Exception {
-		int checkcart = cartMapper.checkCart(cdto);
-		if(checkcart !=null){
-			return 2;
-		}
-		try {
-			return cartMapper.insertCart(cdto);
-
-		}catch (Exception e){
-			return 0;
-		}
-
-		cartMapper.insertCart(cdto); ;
+		return 0;
 	}
 
 	@Override
 	public void deleteCart(int cartNum) throws Exception {
-		cartMapper.deleteCart(cartNum);
+
 	}
 
 	@Override
 	public void updateCart(CartDto cdto) throws Exception {
-		cartMapper.updateCart(cdto);
+
 	}
 
 	@Override
 	public List<CartDto> listCart(String customerEmail) throws Exception {
-		return cartMapper.listCart(customerEmail);
+		return null;
 	}
 
 	@Override
 	public int checkCart(CartDto cdto) throws Exception {
-		CartDto checkdto = cartMapper.checkCart(cdto);
-		return cartMapper.checkCart(cdto);
+		return 0;
 	}
 }
 

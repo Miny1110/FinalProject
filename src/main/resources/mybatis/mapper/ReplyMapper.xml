@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.ReplyMapper">
+
+<!-- 리뷰등록 -->
+<insert id="insertReply">
+
+	insert into reply(replyId, itemNum, customerEmail, regDate,content,rating) 
+					values(#{replyId}, #{itemNum}, #{customerEmail}, #{regDate}, #{content}, #{rating})
+</insert>
+
+
+
+
+
+</mapper>

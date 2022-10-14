@@ -14,6 +14,11 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping("/category")
+	public String category() {
+		return "shopCategory";
+	}
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "log-in";

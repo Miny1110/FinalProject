@@ -23,6 +23,11 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
+	public CustomerDto getLogin(String customerEmail) {
+		return customerMapper.getLogin(customerEmail);
+	}
+
+	@Override
 	public CustomerDto getReadData(String customerEmail) {
 		return customerMapper.getReadData(customerEmail);
 	}

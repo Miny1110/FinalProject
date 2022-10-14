@@ -4,14 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.exe.cozy.mapper.CustomerMapper">
-	<select id="test" resultType="String">
-		select customerEmail from customer
-	</select>
-	
+	<!-- 이메일 중복확인 -->
 	<select id="emailChk" resultType="int">
 		select count(*) from customer where customerEmail=#{customerEmail}
 	</select>
 	
+	<!-- 데이터 한개 입력 -->
 	<insert id="insertData" parameterType="CustomerDto">
 		insert into customer (customerEmail,customerPwd,customerName,
 		customerTel,customerDate,customerGrade,customerType,customerPoint)
@@ -19,12 +17,21 @@
 		sysdate,'FAMILY',0,3000)
 	</insert>
 	
+	<!-- 로그인 확인 -->
+	<select id="getLogin" parameterType="String" resultType="CustomerDto">
+		select customerEmail,customerPwd
+		from customer
+		where customerEmail=#{customerEmail}
+	</select>
+	
+	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
 		customerRAddr,customerJAddr,customerDAddr,customerGrade
 		from customer where customerEmail=#{customerEmail}
 	</select>
 	
+	<!-- 데이터 수정 -->
 	<update id="updateData" parameterType="CustomerDto">
 		update customer set customerPwd=#{customerPwd},customerTel=#{customerTel},
 		customerZipCode=#{customerZipCode},customerRAddr=#{customerRAddr},
@@ -32,6 +39,7 @@
 		where customerEmail=#{customerEmail}
 	</update>
 	
+	<!-- 데이터 삭제 -->
 	<delete id="deleteData" parameterType="String">
 		delete customer where customerEmail=#{customerEmail}
 	</delete>

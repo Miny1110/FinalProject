@@ -25,8 +25,8 @@ public class CertificationController {
             cerNum+=ran;
         }
 
-        System.out.println("¼ö½ÅÀÚ ¹øÈ£ : " + customerTel);
-        System.out.println("ÀÎÁõ¹øÈ£ : " + cerNum);
+        System.out.println("ìˆ˜ì‹ ì ë²ˆí˜¸ : " + customerTel);
+        System.out.println("ì¸ì¦ë²ˆí˜¸ : " + cerNum);
         certificationService.certifiedPhoneNumber(customerTel,cerNum);
         return cerNum;
     }

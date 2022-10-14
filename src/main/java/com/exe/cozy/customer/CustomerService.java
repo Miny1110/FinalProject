@@ -4,8 +4,6 @@ import com.exe.cozy.domain.CustomerDto;
 
 public interface CustomerService {
 
-	public String test();
-	
 	public int emailChk(String customerEmail);
 	
 	public void insertData(CustomerDto dto);

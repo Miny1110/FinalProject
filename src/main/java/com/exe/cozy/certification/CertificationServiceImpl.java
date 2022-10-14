@@ -20,10 +20,10 @@ public class CertificationServiceImpl implements CertificationService{
 		
 		// 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("to", customerTel);    // ¼ö½ÅÀüÈ­¹øÈ£
-        params.put("from", "01076441110");    // ¹ß½ÅÀüÈ­¹øÈ£. Å×½ºÆ®½Ã¿¡´Â ¹ß½Å,¼ö½Å µÑ´Ù º»ÀÎ ¹øÈ£·Î ÇÏ¸é µÊ
+        params.put("to", customerTel);    // ìˆ˜ì‹ ì „í™”ë²ˆí˜¸
+        params.put("from", "01076441110");    // ë°œì‹ ì „í™”ë²ˆí˜¸. í…ŒìŠ¤íŠ¸ì‹œì—ëŠ” ë°œì‹ ,ìˆ˜ì‹  ë‘˜ë‹¤ ë³¸ì¸ ë²ˆí˜¸ë¡œ í•˜ë©´ ë¨
         params.put("type", "SMS");
-        params.put("text", "COZY HOUSE ÈŞ´ëÆùÀÎÁõ Å×½ºÆ® ¸Ş½ÃÁö : ÀÎÁõ¹øÈ£´Â" + "["+cerNum+"]" + "ÀÔ´Ï´Ù.");
+        params.put("text", "COZY HOUSE íœ´ëŒ€í°ì¸ì¦ í…ŒìŠ¤íŠ¸ ë©”ì‹œì§€ : ì¸ì¦ë²ˆí˜¸ëŠ”" + "["+cerNum+"]" + "ì…ë‹ˆë‹¤.");
         params.put("app_version", "test app 1.2"); // application name and version
         
         try {

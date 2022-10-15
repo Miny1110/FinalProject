@@ -56,4 +56,5 @@
 	<delete id="deleteData" parameterType="String">
 		delete customer where customerEmail=#{customerEmail}
 	</delete>
+	
 </mapper>

@@ -52,8 +52,8 @@
 
                                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                                 document.getElementById('sample4_postcode').value = data.zonecode;
-                                document.getElementById("sample4_roadAddress").value = roadAddr;
-                                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                                document.getElementById("deliverAddr1").value = roadAddr;
+                                document.getElementById("deliverAddr2").value = data.jibunAddress;
 
                                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                                 if(roadAddr !== ''){
@@ -86,47 +86,68 @@
         /*배송지 등록*/
         //이름 유효성 검사
         function nameChk(){
-            var name =$("#deliverName").val();
-            var nameMsg = document.querySelector("#nameMsg");
+            var dname =$("#deliverName").val();
+            var dnameMsg =$("#dnameMsg");
 
-            if(!name){
-                nameMsg.innerHTML = "주문자 이름을 입력해주세요";
-                $("#nameMsg").css("color","#ff7474");
-            }else if(!isValidKorean(name)){
-                nameMsg.innerHTML = "이름은 한국어로만 입력 가능합니다.";
-                $("#nameMsg").css("color","#ff7474");
+            if(!dname){
+                dnameMsg.html("주문자 이름을 입력해주세요");
+                $("#dnameMsg").css("color","#ff7474");
+            }else if(!isValidKorean(dname)){
+                dnameMsg.html("이름은 한국어로만 입력 가능합니다.");
+                $("#dnameMsg").css("color","#ff7474");
                 $("#deliverName").val("");
             }else {
-                nameMsg.innerHTML ="";
+                dnameMsg.html("");
             }
             return;
         }
        // 전화번호 체크
         function telChk(){
-            var tel = $("deliverTel").val();
-            var telMsg = document.querySelector("#telMsg");
+            var tel = $("#deliverTel").val();
+            var telMsg = $("#telMsg");
 
             if(!tel){
-                telMsg.innerHTML ="주문자 전화번호를 입력해주세요";
-                $("telMsg").css("color","#ff7474");
+                telMsg.html("주문자 전화번호를 입력해주세요");
+                $("#telMsg").css("color","#ff7474");
             }else if(!isValidTel(tel)){
-                telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+                telMsg.html("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
                 $("#telMsg").css("color","#ff7474");
             }else{
-                telMsg.innerHTML = "";
+                telMsg.html("");
             }
             return;
         }
-        /* 약관동의 & 회원가입 성공 */
+
+        // 배송지 체크
+        function addrChk(){
+            var addr = $("#deliverAddr1").val();
+            var addrMsg =$("#addrMsg");
+
+            if(!addr){
+                addrMsg.html("주문자 주소를 입력해주세요");
+                $("#addrMsg").css("color","#ff7474");
+            }else{
+                addrMsg.html("");
+            }
+            return;
+        }
+        /* 배송지 등록 성공 */
         function sendIt(){
             var f = document.deliverForm;
 
-            var chk = $("#flexCheckDefault").is(":checked");
-            var chkMsg = document.querySelector("#chkMsg");
+            nameChk();
+            telChk();
+            addrChk();
 
             var name = $("#deliverName").val();
+            var tel = $("#deliverTel").val();
+            var addr = $("#deliverAddr1").val();
 
-
+            if(!name || !tel || !addr){
+                alert("내용을 입력해주세요");
+                event.preventDefault();
+                return;
+            }
 
             alert(name + "님 신규 배송지가 등록되었습니다.");
             event.preventDefault();
@@ -291,30 +312,34 @@
                                         <td class="product-detail">
                                             <div class="product border-0">
                                                 <a href="product-left.html" class="product-image">
-                                                    <img src="../assets/images/vegetable/product/1.png"
+                                                    <img src="../assets/images/vegetable/product/238_detail_061.jpg"
                                                          class="img-fluid blur-up lazyload" alt="">
+                                                    <!--
+                                                    <img th:src="여기 나중에 경로쓰기"
+                                                         class="img-fluid blur-up lazyload" alt=""> -->
+
                                                 </a>
                                                 <div class="product-detail">
                                                     <ul>
                                                         <li class="name">
-                                                            <a href="product-left.html" class="text-title">Bell
-                                                                pepper</a>
+                                                            <a href="product-left.html" class="text-title"
+                                                               th:text="${idto.itemName}"></a>
                                                         </li>
 
-                                                        <li class="text-content"><span class="text-title">Sold
-                                                                        By :</span> Fresho</li>
+
+                                                        <li class="text-content"><span class="text-title" th:text="|사이즈 : ${idto.itemSize}|"></span></li>
 
                                                         <li class="text-content"><span
-                                                                class="text-title">Quantity</span> - 500 g</li>
+                                                                class="text-title" th:text="|색상 : ${idto.itemColor}|"></span></li>
 
                                                         <li>
-                                                            <h5 class="text-content d-inline-block">Price :</h5>
-                                                            <span>$35.10</span>
-                                                            <span class="text-content">$45.68</span>
+                                                            <h5 class="text-content d-inline-block">가격 :</h5>
+                                                            <span th:text="${salePrice}"></span>
+                                                            <span class="text-content" th:text="${idto.getItemPrice()}"></span>
                                                         </li>
 
                                                         <li>
-                                                            <h5 class="saving theme-color">Saving : $20.68</h5>
+                                                            <h5 class="saving theme-color" th:text="'할인금액 : ' + ${idto.itemDiscount}"></h5>
                                                         </li>
 
                                                         <li class="quantity-price-box">
@@ -338,7 +363,7 @@
                                                         </li>
 
                                                         <li>
-                                                            <h5>Total: $35.10</h5>
+                                                            <h5 th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA') + ' 원'}"> </h5>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -347,25 +372,20 @@
 
                                         <td class="price">
                                             <h4 class="table-title text-content">상품금액</h4>
-                                            <h5>$35.10 <del class="text-content">$45.68</del></h5>
-                                            <h6 class="theme-color">할인금액 : $20.68</h6>
+                                            <h5 ><th:block th:text="|${#numbers.formatInteger(salePrice , 0, 'COMMA')} 원|"></th:block><del class="text-content"
+                                                                                                  th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del></h5>
+                                            <h6 class="theme-color"
+
+                                                th:text="'할인금액 : ' + ${#numbers.formatInteger(idto.getItemDiscount(), 0, 'COMMA')+' 원'}"></h6>
                                         </td>
 
                                         <td class="quantity">
-                                            <h4 class="table-title text-content">수량</h4>
+                                            <h4 class="table-title text-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수량</h4>
                                             <div class="quantity-price">
                                                 <div class="cart_qty">
                                                     <div class="input-group">
-                                                        <button type="button" class="qty-left-minus"
-                                                                data-type="minus" data-field="">
-                                                            <i class="fa fa-minus" aria-hidden="true"></i>
-                                                        </button>
                                                         <input class="form-control input-number qty-input"
-                                                               type="text" name="quantity" value="0">
-                                                        <button type="button" class="qty-right-plus"
-                                                                data-type="plus" data-field="">
-                                                            <i class="fa fa-plus" aria-hidden="true"></i>
-                                                        </button>
+                                                               type="text" name="quantity" th:value="|${itemQty} 개|" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,27 +393,139 @@
 
                                         <td class="subtotal">
                                             <h4 class="table-title text-content">결제금액</h4>
-                                            <h5>$35.10</h5>
+                                            <h5   th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA') + ' 원'}"></h5>
                                         </td>
+                                        <!--r
+                                                                                <td class="save-remove">
+                                                                                    <h4 class="table-title text-content">Action</h4>
+                                                                                     언제 필요할지 모르니 남겨둠
+                                                                                    <a class="save notifi-wishlist" href="javascript:void(0)">Save for
+                                                                                        later</a>
+                                                                                    <a class="remove close_button" href="javascript:void(0)">삭제</a>
+                                                                                </td>
+                                                                                -->
+                                                                            </tr>
 
-                                        <td class="save-remove">
-                                            <h4 class="table-title text-content">Action</h4>
-                                            <a class="save notifi-wishlist" href="javascript:void(0)">Save for
-                                                later</a>
-                                            <a class="remove close_button" href="javascript:void(0)">삭제</a>
-                                        </td>
-                                    </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- 샘플 다 되면 지우기-->
+                        <!--<div class="tab-content" id="progressBar">
+                            <div class="tab-pane active" id="s-cart" role="tabpanel" aria-labelledby="shopping-cart">
+                                <h2 class="tab-title">주문상품</h2>
+                                <div class="cart-table p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr class="product-box-contain">
+                                                <td class="product-detail">
+                                                    <div class="product border-0">
+                                                        <a href="product-left.html" class="product-image">
+                                                            <img src="../assets/images/vegetable/product/1.png"
+                                                                 class="img-fluid blur-up lazyload" alt="">
+                                                        </a>
+                                                        <div class="product-detail">
+                                                            <ul>
+                                                                <li class="name">
+                                                                    <a href="product-left.html" class="text-title">Bell
+                                                                        pepper</a>
+                                                                </li>
+
+                                                                <li class="text-content"><span class="text-title">Sold
+                                                                        By :</span> Fresho</li>
+
+                                                                <li class="text-content"><span
+                                                                        class="text-title">Quantity</span> - 500 g</li>
+
+                                                                <li>
+                                                                    <h5 class="text-content d-inline-block">Price :</h5>
+                                                                    <span>$35.10</span>
+                                                                    <span class="text-content">$45.68</span>
+                                                                </li>
+
+                                                                <li>
+                                                                    <h5 class="saving theme-color">Saving : $20.68</h5>
+                                                                </li>
+
+                                                                <li class="quantity-price-box">
+                                                                    <div class="cart_qty">
+                                                                        <div class="input-group">
+                                                                            <button type="button" class="qty-left-minus"
+                                                                                    data-type="minus" data-field="">
+                                                                                <i class="fa fa-minus"
+                                                                                   aria-hidden="true"></i>
+                                                                            </button>
+                                                                            <input
+                                                                                    class="form-control input-number qty-input"
+                                                                                    type="text" name="quantity" value="0">
+                                                                            <button type="button" class="qty-right-plus"
+                                                                                    data-type="plus" data-field="">
+                                                                                <i class="fa fa-plus"
+                                                                                   aria-hidden="true"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+
+                                                                <li>
+                                                                    <h5>Total: $35.10</h5>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="price">
+                                                    <h4 class="table-title text-content">상품금액</h4>
+                                                    <h5>$35.10 <del class="text-content">$45.68</del></h5>
+                                                    <h6 class="theme-color">할인금액 : $20.68</h6>
+                                                </td>
+
+                                                <td class="quantity">
+                                                    <h4 class="table-title text-content">수량</h4>
+                                                    <div class="quantity-price">
+                                                        <div class="cart_qty">
+                                                            <div class="input-group">
+                                                                <button type="button" class="qty-left-minus"
+                                                                        data-type="minus" data-field="">
+                                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                                </button>
+                                                                <input class="form-control input-number qty-input"
+                                                                       type="text" name="quantity" value="0">
+                                                                <button type="button" class="qty-right-plus"
+                                                                        data-type="plus" data-field="">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="subtotal">
+                                                    <h4 class="table-title text-content">결제금액</h4>
+                                                    <h5>$35.10</h5>
+                                                </td>
+
+                                                <td class="save-remove">
+                                                    <h4 class="table-title text-content">Action</h4>
+                                                    <a class="save notifi-wishlist" href="javascript:void(0)">Save for
+                                                        later</a>
+                                                    <a class="remove close_button" href="javascript:void(0)">삭제</a>
+                                                </td>
+                                            </tr>
 
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>-->
+                                <!-- 샘플 다 되면 지우기 끝-->
                         <div class="button-group">
                             <ul class="button-group-list">
                                 <li>
-                                    <button onclick="location.href = 'index-2.html';"
+                                    <button onclick="location.href = '/';"
                                             class="btn btn-light shopping-button text-dark"><i
                                             class="fa-solid fa-arrow-left-long ms-0"></i>쇼핑 계속하기</button>
                                 </li>
@@ -409,50 +541,51 @@
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">배송지 정보</h2>
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#add-address">
-                                <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
+                                    onclick="location.href = '/order/deliver';">
+                                <i class="fa-solid fa-plus d-block d-sm-none m-0">
+
+                                </i>
                                 <span class="d-none d-sm-block">새로운 주소 추가하기</span>
                             </button>
                         </div>
-
+<!--세션등록되면 수정 -->
                         <div class="row g-4">
-                            <div class="col-xxl-6 col-lg-12 col-md-6">
+                            <div class="col-xxl-6 col-lg-12 col-md-6" th:each="ddto:${dlist}">
                                 <div class="delivery-address-box">
-                                    <div >
+                                    <div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="jack"
                                                    id="flexRadioDefault1">
                                         </div>
 
                                         <div class="label"> <!-- label1 하면 기본배송지로 나오게 설정해둠 -->
-                                            <label>집</label>
+                                            <label th:text="${ddto.getDeliverType()}"></label>
                                         </div>
 
                                         <ul class="delivery-address-detail">
                                             <li>
-                                                <h4 class="fw-500">전은지</h4>
+                                                <h4 class="fw-500" th:text="${ddto.getDeliverName()}"></h4>
                                             </li>
 
                                             <li>
-                                                <p class="text-content"><span class="text-title">주소
-                                                            : </span>서울 강남구 강남대로 아이티윌</p>
+                                                <p class="text-content"><span class="text-title"
+                                                th:text="'주소 : ' + |${ddto.getDeliverAddr1()}, ${ddto.getDeliverAddrd()}|"></span></p>
                                             </li>
 
-                                            <li>
-                                                <h6 class="text-content"><span class="text-title">우편번호
-                                                            :</span> 보지마 시키야</h6>
-                                            </li>
+
 
                                             <li>
-                                                <h6 class="text-content mb-0"><span class="text-title">저나버노
-                                                            :</span> 안알랴줌</h6>
+                                                <h6 class="text-content mb-0"><span class="text-title"
+                                                                                    th:text="'전화번호 : ' + ${ddto.getDeliverTel()}">
+                                                            </span> </h6>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xxl-6 col-lg-12 col-md-6">
+
+                            <!--div class="col-xxl-6 col-lg-12 col-md-6">
                                 <div class="delivery-address-box">
                                     <div>
                                         <div class="form-check">
@@ -486,7 +619,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 
                         <div class="button-group">
@@ -1227,38 +1360,41 @@
             <div class="modal-body">
             
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="deliverName"  name="deliverName" onblur="nameChk();">
-                        <label for="fname">주문자</label>
+                        <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
+                        <label for="deliverName">주문자</label>
+                        <p id="dnameMsg"></p>
                     </div>
                 
              
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="delivertel" placeholder="Enter Last Name" name="delivertel" onblur="telChk();">
-                        <label for="lname">전화번호</label>
+                        <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
+                        <label for="deliverTel">전화번호</label>
+                        <P id="telMsg"></P>
                     </div>
                
 
                 
                     <div class="form-floating mb-4 theme-form-floating">
                         <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
-                        <label for="lname">우편번호</label>
+                        <label for="sample4_postcode">우편번호</label>
                     </div>
                     <div class="form-floating mb-4 theme-form-floating">
                         <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
                         <br>
                     </div>
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="deliverAddr1" onblur="addrChk();">
-                        <label for="lname">도로명주소</label>
+                        <input type="text" class="form-control" placeholder="도로명주소" id="deliverAddr1" name="deliverAddr1" onblur="addrChk();">
+                        <label for="deliverAddr1">도로명주소</label>
+                        <p id="addrMsg"></p>
                     </div>
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="sample4_jibunAddress" placeholder="지번주소" name="deliverAddr2">
-                        <label for="lname">지번주소</label>
+                        <input type="text" class="form-control" id="deliverAddr2" placeholder="지번주소" name="deliverAddr2">
+                        <label for="deliverAddr2">지번주소</label>
                         <span id="guide" style="color:#999;display:none"></span>
                     </div>
                     <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" placeholder="상세주소" class="form-control" id="sample4_detailAddress" name="deliverAddrd" onblur="addrdChk();" >
-                        <label for="lname">상세주소</label>
+                        <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
+                        <label for="deliverAddrd">상세주소</label>
                     </div>
                     <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
 

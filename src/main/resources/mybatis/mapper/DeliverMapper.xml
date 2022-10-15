@@ -10,12 +10,11 @@
     </select>
 
     <insert id="insertDeliver" parameterType="DeliverDto">
-        insert into deliver (deliverNum, customerEmail, deliverName,deliverAddr1,deliverAddr2,deliverAddrd,delivertel)
-        values (#{deliverNum}, #{customerEmail}, #{deliverName}, #{deliverAddr1}, #{deliverAddr2}, #{deliverAddrd}, #{delivertel})
+        insert into deliver (deliverNum, customerEmail,deliverName,deliverType,deliverAddr1,deliverAddr2,deliverAddrd,delivertel)
+        values (#{deliverNum}, #{customerEmail}, #{deliverName},#{deliverType}, #{deliverAddr1}, #{deliverAddr2}, #{deliverAddrd}, #{delivertel})
     </insert>
-
-    <select id="listDeliver" parameterType="DeliverDto">
-        select * 
+    <select id="listDeliver" parameterType="String" resultType="DeliverDto">
+        select deliverName,deliverType,deliverAddr1,deliverAddr2,deliverAddrd,delivertel from deliver where customerEmail =#{customerEmail}
     </select>
 
 

@@ -5,6 +5,8 @@ import com.exe.cozy.mapper.DeliverMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DeliverServiceImpl implements DeliverService{
     @Autowired
@@ -18,4 +20,10 @@ public class DeliverServiceImpl implements DeliverService{
     public void insertDeliver(DeliverDto ddto) {
     deliverMapper.insertDeliver(ddto);
     }
+
+    @Override
+    public List<DeliverDto> listDeliver(String customerEmail) {
+        return deliverMapper.listDeliver(customerEmail);
+    }
+
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 public class DeliverDto {
 private int deliverNum;
 private String customerEmail;
-private String delivertype; //이게...기본배송지긴한디...
+private String deliverType; //이게...기본배송지긴한디...
 private String deliverName;
 private String deliverAddr1;
 private String deliverAddr2;

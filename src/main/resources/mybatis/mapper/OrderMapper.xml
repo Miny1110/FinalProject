@@ -7,12 +7,12 @@
 
     <!-- order 증가하게 하기-->
     <select id="orderMaxNum" resultType="int">
-        select nvl(max(orderNum),0) from order
+        select nvl(max(orderNum),0) from cozyOrder
     </select>
 
     <!-- 결제하기 누르면 insert되게 하기-->
     <insert id="insertOrder" parameterType="OrderDto">
-        insert into order (orderNum,customerEmail,itemNum,deliverNum,cartNum,
+        insert into cozyOrder (orderNum,customerEmail,itemNum,deliverNum,cartNum,
                           itemQty,orderState,payment,deliverCost,orderDate,usePoint,
                           itemColor,itemSize) values (#{orderNum}, #{customerEmail}, #{itemNum}, #{deliverNum}, #{cartNum}, #{itemQty}, #{orderState},
               #{payment}, #{deliverCost}, sysdate, #{usePoint}, #{itemColor}, #{itemSize})

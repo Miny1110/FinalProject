@@ -104,5 +104,15 @@ public class CustomerController {
 
         return dto!=null && dto.getCustomerPwd().equals(customerPwd);
     }
+    
+    @GetMapping("forgot")
+    public ModelAndView forgot() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("forgot");
+    	
+    	return mav;
+    }
 
 }

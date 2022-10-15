@@ -8,12 +8,16 @@
     
     <script type="text/javascript">
 	// 쿠키값 읽어오기
-    var email = getCookie("cookie");
+	
+/*     var email = getCookie("cookie");
+
     if(email){
     	alert(email);
-    	$("input[name=customerEmail]").attr("value",email);
+    	$('input[name=customerEmail]').attr('value','test');
     	/* $("#rememberEmail").attr("checked", true); */
     }
+	 */
+	
 
     
     /* 이메일 널값 검사 */
@@ -158,7 +162,7 @@
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
                                         <input type="email" class="form-control" id="customerEmail" placeholder="Email Address"
-                                        name="customerEmail" onblur="emailChk();" value="">
+                                        name="customerEmail" onblur="emailChk();">
                                         <label for="email">이메일</label>
                                     </div>
                                 </div>
@@ -216,7 +220,7 @@
 
                         <div class="sign-up-box">
                             <h4>아직 계정이 없으신가요?</h4>
-                            <a href="sign-up.html">회원가입</a>
+                            <a th:href="@{/customer/signUp}">회원가입</a>
                         </div>
                     </div>
                 </div>

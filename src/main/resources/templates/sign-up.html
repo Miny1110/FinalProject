@@ -343,7 +343,7 @@
                                         <div class="form-check ps-0 m-0 remember-box">
                                             <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                <span>이용약관</span>에 동의합니다
+                                                <a th:href="@{/}">이용약관</a>에 동의합니다
                                             </label>
                                             <div style="margin-left: 15;" id="chkMsg"></div>
                                         </div>
@@ -381,7 +381,7 @@
 
                         <div class="sign-up-box">
                             <h4>이미 회원이신가요?</h4>
-                            <a href="log-in.html">로그인하기</a>
+                            <a th:href="@{/customer/login}">로그인하기</a>
                         </div>
                     </div>
                 </div>
@@ -391,6 +391,10 @@
         </div>
     </section>
     <!-- log in section end -->
+
+    <!-- Footer Section Start -->
+    <footer th:replace="footer.html :: footerFragment"></footer>
+    <!-- Footer Section End -->
 
     <!-- Tap to top start -->
     <div class="theme-option">

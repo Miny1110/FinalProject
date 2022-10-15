@@ -157,11 +157,19 @@ public class CustomerController {
         return dto!=null && dto.getCustomerTel().equals(customerTel);
     }
     
-    @GetMapping("myPageInfo")
-    public ModelAndView myPageInfo() {
+    @GetMapping("info")
+    public ModelAndView myPageInfo(HttpSession session) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	//나중엔 필요없는 코드
+    	session.setAttribute("customerEmail", "suzi@naver.com");
+    	
+    	String customerEmail = (String)(session.getAttribute("customerEmail"));
+    	
+    	CustomerDto customerDto = customerService.getReadData(customerEmail);
+    	
+    	mav.addObject("customerDto", customerDto);
     	mav.setViewName("user-dashboard");
     	
     	return mav;

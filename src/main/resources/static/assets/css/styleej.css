@@ -25631,4 +25631,31 @@ header .offcanvas-backdrop {
     float: left
 }
 
+.btn-review {
+    width: 150px;
+    height: 45px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 600;
+    background: transparent;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    background: #a2a7ac;
+    background: -webkit-gradient(linear, left top, right top, from(#a2a7ac), to(#a2a7ac));
+    background: linear-gradient(90deg, #a2a7ac 0%, #a2a7ac 100%);
+    border: none;
+    z-index: 0;
+}
+
 /*# sourceMappingURL=style.css.map */

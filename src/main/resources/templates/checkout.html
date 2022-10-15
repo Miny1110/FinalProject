@@ -3,37 +3,158 @@
 
 <head>
     <div th:replace="head.html :: headFragment"></div>
-    <title>상세페이지</title>
+
+    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <title>Checkout</title>
 
     <!-- Google font -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
 
 
+    <!-- bootstrap css -->
+
+
+    <!-- font-awesome css -->
+
+    <!-- feather icon css -->
+
+    <!-- slick css -->
+
+    <!-- Iconly css -->
 
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylecj.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleej.css">
+      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                <script>
+                    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+                    function sample4_execDaumPostcode() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                var extraRoadAddr = ''; // 참고 항목 변수
+
+                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                    extraRoadAddr += data.bname;
+                                }
+                                // 건물명이 있고, 공동주택일 경우 추가한다.
+                                if(data.buildingName !== '' && data.apartment === 'Y'){
+                                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                }
+                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                if(extraRoadAddr !== ''){
+                                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                }
+
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('sample4_postcode').value = data.zonecode;
+                                document.getElementById("sample4_roadAddress").value = roadAddr;
+                                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+                                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                if(roadAddr !== ''){
+                                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                                } else {
+                                    document.getElementById("sample4_extraAddress").value = '';
+                                }
+
+                                var guideTextBox = document.getElementById("guide");
+                                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                                if(data.autoRoadAddress) {
+                                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                                    guideTextBox.style.display = 'block';
+
+                                } else if(data.autoJibunAddress) {
+                                    var expJibunAddr = data.autoJibunAddress;
+                                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                                    guideTextBox.style.display = 'block';
+                                } else {
+                                    guideTextBox.innerHTML = '';
+                                    guideTextBox.style.display = 'none';
+                                }
+                            }
+                        }).open();
+                    }
+                </script>
+    <script type="text/javascript">
+
+        /*배송지 등록*/
+        //이름 유효성 검사
+        function nameChk(){
+            var name =$("#deliverName").val();
+            var nameMsg = document.querySelector("#nameMsg");
+
+            if(!name){
+                nameMsg.innerHTML = "주문자 이름을 입력해주세요";
+                $("#nameMsg").css("color","#ff7474");
+            }else if(!isValidKorean(name)){
+                nameMsg.innerHTML = "이름은 한국어로만 입력 가능합니다.";
+                $("#nameMsg").css("color","#ff7474");
+                $("#deliverName").val("");
+            }else {
+                nameMsg.innerHTML ="";
+            }
+            return;
+        }
+       // 전화번호 체크
+        function telChk(){
+            var tel = $("deliverTel").val();
+            var telMsg = document.querySelector("#telMsg");
+
+            if(!tel){
+                telMsg.innerHTML ="주문자 전화번호를 입력해주세요";
+                $("telMsg").css("color","#ff7474");
+            }else if(!isValidTel(tel)){
+                telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+                $("#telMsg").css("color","#ff7474");
+            }else{
+                telMsg.innerHTML = "";
+            }
+            return;
+        }
+        /* 약관동의 & 회원가입 성공 */
+        function sendIt(){
+            var f = document.deliverForm;
+
+            var chk = $("#flexCheckDefault").is(":checked");
+            var chkMsg = document.querySelector("#chkMsg");
+
+            var name = $("#deliverName").val();
+
+
+
+            alert(name + "님 신규 배송지가 등록되었습니다.");
+            event.preventDefault();
+
+            f.action="order";
+            f.submit();
+        }
+
+    </script>
     <style id="__web-inspector-hide-shortcut-style__">
         .__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
         {
             visibility: hidden !important;
         }
-    </style></head>
+        </style></head>
 </head>
 
 <body>
+        <!-- Loader Start -->
+
+        <!-- Loader End -->
+
+        <!-- Header Start -->
+        <header th:replace="header.html :: headerFragment"></header>
+
+        <!-- Header End -->
 
 
-<!-- Loader End -->
-
-<!-- Header Start -->
-<header th:replace="header.html :: headerFragment"></header>
-<!-- Header End -->
 
 <!-- mobile fix menu start -->
 <div class="mobile-menu d-md-none d-block mobile-cart">
@@ -138,29 +259,13 @@
                         </div>
                     </li>
 
-                    <li class="nav-item" role="presentation">
-                        <div class="nav-link" id="delivery-option" data-bs-toggle="tab" data-bs-target="#d-options"
-                             role="tab">
-                            <div class="nav-item-box">
-                                <div>
-                                    <span>STEP 3</span>
-                                    <h4>배송옵션</h4>
-                                </div>
-                                <lord-icon target=".nav-item" src="https://cdn.lordicon.com/jyijxczt.json"
-                                           trigger="loop-on-hover"
-                                           colors="primary:#3a3347,secondary:#00264b,tertiary:#ebe6ef,quaternary:#646e78"
-                                           class="lord-icon">
-                                </lord-icon>
-                            </div>
-                        </div>
-                    </li>
-
+ 			
                     <li class="nav-item" role="presentation">
                         <div class="nav-link" id="payment-option" data-bs-toggle="tab" data-bs-target="#p-options"
                              role="tab">
                             <div class="nav-item-box">
                                 <div>
-                                    <span>STEP 4</span>
+                                    <span>STEP 3</span>
                                     <h4>결제수단</h4>
                                 </div>
                                 <lord-icon target=".nav-item" src="https://cdn.lordicon.com/qmcsqnle.json"
@@ -313,18 +418,14 @@
                         <div class="row g-4">
                             <div class="col-xxl-6 col-lg-12 col-md-6">
                                 <div class="delivery-address-box">
-                                    <div>
+                                    <div th:if ="">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="jack"
                                                    id="flexRadioDefault1">
                                         </div>
 
-                                        <div class="label1">
-                                            <label>기본배송지</label>
-                                        </div>
-
-                                        <div class="label">
-                                            <label>할머니집</label>
+                                        <div class="label"> <!-- label1 하면 기본배송지로 나오게 설정해둠 -->
+                                            <label>집</label>
                                         </div>
 
                                         <ul class="delivery-address-detail">
@@ -334,17 +435,17 @@
 
                                             <li>
                                                 <p class="text-content"><span class="text-title">주소
-                                                            : </span>8424 James Lane South San Francisco, CA 94080</p>
+                                                            : </span>서울 강남구 강남대로 아이티윌</p>
                                             </li>
 
                                             <li>
-                                                <h6 class="text-content"><span class="text-title">Pin Code
-                                                            :</span> +380</h6>
+                                                <h6 class="text-content"><span class="text-title">우편번호
+                                                            :</span> 보지마 시키야</h6>
                                             </li>
 
                                             <li>
-                                                <h6 class="text-content mb-0"><span class="text-title">Phone
-                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
+                                                <h6 class="text-content mb-0"><span class="text-title">저나버노
+                                                            :</span> 안알랴줌</h6>
                                             </li>
                                         </ul>
                                     </div>
@@ -365,23 +466,22 @@
 
                                         <ul class="delivery-address-detail">
                                             <li>
-                                                <h4 class="fw-500">Jack Jennas</h4>
+                                                <h4 class="fw-500">전초롱</h4>
                                             </li>
 
                                             <li>
-                                                <p class="text-content"><span class="text-title">Address
-                                                            :</span>Nakhimovskiy R-N / Lastovaya Ul., bld. 5/A, appt. 12
-                                                </p>
+                                                <p class="text-content"><span class="text-title">주소
+                                                            : </span>서울 강남구 강남대로 아이티윌</p>
                                             </li>
 
                                             <li>
-                                                <h6 class="text-content"><span class="text-title">Pin Code :</span>
-                                                    +380</h6>
+                                                <h6 class="text-content"><span class="text-title">우편번호
+                                                            :</span> 보지마 시키야</h6>
                                             </li>
 
                                             <li>
-                                                <h6 class="text-content mb-0"><span class="text-title">Phone
-                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
+                                                <h6 class="text-content mb-0"><span class="text-title">저나버노
+                                                            :</span> 안알랴줌</h6>
                                             </li>
                                         </ul>
                                     </div>
@@ -397,169 +497,13 @@
                                 </li>
 
                                 <li>
-                                    <button class="btn btn-animation proceed-btn">배송옵션</button>
+                                    <button class="btn btn-animation proceed-btn">결제</button>
                                 </li>
                             </ul>
 
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="d-options" role="tabpanel" aria-labelledby="delivery-option">
-                        <h2 class="tab-title">배송옵션</h2>
-                        <div class="row g-4">
-                            <div class="col-12">
-                                <div class="delivery-option">
-                                    <div class="row g-4">
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-category">
-                                                <div class="shipment-detail">
-                                                    <div class="form-check custom-form-check">
-                                                        <input class="form-check-input" type="radio" name="standard"
-                                                               id="standard" checked>
-                                                        <label class="form-check-label" for="standard">Standard
-                                                            Delivery Option</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-items">
-                                                <div>
-                                                    <h5 class="items text-content"><span>3 Items</span> @ $693.48
-                                                    </h5>
-                                                    <h5 class="charge text-content">Delivery Charge $28.12
-                                                        <button type="button" class="btn p-0"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="Extra Charge">
-                                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                                        </button>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-md-12">
-                                            <div class="select-option">
-                                                <div class="form-floating theme-form-floating">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="0">TOMORROW 10:00 PM - 6:00 PM</option>
-                                                        <option value="2">Tuesday 11:00 AM - 6:45 PM</option>
-                                                        <option value="3">Wednesday 10:30 AM - 8:00 PM</option>
-                                                    </select>
-                                                    <label>Select Timing</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="delivery-option">
-                                    <div class="row g-4">
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-category">
-                                                <div class="shipment-detail">
-                                                    <div class="form-check custom-form-check">
-                                                        <input class="form-check-input" type="radio" name="standard"
-                                                               id="sameDay">
-                                                        <label class="form-check-label" for="sameDay">Same Day
-                                                            Delivery Option</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-items">
-                                                <div>
-                                                    <h5 class="items text-content"><span>3 Items</span> @ $693.48
-                                                    </h5>
-                                                    <h5 class="charge text-content">Delivery Charge $32.15
-                                                        <button type="button" class="btn p-0"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="Extra Charge">
-                                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                                        </button>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-md-12">
-                                            <div class="select-option">
-                                                <div class="form-floating theme-form-floating">
-                                                    <select class="form-select theme-form-select"
-                                                            aria-label="Default select example">
-                                                        <option value="0">TOMORROW 10:00 PM - 6:00 PM</option>
-                                                        <option value="2">Tuesday 11:00 AM - 6:45 PM</option>
-                                                        <option value="3">Wednesday 10:30 AM - 8:00 PM</option>
-                                                    </select>
-                                                    <label>Select Timing</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="delivery-option">
-                                    <div class="row g-4">
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-category">
-                                                <div class="shipment-detail">
-                                                    <div class="form-check mb-0 custom-form-check">
-                                                        <input class="form-check-input" type="radio" name="standard"
-                                                               id="future">
-                                                        <label class="form-check-label" for="future">Future Delivery
-                                                            Option</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-sm-6">
-                                            <div class="delivery-items">
-                                                <div>
-                                                    <h5 class="items text-content"><span>3 Items</span> @ $693.48
-                                                    </h5>
-                                                    <h5 class="charge text-content">Delivery Charge $34.67
-                                                        <button type="button" class="btn p-0"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="Extra Charge">
-                                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                                        </button>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-4 col-md-12">
-                                            <form class="form-floating theme-form-floating date-box">
-                                                <input type="date" class="form-control">
-                                                <label>배송일 지정</label>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="button-group">
-                            <ul class="button-group-list">
-                                <li>
-                                    <button class="btn btn-light shopping-button backward-btn text-dark">
-                                        <i class="fa-solid fa-arrow-left-long ms-0"></i>배송정정보</button>
-                                </li>
-
-                                <li>
-                                    <button class="btn btn-animation proceed-btn">결제수단</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
                     <div class="tab-pane" id="p-options" role="tabpanel" aria-labelledby="payment-option">
                         <h2 class="tab-title">결제수단</h2>
@@ -898,7 +842,7 @@
                             <ul class="button-group-list">
                                 <li>
                                     <button class="btn btn-light shopping-button backward-btn text-dark">
-                                        <i class="fa-solid fa-arrow-left-long ms-0"></i>배송옵션 ㅋㅋㅋ</button>
+                                        <i class="fa-solid fa-arrow-left-long ms-0"></i>배송지 등록</button>
                                 </li>
 
                                 <li>
@@ -916,113 +860,256 @@
 <!-- Checkout section End -->
 
 <!-- Footer Section Start -->
-<footer th:replace="footer.html :: footerFragment"></footer>
-<!-- Footer Section End -->
+<footer class="section-t-space">
+    <div class="container-fluid-lg">
+        <div class="service-section">
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="service-contain">
+                        <div class="service-box">
+                            <div class="service-image">
+                                <img src="../assets/svg/product.svg" class="blur-up lazyload" alt="">
+                            </div>
 
-<!-- Quick View Modal Box Start -->
-<div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header p-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row g-sm-4 g-2">
-                    <div class="col-lg-6">
-                        <div class="slider-image">
-                            <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
-                                 alt="">
+                            <div class="service-detail">
+                                <h5>Every Fresh Products</h5>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6">
-                        <div class="right-sidebar-modal">
-                            <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
-                            <h4 class="price">$36.99</h4>
-                            <div class="product-rating">
-                                <ul class="rating">
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star"></i>
-                                    </li>
-                                </ul>
-                                <span class="ms-2">8 Reviews</span>
-                                <span class="ms-2 text-danger">6 sold in last 16 hours</span>
+                        <div class="service-box">
+                            <div class="service-image">
+                                <img src="../assets/svg/delivery.svg" class="blur-up lazyload" alt="">
                             </div>
 
-                            <div class="product-detail">
-                                <h4>Product Details :</h4>
-                                <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
-                                    Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
-                                    Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
-                                    muffin I love carrot cake sugar plum dessert bonbon.</p>
+                            <div class="service-detail">
+                                <h5>Free Delivery For Order Over $50</h5>
+                            </div>
+                        </div>
+
+                        <div class="service-box">
+                            <div class="service-image">
+                                <img src="../assets/svg/discount.svg" class="blur-up lazyload" alt="">
                             </div>
 
-                            <ul class="brand-list">
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Brand Name:</h5>
-                                        <h6>Black Forest</h6>
-                                    </div>
-                                </li>
+                            <div class="service-detail">
+                                <h5>Daily Mega Discounts</h5>
+                            </div>
+                        </div>
 
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Product Code:</h5>
-                                        <h6>W0690034</h6>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Product Type:</h5>
-                                        <h6>White Cream Cake</h6>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <div class="select-size">
-                                <h4>Cake Size :</h4>
-                                <select class="form-select select-form-size">
-                                    <option selected>Select Size</option>
-                                    <option value="1.2">1/2 KG</option>
-                                    <option value="0">1 KG</option>
-                                    <option value="1.5">1/5 KG</option>
-                                    <option value="red">Red Roses</option>
-                                    <option value="pink">With Pink Roses</option>
-                                </select>
+                        <div class="service-box">
+                            <div class="service-image">
+                                <img src="../assets/svg/market.svg" class="blur-up lazyload" alt="">
                             </div>
 
-                            <div class="modal-button">
-                                <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md add-cart-button icon">Add
-                                    To Cart</button>
-                                <button onclick="location.href = 'product-left.html';"
-                                        class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
-                                    View More Details</button>
+                            <div class="service-detail">
+                                <h5>Best Price On The Market</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="main-footer section-b-space section-t-space">
+            <div class="row g-md-4 g-3">
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="footer-logo">
+                        <div class="theme-logo">
+                            <a href="index.html">
+                                <img src="../assets/images/logo/1.png" class="blur-up lazyload" alt="">
+                            </a>
+                        </div>
+
+                        <div class="footer-logo-contain">
+                            <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
+                                demonstrate the visual form.</p>
+
+                            <ul class="address">
+                                <li>
+                                    <i data-feather="home"></i>
+                                    <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
+                                </li>
+                                <li>
+                                    <i data-feather="mail"></i>
+                                    <a href="javascript:void(0)">support@fastkart.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                    <div class="footer-title">
+                        <h4>Categories</h4>
+                    </div>
+
+                    <div class="footer-contain">
+                        <ul>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl col-lg-2 col-sm-3">
+                    <div class="footer-title">
+                        <h4>Useful Links</h4>
+                    </div>
+
+                    <div class="footer-contain">
+                        <ul>
+                            <li>
+                                <a href="index.html" class="text-content">Home</a>
+                            </li>
+                            <li>
+                                <a href="shop-left-sidebar.html" class="text-content">Shop</a>
+                            </li>
+                            <li>
+                                <a href="about-us.html" class="text-content">About Us</a>
+                            </li>
+                            <li>
+                                <a href="blog-list.html" class="text-content">Blog</a>
+                            </li>
+                            <li>
+                                <a href="contact-us.html" class="text-content">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-2 col-sm-3">
+                    <div class="footer-title">
+                        <h4>Help Center</h4>
+                    </div>
+
+                    <div class="footer-contain">
+                        <ul>
+                            <li>
+                                <a href="order-success.html" class="text-content">Your Order</a>
+                            </li>
+                            <li>
+                                <a href="user-dashboard.html" class="text-content">Your Account</a>
+                            </li>
+                            <li>
+                                <a href="order-tracking.html" class="text-content">Track Order</a>
+                            </li>
+                            <li>
+                                <a href="wishlist.html" class="text-content">Your Wishlist</a>
+                            </li>
+                            <li>
+                                <a href="search.html" class="text-content">Search</a>
+                            </li>
+                            <li>
+                                <a href="faq.html" class="text-content">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="footer-title">
+                        <h4>Contact Us</h4>
+                    </div>
+
+                    <div class="footer-contact">
+                        <ul>
+                            <li>
+                                <div class="footer-number">
+                                    <i data-feather="phone"></i>
+                                    <div class="contact-number">
+                                        <h6 class="text-content">Hotline 24/7 :</h6>
+                                        <h5>+91 888 104 2340</h5>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="footer-number">
+                                    <i data-feather="mail"></i>
+                                    <div class="contact-number">
+                                        <h6 class="text-content">Email Address :</h6>
+                                        <h5>fastkart@hotmail.com</h5>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="social-app">
+                                <h5 class="mb-2 text-content">Download App :</h5>
+                                <ul>
+                                    <li class="mb-0">
+                                        <a href="https://play.google.com/store/apps" target="_blank">
+                                            <img src="../assets/images/playstore.svg" class="blur-up lazyload"
+                                                 alt="">
+                                        </a>
+                                    </li>
+                                    <li class="mb-0">
+                                        <a href="https://www.apple.com/in/app-store/" target="_blank">
+                                            <img src="../assets/images/appstore.svg" class="blur-up lazyload"
+                                                 alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-footer section-small-space">
+            <div class="reserve">
+                <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+            </div>
+
+            <div class="payment">
+                <img src="../assets/images/payment/1.png" class="blur-up lazyload" alt="">
+            </div>
+
+            <div class="social-link">
+                <h6 class="text-content">Stay connected :</h6>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/" target="_blank">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/" target="_blank">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/" target="_blank">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://in.pinterest.com/" target="_blank">
+                            <i class="fa-brands fa-pinterest-p"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-<!-- Quick View Modal Box End -->
+</footer>
+<!-- Footer Section End -->
 
 <!-- Location Modal Start -->
 <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
@@ -1125,6 +1212,72 @@
 </div>
 <!-- Location Modal End -->
 
+<!--배송지 추가-->
+ <form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
+<div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">신규배송지</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+            
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" class="form-control" id="deliverName"  name="deliverName" onblur="nameChk();">
+                        <label for="fname">주문자</label>
+                    </div>
+                
+             
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" class="form-control" id="delivertel" placeholder="Enter Last Name" name="delivertel" onblur="telChk();">
+                        <label for="lname">전화번호</label>
+                    </div>
+               
+
+                
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
+                        <label for="lname">우편번호</label>
+                    </div>
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                        <br>
+                    </div>
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" class="form-control" id="sample4_roadAddress" placeholder="도로명주소" name="deliverAddr1" onblur="addrChk();">
+                        <label for="lname">도로명주소</label>
+                    </div>
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" class="form-control" id="sample4_jibunAddress" placeholder="지번주소" name="deliverAddr2">
+                        <label for="lname">지번주소</label>
+                        <span id="guide" style="color:#999;display:none"></span>
+                    </div>
+                    <div class="form-floating mb-4 theme-form-floating">
+                        <input type="text" placeholder="상세주소" class="form-control" id="sample4_detailAddress" name="deliverAddrd" onblur="addrdChk();" >
+                        <label for="lname">상세주소</label>
+                    </div>
+                    <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
+
+
+                
+              
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal" onclick="sendIt();">등록하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+ </form>
+<!-- 배송지 추가 끝 -->
+
+
 <!-- Deal Box Modal Start -->
 <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -1205,18 +1358,6 @@
 </div>
 <!-- Deal Box Modal End -->
 
-<!-- Add to cart Modal Start -->
-<div class="add-cart-box">
-    <div class="add-iamge">
-        <img src="../assets/images/cake/pro/1.jpg" class="img-fluid" alt="">
-    </div>
-
-    <div class="add-contain">
-        <h6>Added to Cart</h6>
-    </div>
-</div>
-<!-- Add to cart Modal End -->
-
 <!-- Tap to top start -->
 <div class="theme-option">
     <div class="back-to-top">
@@ -1237,10 +1378,13 @@
 <!-- jquery ui-->
 <script src="../assets/js/jquery-ui.min.js"></script>
 
+<!-- Lordicon Js -->
+<script src="../assets/js/lusqsztk.js"></script>
+
 <!-- Bootstrap js-->
 <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
 <script src="../assets/js/bootstrap/popper.min.js"></script>
+<script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
 
 <!-- feather icon js-->
 <script src="../assets/js/feather/feather.min.js"></script>
@@ -1249,35 +1393,18 @@
 <!-- Lazyload Js -->
 <script src="../assets/js/lazysizes.min.js"></script>
 
+<!-- Wizard js -->
+<script src="../assets/js/wizard.js"></script>
+
 <!-- Slick js-->
 <script src="../assets/js/slick/slick.js"></script>
-<script src="../assets/js/slick/slick-animation.min.js"></script>
-<script src="../assets/js/custom-slick-animated.js"></script>
 <script src="../assets/js/slick/custom_slick.js"></script>
 
-<!-- Price Range Js -->
-<script src="../assets/js/ion.rangeSlider.min.js"></script>
-
-<!-- sidebar open js -->
-<script src="../assets/js/filter-sidebar.js"></script>
-
 <!-- Quantity js -->
-<script src="../assets/js/quantity-3.js"></script>
-
-<!-- Zoom Js -->
-<script src="../assets/js/jquery.elevatezoom.js"></script>
-<script src="../assets/js/zoom-filter.js"></script>
-
-<!-- Timer Js -->
-<script src="../assets/js/timer1.js"></script>
-
-<!-- WOW js -->
-<script src="../assets/js/wow.min.js"></script>
-<script src="../assets/js/custom-wow.js"></script>
+<script src="../assets/js/quantity.js"></script>
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
-
 </body>
 
 </html>

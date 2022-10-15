@@ -1,0 +1,48 @@
+CREATE TABLE COZYORDER
+(orderNum NUMBER(8) PRIMARY KEY,
+itemNum NUMBER(8),
+customerEmail VARCHAR2(20),
+orderAddr1 varcher2(100),
+orderAddr2 varcher2(100),
+orderAddr3 varcher2(100),
+orderAddrd varcher(100),
+itemQty NUMBER(8),
+cartNum NUMBER(8),
+payment VARCHAR2(20), 
+delivarCost number(10),
+orderDate date default sysdate,
+usePoint number(10),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
+FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM),
+FOREIGN key (cartNum) REFERENCES cart(cartNum));
+
+배송지 주문완료시 주문item
+
+create table orderItem(
+orderItemId number(10) primary key,
+customerEmail varcher2(20),
+orderNum number(8),
+itemNum number(8),
+itemQty number(8),
+itemprice number(10),
+itemDiscount number(10),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
+FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
+
+create table vam_order(
+    orderId varchar2(50) primary key,
+    addressee varchar2(50) not null,
+    memberId varchar2(50),
+    memberAddr1 varchar2(100) not null,
+    memberAddr2 varchar2(100) not null,
+    memberAddr3 varchar2(100) not null,
+    orderState varchar2(30) not null,
+    deliveryCost number not null,
+    usePoint number not null,
+    orderDate date default sysdate,
+    FOREIGN KEY (memberId)REFERENCES book_member(memberId)
+);
+
+//카트있는경우
+create table orderitem
+ 

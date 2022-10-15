@@ -2830,6 +2830,10 @@ input[type=number]::-webkit-outer-spin-button {
     .product-section-box .custom-tab .review-box .review-people .review-list li .people-box .people-comment .date-time .product-rating {
         margin-top: 8px
     }
+    
+    .user-dashboard-section .dashboard-right-sidebar .dashboard-card .product-rating {
+        margin-top: 8px
+    }
 }
 
 .product-section-box .custom-tab .review-box .review-people .review-list li .people-box .reply {
@@ -23004,6 +23008,26 @@ header .offcanvas-backdrop {
 
 .user-dashboard-section .dashboard-right-sidebar .dashboard-card .payment-card-detail {
     position: relative
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-card span.review {
+    font-size: 10px;
+    font-weight: 400;
+    color: #fff;
+    padding: 4px 6px;
+    border-radius: 4px;
+    margin-left: calc(9px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    margin-right: calc(9px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    margin-bottom: 2px;
+    margin-top: 2px;
+    font-weight: 600;
+    border: 1px solid #00264B;
+    background: #00264B;
+    border-color: #00264B;
+}
+
+.user-dashboard-section .dashboard-right-sidebar .dashboard-card span.review:hover {
+    cursor: pointer;
 }
 
 .user-dashboard-section .dashboard-right-sidebar .dashboard-card .payment-card-detail:hover .edit-card {

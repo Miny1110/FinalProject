@@ -24,6 +24,19 @@
 		where customerEmail=#{customerEmail}
 	</select>
 	
+	<!-- 비밀번호 찾기 -->
+	<select id="forgot" parameterType="String" resultType="CustomerDto">
+		select customerEmail,customerTel
+		from customer
+		where customerEmail=#{customerEmail}
+	</select>
+	
+	<!-- 임시비밀번호 발급 -->
+	<update id="updatePwd" parameterType="CustomerDto">
+		update customer set customerPwd=#{customerPwd}
+		where customerEmail=#{customerEmail}
+	</update>
+	
 	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,

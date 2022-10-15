@@ -14,5 +14,9 @@
         values (#{deliverNum}, #{customerEmail}, #{deliverName}, #{deliverAddr1}, #{deliverAddr2}, #{deliverAddrd}, #{delivertel})
     </insert>
 
+    <select id="listDeliver" parameterType="DeliverDto">
+        select * 
+    </select>
+
 
 </mapper>

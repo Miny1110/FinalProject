@@ -32,7 +32,7 @@ dependencies {
 	implementation'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-	implementation 'net.nurigo:sdk:4.2.4'
+	implementation 'net.nurigo:javaSDK:2.2'
 
 }
 test {

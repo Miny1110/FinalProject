@@ -23,6 +23,7 @@ import com.exe.cozy.domain.CustomerDto;
 @RequestMapping("/customer")
 public class CustomerController {
 	
+	//이메일 중복확인
 	@Resource
 	private CustomerService customerService;
     
@@ -33,6 +34,7 @@ public class CustomerController {
 		return cnt;
 	}
     
+    //회원가입 화면
     @GetMapping("signUp")
     public ModelAndView signUp() {
     	
@@ -43,6 +45,7 @@ public class CustomerController {
     	return mav;
     }
     
+    //회원가입
     @PostMapping("signUp")
     public ModelAndView signUp(
 			@ModelAttribute CustomerDto dto, HttpServletRequest req) {
@@ -56,6 +59,7 @@ public class CustomerController {
     	
     }
     
+    //로그인 화면
     @GetMapping("login")
     public ModelAndView login() {
     	
@@ -67,6 +71,7 @@ public class CustomerController {
     	
     }
     
+    //로그인
     @PostMapping("login")
     public ModelAndView login(String customerEmail, String customerPwd, HttpServletRequest req, RedirectAttributes rattr) {
     	
@@ -92,6 +97,7 @@ public class CustomerController {
     	return mav;
     }
     
+    //로그인 아이디, 비밀번호 체크
     private boolean loginCheck(String customerEmail, String customerPwd) {
         CustomerDto dto = null;
 
@@ -105,12 +111,58 @@ public class CustomerController {
         return dto!=null && dto.getCustomerPwd().equals(customerPwd);
     }
     
+    //비밀번호찾기 화면
     @GetMapping("forgot")
     public ModelAndView forgot() {
     	
     	ModelAndView mav = new ModelAndView();
     	
     	mav.setViewName("forgot");
+    	
+    	return mav;
+    }
+    
+    //비밀번호찾기
+    @PostMapping("forgot")
+    public ModelAndView forgot(String customerEmail, String customerTel, HttpServletRequest req, RedirectAttributes rattr) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	customerService.forgot(customerEmail);
+    	
+    	if(!(forgotCheck(customerEmail,customerTel))) {
+    		rattr.addFlashAttribute("msg", "회원정보가 없습니다.");
+    		
+    		mav.setViewName("redirect:forgot");
+    		
+    		return mav;
+    	}
+
+    	mav.setViewName("redirect:login");
+    	
+    	return mav;
+    }
+    
+    //비밀번호찾기 이메일, 연락처 체크
+    private boolean forgotCheck(String customerEmail, String customerTel) {
+        CustomerDto dto = null;
+
+        try {
+            dto = customerService.forgot(customerEmail);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return dto!=null && dto.getCustomerTel().equals(customerTel);
+    }
+    
+    @GetMapping("myPageInfo")
+    public ModelAndView myPageInfo() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("user-dashboard");
     	
     	return mav;
     }

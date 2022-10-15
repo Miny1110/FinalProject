@@ -8,6 +8,53 @@
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
+    
+    <script type="text/javascript">
+    /* 이메일 널값 검사 */
+    function emailChk(){
+    	var email = $("#customerEmail").val();
+    	var emailMsg = document.querySelector("#emailMsg");
+    		
+    	if(!email){
+    		emailMsg.innerHTML = "이메일을 입력해주세요.";
+			$("#emailMsg").css("color","#ff7474");
+    	}else{
+    		emailMsg.innerHTML = "";
+    	}
+    	return;
+    }
+    
+    /* 연락처 널값 검사 */
+    function telChk(){
+    	var tel = $("#customerTel").val();
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!tel){
+			telMsg.innerHTML = "비밀번호를 입력해주세요.";
+			$("#telMsg").css("color","#ff7474");
+		}else{
+			telMsg.innerHTML = "";
+		}
+		return;
+    }
+    
+    /* 비밀번호찾기 성공 */
+    function sendIt(){
+    	var f = document.forgotForm;
+    	
+    	var email = $("#customerEmail").val();
+    	var tel = $("#customerTel").val();
+    	
+    	if(!email || !tel){
+    		alert("내용을 입력해주세요");
+    		event.preventDefault();
+			return;
+    	}
+    	
+    	f.action = "forgot";
+    	f.submit();
+    }	
+    </script>
 </head>
 
 <body>
@@ -66,36 +113,44 @@
                             </div>
 
                             <div class="input-box">
-                                <form class="row g-4">
+                            
+                            	<!-- 비밀번호 찾기 form 시작 -->
+                                <form class="row g-4" name="forgotForm" method="post" th:object="${CustomerDto}">
                                     <div class="col-12">
                                         <div class="form-floating theme-form-floating log-in-form">
                                             <input type="email" class="form-control" id="customerEmail" name="customerEmail"
-                                                placeholder="Email Address">
+                                                placeholder="Email Address" onblur="emailChk();">
                                             <label for="email">이메일</label>
                                         </div>
                                     </div>
+                                    <div style="margin-top: 10px;" id="emailMsg"></div>
+                                    
                                     <div class="col-12">
                                         <div class="form-floating theme-form-floating log-in-form">
                                             <input type="tel" class="form-control" id="customerTel" name="customerTel"
-                                                placeholder="Tel">
+                                                placeholder="Tel" onblur="telChk();">
                                             <label for="email">연락처</label>
                                         </div>
-                                        
                                     </div>
+                                    <div style="margin-top: 10px;" id="telMsg"></div>
 
                                     <div class="col-12">
                                         <button class="btn btn-animation w-100" onclick="sendIt();">비밀번호 찾기</button>
                                     </div>
-                                    
-                                    <div class="other-log-in">
-                            <h6></h6>
-                        </div>
-
-                        <div class="sign-up-box">
-                            <p style="margin-bottom: 5px;">정보가 기억나지 않는다면?</p>
-                            <p>고객센터 문의하기 (12-1234-1234)</p>
-                        </div>
+                                    <div style="margin-top: 20px; text-align: center;">
+                                		<span style="color: #ff7474;" th:text="${msg}"></span>
+                                	</div>
                                 </form>
+                                <!-- 비밀번호 찾기 form 끝 -->
+                                    
+                                <div class="other-log-in">
+                            		<h6></h6>
+                        		</div>
+
+                        		<div class="sign-up-box">
+                            		<p style="margin-bottom: 5px;">정보가 기억나지 않는다면?</p>
+                            		<p>고객센터 문의하기 (12-1234-1234)</p>
+                        		</div>
                             </div>
                         </div>
                     </div>

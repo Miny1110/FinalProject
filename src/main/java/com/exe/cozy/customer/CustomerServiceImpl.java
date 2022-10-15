@@ -28,6 +28,17 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
+	public CustomerDto forgot(String customerEmail) {
+		return customerMapper.forgot(customerEmail);
+	}
+	
+	@Override
+	public CustomerDto updatePwd(String customerEmail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public CustomerDto getReadData(String customerEmail) {
 		return customerMapper.getReadData(customerEmail);
 	}
@@ -41,5 +52,6 @@ public class CustomerServiceImpl implements CustomerService{
 	public void deleteData(String customerEmail) {
 		customerMapper.deleteData(customerEmail);
 	}
+
 
 }

@@ -6,14 +6,24 @@
 <mapper namespace="com.exe.cozy.mapper.ReplyMapper">
 
 <!-- 리뷰등록 -->
-<insert id="insertReply">
+<insert id="insertReply" parameterType="ReplyDto" >
 
-	insert into reply(replyId, itemNum, customerEmail, regDate,content,rating) 
-					values(#{replyId}, #{itemNum}, #{customerEmail}, #{regDate}, #{content}, #{rating})
+	insert into reply(replyId, itemNum, customerEmail, content,rating) 
+					values(1, #{itemNum}, #{customerEmail}, #{content}, #{rating})
 </insert>
 
 
+<!-- 리뷰확인 -->
+<select id="checkReply" resultType="ReplyDto">
+	
+		select replyId from reply 
+		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
+	
+</select>
 
-
+<!--ItemNum 으로  읽기-->
+    <select id="getReadReplyData" parameterType="int" resultType="ReplyDto">
+        select replyId, itemNum, customerEmail, regDate, content, rating from reply where itemNum=#{itemNum}
+    </select>
 
 </mapper>

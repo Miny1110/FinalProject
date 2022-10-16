@@ -1,7 +1,7 @@
 package com.exe.cozy.itemDetail;
 
-import com.exe.cozy.cart.CartService;
 import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.util.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
+import java.util.List;
 
 @Controller
 
@@ -20,6 +21,8 @@ public class ItemDetailController {
 
     @Resource
     private ItemDetailService itemDetailService;
+    @Resource
+    private ReplyService replyService;
 
     @Autowired
     MyPage myPage;
@@ -45,6 +48,7 @@ public class ItemDetailController {
         mav.setViewName("redirect:/index");
         return mav;
     }
+    
 
     @RequestMapping("/itemDetail") /**item 상세페에지 view*/
     public ModelAndView detail(HttpServletRequest request) throws Exception {
@@ -61,7 +65,7 @@ public class ItemDetailController {
         //itemDetailService.updateItemHitCount(itemNum);
         
         ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
-        
+        List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);
         if(idto==null){
             ModelAndView mav = new ModelAndView();
             //일단은 index 로 리다이렉트 시키기
@@ -85,11 +89,14 @@ public class ItemDetailController {
         System.out.println(salePrice);
         ModelAndView mav = new ModelAndView();
 
+        System.out.println(rdtoList.get(0).getRegDate());
         mav.addObject("idto",idto);
+        mav.addObject("rdtoList",rdtoList);
         mav.addObject("salePrice",salePrice);
+        
         //mav.addObject("params",param);
         //mav.addObject("pageNum", pageNum);
-
+        
         mav.setViewName("itemDetail");
         return mav;
 

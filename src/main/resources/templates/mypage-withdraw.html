@@ -1,0 +1,497 @@
+<html lang="en">
+<head>
+    <div th:replace="head.html :: headFragment"></div>
+
+	<title>마이페이지</title>
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
+    
+	<style id="__web-inspector-hide-shortcut-style__">
+	.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
+	{
+    	visibility: hidden !important;
+	}
+	</style>
+
+	<script type="text/javascript">
+		var f = document.withdrawForm;
+		
+		function withdraw(){
+			alert("떠나가신다니 유감입니다.");
+			
+			f.action="withdraw";
+			f.submit;
+		}
+	</script>
+</head>
+
+<body class="" style="">
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header th:replace="header.html :: headerFragment"></header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>마이페이지</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- User Dashboard Section Start -->
+    <section class="user-dashboard-section section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-xxl-3 col-lg-4">
+                    <div class="dashboard-left-sidebar">
+                        <div class="close-button d-flex d-lg-none">
+                            <button class="close-sidebar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="profile-box">
+                            <div class="cover-image">
+                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyloaded" alt="">
+                            </div>
+
+                            <div class="profile-contain">
+                                <div class="profile-image">
+                                    <div class="position-relative">
+                                        <img src="../assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
+                                        <div class="cover-icon">
+                                            <i class="fa-solid fa-pen">
+                                                <input type="file" onchange="readURL(this,0)">
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-name">
+                                    <h3>회원이름</h3>
+                                    <h6 class="text-content">회원이메일</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>회원정보</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill" data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>주문정보</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-qna-tab" data-bs-toggle="pill" data-bs-target="#pills-qna" type="button" role="tab" aria-controls="pills-qna" aria-selected="false"><img src="../assets/images/question.png" width="18" height="19" style="margin-right: 7;"/>문의답변</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-card-tab" data-bs-toggle="pill" data-bs-target="#pills-card" type="button" role="tab" aria-controls="pills-card" aria-selected="false"><img src="../assets/images/review.png" width="20" height="20" style="margin-right: 7;"/>마이리뷰</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-point-tab" data-bs-toggle="pill" data-bs-target="#pills-point" type="button" role="tab" aria-controls="pills-point" aria-selected="false"><img src="../assets/images/dollar.png" width="23" height="24" style="margin-right: 7;"/>포인트</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-address-tab" data-bs-toggle="pill" data-bs-target="#pills-address" type="button" role="tab" aria-controls="pills-address" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>배송지관리</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-security-tab" data-bs-toggle="pill" data-bs-target="#pills-security" type="button" role="tab" aria-controls="pills-security" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>회원탈퇴</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xxl-9 col-lg-8">
+                    <button class="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show
+                        Menu</button>
+                    <div class="dashboard-right-sidebar">
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab">
+                                <div class="dashboard-privacy">
+                                <form name="withdrawForm" method="post">
+                                    <div class="dashboard-bg-box">
+                                        <div class="dashboard-title mb-4">
+                                            <h3>회원탈퇴</h3>
+                                        </div>
+
+                                        <div class="privacy-box">
+                                            <div class="d-flex align-items-start">
+                                                <h6>정말 탈퇴하시겠습니까?</h6>
+                                                <div class="form-check form-switch switch-radio ms-auto">
+                                                    <label class="form-check-label" for="redio1"></label>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-content">탈퇴하신 후에는 COZY HOUSE 에서 제공하는 다양한 헤택을 받으실 수 없습니다.</p>
+                                            <p class="text-content">탈퇴를 원하시면 아래의 [탈퇴하기] 버튼을 눌려주세요</p>
+                                        </div>
+                                        
+                                        <button class="btn theme-bg-color btn-sm fw-bold mt-4 text-white" onclick="withdraw();">탈퇴하기</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- User Dashboard Section End -->
+
+    <!-- Footer Section Start -->
+    <footer th:replace="footer.html :: footerFragment"></footer>
+    <!-- Footer Section End -->
+
+    <!-- Deal Box Modal Start -->
+    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
+                        <p class="mt-1 text-content">Recommended deals for you.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="deal-offer-box">
+                        <ul class="deal-offer-list">
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-2">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-3">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deal Box Modal End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="back-to-top" style="">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- Location Modal Start -->
+    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
+                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="location-list">
+                        <div class="search-input">
+                            <input type="search" class="form-control" placeholder="Search Your Area">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+
+                        <div class="disabled-box">
+                            <h6>Select a Location</h6>
+                        </div>
+
+                        <ul class="location-select custom-height">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Alabama</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Arizona</h6>
+                                    <span>Min: $150</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>California</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Colorado</h6>
+                                    <span>Min: $140</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Florida</h6>
+                                    <span>Min: $160</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Georgia</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Kansas</h6>
+                                    <span>Min: $170</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Minnesota</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>New York</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Washington</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Location Modal End -->
+
+    <!-- Remove Profile Modal Start -->
+    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remove Profile Modal End -->
+    
+    <!-- 배송지 삭제 모달 시작 -->
+    <div class="modal fade theme-modal remove-address" id="removeAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">배송지 삭제</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>배송지 삭제 후 복구할 수 없습니다.</p>
+                        <p>정말 삭제하시겠습니까?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-sm fw-bold" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn theme-bg-color btn-sm fw-bold text-light" data-bs-target="#removeAddress" data-bs-toggle="modal">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade theme-modal remove-address" id="removeAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">삭제되었습니다.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 배송지 삭제 모달 끝 -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Wizard js -->
+    <script src="../assets/js/wizard.js"></script>
+
+    <!-- Slick js-->
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/slick/custom_slick.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+
+
+
+<!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->
+</body></html>

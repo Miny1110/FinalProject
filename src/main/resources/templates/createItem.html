@@ -40,6 +40,48 @@
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleej.css">
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylecj.css">
 
+	<script type="text/javascript">
+
+	//function sendIt() {
+		
+	//에크마6 js표기법(화살표함수라고 하기도 함)
+	const sendIt = () => {
+		
+	
+		var f = document.myForm;
+		
+		str = f.subject.value;
+		str = str.trim();
+		if(!str) {
+			alert("\n상품명을 입력하세요");
+			f.subject.focus();
+			return;
+		}
+		f.subject.value = str;
+	
+		str = f.price.value;
+		str = str.trim();
+		if(!str) {
+			alert("\n상품가격을 입력하세요");
+			f.price.focus();
+			return;
+		}
+		f.price.value = str;
+		
+		str = f.inventory.value;
+		str = str.trim();
+		if(!str) {
+			alert("\n재고수량을 입력하세요");
+			f.inventory.focus();
+			return;
+		}
+		f.inventory.value = str;
+		
+		f.action = "/itemDetail";
+	
+		f.submit();
+	}
+</script>
 
 </head>
 
@@ -1088,6 +1130,7 @@
     <br />
     <br />
     <!-- Breadcrumb Section Start -->
+    <form action="" method="post" name="myForm">
     <section class="cart-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-sm-5 g-3">
@@ -1098,7 +1141,7 @@
                             <div class="col-12">
                                 <h3><b>상품명</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1"
+                                    <input type="url" class="form-control" id="review1" name="subject"
                                         placeholder="Give your review a title">
                                     <label for="review1">상품명 입력</label>
                                 </div>
@@ -1121,7 +1164,7 @@
                                 
                                 <h3><b>중분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType" id="mallSelect">
+                                    <select name="itemSubType" id="mallSelect">
                                         <option value="0">중분류를 선택해주세요</option>
                                         
                                         <option value="electric" class="mall1">냉장고</option>
@@ -1161,7 +1204,7 @@
                             <div class="col-12">
                                 <h3><b>상품가격</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1"
+                                    <input type="url" class="form-control" id="review1" name="price"
                                         placeholder="Give your review a title">
                                     <label for="review1">상품가격</label>
                                 </div>
@@ -1235,7 +1278,7 @@
                                 <div class="col-12">
                                     <h3><b>재고수량</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="url" class="form-control" id="review1"
+                                        <input type="url" class="form-control" id="review1" name="inventory"
                                             placeholder="Give your review a title">
                                         <label for="review1">재고수량</label>
                                     </div>
@@ -1607,7 +1650,21 @@
                         </div><br><hr>
                         -->
                         <!-- 옵션 End -->
+                        
                         <div style="text-align: center;">
+                        <ul>
+                        	<li>
+		                        <input type="button" value="등록하기" class="btn-review" onclick="sendIt();"/>
+							</li>
+                            <li>	
+								<input type="reset" value="다시입력" class="btn-review" onclick="document.myForm.subject.focus();"/>
+							</li>
+                            <li>	
+								<input type="button" value="작성취소" class="btn-cancel" onclick="javascript:location.href='/';"/>
+		                    </li>
+                        </ul>
+		                        
+                        	<!--  
                             <ul>
                                 <li>
                                     <button class="btn-review" type="button"
@@ -1618,16 +1675,18 @@
                                         onclick="location.href = 'product-bottom-thumbnail.html';">등록취소</button>
                                 </li>
                             </ul>
-
+							-->
+							
                         </div>
 
-                    </div>
-                </div>
-
-
-            </div>
+                    	</div>
+                	</div>
+				</div>
+			</div>
+           </div>
         </div>
     </section>
+    </form>
     <!--
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">

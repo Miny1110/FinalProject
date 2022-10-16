@@ -134,6 +134,7 @@
                         <div class="tab-content" id="pills-tabContent">
 <!-- 포인트 시작 -->
                            <div class="tab-pane fade active show" id="pills-point" role="tabpanel" aria-labelledby="pills-point-tab">
+                           	<form name="pointForm" method="get">
                                 <div class="dashboard-point">
                                     <div class="title">
                                         <h2>포인트</h2>
@@ -149,9 +150,7 @@
                                                 <div class="dashboard-title mb-3">
                                                     <h3>보유포인트</h3>
                                                 </div>
-                                                <div class="pointbox">
-                                                    500P
-                                                </div>
+                                                <div class="pointbox" th:text="|${totalPoint}p|"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -166,27 +165,28 @@
                                                 </div>
                                                 <div>
                                                     <table class="table">
-                                                        <tbody>
+                                                        <tbody id="lists">
                                         <!-- 포인트 한줄 시작 -->                   
-                                                            <tr>
-                                                                <td class="date">yyyy-mm-dd</td>
+                                                            <tr th:if="${#lists.size(lists)>0 and pointDto.pointState=='소멸'}" th:each="pointDto:${lists}">
+                                                                <td class="date" th:text="${pointDto.pointDate}"></td>
                                                                 <td class="title">
                                                                     <span class="finish">소멸</span> 기간만료
                                                                     <p class="content">*기간만료</p>
                                                                 </td>
-                                                                <td class="minus">- 2000p</td>
+                                                                <td class="minus" th:text="|${pointDto.pointAmount}p|"></td>
+                                                             </tr>
+                                                              
+                                                             <tr th:if="${#lists.size(lists)>0 and pointDto.pointState!='소멸'}" th:each="pointDto:${lists}">  
+                                                             	<td class="date" th:text="${pointDto.pointDate}"></td>
+                                                                <td class="title">
+                                                                    <span class="get">적립</span> <a th:text="${pointDto.pointTitle}"></a>
+                                                                    <p class="content" th:text="${pointDto.pointContent}"></p>
+                                                                    <p th:text="|유효기간: ${pointDto.pointStartDate} ~ ${pointDto.pointEndDate}|"></p>
+                                                                </td>
+                                                                <td class="plus" th:text="|+${pointDto.pointAmount}p|"></td>
                                                             </tr>
                                         <!-- 포인트 한줄 끝 -->                      
-                                                            <tr>
-                                                                <td class="date">yyyy-mm-dd</td>
-                                                                <td class="title">
-                                                                    <span class="get">적립</span>
-                                                                    구매확정
-                                                                    <p class="content">*상품주문확정</p>
-                                                                    <p>유효기간: yyyy-mm-dd까지</p>
-                                                                </td>
-                                                                <td class="plus">+ 150p</td>
-                                                            </tr>                                            
+                                                                                                   
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -194,6 +194,7 @@
                                         </div>
                                     </div>
                                 </div>
+                               </form>
                             </div>
                         </div>
                     </div>

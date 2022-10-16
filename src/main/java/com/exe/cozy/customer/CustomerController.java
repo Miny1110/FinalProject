@@ -1,11 +1,14 @@
 package com.exe.cozy.customer;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,15 +21,24 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.PointDto;
+import com.exe.cozy.point.PointService;
+import com.exe.cozy.util.AddDate;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 	
-	//이메일 중복확인
 	@Resource
 	private CustomerService customerService;
+	
+	@Resource
+	private PointService pointService;
+	
+	@Autowired
+	AddDate addDate;
     
+	//이메일 중복확인
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
     @ResponseBody
     public int nameCheck(@RequestParam("email") String email) {
@@ -52,8 +64,24 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	//customer 테이블에 데이터 넣기
     	customerService.insertData(dto);
     	
+    	//point 테이블에 데이터 넣기
+    	PointDto pointDto = new PointDto();
+    	
+    	int pointNum = pointService.maxNum();
+    	pointDto.setPointNum(pointNum+1);
+    	pointDto.setPointTitle("회원가입");
+    	pointDto.setPointContent("회원가입 축하 포인트");
+    	pointDto.setPointAmount(3000);
+    	pointDto.setPointState("지급");
+    	pointDto.setPointEndDate(addDate.addDate(30));
+    	pointDto.setCustomerEmail(dto.getCustomerEmail());
+    	
+    	pointService.insertData(pointDto);
+    	
+    	//로그인 화면으로 이동
     	mav.setViewName("redirect:login");
     	return mav;
     	
@@ -171,12 +199,12 @@ public class CustomerController {
     
     //마이페이지 회원정보
     @GetMapping("info")
-    public ModelAndView myPageInfo(HttpSession session) {
+    public ModelAndView info(HttpSession session) {
     	
     	ModelAndView mav = new ModelAndView();
     	
     	//나중엔 필요없는 코드
-    	session.setAttribute("customerEmail", "aaa@aaa.com");
+    	session.setAttribute("customerEmail", "bbb@bbb.com");
     	
     	String customerEmail = (String)(session.getAttribute("customerEmail"));
     	
@@ -188,20 +216,48 @@ public class CustomerController {
     	return mav;
     }
     
-    //회원탈퇴
-    @GetMapping("withdraw")
-    public ModelAndView withdraw(HttpSession session) {
+    //마이페이지 포인트
+    @GetMapping("point")
+    public ModelAndView point(HttpSession session) {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	String customerEmail = (String)(session.getAttribute("customerEmail"));
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+
+    	List<PointDto> lists = pointService.getList(customerEmail);
+    	int totalPoint = pointService.getTotal(customerEmail);
+    	
+    	mav.addObject("lists", lists);
+    	mav.addObject("totalPoint", totalPoint);
+    	
+    	mav.setViewName("mypage-point");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 회원탈퇴 화면
+    @GetMapping("withdraw")
+    public ModelAndView withdraw() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-withdraw");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 회원탈퇴 처리
+    @PostMapping("withdraw")
+    public ModelAndView withdraw(HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
     	
     	customerService.deleteData(customerEmail);
     	
     	mav.setViewName("redirect:/");
     	
     	return mav;
-    	
     }
 
 }

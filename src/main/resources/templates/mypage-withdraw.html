@@ -15,14 +15,20 @@
 	</style>
 
 	<script type="text/javascript">
+	function withdraw(){
 		var f = document.withdrawForm;
-		
-		function withdraw(){
-			alert("떠나가신다니 유감입니다.");
+		var msg = "떠나가신다니 유감입니다.";
 			
+		if(!confirm(msg)){
+			alert("취소되었습니다.");
+			event.preventDefault();
+			return;
+		}else{
+			alert("탈퇴되었습니다.");
 			f.action="withdraw";
-			f.submit;
+			f.submit();
 		}
+	}
 	</script>
 </head>
 

@@ -4,9 +4,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.exe.cozy.mapper.PointMapper">
+
+	<!-- 포인트Num -->
+	<select id="maxNum" resultType="int">
+		select nvl(max(pointNum),0) from point
+	</select>
 	
+	<!-- 포인트 지급 -->
 	<insert id="insertData" parameterType="PointDto">
-		
+		insert into point (pointNum,pointTitle,pointContent,pointAmount,pointState,
+		pointDate,pointStartDate,pointEndDate,customerEmail)
+		values (#{pointNum},#{pointTitle},#{pointContent},#{pointAmount},#{pointState},
+		sysdate,sysdate,#{pointEndDate},#{customerEmail})
 	</insert>
 	
+	<!-- 포인트 소멸 -->
+	<update id="updateData" parameterType="PointDto">
+		update point set pointTitle=#{pointTitle},pointContent=#{pointContent},
+		pointAmount=#{pointAmount},pointState=#{pointState},pointDate=sysdate
+		from point where pointNum=#{pointNum}
+	</update>
+	
+	<!-- 포인트 내역 출력 -->
+	<select id="getList" parameterType="map" resultType="PointDto">
+		select pointTitle,pointContent,pointAmount,pointState,
+		pointDate,
+		pointStartDate,
+		pointEndDate
+		from point where customerEmail=#{customerEmail}
+		order by pointDate desc
+	</select>
+	
+	<!-- 사용가능 포인트 출력 -->
+	<select id="getTotal" resultType="int">
+		select sum(pointAmount)
+		from point where customerEmail=#{customerEmail}
+	</select>
 </mapper>

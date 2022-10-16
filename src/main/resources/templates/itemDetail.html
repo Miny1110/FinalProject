@@ -540,12 +540,40 @@
                                                 </ul>    
                                             </div>
                                             
-                                            <ul>
-                                                
-                                            </ul>
-                                        </div>
-                                        
+                                           
+                                        </div><hr>
+                                        <div class="review-people">
+                                                        <ul class="review-list">
+                                                            <li>
+                                                                <div class="people-box">
+                                                                   
+
+																	
+                                                                    <div  class="people-comment">
+                                                                        <a class="name"
+                                                                            href="javascript:void(0)"> 아이디</a>
+                                                                            
+                                                                        <div class="date-time">
+                                                                        
+                                                                            <h6 class="text-content" >문의내용</h6>
+
+                                                                           
+                                                                        </div>
+
+                                                                        <div class="reply" >
+                                                                            <p><a
+                                                                                    href="javascript:void(0)">삭제하기</a>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                     </div>
+                                    
 
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                         <div class="review-box">
@@ -555,11 +583,9 @@
 
                                                 <div class="col-12">
                                                     <div class="review-title">
-                                                        <ul>
-                                                            <li>
-                                                                <button class="btn-anii" type="button" th:onclick="|location.href = '@{|reviewWrite?itemNum=${idto.itemNum}|}';|" >리뷰작성</button>
-                                                            </li>
-                                                        </ul>
+                                                        
+                                                    	<button class="btn-anii" type="button" th:onclick="|location.href = '@{|reviewWrite?itemNum=${idto.itemNum}|}';|" >리뷰작성</button>
+                                                        
                                                     </div>
                                                     <hr/>
 
@@ -582,22 +608,9 @@
                                                                                 <ul class="rating">
                                                                                     <li>
                                                                                         <i data-feather="star"
-                                                                                            class="fill"></i>
+                                                                                            class="fill"></i>평점:<a th:text="${rdto.rating}" ></a>
                                                                                     </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
+                                                                                    
                                                                                 </ul>
                                                                             </div>
                                                                         </div>

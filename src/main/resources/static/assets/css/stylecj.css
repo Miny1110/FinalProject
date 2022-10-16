@@ -794,7 +794,7 @@
     z-index: 0
 }
 .btn-ani {
-    margin-left: 850px;
+    margin-left: 70%;
     width: 150px;
     height: 45px;
     display: -webkit-box;
@@ -821,7 +821,7 @@
     z-index: 0
 }
 .btn-anii {
-    margin-left: 1000px;
+    margin-left: 80%;
     width: 150px;
     height: 45px;
     display: -webkit-box;
@@ -848,6 +848,7 @@
     z-index: 0
 }
 .btn-cancel {
+	
     width: 150px;
     height: 45px;
     display: -webkit-box;

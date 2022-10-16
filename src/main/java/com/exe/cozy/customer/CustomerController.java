@@ -138,7 +138,7 @@ public class CustomerController {
     		return mav;
     	}
 
-    	mav.setViewName("redirect:login");
+    	mav.setViewName("redirect:sendEmail");
     	
     	return mav;
     }
@@ -157,22 +157,51 @@ public class CustomerController {
         return dto!=null && dto.getCustomerTel().equals(customerTel);
     }
     
+    //비밀번호찾기 이메일전송 화면
+    @GetMapping("sendEmail")
+    public ModelAndView sendEmail() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("sendEmail");
+    	
+    	return mav;
+    }    
+    
+    
+    //마이페이지 회원정보
     @GetMapping("info")
     public ModelAndView myPageInfo(HttpSession session) {
     	
     	ModelAndView mav = new ModelAndView();
     	
     	//나중엔 필요없는 코드
-    	session.setAttribute("customerEmail", "suzi@naver.com");
+    	session.setAttribute("customerEmail", "aaa@aaa.com");
     	
     	String customerEmail = (String)(session.getAttribute("customerEmail"));
     	
     	CustomerDto customerDto = customerService.getReadData(customerEmail);
     	
     	mav.addObject("customerDto", customerDto);
-    	mav.setViewName("user-dashboard");
+    	mav.setViewName("mypage-info");
     	
     	return mav;
+    }
+    
+    //회원탈퇴
+    @GetMapping("withdraw")
+    public ModelAndView withdraw(HttpSession session) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)(session.getAttribute("customerEmail"));
+    	
+    	customerService.deleteData(customerEmail);
+    	
+    	mav.setViewName("redirect:/");
+    	
+    	return mav;
+    	
     }
 
 }

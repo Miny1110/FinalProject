@@ -18182,7 +18182,14 @@ header .offcanvas-backdrop {
     width: 50%;
     text-align: center;
     margin: calc(20px + (45 - 20) * ((100vw - 320px) / (1920 - 320))) auto 0;
+    margin-top: 0;
     font-family: "Public Sans", sans-serif
+}
+
+.section-404 .contain-404 .forgot-box {
+    background-color: #f8f8f8;
+    padding: calc(16px + (50 - 16) * ((100vw - 320px) / (1920 - 320)));
+    border-radius: calc(8px + (12 - 8) * ((100vw - 320px) / (1920 - 320)))
 }
 
 @media (max-width: 1660px) {

@@ -170,11 +170,18 @@
                                                                 <td th:text="${customerDto.customerTel}"></td>
                                                             </tr>
                                                             <tr>
+                                                            	<td>우편번호:</td>
+                                                                <td th:if="${customerDto.customerZipCode!=0}" th:text="${customerDto.customerZipCode}"></td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>주소:</td>
                                                                 <td th:text="${customerDto.customerRAddr}"></td>
-                                                                <td th:text="${customerDto.customerJAddr}"></td>
                                                                 <td th:text="${customerDto.customerDAddr}"></td>
-                                                                <td th:if="${customerDto.customerZipCode!=0}" th:text="${customerDto.customerZipCode}"></td>
+                                                            </tr>
+                                                            <tr>
+                                                            	<td></td>
+                                                                <td th:text="|(${customerDto.customerJAddr})|"></td>
+                                                            	
                                                             </tr>
                                                         </tbody>
                                                     </table>

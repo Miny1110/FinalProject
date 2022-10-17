@@ -9,4 +9,6 @@ public interface DeliveryService {
     public void insertDeliver(DeliverDto ddto);
 
     public List<DeliverDto> listDeliver(String customerEmail);
+    
+    public void deleteDeliver(int deliverNum);
 }

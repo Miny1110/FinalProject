@@ -29,4 +29,9 @@ public class DeliveryServiceImpl implements DeliveryService{
 		return deliverMapper.listDeliver(customerEmail);
 	}
 
+	@Override
+	public void deleteDeliver(int deliverNum) {
+		deliverMapper.deleteDeliver(deliverNum);
+	}
+
 }

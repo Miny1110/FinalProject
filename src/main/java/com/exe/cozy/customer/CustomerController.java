@@ -34,17 +34,10 @@ import com.exe.cozy.util.AddDate;
 @RequestMapping("/customer")
 public class CustomerController {
 	
-	@Resource
-	private CustomerService customerService;
-	
-	@Resource
-	private PointService pointService;
-	
-	@Resource
-	private MailService mailService;
-	
-	@Resource
-	private DeliveryService deliveryService;
+	@Resource private CustomerService customerService;
+	@Resource private PointService pointService;
+	@Resource private MailService mailService;
+	@Resource private DeliveryService deliveryService;
 	
 	@Autowired
 	AddDate addDate;
@@ -117,8 +110,9 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	customerService.getLogin(customerEmail);
+    	boolean check = customerService.loginCheck(customerEmail, customerPwd);
 
-    	if(!(loginCheck(customerEmail, customerPwd))) { //로그인 실패
+    	if(!check) { //로그인 실패
     		rattr.addFlashAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
     		
     		mav.setViewName("redirect:login");
@@ -136,19 +130,6 @@ public class CustomerController {
     	return mav;
     }
     
-    //로그인 아이디, 비밀번호 체크 메소드
-    private boolean loginCheck(String customerEmail, String customerPwd) {
-        CustomerDto dto = null;
-
-        try {
-            dto = customerService.getLogin(customerEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return dto!=null && dto.getCustomerPwd().equals(customerPwd);
-    }
     
     //비밀번호찾기 화면
     @GetMapping("forgot")
@@ -169,7 +150,9 @@ public class CustomerController {
     	
     	customerService.forgot(customerEmail);
     	
-    	if(!(forgotCheck(customerEmail,customerTel))) {
+    	boolean check = customerService.forgotCheck(customerEmail, customerTel);
+    	
+    	if(!check) {
     		rattr.addFlashAttribute("msg", "회원정보가 없습니다.");
     		
     		mav.setViewName("redirect:forgot");
@@ -178,7 +161,7 @@ public class CustomerController {
     	}
 
     	//임시비밀번호 발급
-    	String customerPwd = getTmpPwd();
+    	String customerPwd = customerService.getTmpPwd();
     	
     	//이메일발송
     	MailDto mailDto = mailService.createMail(customerPwd, customerEmail);
@@ -194,38 +177,6 @@ public class CustomerController {
     	mav.setViewName("redirect:sendEmail");
     	
     	return mav;
-    }
-    
-    //비밀번호찾기 이메일, 연락처 체크 메소드
-    private boolean forgotCheck(String customerEmail, String customerTel) {
-        CustomerDto dto = null;
-
-        try {
-            dto = customerService.forgot(customerEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return dto!=null && dto.getCustomerTel().equals(customerTel);
-    }
-    
-    //임시비밀번호 발급 메소드
-    private String getTmpPwd() {
-    	char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-                'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    	
-    	String tmpPwd = "";
-    	
-    	/* 문자 배열 길이의 값을 랜덤으로 10개를 뽑아 조합 */
-        int idx = 0;
-        for(int i = 0; i < 10; i++){
-            idx = (int) (charSet.length * Math.random());
-            tmpPwd += charSet[idx];
-        }
-        
-        return tmpPwd;
     }
     
     
@@ -248,11 +199,20 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	//나중엔 필요없는 코드
-    	session.setAttribute("customerEmail", "bbb@bbb.com");
+    	session.setAttribute("customerEmail", "wjdalswjd453@naver.com");
     	
     	String customerEmail = (String)(session.getAttribute("customerEmail"));
     	
     	CustomerDto customerDto = customerService.getReadData(customerEmail);
+    	
+    	//비밀번호 *로 변환
+    	String customerPwd = customerDto.getCustomerPwd();
+    	int customerPwdLen = customerPwd.length();
+    	String changePwd = "";
+    	for(int i=0;i<customerPwdLen;i++) {
+    		changePwd += "*";
+    	}
+    	customerDto.setCustomerPwd(changePwd);
     	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
@@ -298,7 +258,26 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	
+    	List<DeliverDto> lists = deliveryService.listDeliver(customerEmail);
+    	
+    	mav.addObject("lists", lists);
+    	
     	mav.setViewName("mypage-address");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 배송지 삭제
+    @PostMapping("address")
+    public ModelAndView addressDel(int deliverNum) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	deliveryService.deleteDeliver(deliverNum);
+    	
+    	mav.setViewName("redirect:address");
     	
     	return mav;
     }

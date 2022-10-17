@@ -32,6 +32,11 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyMapper.getReadReplyData(itemNum);
 	}
 
+	@Override
+	public int replyMaxNum() throws Exception {
+		return replyMapper.replyMaxNum();
+	}
+
 /*	@Override
 	public int checkReply(ReplyDto rdto) throws Exception {
 		

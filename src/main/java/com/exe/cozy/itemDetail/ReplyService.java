@@ -7,6 +7,10 @@ import com.exe.cozy.domain.ReplyDto;
 
 public interface ReplyService {
 	
+	
+	public int replyMaxNum() throws Exception;
+	
+	
 	/*리뷰등록*/
 	public void insertReply(ReplyDto rdto)throws Exception;
 	

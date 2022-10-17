@@ -23,10 +23,10 @@ public class ItemDetailDto {
     private String itemImage4;
     private String itemImage5;
     private String detailImage; //상세페이지 이미지
-    private int itemHitcount; //할인율
+    private int itemHitcount;
     private int itemStock; //재고수량
-    private String itemState;
-    private boolean todaydeal; //오늘의딜
+    private String itemState; //판매상태여부
+    private String todaydeal; //오늘의딜
     /**옵션컬럼*/
     private String itemColor;
     private String itemSize;

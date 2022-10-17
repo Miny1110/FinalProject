@@ -1130,140 +1130,24 @@
                     
                     
                         <!--공지부분-->
-                        <div class="col-12">
+                        <div class="col-12" name="noticeService" th:each="${noticeService.serviceNoticeTitle}">
                             <div class="blog-box blog-list wow fadeInUp">
                                 <div class="blog-contain blog-contain-2">
                                     <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
+                                        <span class="time">
+                                        <i data-feather="clock"></i> 
+                                        <span th:text="${#dates.format(noticeService.regDate, 'yyyy-MM-dd')}"></span></span>
                                         
                                     </div>
                                     <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
+                                        <h3 th:text="${noticeDto.serviceNoticeTitle}"></h3>
                                     </a>
                                     
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
                         
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                   
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="blog-box blog-list wow fadeInUp">
-                                <div class="blog-contain blog-contain-2">
-                                    <div class="blog-label">
-                                        <span class="time"><i data-feather="clock"></i> <span>25 Feg, 2022</span></span>
-                                        
-                                    </div>
-                                    <a href="blog-detail.html">
-                                        <h3>공지 제목...공지 제목...공지 제목..</h3>
-                                    </a>
-                                    
-                                </div>
-                            </div>
-                        </div>
                         
                     </div>
 

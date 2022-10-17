@@ -148,35 +148,34 @@
                                     </div>
 
                                     <div class="row g-sm-4 g-3">
-                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12">
+                                    
+                                    	<!-- 배송지 출력 반복 시작 -->
+                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12" th:if="${#lists.size(lists)>0}" th:each="deliverDto:${lists}">
                                             <div class="address-box">
                                                 <div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="jack" id="flexRadioDefault2" checked="">
-                                                    </div>
                                                     <div class="table-responsive address-table">
                                                         <table class="table">
-                                                            <tbody>
+                                                            <tbody id="lists">
                                                                 <tr>
-                                                                    <td colspan="2">수령자이름</td>
+                                                                    <td colspan="2" th:text="${deliverDto.deliverName}">수령자이름</td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <td>주소 :</td>
                                                                     <td>
-                                                                        <p>서울시 성북구 웅앵초키포키
-                                                                        </p>
+                                                                        <p th:text="${deliverDto.deliverRAddr}"></p>
+                                                                        <p th:text="${deliverDto.deliverDAddr}"></p>
                                                                     </td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <td>우편번호 :</td>
-                                                                    <td>00021</td>
+                                                                    <td th:text="${deliverDto.deliverZipCode}"></td>
                                                                 </tr>
 
                                                                 <tr>
                                                                     <td>연락처 :</td>
-                                                                    <td>010-1111-222</td>
+                                                                    <td th:text="${deliverDto.deliverTel}"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -184,144 +183,20 @@
                                                 </div>
 
                                                 <div class="button-group">
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#editProfile"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#editProfile">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                         수정하기</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress" data-id="deliverDto.deliverNum">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                         삭제하기</button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-6">
-                                            <div class="address-box">
-                                                <div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="jack" id="flexRadioDefault3">
-                                                    </div>
-                                                    <div class="table-responsive address-table">
-                                                        <table class="table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="2">수령자이름</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>주소 :</td>
-                                                                    <td>
-                                                                        <p>서울시 웅앵응 초키포키</p>
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>우편번호 :</td>
-                                                                    <td>12345</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>연락처 :</td>
-                                                                    <td>01022223333</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <div class="button-group">
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#editProfile"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                                        수정하기</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                        삭제하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12">
-                                            <div class="address-box">
-                                                <div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="jack" id="flexRadioDefault2" checked="">
-                                                    </div>
-                                                    <div class="table-responsive address-table">
-                                                        <table class="table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="2">수령자이름</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>주소 :</td>
-                                                                    <td>
-                                                                        <p>서울시 성북구 웅앵초키포키
-                                                                        </p>
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>우편번호 :</td>
-                                                                    <td>00021</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>연락처 :</td>
-                                                                    <td>010-1111-222</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <div class="button-group">
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#editProfile"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                                        수정하기</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                        삭제하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12">
-                                            <div class="address-box">
-                                                <div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="jack" id="flexRadioDefault2" checked="">
-                                                    </div>
-                                                    <div class="table-responsive address-table">
-                                                        <table class="table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td colspan="2">수령자이름</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>주소 :</td>
-                                                                    <td>
-                                                                        <p>서울시 성북구 웅앵초키포키
-                                                                        </p>
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>우편번호 :</td>
-                                                                    <td>00021</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>연락처 :</td>
-                                                                    <td>010-1111-222</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <div class="button-group">
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#editProfile"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                                        수정하기</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                        삭제하기</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <!-- 배송지 출력 반복 끝 -->
                                     </div>
                                 </div>
                             </div>
@@ -438,6 +313,7 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                    	<input type="hidden" name="deliverNum" value="${deliverDto.deliverNum}">
                         <div class="form-floating mb-4 theme-form-floating">
                             <input type="text" class="form-control" id="fname" placeholder="이름을 입력하세요">
                             <label for="fname">수령자</label>
@@ -645,13 +521,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="remove-box">
+                    	<input type="text" class="body-content" id="contents" name="deliverNum" >
                         <p>배송지 삭제 후 복구할 수 없습니다.</p>
                         <p>정말 삭제하시겠습니까?</p>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-animation btn-sm fw-bold" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn theme-bg-color btn-sm fw-bold text-light" data-bs-target="#removeAddress" data-bs-toggle="modal">삭제</button>
+                    <button type="button" class="btn theme-bg-color btn-sm fw-bold text-light" data-bs-target="#removeAddress" data-bs-toggle="modal"
+                    onclick="javascript:location.href='address';">삭제</button>
                 </div>
             </div>
         </div>
@@ -710,7 +588,13 @@
     <script src="../assets/js/script.js"></script>
 
 
-
+	<script type="text/javascript">
+	$(".btn btn-sm add-button w-100").click(function(){
+		var data = $(this).data('id');
+	    $("#contents.body-contents").val(data);
+	    $("#text-contents.body-contents").html(data);
+	});
+	</script>
 
 <!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->
 </body></html>

@@ -199,7 +199,7 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	//나중엔 필요없는 코드
-    	session.setAttribute("customerEmail", "bbb@bbb.com");
+    	session.setAttribute("customerEmail", "wjdalswjd453@naver.com");
     	
     	String customerEmail = (String)(session.getAttribute("customerEmail"));
     	
@@ -258,7 +258,26 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	
+    	List<DeliverDto> lists = deliveryService.listDeliver(customerEmail);
+    	
+    	mav.addObject("lists", lists);
+    	
     	mav.setViewName("mypage-address");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 배송지 삭제
+    @PostMapping("address")
+    public ModelAndView addressDel(int deliverNum) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	deliveryService.deleteDeliver(deliverNum);
+    	
+    	mav.setViewName("redirect:address");
     	
     	return mav;
     }

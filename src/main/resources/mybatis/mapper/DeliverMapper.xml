@@ -21,5 +21,7 @@
         from deliver where customerEmail =#{customerEmail}
     </select>
 
-
+	<delete id="deleteDeliver" parameterType="int">
+		delete deliver where deliverNum=#{deliverNum}
+	</delete>
 </mapper>

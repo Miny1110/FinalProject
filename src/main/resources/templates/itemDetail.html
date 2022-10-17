@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -84,7 +85,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2 th:text="${idto.itemName }"></h2>
+                        <h2 th:text="${idto.itemName}"></h2>
+                        
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -443,8 +445,13 @@
                                     <div class="tab-pane fade show active" id="description" role="tabpanel"
                                         aria-labelledby="description-tab">
                                         <div class="product-description">
+                                           
+                                           
+                             
+                                           
                                             <div class="nav-desh">
-                                                <p th:src="@{${idto.detailImage}} ">상품 상세내용</p>
+                                                <p th:src="@{${idto.detailImage}} "
+                                                >상품 상세내용</p>
                                             </div>
 
 
@@ -533,12 +540,40 @@
                                                 </ul>    
                                             </div>
                                             
-                                            <ul>
-                                                
-                                            </ul>
-                                        </div>
-                                        
+                                           
+                                        </div><hr>
+                                        <div class="review-people">
+                                                        <ul class="review-list">
+                                                            <li>
+                                                                <div class="people-box">
+                                                                   
+
+																	
+                                                                    <div  class="people-comment">
+                                                                        <a class="name"
+                                                                            href="javascript:void(0)"> 아이디</a>
+                                                                            
+                                                                        <div class="date-time">
+                                                                        
+                                                                            <h6 class="text-content" >문의내용</h6>
+
+                                                                           
+                                                                        </div>
+
+                                                                        <div class="reply" >
+                                                                            <p><a
+                                                                                    href="javascript:void(0)">삭제하기</a>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                     </div>
+                                    
 
                                     <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                         <div class="review-box">
@@ -548,173 +583,46 @@
 
                                                 <div class="col-12">
                                                     <div class="review-title">
-                                                        <ul>
-                                                            <li>
-                                                                <button class="btn-anii" type="button" onclick="location.href = 'reviewWrite.html';">리뷰작성</button>
-                                                            </li>
-                                                        </ul>
+                                                        
+                                                    	<button class="btn-anii" type="button" th:onclick="|location.href = '@{|reviewWrite?itemNum=${idto.itemNum}|}';|" >리뷰작성</button>
+                                                        
                                                     </div>
                                                     <hr/>
 
                                                     <div class="review-people">
                                                         <ul class="review-list">
-                                                            <li>
+                                                            <li th:each="rdto : ${rdtoList}">
                                                                 <div class="people-box">
-                                                                    <div>
-                                                                        <div class="people-image">
-                                                                            <img src="../assets/images/review/1.jpg"
-                                                                                class="img-fluid blur-up lazyload"
-                                                                                alt="">
-                                                                        </div>
-                                                                    </div>
+                                                                   
 
-                                                                    <div class="people-comment">
+																	
+                                                                    <div  class="people-comment">
                                                                         <a class="name"
-                                                                            href="javascript:void(0)">류포비</a>
+                                                                            href="javascript:void(0)" th:text="${rdto.customerEmail}"> </a>
+                                                                            
                                                                         <div class="date-time">
-                                                                            <h6 class="text-content">2022년 10월 10일</h6>
+                                                                        
+                                                                            <h6 class="text-content" th:text="${#dates.format(rdto.regDate, 'yyyy-MM-dd')}"></h6>
 
                                                                             <div class="product-rating">
                                                                                 <ul class="rating">
                                                                                     <li>
                                                                                         <i data-feather="star"
-                                                                                            class="fill"></i>
+                                                                                            class="fill"></i>평점:<a th:text="${rdto.rating}" ></a>
                                                                                     </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
+                                                                                    
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="reply">
-                                                                            <p>너무 마음에 들어요 다음에 또 이용할게요^^<a
+                                                                        <div class="reply" th:text="${rdto.content}">
+                                                                            <p><a
                                                                                     href="javascript:void(0)">Reply</a>
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <div class="people-box">
-                                                                    <div>
-                                                                        <div class="people-image">
-                                                                            <img src="../assets/images/review/2.jpg"
-                                                                                class="img-fluid blur-up lazyload"
-                                                                                alt="">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="people-comment">
-                                                                        <a class="name"
-                                                                            href="javascript:void(0)">Olivia</a>
-                                                                        <div class="date-time">
-                                                                            <h6 class="text-content">01 May, 2022 at
-                                                                                08.31 AM</h6>
-                                                                            <div class="product-rating">
-                                                                                <ul class="rating">
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="reply">
-                                                                            <p>Tootsie roll cake danish halvah powder
-                                                                                Tootsie roll candy marshmallow cookie
-                                                                                brownie apple pie pudding brownie
-                                                                                chocolate bar. Jujubes gummi bears I
-                                                                                love powder danish oat cake tart
-                                                                                croissant.<a
-                                                                                    href="javascript:void(0)">Reply</a>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-
-                                                            <li>
-                                                                <div class="people-box">
-                                                                    <div>
-                                                                        <div class="people-image">
-                                                                            <img src="../assets/images/review/3.jpg"
-                                                                                class="img-fluid blur-up lazyload"
-                                                                                alt="">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="people-comment">
-                                                                        <a class="name"
-                                                                            href="javascript:void(0)">Gabrielle</a>
-                                                                        <div class="date-time">
-                                                                            <h6 class="text-content">21 May, 2022 at
-                                                                                05.52 PM</h6>
-
-                                                                            <div class="product-rating">
-                                                                                <ul class="rating">
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"
-                                                                                            class="fill"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <i data-feather="star"></i>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="reply">
-                                                                            <p>Biscuit chupa chups gummies powder I love
-                                                                                sweet pudding jelly beans. Lemon drops
-                                                                                marzipan apple pie gingerbread macaroon
-                                                                                croissant cotton candy pastry wafer.
-                                                                                Carrot cake halvah I love tart caramels
-                                                                                pudding icing chocolate gummi bears.
-                                                                                Gummi bears danish cotton candy muffin
-                                                                                marzipan caramels awesome feel. <a
-                                                                                    href="javascript:void(0)">Reply</a>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
+                                                                    
+                                                                    
                                                                 </div>
                                                             </li>
                                                         </ul>

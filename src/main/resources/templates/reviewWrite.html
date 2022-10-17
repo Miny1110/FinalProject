@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0119)http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/reviewWrite.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fastkart">
-    <meta name="keywords" content="Fastkart">
-    <meta name="author" content="Fastkart">
-    <link rel="icon" href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/assets/images/favicon/1.png" type="image/x-icon">
-    <title>Cart</title>
+<html lang="en">
+
+<head>
+    <div th:replace="head.html :: headFragment"></div>
+    <title>리뷰쓰기</title>
+
 
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com/">
@@ -35,6 +31,7 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="./reviewWritehtml_files/style.css">
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylecj.css">
+    
 </head>
 
 <body>
@@ -1033,7 +1030,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="review-title">
-                        <h2>리뷰작성</h2>
+                       <br> <h2>리뷰작성</h2>
                        
                        
                     </div>
@@ -1049,8 +1046,10 @@
             <div class="row g-sm-5 g-3">
                 <div class="col-xxl-9">
                     <div class="cart-table">
+                    <form action="reviewWrite_ok" method="post">
+                    	<input type="hidden" th:value="${itemNum}" name="itemNum">
                         <div class="table-responsive-xl">
-                                    <select name="score">
+                                    <select name="raitng">
                                         <option value="">평점을 선택해주세요</option>
                                         <option value="1.0">1.0</option>
                                         <option value="1.5">1.5</option>
@@ -1066,39 +1065,21 @@
 
                             <div class="col-12">
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1"
-                                        placeholder="Give your review a title">
-                                    <label for="review1">제목을 입력해주세요 (30자 이내)</label>
-                                </div>
-                            </div>
-                            <br/><br/>
-                            <div class="col-12">
-                                <div class="form-floating theme-form-floating">
                                     <textarea class="form-control"
                                         placeholder="Leave a comment here"
                                         id="floatingTextarea2"
-                                        style="height: 150px"></textarea>
+                                        style="height: 150px"
+                                        name="content"></textarea>
                                     <label for="floatingTextarea2">내용을 입력해주세요 (300자 이내)</label>
                                 </div>
                                 <br>
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="file" > 
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div><br>
                         <div>
-                            <button class="btn-ani" type="button" onclick="location.href = 'product-bottom-thumbnail.html';">등록하기</button>
+                            <button class="btn-anii" type="submit">등록하기</button>
                         </div>
-
-
-
-
-
-
-
-                        
+						</form>
                     </div>
                 </div>
 

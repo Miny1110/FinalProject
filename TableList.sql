@@ -27,6 +27,7 @@ itemImage5 varchar2(20),
 detailImage varchar2(20),
 itemHitcount NUMBER (10),
 itemStock NUMBER(10),
+
 itemState varchar2(30),
 todaydeal varchar2(30),
 itemColor varchar2(100),
@@ -75,6 +76,7 @@ FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL)
 ON DELETE CASCADE);
 
 
+
 //SERVICENOTICE
 CREATE TABLE ServiceNotice(
 serviceNoticeNum number NOT NULL PRIMARY KEY,
@@ -95,4 +97,5 @@ deliverZipCode VARCHAR2(10),
 deliverTel VARCHAR2(45),
 FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
 ON DELETE CASCADE);
+
 

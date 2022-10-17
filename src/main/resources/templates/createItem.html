@@ -50,34 +50,34 @@
 	
 		var f = document.myForm;
 		
-		str = f.subject.value;
+		str = f.itemName.value;
 		str = str.trim();
 		if(!str) {
 			alert("\n상품명을 입력하세요");
-			f.subject.focus();
+			f.itemName.focus();
 			return;
 		}
-		f.subject.value = str;
+		f.itemName.value = str;
 	
-		str = f.price.value;
+		str = f.itemPrice.value;
 		str = str.trim();
 		if(!str) {
 			alert("\n상품가격을 입력하세요");
-			f.price.focus();
+			f.itemPrice.focus();
 			return;
 		}
-		f.price.value = str;
+		f.itemPrice.value = str;
 		
-		str = f.inventory.value;
+		str = f.itemStock.value;
 		str = str.trim();
 		if(!str) {
 			alert("\n재고수량을 입력하세요");
-			f.inventory.focus();
+			f.itemStock.focus();
 			return;
 		}
-		f.inventory.value = str;
+		f.itemStock.value = str;
 		
-		f.action = "/itemDetail";
+		f.action = "/createItem_ok";
 	
 		f.submit();
 	}
@@ -1141,7 +1141,7 @@
                             <div class="col-12">
                                 <h3><b>상품명</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1" name="subject"
+                                    <input type="url" class="form-control" id="review1" name="itemName"
                                         placeholder="Give your review a title">
                                     <label for="review1">상품명 입력</label>
                                 </div>
@@ -1204,7 +1204,7 @@
                             <div class="col-12">
                                 <h3><b>상품가격</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1" name="price"
+                                    <input type="url" class="form-control" id="review1" name="itemPrice"
                                         placeholder="Give your review a title">
                                     <label for="review1">상품가격</label>
                                 </div>
@@ -1212,7 +1212,7 @@
                             <div class="col-12">
                                 <h3><b>할인가격</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <input type="url" class="form-control" id="review1"
+                                    <input type="url" class="form-control" id="review1" name="itemDiscount"
                                         placeholder="Give your review a title">
                                     <label for="review1">할인가격</label>
                                 </div>
@@ -1221,7 +1221,7 @@
                             <div class="col-12">
                                 <h4><b>간략한 제품설명</b></h4><br>
                                 <div class="form-floating theme-form-floating">
-                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                    <textarea class="form-control" placeholder="Leave a comment here" name="itemContent"
                                         id="floatingTextarea2" style="height: 150px"></textarea>
                                     <label for="floatingTextarea2">내용을 입력해주세요 (300자 이내)</label>
                                 </div>
@@ -1230,7 +1230,7 @@
                                     <h4><b>메인이미지 업로드 1</b></h4>
                                     <b>사진사이즈:750x750</b><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="itemImage1">
                                     </div>
                                 </div>
                                 <hr>
@@ -1238,7 +1238,7 @@
                                     <h4><b>메인이미지 업로드 2</b></h4>
                                     <b>사진사이즈:750x750</b><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="itemImage2">
                                     </div>
                                 </div>
                                 <hr>
@@ -1246,7 +1246,7 @@
                                     <h4><b>메인이미지 업로드 3</b></h4>
                                     <b>사진사이즈:750x750</b><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="itemImage3">
                                     </div>
                                 </div>
                                 <hr>
@@ -1254,7 +1254,7 @@
                                     <h4><b>메인이미지 업로드 4</b></h4>
                                     <b>사진사이즈:750x750</b><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="itemImage4">
                                     </div>
                                 </div>
                                 <hr>
@@ -1262,14 +1262,14 @@
                                     <h4><b>메인이미지 업로드 5</b></h4>
                                     <b>사진사이즈:750x750</b><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="itemImage5">
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>상세페이지 이미지 업로드</b></h4><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file">
+                                        <input type="file" name="detailImage">
                                     </div>
                                 </div>
                                 
@@ -1278,8 +1278,8 @@
                                 <div class="col-12">
                                     <h3><b>재고수량</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="url" class="form-control" id="review1" name="inventory"
-                                            placeholder="Give your review a title">
+                                        <input type="url" class="form-control" id="review1" name="itemStock"
+                                            placeholder="Give your review a title" >
                                         <label for="review1">재고수량</label>
                                     </div>
                                     <hr>
@@ -1289,6 +1289,17 @@
                                     <h3><b>오늘의 딜 적용 여부</b></h3><br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="checkbox" name="todaydeal">&nbsp;&nbsp;&nbsp;<b>오늘의딜 적용</b>
+                                        <input type="checkbox" name="todaydeal">&nbsp;&nbsp;&nbsp;<b>오늘의딜 미적용</b>
+                                    </div>
+                                </div>
+                                <hr>
+                                
+                                <div class="col-12">
+                                    <h3><b>판매 상태 여부</b></h3><br>
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="checkbox" name="itemState">&nbsp;&nbsp;&nbsp;<b>판매중</b>
+                                        <input type="checkbox" name="itemState">&nbsp;&nbsp;&nbsp;<b>판매중지</b>
+                                        <input type="checkbox" name="itemState">&nbsp;&nbsp;&nbsp;<b>일시품절</b>
                                     </div>
                                 </div>
                                 <hr>
@@ -1298,7 +1309,7 @@
                                 <div class="dropdown theme-form-selectaccordion custome-accordion" id="accordionExample"
                                         style="width: 25%; float: left">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        data-bs-toggle="dropdown" aria-expanded="false" name="itemSize">
                                         <span>사이즈 옵션</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
@@ -1388,13 +1399,13 @@
                                  <div class="dropdown theme-form-selectaccordion custome-accordion" id="accordionExample"
                                         style="width: 25%; float: left">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        data-bs-toggle="dropdown" aria-expanded="false" name="itemColor">
                                         <span>색상 옵션</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
                                         <li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="블랙">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블랙">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">블랙</span>
                                                 </label>
@@ -1403,7 +1414,7 @@
                                         <br/>
                                         <li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="화이트">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="화이트">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">화이트</span>
                                                 </label>
@@ -1412,7 +1423,7 @@
                                         <br/>
                                        	<li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="우드">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="우드">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">우드</span>
                                                 </label>
@@ -1421,7 +1432,7 @@
                                         <br/>
                                         <li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="레드">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="레드">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">레드</span>
                                                 </label>
@@ -1430,7 +1441,7 @@
                                         <br/>
                                         <li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="블루">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블루">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">블루</span>
                                                 </label>
@@ -1439,7 +1450,7 @@
                                         <br/>
                                         <li>
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="그린">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="그린">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">그린</span>
                                                 </label>
@@ -1654,7 +1665,7 @@
                         <div style="text-align: center;">
                         <ul>
                         	<li>
-		                        <input type="button" value="등록하기" class="btn-review" onclick="sendIt();"/>
+		                        <input type="button" value="등록하기" id="insertItem" class="btn-review" onclick="sendIt();"/>
 							</li>
                             <li>	
 								<input type="reset" value="다시입력" class="btn-review" onclick="document.myForm.subject.focus();"/>

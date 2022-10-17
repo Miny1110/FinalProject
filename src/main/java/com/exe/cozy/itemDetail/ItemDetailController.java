@@ -16,7 +16,6 @@ import java.net.URLDecoder;
 import java.util.List;
 
 @Controller
-
 public class ItemDetailController {
 
     @Resource
@@ -29,14 +28,14 @@ public class ItemDetailController {
 
 
     //createItem 창으로 이동하는거
-    @GetMapping ("/createItem.*") /** item insert view*/
+    @GetMapping ("createItem") /** item insert view*/
     public ModelAndView createItem() throws Exception{
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("createItem");
         return mav;
     }
-    @PostMapping("/createItem_ok")
+    @PostMapping("createItem_ok")
     public ModelAndView createItem_ok(ItemDetailDto idto, HttpServletRequest request) throws Exception{
 
         ModelAndView mav = new ModelAndView();
@@ -45,12 +44,12 @@ public class ItemDetailController {
         idto.setItemNum(itemMaxNum + 1);
         itemDetailService.insertItem(idto);
 
-        mav.setViewName("redirect:/index");
+        mav.setViewName("redirect:itemDetail");
         return mav;
     }
     
 
-    @RequestMapping("/itemDetail") /**item 상세페에지 view*/
+    @RequestMapping("itemDetail") /**item 상세페에지 view*/
     public ModelAndView detail(HttpServletRequest request) throws Exception {
         int itemNum = Integer.parseInt(request.getParameter("itemNum"));
         /* detail 페이지 완성되면 이거 풀기
@@ -69,7 +68,7 @@ public class ItemDetailController {
         if(idto==null){
             ModelAndView mav = new ModelAndView();
             //일단은 index 로 리다이렉트 시키기
-            mav.setViewName("redirect:/index");
+            mav.setViewName("redirect:index");
             /* 상품 리스트 페이지 완성되면 주석 지우기
             mav.setViewName("redirect:/index?pageNum="+pageNum); */
             return mav;

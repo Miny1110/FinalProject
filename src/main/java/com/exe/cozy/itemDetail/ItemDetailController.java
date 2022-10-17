@@ -35,6 +35,7 @@ public class ItemDetailController {
         mav.setViewName("createItem");
         return mav;
     }
+    //상품등록 후 창 이동하기
     @PostMapping("createItem_ok")
     public ModelAndView createItem_ok(ItemDetailDto idto, HttpServletRequest request) throws Exception{
 
@@ -44,10 +45,9 @@ public class ItemDetailController {
         idto.setItemNum(itemMaxNum + 1);
         itemDetailService.insertItem(idto);
 
-        mav.setViewName("redirect:itemDetail");
+        mav.setViewName("redirect:/");
         return mav;
-    }
-    
+    }   
 
     @RequestMapping("itemDetail") /**item 상세페에지 view*/
     public ModelAndView detail(HttpServletRequest request) throws Exception {

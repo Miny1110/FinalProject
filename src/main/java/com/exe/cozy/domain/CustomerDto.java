@@ -13,7 +13,7 @@ public class CustomerDto {
 	private String customerPwd;
 	private String customerName;
 	private String customerTel;
-	private int customerZipCode;
+	private String customerZipCode;
 	private String customerRAddr;
 	private String customerJAddr;
 	private String customerDAddr;

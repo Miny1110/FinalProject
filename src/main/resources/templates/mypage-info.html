@@ -307,7 +307,7 @@
                                                                 <td th:text="${customerDto.customerEmail}"></td>
                                                             </tr><tr>
                                                                 <td>비밀번호:</td>
-                                                                <td th:text="${#strings.replace(customerDto.customerPwd,customerDto.customerPwd,'*')}"></td>
+                                                                <td th:text="${customerDto.customerPwd}"></td>
                                                             </tr><tr>
                                                                 <td>연락처:</td>
                                                                 <td th:text="${customerDto.customerTel}"></td>

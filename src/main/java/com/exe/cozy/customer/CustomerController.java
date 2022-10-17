@@ -205,6 +205,15 @@ public class CustomerController {
     	
     	CustomerDto customerDto = customerService.getReadData(customerEmail);
     	
+    	//비밀번호 *로 변환
+    	String customerPwd = customerDto.getCustomerPwd();
+    	int customerPwdLen = customerPwd.length();
+    	String changePwd = "";
+    	for(int i=0;i<customerPwdLen;i++) {
+    		changePwd += "*";
+    	}
+    	customerDto.setCustomerPwd(changePwd);
+    	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
     	

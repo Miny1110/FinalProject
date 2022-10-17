@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.exe.cozy.deliver.DeliveryService;
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.mail.MailService;
@@ -40,6 +42,9 @@ public class CustomerController {
 	
 	@Resource
 	private MailService mailService;
+	
+	@Resource
+	private DeliveryService deliveryService;
 	
 	@Autowired
 	AddDate addDate;
@@ -262,6 +267,24 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	customerService.updateData(dto);
+    	
+    	//주소 입력했으면 Deliver 테이블에 insert
+    	if(dto.getCustomerZipCode()!=null) {
+    		DeliverDto ddto = new DeliverDto();
+    		
+    		int maxNum = deliveryService.maxNumDeliver();
+    				
+    		ddto.setDeliverNum(maxNum+1);
+    		ddto.setCustomerEmail(dto.getCustomerEmail());
+    		ddto.setDeliverName(dto.getCustomerName());
+    		ddto.setDeliverRAddr(dto.getCustomerRAddr());
+    		ddto.setDeliverJAddr(dto.getCustomerJAddr());
+    		ddto.setDeliverDAddr(dto.getCustomerDAddr());
+    		ddto.setDeliverZipCode(dto.getCustomerZipCode());
+    		ddto.setDeliverTel(dto.getCustomerTel());
+    		
+    		deliveryService.insertDeliver(ddto);
+    	}
     	
     	mav.setViewName("redirect:info");
     	

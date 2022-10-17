@@ -6,12 +6,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DeliverDto {
-private int deliverNum;
-private String customerEmail;
-private String deliverType; //이게...기본배송지긴한디...
-private String deliverName;
-private String deliverAddr1;
-private String deliverAddr2;
-private String deliverAddrd;
-private int deliverTel;
+	
+	private int deliverNum;
+	private String customerEmail;
+	private String deliverName;
+	private String deliverRAddr;
+	private String deliverJAddr;
+	private String deliverDAddr;
+	private String deliverZipCode;
+	private String deliverTel;
+	
 }

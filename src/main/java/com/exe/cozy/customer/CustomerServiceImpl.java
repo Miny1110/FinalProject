@@ -33,9 +33,8 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	
 	@Override
-	public CustomerDto updatePwd(String customerEmail) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updatePwd(CustomerDto dto) {
+		customerMapper.updatePwd(dto);
 	}
 
 	@Override

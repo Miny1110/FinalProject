@@ -21,7 +21,7 @@ public class ReplyController {
 	@GetMapping("/reviewWrite")
 	public ModelAndView insertReply(int itemNum) throws Exception {
 
-		System.out.println("get"+ itemNum);
+		//System.out.println("get"+ itemNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reviewWrite");
 		mav.addObject("itemNum",itemNum);
@@ -32,12 +32,14 @@ public class ReplyController {
     public ModelAndView reviewWrite_ok(ReplyDto rdto, HttpServletRequest request) throws Exception{
 
         ModelAndView mav = new ModelAndView();
-       
+        int replyMaxNum =replyService.replyMaxNum();
+        rdto.setReplyId(replyMaxNum + 1);
+        rdto.setCustomerEmail("test");
 
        
        replyService.insertReply(rdto);
 
-        mav.setViewName("redirect:/index");
+        mav.setViewName("redirect:/");
         return mav;
     }
 

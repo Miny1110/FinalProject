@@ -14,7 +14,7 @@ public class ReplyDto {
 	private String customerEmail;
 	private Date regDate;
 	private String content;
-	private int rating;
+	private String rating;
 	
 	
 }

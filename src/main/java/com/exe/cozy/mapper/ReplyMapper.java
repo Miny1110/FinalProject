@@ -10,6 +10,7 @@ import com.exe.cozy.domain.ReplyDto;
 @Mapper
 public interface ReplyMapper {
 
+	public int replyMaxNum() throws Exception;
 	public void insertReply(ReplyDto rdto)throws Exception;
 
 	public int checkReply(ReplyDto rdto);

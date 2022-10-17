@@ -1,5 +1,6 @@
 package com.exe.cozy.customer;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -250,6 +251,31 @@ public class CustomerController {
     	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 회원정보수정
+    @PostMapping("info")
+    public ModelAndView info(@ModelAttribute CustomerDto dto) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	customerService.updateData(dto);
+    	
+    	mav.setViewName("redirect:info");
+    	
+    	return mav;
+    	
+    }
+    
+    //마이페이지 배송지관리
+    @GetMapping("address")
+    public ModelAndView address(HttpSession session) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-address");
     	
     	return mav;
     }

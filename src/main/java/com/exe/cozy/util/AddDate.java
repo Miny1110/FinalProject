@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AddDate {
 	
 	/* 포인트 endDate 구하는 메소드 */
-	public String addDate(int addDate) {
+	public Date addDate(int addDate) {
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
@@ -20,7 +20,7 @@ public class AddDate {
 //		cal.add(Calendar.MONTH, 2);
 		cal.add(Calendar.DATE, 30);
 		
-		return df.format(cal.getTime());
+		return cal.getTime();
 	}
 	
 

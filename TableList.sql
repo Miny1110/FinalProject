@@ -32,8 +32,8 @@ itemHitcount NUMBER (10),
 itemStock NUMBER(10),
 itemState varchar2(20),
 todaydeal NUMBER(10),
-itemColor varchar2(20),
-itemSize varchar2(20));
+itemColor varchar2(100),
+itemSize varchar2(100));
 
 //CART
 CREATE TABLE CART

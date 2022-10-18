@@ -269,8 +269,27 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지 배송지 추가
+    @PostMapping("addressIn")
+    public ModelAndView adressIn(DeliverDto ddto,HttpSession session) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	int maxNum = deliveryService.maxNumDeliver();
+		
+		ddto.setDeliverNum(maxNum+1);
+		ddto.setCustomerEmail(customerEmail);
+
+		deliveryService.insertDeliver(ddto);
+    	
+    	mav.setViewName("redirect:address");
+    	
+    	return mav;
+    }
+    
     //마이페이지 배송지 삭제
-    @PostMapping("address")
+    @PostMapping("addressDel")
     public ModelAndView addressDel(int deliverNum) {
     	
     	ModelAndView mav = new ModelAndView();

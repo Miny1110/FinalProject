@@ -17,8 +17,8 @@
     </insert>
     
     <select id="listDeliver" parameterType="String" resultType="DeliverDto">
-        select deliverName,deliverRAddr,deliverJAddr,deliverDAddr,deliverZipCode,deliverTel
-        from deliver where customerEmail =#{customerEmail}
+        select deliverNum,deliverName,deliverRAddr,deliverJAddr,deliverDAddr,deliverZipCode,deliverTel
+        from deliver where customerEmail=#{customerEmail}
     </select>
 
 	<delete id="deleteDeliver" parameterType="int">

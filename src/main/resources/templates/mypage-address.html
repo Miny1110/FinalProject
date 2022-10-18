@@ -13,6 +13,8 @@
     	visibility: hidden !important;
 	}
 	</style>
+	
+
 </head>
 
 <body class="" style="">
@@ -144,41 +146,49 @@
                                             </span>
                                         </div>
 
-                                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3" data-bs-toggle="modal" data-bs-target="#add-address"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> 배송지 추가</button>
+                                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3" data-bs-toggle="modal" data-bs-target="#add-address"
+                                        id="insertDeliver">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        배송지 추가</button>
                                     </div>
 
                                     <div class="row g-sm-4 g-3">
                                     
                                     	<!-- 배송지 출력 반복 시작 -->
-                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12" th:if="${#lists.size(lists)>0}" th:each="deliverDto:${lists}">
+                                        <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12" th:if="${#lists.size(lists)>0}" th:each="deliverDto, i:${lists}">
+                                                    	
                                             <div class="address-box">
                                                 <div>
                                                     <div class="table-responsive address-table">
-                                                        <table class="table">
-                                                            <tbody id="lists">
-                                                                <tr>
-                                                                    <td colspan="2" th:text="${deliverDto.deliverName}">수령자이름</td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>주소 :</td>
-                                                                    <td>
-                                                                        <p th:text="${deliverDto.deliverRAddr}"></p>
-                                                                        <p th:text="${deliverDto.deliverDAddr}"></p>
-                                                                    </td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>우편번호 :</td>
-                                                                    <td th:text="${deliverDto.deliverZipCode}"></td>
-                                                                </tr>
-
-                                                                <tr>
-                                                                    <td>연락처 :</td>
-                                                                    <td th:text="${deliverDto.deliverTel}"></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                    	<form action="" name="deleteForm" method="post">
+                                                        	<table class="table">
+	                                                            <tbody id="lists">
+	                                                                <tr>
+	                                                                    <td colspan="2" th:text="${deliverDto.deliverName}">수령자이름</td>
+	                                                                    <td><input type="hidden" id="deliverNum" name="deliverNum" th:value="${deliverDto.deliverNum}"></td>
+	                                                                </tr>
+	
+	                                                                <tr>
+	                                                                    <td>주소 :</td>
+	                                                                    <td>
+	                                                                        <p th:text="${deliverDto.deliverRAddr}"></p>
+	                                                                        <p th:text="${deliverDto.deliverDAddr}"></p>
+	                                                                    </td>
+	                                                                </tr>
+	
+	                                                                <tr>
+	                                                                    <td>우편번호 :</td>
+	                                                                    <td th:text="${deliverDto.deliverZipCode}"></td>
+	                                                                </tr>
+	
+	                                                                <tr>
+	                                                                    <td>연락처 :</td>
+	                                                                    <td th:text="${deliverDto.deliverTel}"></td>
+	                                                                </tr>
+	                                                            </tbody>
+                                                        	</table>
+                                                    	</form>
                                                     </div>
                                                 </div>
 
@@ -188,13 +198,14 @@
                                                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                         수정하기</button>
-                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal" data-bs-target="#removeAddress" data-id="deliverDto.deliverNum">
+                                                    <button class="btn btn-sm add-button w-100" type="button" th:onclick="|deliverDel(${i.index})|">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
                                                     <polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                                                     <line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                        삭제하기</button>
+                                                     삭제하기</button>
                                                 </div>
                                             </div>
+                                                      
                                         </div>
                                         <!-- 배송지 출력 반복 끝 -->
                                     </div>
@@ -213,78 +224,6 @@
     <!-- Footer Section End -->
 
     <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                        <p class="mt-1 text-content">Recommended deals for you.</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Deal Box Modal End -->
 
     <!-- Tap to top start -->
@@ -302,7 +241,7 @@
     <!-- Bg overlay End -->
 
     <!-- 배송지추가 모달 시작 -->
-    <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header">
@@ -311,158 +250,66 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                    	<input type="hidden" name="deliverNum" value="${deliverDto.deliverNum}">
-                        <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control" id="fname" placeholder="이름을 입력하세요">
-                            <label for="fname">수령자</label>
-                        </div>
-                    </form>
-
-                    <form>
-                        <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
-                            <label for="lname">연락처</label>
-                        </div>
-                    </form>
-                    
-                    <form style="margin: 0;">
-                        <div class="col-xxl-8 form-floating mb-4 theme-form-floating" style="display: inline-block">
-                            <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
-                            <label for="pin">우편번호</label>
-                        </div>
-                        <div class="col-xxl-3" style="display: inline-block; margin-left: 10;">
-                            <div class="form-floating theme-form-floating" >
-                            <button type="button" class="btn btn-mb theme-bg-color fw-bold text-light" style="padding: 13 19">우편번호찾기</button></div>
-                        </div>
-                    </form>
-                    <form>
-                        <div class="form-floating mb-4 theme-form-floating">
-                            <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
-                            <label for="pin">주소</label>
-                        </div>
-                    </form>
-                    
-                    <form>
-                        <div class="form-floating mb-4 theme-form-floating">
-                            <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
-                            <label for="pin">상세주소</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn theme-bg-color btn-sm text-white" data-bs-dismiss="modal">추가</button>
-                </div>
+                <form method="post" th:object="${DeliverDto}" name="insertForm">
+	                <div class="modal-body">
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                            <input type="text" class="form-control" id="deliverName"
+	                            name="deliverName" onblur="nameChk();">
+	                            <label for="fname">수령자</label>
+	                        </div>
+	                        <div style="margin-top: 5;" id="nameMsg"></div>
+	                        
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                            <input type="text" class="form-control" id="deliverTel"
+	                            name="deliverTel">
+	                            <label for="lname">연락처</label>
+	                        </div>
+	                        <div style="margin-top: 5;" id="telMsg"></div>
+	                        
+	                        <div class="col-xxl-8 form-floating mb-4 theme-form-floating" style="display: inline-block;" >
+	                            <input type="text" class="form-control" id="deliverZipCode"
+	                            name="deliverZipCode">
+	                            <label for="pin">우편번호</label>
+	                        </div>
+	                        
+	                        <div class="col-xxl-3" style="display: inline-block; margin-left: 10;">
+	                            <div class="form-floating theme-form-floating" >
+	                            <button type="button" class="btn btn-mb theme-bg-color fw-bold text-light" style="padding: 13 19"
+	                            onclick="sample4_execDaumPostcode();">우편번호찾기</button></div>
+	                        </div>
+	                        
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                            <input type="text" class="form-control" id="deliverRAddr"
+	                            name="deliverRAddr">
+	                            <label for="pin">도로명주소</label>
+	                        </div>
+	                        <div style="margin-top: 5;" id="addrMsg"></div>
+	                        
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                            <input type="text" class="form-control" id="deliverJAddr"
+	                            name="deliverJAddr">
+	                            <label for="pin">지번주소</label>
+	                        </div>
+	                        
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                            <input type="text" class="form-control" id="deliverDAddr"
+	                            name="deliverDAddr">
+	                            <label for="pin">상세주소</label>
+	                        </div>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
+	                    <button type="button" class="btn theme-bg-color btn-sm text-white" data-bs-dismiss="modal"
+	                    onclick="sendIt();">추가</button>
+	                </div>
+                </form>
             </div>
         </div>
     </div>
     <!-- 배송지추가 모달 끝 -->
 
     <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Location Modal End -->
-
-   
-
-    
 
     <!-- Remove Profile Modal Start -->
     <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -586,15 +433,182 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    
 
-
+<!-- 
 	<script type="text/javascript">
-	$(".btn btn-sm add-button w-100").click(function(){
-		var data = $(this).data('id');
-	    $("#contents.body-contents").val(data);
-	    $("#text-contents.body-contents").html(data);
+	
+	//배송지 5개 이상이면 모달창 끄기
+	$('#add-address').on('shown.bs.modal',function(){
+		if(lists.length>=5){
+			alert('배송지는 최대 5개까지만 등록 가능합니다.');
+			$('#add-address').modal('hide');
+			return;
+		}
+		alert("등록가능");
 	});
+	
+	</script>
+ -->
+	<script type="text/javascript">
+	function deliverDel(num){
+		var f = document.deleteForm[num];
+		
+		var msg ="삭제하시겠습니까? \n삭제 후 복구할 수 없습니다.";
+		
+		if(!confirm(msg)){
+			alert("취소되었습니다.");
+			event.preventDefault();
+			return;
+		}else{
+			alert("삭제되었습니다.");
+			f.action="addressDel";
+			f.submit();
+		}
+	}
 	</script>
 
+<!-- 	
+	
+	<script type="text/javascript">
+	//이름 유효성 검사
+    function nameChk(){
+        var name =$("#deliverName").val();
+        var nameMsg =$("#nameMsg");
+
+        if(!name){
+            nameMsg.html("주문자 이름을 입력해주세요");
+            $("#nameMsg").css("color","#ff7474");
+        }else if(!isValidKorean(name)){
+            nameMsg.html("이름은 한국어로만 입력 가능합니다.");
+            $("#nameMsg").css("color","#ff7474");
+            $("#deliverName").val("");
+        }else {
+            nameMsg.html("");
+        }
+        return;
+    }
+	
+    // 전화번호 체크
+    function telChk(){
+        var tel = $("#deliverTel").val();
+        var telMsg = $("#telMsg");
+
+        if(!tel){
+            telMsg.html("주문자 전화번호를 입력해주세요.(예: 01012345678)");
+            $("#telMsg").css("color","#ff7474");
+        }else if(!isValidTel(tel)){
+            telMsg.html("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
+            $("#telMsg").css("color","#ff7474");
+            $("#deliverTel").val("");
+        }else{
+            telMsg.html("");
+        }
+        return;
+    }
+
+    // 배송지 체크
+    function addrChk(){
+        var RAddr = $("#deliverRAddr").val();
+        var JAddr = $("#deliverJAddr").val();
+        var DAddr = $("#deliverDAddr").val();
+        var ZipCode = $("#deliverZipCode").val();
+        var addrMsg =$("#addrMsg");
+
+        if(!RAddr || !ZipCode){
+            addrMsg.html("주문자 주소를 입력해주세요");
+            $("#addrMsg").css("color","#ff7474");
+        }else{
+            addrMsg.html("");
+        }
+        return;
+    }
+	
+    /* 배송지 등록 성공 */
+    function sendIt(){
+        var f = document.insertForm;
+
+        var name = $("#deliverName").val();
+        var tel = $("#deliverTel").val();
+        var ZipCode = $("#deliverZipCode").val();
+		
+        if(!name || !tel || !ZipCode){
+        	alert("내용을 입력해주세요.");
+            event.preventDefault();
+            return;
+        }
+        
+	    alert(name + "님 신규 배송지가 등록되었습니다.");
+	    
+	   	f.action="addressIn";
+	    f.submit();
+        	
+        }
+    }
+	</script>
+	 -->
+	
+<!-- 	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+		//주소API
+		
+		//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+		function sample4_execDaumPostcode() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+					// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var roadAddr = data.roadAddress; // 도로명 주소 변수
+					var extraRoadAddr = ''; // 참고 항목 변수
+
+ 					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+					if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+						extraRoadAddr += data.bname;
+					}
+					// 건물명이 있고, 공동주택일 경우 추가한다.
+					if(data.buildingName !== '' && data.apartment === 'Y'){
+     					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					}
+					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+					if(extraRoadAddr !== ''){
+						extraRoadAddr = ' (' + extraRoadAddr + ')';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('deliverZipCode').value = data.zonecode;
+					document.getElementById("deliverRAddr").value = roadAddr;
+					document.getElementById("deliverJAddr").value = data.jibunAddress;
+
+					// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+					if(roadAddr !== ''){
+						document.getElementById("deliverDAddr").value = extraRoadAddr;
+					} else {
+						document.getElementById("deliverDAddr").value = '';
+					}
+
+					var guideTextBox = document.getElementById("guide");
+					// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+					if(data.autoRoadAddress) {
+						var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+						guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+						guideTextBox.style.display = 'block';
+					} else if(data.autoJibunAddress) {
+						var expJibunAddr = data.autoJibunAddress;
+						guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+						guideTextBox.style.display = 'block';
+					} else {
+						guideTextBox.innerHTML = '';
+						guideTextBox.style.display = 'none';
+					}
+				}
+			}).open();
+		}
+	</script>
+ -->
 <!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->
 </body></html>

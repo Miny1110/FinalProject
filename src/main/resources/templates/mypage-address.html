@@ -252,50 +252,64 @@
                 </div>
                 <form method="post" th:object="${DeliverDto}" name="insertForm">
 	                <div class="modal-body">
+	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverName"
 	                            name="deliverName" onblur="nameChk();">
 	                            <label for="fname">수령자</label>
 	                        </div>
 	                        <div style="margin-top: 5;" id="nameMsg"></div>
-	                        
+	                    </div>
+	                    
+	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverTel"
 	                            name="deliverTel">
 	                            <label for="lname">연락처</label>
 	                        </div>
 	                        <div style="margin-top: 5;" id="telMsg"></div>
+	                    </div>
 	                        
+	                    <div class="col-xxl-8">
 	                        <div class="col-xxl-8 form-floating mb-4 theme-form-floating" style="display: inline-block;" >
 	                            <input type="text" class="form-control" id="deliverZipCode"
 	                            name="deliverZipCode">
 	                            <label for="pin">우편번호</label>
 	                        </div>
+	                    </div>
 	                        
+	                    <div class="col-xxl-4">
 	                        <div class="col-xxl-3" style="display: inline-block; margin-left: 10;">
 	                            <div class="form-floating theme-form-floating" >
 	                            <button type="button" class="btn btn-mb theme-bg-color fw-bold text-light" style="padding: 13 19"
 	                            onclick="sample4_execDaumPostcode();">우편번호찾기</button></div>
 	                        </div>
+	                    </div>
 	                        
+	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverRAddr"
 	                            name="deliverRAddr">
 	                            <label for="pin">도로명주소</label>
 	                        </div>
 	                        <div style="margin-top: 5;" id="addrMsg"></div>
-	                        
+	                    </div>
+	                    
+	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverJAddr"
 	                            name="deliverJAddr">
 	                            <label for="pin">지번주소</label>
 	                        </div>
+	                    </div>
 	                        
+	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverDAddr"
 	                            name="deliverDAddr">
 	                            <label for="pin">상세주소</label>
 	                        </div>
+	                    </div>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>

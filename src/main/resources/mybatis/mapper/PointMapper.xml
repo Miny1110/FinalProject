@@ -27,10 +27,8 @@
 	
 	<!-- 포인트 내역 출력 -->
 	<select id="getList" parameterType="map" resultType="PointDto">
-		select pointTitle,pointContent,pointAmount,pointState,
-		pointDate,
-		pointStartDate,
-		pointEndDate
+		select pointTitle,pointContent,pointAmount,
+		pointDate,pointStartDate,pointEndDate
 		from point where customerEmail=#{customerEmail}
 		order by pointDate desc
 	</select>

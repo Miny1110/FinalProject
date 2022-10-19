@@ -1,12 +1,10 @@
-package com.exe.cozy.mapper;
-
-import com.exe.cozy.domain.DeliverDto;
-import org.apache.ibatis.annotations.Mapper;
+package com.exe.cozy.deliver;
 
 import java.util.List;
 
-@Mapper
-public interface DeliverMapper {
+import com.exe.cozy.domain.DeliverDto;
+
+public interface DeliveryService {
     public int maxNumDeliver();
     public void insertDeliver(DeliverDto ddto);
 

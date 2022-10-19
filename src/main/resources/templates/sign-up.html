@@ -137,7 +137,7 @@
 	}
 	
 	/* 연락처 인증번호 */
-/* 	function telChkBtn(){
+ 	function telChkBtn(){
 		var customerTel = $("#customerTel").val();
 		var telChkMsg = document.querySelector("#telChkMsg");
 		var telMsg = document.querySelector("#telMsg");
@@ -180,7 +180,7 @@
 			}
 		});
 		return;
-	} */
+	} 
 
 	
 	/* 약관동의 & 회원가입 성공 */
@@ -209,8 +209,8 @@
 		var tel = $("#customerTel").val();
 		//var telChk = $("#customerTelChk").val();
 		
-//		if(!name || !email || !pwd || !pwdChk || !tel || !telChk){
-		if(!name || !email || !pwd || !pwdChk || !tel){
+		if(!name || !email || !pwd || !pwdChk || !tel || !telChk){
+//		if(!name || !email || !pwd || !pwdChk || !tel){
 			alert("내용을 입력해주세요");
 			event.preventDefault();
 			return;

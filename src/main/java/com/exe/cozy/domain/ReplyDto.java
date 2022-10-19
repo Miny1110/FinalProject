@@ -2,6 +2,11 @@ package com.exe.cozy.domain;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ReplyDto {
 
 	private int replyId;
@@ -9,7 +14,7 @@ public class ReplyDto {
 	private String customerEmail;
 	private Date regDate;
 	private String content;
-	private int rating;
+	private String rating;
 	
 	
 }

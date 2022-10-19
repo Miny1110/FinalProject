@@ -1,5 +1,7 @@
 package com.exe.cozy.domain;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +14,9 @@ public class PointDto {
 	private String pointContent;
 	private int pointAmount;
 	private String pointState;
-	private String pointDate;
-	private String pointStartDate;
-	private String pointEndDate;
+	private Date pointDate;
+	private Date pointStartDate;
+	private Date pointEndDate;
 	private String customerEmail;
 	
 }

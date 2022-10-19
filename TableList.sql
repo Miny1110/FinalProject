@@ -10,10 +10,7 @@ GRANT CONNECT,RESOURCE,DBA TO cozy;
 GRANT CREATE TABLE, CREATE VIEW TO cozy;
 GRANT CONNECT,DBA TO cozy;
 
-
-
-//item
-
+//ITEM
 CREATE TABLE ITEM
 (itemNum NUMBER(8) PRIMARY KEY,
 itemName varchar2(50),
@@ -22,18 +19,23 @@ itemSubType varchar2(20),
 itemPrice NUMBER(10),
 itemDiscount NUMBER(10),
 itemContent varchar2(50),
-itemImage1 varchar2(20),
-itemImage2 varchar2(20),
-itemImage3 varchar2(20),
-itemImage4 varchar2(20),
-itemImage5 varchar2(20),
-detailImage varchar2(20),
+itemImage1 varchar2(100),
+itemImage2 varchar2(100),
+itemImage3 varchar2(100),
+itemImage4 varchar2(100),
+itemImage5 varchar2(100),
+detailImage varchar2(100),
 itemHitcount NUMBER (10),
 itemStock NUMBER(10),
-itemState varchar2(20),
-todaydeal NUMBER(10),
-itemColor varchar2(20),
-itemSize varchar2(20));
+itemState varchar2(30),
+todaydeal varchar2(30),
+itemColor varchar2(100),
+itemSize varchar2(100));
+itemState varchar2(30),
+todaydeal varchar2(30),
+itemColor varchar2(100),
+itemSize varchar2(100));
+
 
 //CART
 CREATE TABLE CART
@@ -44,21 +46,23 @@ ITEMQTY NUMBER(20),
 FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL),
 FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
 
+
 //CUSTOMER
 CREATE TABLE CUSTOMER(
 CUSTOMEREMAIL VARCHAR2(100) PRIMARY KEY,
-CUSTOMERPWD VARCHAR(45),
+CUSTOMERPWD VARCHAR2(45),
 CUSTOMERNAME VARCHAR2(45),
 CUSTOMERTEL VARCHAR2(45),
-CUSTOMERZIPCODE INT(30),
+CUSTOMERZIPCODE VARCHAR2(10),
 CUSTOMERRADDR VARCHAR2(100),
 CUSTOMERJADDR VARCHAR2(100),
-CUSTOMERPADDR VARCHAR2(100),
+CUSTOMERDADDR VARCHAR2(100),
 CUSTOMERPROFILE VARCHAR2(100),
 CUSTOMERDATE DATE,
 CUSTOMERGRADE VARCHAR2(45),
-CUSTOMERTYPE INT(30),
-CUSTOMERPOINT INT(38));
+CUSTOMERTYPE NUMBER(30),
+CUSTOMERPOINT NUMBER(38));
+
 
 //POINT
 CREATE TABLE POINT (
@@ -73,3 +77,29 @@ POINTENDDATE DATE,
 CUSTOMEREMAIL VARCHAR2(100),
 FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL)
 ON DELETE CASCADE);
+
+
+
+//SERVICENOTICE
+CREATE TABLE ServiceNotice(
+serviceNoticeNum number NOT NULL PRIMARY KEY,
+serviceNoticeTitle VARCHAR2(150) NOT NULL,
+serviceNoticeContent VARCHAR2(3000) NOT NULL,
+serviceNoticeDate DATE DEFAULT SYSDATE);
+
+
+//DELIVER
+create table deliver(
+deliverNum number(10) primary key,
+customerEmail VARCHAR2(100),
+deliverName VARCHAR2(20),
+deliverRAddr VARCHAR2(100),
+deliverJAddr VARCHAR2(100),
+deliverDAddr VARCHAR2(100),
+deliverZipCode VARCHAR2(10),
+deliverTel VARCHAR2(45),
+deliverType VARCHAR2(45),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
+ON DELETE CASCADE);
+
+

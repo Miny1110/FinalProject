@@ -5,15 +5,33 @@
 
 <mapper namespace="com.exe.cozy.mapper.ReplyMapper">
 
-<!-- 리뷰등록 -->
-<insert id="insertReply">
+<!--새 리뷰 번호-->
+	<select id="replyMaxNum" resultType="int">
+		select nvl(max(replyId),0) from reply
+	</select>
 
-	insert into reply(replyId, itemNum, customerEmail, regDate,content,rating) 
-					values(#{replyId}, #{itemNum}, #{customerEmail}, #{regDate}, #{content}, #{rating})
+
+
+
+<!-- 리뷰등록 -->
+<insert id="insertReply" parameterType="ReplyDto" >
+
+	insert into reply(replyId, itemNum, customerEmail, regDate ,content,rating) 
+					values(#{replyId}, #{itemNum}, #{customerEmail},sysdate, #{content}, #{rating})
 </insert>
 
 
+<!-- 리뷰확인 -->
+<select id="checkReply" resultType="ReplyDto">
+	
+		select replyId from reply 
+		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
+	
+</select>
 
-
+<!--ItemNum 으로  읽기-->
+    <select id="getReadReplyData" parameterType="int" resultType="ReplyDto">
+        select replyId, itemNum, customerEmail, regDate, content, rating from reply where itemNum=#{itemNum}
+    </select>
 
 </mapper>

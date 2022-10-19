@@ -1,7 +1,7 @@
 package com.exe.cozy.itemDetail;
 
-import com.exe.cozy.cart.CartService;
 import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.util.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,27 +13,30 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
+import java.util.List;
 
 @Controller
-
 public class ItemDetailController {
 
     @Resource
     private ItemDetailService itemDetailService;
+    @Resource
+    private ReplyService replyService;
 
     @Autowired
     MyPage myPage;
 
 
     //createItem 창으로 이동하는거
-    @GetMapping ("/createItem.*") /** item insert view*/
+    @GetMapping ("createItem") /** item insert view*/
     public ModelAndView createItem() throws Exception{
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("createItem");
         return mav;
     }
-    @PostMapping("/createItem_ok")
+    //상품등록 후 창 이동하기
+    @PostMapping("createItem_ok")
     public ModelAndView createItem_ok(ItemDetailDto idto, HttpServletRequest request) throws Exception{
 
         ModelAndView mav = new ModelAndView();
@@ -42,11 +45,11 @@ public class ItemDetailController {
         idto.setItemNum(itemMaxNum + 1);
         itemDetailService.insertItem(idto);
 
-        mav.setViewName("redirect:/index");
+        mav.setViewName("redirect:/");
         return mav;
-    }
+    }   
 
-    @RequestMapping("/itemDetail") /**item 상세페에지 view*/
+    @RequestMapping("itemDetail") /**item 상세페에지 view*/
     public ModelAndView detail(HttpServletRequest request) throws Exception {
         int itemNum = Integer.parseInt(request.getParameter("itemNum"));
         /* detail 페이지 완성되면 이거 풀기
@@ -61,11 +64,11 @@ public class ItemDetailController {
         //itemDetailService.updateItemHitCount(itemNum);
         
         ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
-        
+        List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);
         if(idto==null){
             ModelAndView mav = new ModelAndView();
             //일단은 index 로 리다이렉트 시키기
-            mav.setViewName("redirect:/index");
+            mav.setViewName("redirect:index");
             /* 상품 리스트 페이지 완성되면 주석 지우기
             mav.setViewName("redirect:/index?pageNum="+pageNum); */
             return mav;
@@ -85,11 +88,14 @@ public class ItemDetailController {
         System.out.println(salePrice);
         ModelAndView mav = new ModelAndView();
 
+        System.out.println(rdtoList.get(0).getRegDate());
         mav.addObject("idto",idto);
+        mav.addObject("rdtoList",rdtoList);
         mav.addObject("salePrice",salePrice);
+        
         //mav.addObject("params",param);
         //mav.addObject("pageNum", pageNum);
-
+        
         mav.setViewName("itemDetail");
         return mav;
 

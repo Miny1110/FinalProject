@@ -177,11 +177,11 @@
                                                              </tr>
                                                               
                                                              <tr th:if="${#lists.size(lists)>0 and pointDto.pointState!='소멸'}" th:each="pointDto:${lists}">  
-                                                             	<td class="date" th:text="${pointDto.pointDate}"></td>
+                                                             	<td class="date" th:text="${#dates.format(pointDto.pointDate,'yyyy-MM-dd')}"></td>
                                                                 <td class="title">
                                                                     <span class="get">적립</span> <a th:text="${pointDto.pointTitle}"></a>
                                                                     <p class="content" th:text="${pointDto.pointContent}"></p>
-                                                                    <p th:text="|유효기간: ${pointDto.pointStartDate} ~ ${pointDto.pointEndDate}|"></p>
+                                                                    <p th:text="|유효기간: ${#dates.format(pointDto.pointStartDate,'yyyy-MM-dd')} ~ ${#dates.format(pointDto.pointEndDate,'yyyy-MM-dd')}|"></p>
                                                                 </td>
                                                                 <td class="plus" th:text="|+${pointDto.pointAmount}p|"></td>
                                                             </tr>

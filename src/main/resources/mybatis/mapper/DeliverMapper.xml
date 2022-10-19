@@ -10,12 +10,30 @@
     </select>
 
     <insert id="insertDeliver" parameterType="DeliverDto">
-        insert into deliver (deliverNum, customerEmail,deliverName,deliverType,deliverAddr1,deliverAddr2,deliverAddrd,delivertel)
-        values (#{deliverNum}, #{customerEmail}, #{deliverName},#{deliverType}, #{deliverAddr1}, #{deliverAddr2}, #{deliverAddrd}, #{delivertel})
+        insert into deliver (deliverNum,customerEmail,deliverName,deliverRAddr,
+        deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverType)
+        values (#{deliverNum},#{customerEmail},#{deliverName},#{deliverRAddr},
+        #{deliverJAddr},#{deliverDAddr},#{deliverZipCode},#{deliverTel},#{deliverType})
     </insert>
+    
     <select id="listDeliver" parameterType="String" resultType="DeliverDto">
-        select deliverName,deliverType,deliverAddr1,deliverAddr2,deliverAddrd,delivertel from deliver where customerEmail =#{customerEmail}
+        select deliverNum,deliverName,deliverRAddr,deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverType
+        from deliver where customerEmail=#{customerEmail}
     </select>
 
-
+	<delete id="deleteDeliver" parameterType="int">
+		delete deliver where deliverNum=#{deliverNum}
+	</delete>
+	
+	<update id="updateDeliver" parameterType="DeliverDto">
+		update deliver set deliverName=#{deliverName},deliverRAddr=#{deliverRAddr},
+		deliverJAddr=#{deliverJAddr},deliverDAddr=#{deliverDAddr},
+		deliverZipCode=#{deliverZipCode},deliverTel=#{deliverTel}
+		where deliverNum=#{deliverNum}
+	</update>
+	
+	<!-- 기본배송지 deliverNum 읽어오기 -->
+	<select id="selectDeliverType" parameterType="String" resultType="int">
+		select deliverNum from deliver where deliverType=#{deliverType}
+	</select>
 </mapper>

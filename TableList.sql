@@ -13,7 +13,7 @@ GRANT CONNECT,DBA TO cozy;
 //ITEM
 CREATE TABLE ITEM
 (itemNum NUMBER(8) PRIMARY KEY,
-itemName varchar2(50),
+itemName varchar2(100),
 itemMainType varchar2(20),
 itemSubType varchar2(20),
 itemPrice NUMBER(10),
@@ -23,7 +23,6 @@ itemImage1 varchar2(100),
 itemImage2 varchar2(100),
 itemImage3 varchar2(100),
 itemImage4 varchar2(100),
-itemImage5 varchar2(100),
 detailImage varchar2(100),
 itemHitcount NUMBER (10),
 itemStock NUMBER(10),
@@ -31,11 +30,6 @@ itemState varchar2(30),
 todaydeal varchar2(30),
 itemColor varchar2(100),
 itemSize varchar2(100));
-itemState varchar2(30),
-todaydeal varchar2(30),
-itemColor varchar2(100),
-itemSize varchar2(100));
-
 
 //CART
 CREATE TABLE CART

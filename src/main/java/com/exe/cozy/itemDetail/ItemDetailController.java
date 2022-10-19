@@ -88,7 +88,7 @@ public class ItemDetailController {
         System.out.println(salePrice);
         ModelAndView mav = new ModelAndView();
 
-        System.out.println(rdtoList.get(0).getRegDate());
+      //  System.out.println(rdtoList.get(0).getRegDate());
         mav.addObject("idto",idto);
         mav.addObject("rdtoList",rdtoList);
         mav.addObject("salePrice",salePrice);

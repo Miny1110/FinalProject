@@ -110,16 +110,16 @@
 										<div class="product-main-1 no-arrow">
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/1.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage1}|} "width=750px, height=750px
 														id="img-1"
-														data-zoom-image="../assets/images/product/category/1.jpg"
+														data-zoom-image="../assets/img/sodwkdrh1_1.png"
 														class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
 												</div>
 											</div>
 
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/2.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage2}|}"width=750px, height=750px
 														data-zoom-image="../assets/images/product/category/2.jpg"
 														class="img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
 												</div>
@@ -127,35 +127,20 @@
 
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/3.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage3}|}"width=750px, height=750px
+														data-zoom-image="../assets/images/product/category/3.jpg"
+														class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
+												</div>
+											</div>
+											<div>
+												<div class="slider-image">
+													<img th:src="@{|/assets/img/${idto.itemImage4}|}"width=750px, height=750px
 														data-zoom-image="../assets/images/product/category/3.jpg"
 														class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
 												</div>
 											</div>
 
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/4.jpg"
-														data-zoom-image="../assets/images/product/category/4.jpg"
-														class="img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
-												</div>
-											</div>
-
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/5.jpg"
-														data-zoom-image="../assets/images/product/category/5.jpg"
-														class="img-fluid image_zoom_cls-4 blur-up lazyload" alt="">
-												</div>
-											</div>
-
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/6.jpg"
-														data-zoom-image="../assets/images/product/category/6.jpg"
-														class="img-fluid image_zoom_cls-5 blur-up lazyload" alt="">
-												</div>
-											</div>
+											
 										</div>
 									</div>
 
@@ -164,45 +149,34 @@
 											class="bottom-slider-image left-slider no-arrow slick-top">
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/1.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage1}|}"
+														class="img-fluid blur-up lazyload" alt="">
+												</div>
+											</div>
+
+											<div>
+												<div class="sidebar-image">	
+													<img th:src="@{|/assets/img/${idto.itemImage2}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
 
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/2.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage3}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
-
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/3.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage4}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
-
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/4.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
-
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/5.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
-
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/6.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
+											
+											
+											
+											
 										</div>
 									</div>
 								</div>
@@ -211,14 +185,14 @@
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
 							<div class="right-box-contain">
-								<h6 class="offer-top" th:text="${idto.itemDiscount}">세일</h6>
+								<h6 class="offer-top" th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
 								<h2 class="name" th:text="${idto.itemName }"></h2>
 								<div class="price-rating">
 									<h3 class="theme-color price">
-										<del class="text-content" th:text="${idto.itemPrice}"></del>
-										<span class="text-content" th:text="${salePrice}"></span> <span
-											class="offer theme-color"> ([[${idto.itemDiscount}]]
-											원 할인)</span>
+										<del class="text-content" th:text="|${#numbers.formatInteger(idto.ItemPrice , 0, 'COMMA')} 원|"></del>
+										<span class="text-content" th:text="|${#numbers.formatInteger(idto.getItemPrice()-idto.itemDiscount , 0, 'COMMA')} 원|"></span> <span
+											class="offer theme-color"> ([[|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|]]
+											 할인)</span>
 
 									</h3>
 									<div class="product-rating custom-rate">
@@ -427,21 +401,21 @@
 
 
 											<div class="nav-desh">
-												<p th:src="@{${idto.detailImage}} ">상품
+												<p th:src="@{${idto.detailImage}} " width=1198px, height=297px>상품
 													상세내용</p>
 											</div>
 
 
 
 											<div class="banner-contain nav-desh">
-												<img src="../assets/images/vegetable/banner/14.jpg"
+												<img th:src="@{|/assets/img/${idto.detailImage}|}"
 													class="bg-img blur-up lazyload" alt="">
 												<div
 													class="banner-details p-center banner-b-space w-100 text-center">
 													<div>
-														<h6 class="ls-expanded theme-color mb-sm-3 mb-1">SUMMER</h6>
-														<h2>VEGETABLE</h2>
-														<p class="mx-auto mt-1">Save up to 5% OFF</p>
+														<h6 class="ls-expanded theme-color mb-sm-3 mb-1"></h6>
+														<h2></h2>
+														<p class="mx-auto mt-1"></p>
 													</div>
 												</div>
 											</div>

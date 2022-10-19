@@ -15,5 +15,6 @@ public class DeliverDto {
 	private String deliverDAddr;
 	private String deliverZipCode;
 	private String deliverTel;
+	private String deliverType;
 	
 }

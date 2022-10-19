@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class NoticeDto {
 
-	private int serviceNoticeNum; 
-	private String serviceNoticeTitle;
-	private String serviceNoticeContent;
-	private String serviceNoticeDate;
+	private int noticeNum; 
+	private String noticeTitle;
+	private String noticeContent;
+	private String noticeDate;
 	
 }

@@ -255,10 +255,9 @@
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverName"
-	                            name="deliverName" onblur="nameChk();">
+	                            name="deliverName">
 	                            <label for="fname">수령자</label>
 	                        </div>
-	                        <div style="margin-top: 5;" id="nameMsg"></div>
 	                    </div>
 	                    
 	                    <div class="col-xxl-12">
@@ -267,38 +266,35 @@
 	                            name="deliverTel">
 	                            <label for="lname">연락처</label>
 	                        </div>
-	                        <div style="margin-top: 5;" id="telMsg"></div>
 	                    </div>
-	                        
-	                    <div class="col-xxl-8">
-	                        <div class="col-xxl-8 form-floating mb-4 theme-form-floating" style="display: inline-block;" >
+
+	                    <div class="col-xxl-8" style="display: inline-block;">    
+	                        <div class="form-floating mb-4 theme-form-floating" >
 	                            <input type="text" class="form-control" id="deliverZipCode"
-	                            name="deliverZipCode">
+	                            name="deliverZipCode" readonly="readonly">
 	                            <label for="pin">우편번호</label>
 	                        </div>
 	                    </div>
 	                        
-	                    <div class="col-xxl-4">
-	                        <div class="col-xxl-3" style="display: inline-block; margin-left: 10;">
-	                            <div class="form-floating theme-form-floating" >
-	                            <button type="button" class="btn btn-mb theme-bg-color fw-bold text-light" style="padding: 13 19"
-	                            onclick="sample4_execDaumPostcode();">우편번호찾기</button></div>
+	                    <div class="col-xxl-3" style="display: inline-block;">
+	                        <div class="form-floating theme-form-floating" >
+	                            <button type="button" class="btn btn-mb theme-bg-color fw-bold text-light" style="padding: 13 17; margin-left: 10;"
+	                            onclick="sample4_execDaumPostcode();">우편번호찾기</button>
 	                        </div>
 	                    </div>
-	                        
+
 	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverRAddr"
-	                            name="deliverRAddr">
+	                            name="deliverRAddr" readonly="readonly">
 	                            <label for="pin">도로명주소</label>
 	                        </div>
-	                        <div style="margin-top: 5;" id="addrMsg"></div>
 	                    </div>
 	                    
 	                    <div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                            <input type="text" class="form-control" id="deliverJAddr"
-	                            name="deliverJAddr">
+	                            name="deliverJAddr" readonly="readonly">
 	                            <label for="pin">지번주소</label>
 	                        </div>
 	                    </div>
@@ -313,7 +309,7 @@
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
-	                    <button type="button" class="btn theme-bg-color btn-sm text-white" data-bs-dismiss="modal"
+	                    <button type="button" class="btn theme-bg-color btn-sm text-white"
 	                    onclick="sendIt();">추가</button>
 	                </div>
                 </form>
@@ -406,7 +402,7 @@
     
     
 
-<!-- 
+ 
 	<script type="text/javascript">
 	
 	//배송지 5개 이상이면 모달창 끄기
@@ -416,12 +412,16 @@
 			$('#add-address').modal('hide');
 			return;
 		}
-		alert("등록가능");
 	});
 	
 	</script>
- -->
+
+	<script type="text/javascript" src="../assets/js/util.js"></script>
 	<script type="text/javascript">
+	$('#add-address').on('hidden.bs.modal', function (e) {
+		$(this).find('form')[0].reset();
+	});
+	
 	function deliverDel(num){
 		var f = document.deleteForm[num];
 		
@@ -439,87 +439,51 @@
 	}
 	</script>
 
-<!-- 	
 	
 	<script type="text/javascript">
-	//이름 유효성 검사
-    function nameChk(){
-        var name =$("#deliverName").val();
-        var nameMsg =$("#nameMsg");
-
-        if(!name){
-            nameMsg.html("주문자 이름을 입력해주세요");
-            $("#nameMsg").css("color","#ff7474");
-        }else if(!isValidKorean(name)){
-            nameMsg.html("이름은 한국어로만 입력 가능합니다.");
-            $("#nameMsg").css("color","#ff7474");
-            $("#deliverName").val("");
-        }else {
-            nameMsg.html("");
-        }
-        return;
-    }
-	
-    // 전화번호 체크
-    function telChk(){
-        var tel = $("#deliverTel").val();
-        var telMsg = $("#telMsg");
-
-        if(!tel){
-            telMsg.html("주문자 전화번호를 입력해주세요.(예: 01012345678)");
-            $("#telMsg").css("color","#ff7474");
-        }else if(!isValidTel(tel)){
-            telMsg.html("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
-            $("#telMsg").css("color","#ff7474");
-            $("#deliverTel").val("");
-        }else{
-            telMsg.html("");
-        }
-        return;
-    }
-
-    // 배송지 체크
-    function addrChk(){
-        var RAddr = $("#deliverRAddr").val();
+	function sendIt(){
+		var f = document.insertForm;
+		
+		var name =$("#deliverName").val();
+		var tel = $("#deliverTel").val();
+		var RAddr = $("#deliverRAddr").val();
         var JAddr = $("#deliverJAddr").val();
         var DAddr = $("#deliverDAddr").val();
         var ZipCode = $("#deliverZipCode").val();
-        var addrMsg =$("#addrMsg");
-
-        if(!RAddr || !ZipCode){
-            addrMsg.html("주문자 주소를 입력해주세요");
-            $("#addrMsg").css("color","#ff7474");
-        }else{
-            addrMsg.html("");
-        }
-        return;
-    }
-	
-    /* 배송지 등록 성공 */
-    function sendIt(){
-        var f = document.insertForm;
-
-        var name = $("#deliverName").val();
-        var tel = $("#deliverTel").val();
-        var ZipCode = $("#deliverZipCode").val();
-		
-        if(!name || !tel || !ZipCode){
+        
+      //입력창이 하나라도 비어있으면(지번주소, 상세주소 제외)
+        if(!name || !tel || !RAddr || !ZipCode){
         	alert("내용을 입력해주세요.");
-            event.preventDefault();
+        	return;
+        }
+        
+        //입력창에 내용이 있으면
+        if(!name){
+        	alert("수령자 이름을 입력해주세요.");
+        	return;
+        }else if(!isValidKorean(name)){
+        	alert("유효한 이름이 아닙니다.");
+            $("#deliverName").val("");
             return;
         }
         
-	    alert(name + "님 신규 배송지가 등록되었습니다.");
-	    
-	   	f.action="addressIn";
-	    f.submit();
-        	
+        if(!tel){
+            alert("주문자 전화번호를 입력해주세요.(예: 01012345678)");
+            return;
+        }else if(!isValidTel(tel)){
+            alert("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
+            $("#deliverTel").val("");
+            return;
         }
-    }
+        
+        alert(name + "님 신규 배송지가 등록되었습니다.");
+        
+        f.action="addressIn";
+	    f.submit();
+		
+	}
 	</script>
-	 -->
 	
-<!-- 	
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
 		//주소API
@@ -579,6 +543,6 @@
 			}).open();
 		}
 	</script>
- -->
+
 <!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->
 </body></html>

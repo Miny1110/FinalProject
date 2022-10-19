@@ -33,5 +33,16 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public void deleteDeliver(int deliverNum) {
 		deliverMapper.deleteDeliver(deliverNum);
 	}
+	
+	@Override
+	public void updateDeliver(DeliverDto ddto) {
+		deliverMapper.updateDeliver(ddto);
+	}
+
+	@Override
+	public int selectDeliverType(String deliverType) {
+		return deliverMapper.selectDeliverType(deliverType);
+	}
+
 
 }

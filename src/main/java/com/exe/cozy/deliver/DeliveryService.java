@@ -11,4 +11,7 @@ public interface DeliveryService {
     public List<DeliverDto> listDeliver(String customerEmail);
     
     public void deleteDeliver(int deliverNum);
+    
+    public void updateDeliver(DeliverDto ddto);
+    public int selectDeliverType(String deliverType);
 }

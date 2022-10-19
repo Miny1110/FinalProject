@@ -315,7 +315,7 @@ public class CustomerController {
     		mav.setViewName(null);
         	return mav;
     	}else {
-    		AlertRedirect.warningMessage(response, "address", "중복된 배송지입니다.");
+    		AlertRedirect.warningMessage(response, "중복된 배송지입니다.");
     		mav.setViewName(null);
         	return mav;
     	}
@@ -331,10 +331,10 @@ public class CustomerController {
     	int dup = deliveryService.updateDeliver(dto);
     	
     	if(dup==0) {
-    		AlertRedirect.warningMessage(response, "address", "배송지가 수정되었습니다.");
+    		AlertRedirect.warningMessage(response, "address" ,"배송지가 수정되었습니다.");
         	return mav;
     	}else {
-    		AlertRedirect.warningMessage(response, "address", "동일한 배송지가 존재합니다.");
+    		AlertRedirect.warningMessage(response, "동일한 배송지가 존재합니다.");
         	return mav;
     	}
     	

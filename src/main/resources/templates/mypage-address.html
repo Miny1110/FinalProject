@@ -256,6 +256,7 @@
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
+	                        	<input type="hidden" id="deliverNumEdit" name="deliverNum">
 	                            <input type="text" class="form-control" id="deliverNameEdit"
 	                            name="deliverName">
 	                            <label for="fname">수령자</label>
@@ -524,6 +525,7 @@
 	
 	/* 배송지 수정 모달로 데이터 보내기 */
 	$('#edit-address').on('show.bs.modal',function(e) {
+		var num = $(e.relatedTarget).data('num');
 		var name = $(e.relatedTarget).data('name');
 		var raddr = $(e.relatedTarget).data('raddr');
 		var jaddr = $(e.relatedTarget).data('jaddr');
@@ -531,6 +533,7 @@
 		var zipcode = $(e.relatedTarget).data('zipcode');
 		var tel = $(e.relatedTarget).data('tel');
 
+		$('#deliverNumEdit').val(num);
 		$('#deliverNameEdit').val(name);
 		$('#deliverRAddrEdit').val(raddr);
 		$('#deliverJAddrEdit').val(jaddr);

@@ -47,8 +47,6 @@ public class DeliveryServiceImpl implements DeliveryService{
 		int dup = dupChk(ddto);
 		
 		if(dup==0) {
-			int maxNum = maxNumDeliver();
-			ddto.setDeliverNum(maxNum+1);
 			deliveryMapper.updateDeliver(ddto);
 		}
 		return dup;

@@ -1,5 +1,6 @@
 package com.exe.cozy.customer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -228,24 +229,58 @@ public class CustomerController {
     	
     	customerService.updateData(dto);
     	
-    	//주소 입력했으면 Deliver 테이블에 insert
-    	if(dto.getCustomerZipCode()!=null) {
-    		DeliverDto ddto = new DeliverDto();
+    	if(dto.getCustomerZipCode()!=null) { //주소를 입력했으면
+    		String customerEmail = dto.getCustomerEmail();
+    		List<DeliverDto> dList = deliveryService.listDeliver(customerEmail); //DELIVERDTO 객체들 LIST
     		
-    		int maxNum = deliveryService.maxNumDeliver();
-    				
-    		ddto.setDeliverNum(maxNum+1);
-    		ddto.setCustomerEmail(dto.getCustomerEmail());
-    		ddto.setDeliverName(dto.getCustomerName());
-    		ddto.setDeliverRAddr(dto.getCustomerRAddr());
-    		ddto.setDeliverJAddr(dto.getCustomerJAddr());
-    		ddto.setDeliverDAddr(dto.getCustomerDAddr());
-    		ddto.setDeliverZipCode(dto.getCustomerZipCode());
-    		ddto.setDeliverTel(dto.getCustomerTel());
+    		int typeChk = 0;
     		
-    		deliveryService.insertDeliver(ddto);
+    		for(int i=0;i<dList.size();i++) { //기본배송지 체크
+    			DeliverDto ddto = dList.get(i);
+    			
+    			boolean type = ddto.getDeliverType().equals("기본");
+    			
+    			if(type) { //기본배송지가 있으면 typeChk!=0 (deliver 테이블 update)
+    				typeChk++;
+    			}
+    		}
+    		
+    		if(typeChk!=0) { //기본배송지가 있으면 (deliver 테이블 update) -> customer테이블에 데이터가 있다.
+    			int deliverNum = deliveryService.selectDeliverType("기본");
+    			
+    			DeliverDto ddto = new DeliverDto();
+    			
+    			ddto.setDeliverNum(deliverNum);
+    			ddto.setDeliverName(dto.getCustomerName());
+    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
+    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
+    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
+    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
+    			ddto.setDeliverTel(dto.getCustomerTel());
+    			
+    			deliveryService.updateDeliver(ddto);
+    			
+    		}else { //기본배송지가 없으면 (deliver 테이블 insert)
+    			DeliverDto ddto = new DeliverDto();
+    			
+    			int maxNum = deliveryService.maxNumDeliver();
+    			
+    			ddto.setDeliverNum(maxNum+1);
+    			ddto.setCustomerEmail(customerEmail);
+    			ddto.setDeliverName(dto.getCustomerName());
+    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
+    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
+    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
+    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
+    			ddto.setDeliverTel(dto.getCustomerTel());
+    			ddto.setDeliverType("기본");
+    			
+    			deliveryService.insertDeliver(ddto);
+      			
+    		}
+    		
     	}
-    	
+ 
     	mav.setViewName("redirect:info");
     	
     	return mav;
@@ -269,8 +304,58 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지 배송지 추가
+    @PostMapping("addressIn")
+    public ModelAndView adressIn(DeliverDto ddto,HttpSession session) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	
+    	List<DeliverDto> dList = deliveryService.listDeliver(customerEmail); //DELIVERDTO 객체들 LIST
+    	
+    	int dup = 0;
+    	
+    	for(int i=0;i<dList.size();i++) {
+			DeliverDto ddtoChk = dList.get(i);
+			
+			boolean name = ddtoChk.getDeliverName().equals(ddto.getDeliverName());
+			boolean tel = ddtoChk.getDeliverTel().equals(ddto.getDeliverTel());
+			boolean zipcode = ddtoChk.getDeliverZipCode().equals(ddto.getDeliverZipCode());
+			boolean raddr = ddtoChk.getDeliverRAddr().equals(ddto.getDeliverRAddr());
+			boolean daddr = ddtoChk.getDeliverDAddr().equals(ddto.getDeliverDAddr());
+			
+			if(name && tel && zipcode && raddr && daddr) { //데이터가 동일하면
+				dup++;
+			}
+		}
+    	
+    	//동일데이터가 없으면
+		if(dup==0) {
+			DeliverDto dto = new DeliverDto();
+			
+			int maxNum = deliveryService.maxNumDeliver();
+			
+			dto.setDeliverNum(maxNum+1);
+			dto.setCustomerEmail(customerEmail);
+			dto.setDeliverName(ddto.getDeliverName());
+			dto.setDeliverRAddr(ddto.getDeliverRAddr());
+			dto.setDeliverJAddr(ddto.getDeliverJAddr());
+			dto.setDeliverDAddr(ddto.getDeliverDAddr());
+			dto.setDeliverZipCode(ddto.getDeliverZipCode());
+			dto.setDeliverTel(ddto.getDeliverTel());
+			dto.setDeliverType("추가");
+			
+			deliveryService.insertDeliver(dto); //deliver 테이블에 데이터 insert
+		}
+
+    	mav.setViewName("redirect:address");
+    	
+    	return mav;
+    }
+    
     //마이페이지 배송지 삭제
-    @PostMapping("address")
+    @PostMapping("addressDel")
     public ModelAndView addressDel(int deliverNum) {
     	
     	ModelAndView mav = new ModelAndView();

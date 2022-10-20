@@ -13,127 +13,8 @@
     	visibility: hidden !important;
 	}
 	</style>
-	<script type="text/javascript" src="../assets/js/util.js"></script>
-	<script type="text/javascript">
 	
-	/* 비밀번호 유효성 검사 */
-	function pwdChk(){
-		var pwd = $("#customerPwd").val();
-		var pwdMsg = document.querySelector("#pwdMsg");
-		
-		if(!pwd){
-			pwdMsg.innerHTML = "비밀번호를 입력해주세요(숫자, 영문을 포함한 8~16자)";
-			$("#pwdMsg").css("color","#ff7474");
-		}else if(!isValidPwd(pwd)){
-			pwdMsg.innerHTML = "숫자, 영문을 포함한 8~16자로 입력해주세요.";
-			$("#pwdMsg").css("color","#ff7474");
-			$("#customerPwd").val("");
-		}else{
-			pwdMsg.innerHTML = "";
-		}
-		
-		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
-		var pwdChk = $("#customerPwdChk").val();
-		
-		if(pwdChk){
-			if((pwd != pwdChk) && pwd){
-				pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
-				$("#pwdDoubleMsg").css("color","#ff7474");
-				$("#customerPwdChk").val("");
-			}
-		}
-		return;
-	}
 	
-	/* 비밀번호 일치 검사 */
-	function pwdDoubleChk(){
-		var pwd = $("#customerPwd").val();
-		var pwdChk = $("#customerPwdChk").val();
-		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
-		
-		if(!pwdChk){
-			pwdDoubleMsg.innerHTML = "비밀번호 확인을 해주세요.";
-			$("#pwdDoubleMsg").css("color","#ff7474");
-		}else if(pwd != pwdChk){
-			pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
-			$("#pwdDoubleMsg").css("color","#ff7474");
-			$("#customerPwdChk").val("");
-		}else{
-			pwdDoubleMsg.innerHTML = "";
-		}
-		return;
-	}
-	
-	/* 연락처 유효성 검사 */
-	function telChk(){
-		var tel = $("#customerTel").val();
-		var telMsg = document.querySelector("#telMsg");
-		
-		if(!tel){
-			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
-			$("#telMsg").css("color","#ff7474");
-		}else if(!isValidTel(tel)){
-			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
-			$("#telMsg").css("color","#ff7474");
-		}else{
-			telMsg.innerHTML = "";
-		}
-		return;
-	}	
-	
-	/* 연락처 변경 시 인증번호칸 입력 가능 */
-	function telChkInput(){
-		$("#customerTelChk").attr("readonly",false);
-		return;
-	}
-	
-	/* 연락처 인증번호 */
- 	function telChkBtn(){
-		var customerTel = $("#customerTel").val();
-		var telChkMsg = document.querySelector("#telChkMsg");
-		var telMsg = document.querySelector("#telMsg");
-		
-		if(!customerTel){
-			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
-			$("#telMsg").css("color","#ff7474");
-			event.preventDefault();
-			return;
-		}else if(!isValidTel(customerTel)){
-			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
-			$("#telMsg").css("color","#ff7474");
-			$("#customerTel").val("");
-			event.preventDefault();
-			return;
-		}else if(customerTel){
-			$("#customerTel").attr("readonly",true);
-			telChkMsg.innerHTML = "인증번호가 발송되었습니다.";
-			$("#telChkMsg").css("color","green");
-			event.preventDefault();
-		}
-		
-		$.ajax({
-			url:"/check/sendSMS",
-			type:"GET",
-			data:{customerTel:customerTel},
-			success:function(res){
-				$("#customerTelChk").blur(function(){
-					if(res==$("#customerTelChk").val()){
-						telChkMsg.innerHTML = "인증이 완료되었습니다.";
-						$("#telChkMsg").css("color","green");
-						event.preventDefault();
-					}else{
-						telChkMsg.innerHTML = "인증번호가 올바르지 않습니다.";
-						$("#telChkMsg").css("color","#ff7474");
-						$("#customerTelChk").val("");
-						event.preventDefault();
-					}
-				});
-			}
-		});
-		return;
-	} 	
-
-	</script>
 </head>
 
 <body class="" style="">
@@ -371,78 +252,6 @@
     <!-- Footer Section End -->
 
     <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                        <p class="mt-1 text-content">Recommended deals for you.</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Deal Box Modal End -->
 
     <!-- Tap to top start -->
@@ -464,103 +273,6 @@
     <!-- 배송지추가 모달 끝 -->
 
     <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Location Modal End -->
 
     <!-- Edit Profile Start -->
@@ -633,7 +345,7 @@
                         <div class="col-xxl-8">
                             <div class="form-floating theme-form-floating">
                                 <input type="text" class="form-control" id="customerZipCode"
-                                th:value="${customerDto.customerZipCode}" name="customerZipCode">
+                                th:value="${customerDto.customerZipCode}" name="customerZipCode" readonly="readonly">
                                 <label for="address3">우편번호</label>
                             </div>
                         </div>
@@ -644,14 +356,14 @@
                         <div class="col-xxl-12">
                             <div class="form-floating theme-form-floating">
                                 <input type="text" class="form-control" id="customerRAddr"
-                                th:value="${customerDto.customerRAddr}" name="customerRAddr">
+                                th:value="${customerDto.customerRAddr}" name="customerRAddr" readonly="readonly">
                                 <label for="address1">도로명주소</label>
                             </div>
                         </div>
                         <div class="col-xxl-12">
                             <div class="form-floating theme-form-floating">
                                 <input type="text" class="form-control" id="customerJAddr"
-                                th:value="${customerDto.customerRAddr}" name="customerJAddr">
+                                th:value="${customerDto.customerJAddr}" name="customerJAddr" readonly="readonly">
                                 <label for="address1">지번주소</label>
                             </div>
                         </div>
@@ -752,6 +464,127 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript" src="../assets/js/util.js"></script>
+    <script type="text/javascript">
+	
+	/* 비밀번호 유효성 검사 */
+	function pwdChk(){
+		var pwd = $("#customerPwd").val();
+		var pwdMsg = document.querySelector("#pwdMsg");
+		
+		if(!pwd){
+			pwdMsg.innerHTML = "비밀번호를 입력해주세요(숫자, 영문을 포함한 8~16자)";
+			$("#pwdMsg").css("color","#ff7474");
+		}else if(!isValidPwd(pwd)){
+			pwdMsg.innerHTML = "숫자, 영문을 포함한 8~16자로 입력해주세요.";
+			$("#pwdMsg").css("color","#ff7474");
+			$("#customerPwd").val("");
+		}else{
+			pwdMsg.innerHTML = "";
+		}
+		
+		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
+		var pwdChk = $("#customerPwdChk").val();
+		
+		if(pwdChk){
+			if((pwd != pwdChk) && pwd){
+				pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
+				$("#pwdDoubleMsg").css("color","#ff7474");
+				$("#customerPwdChk").val("");
+			}
+		}
+		return;
+	}
+	
+	/* 비밀번호 일치 검사 */
+	function pwdDoubleChk(){
+		var pwd = $("#customerPwd").val();
+		var pwdChk = $("#customerPwdChk").val();
+		var pwdDoubleMsg = document.querySelector("#pwdDoubleMsg");
+		
+		if(!pwdChk){
+			pwdDoubleMsg.innerHTML = "비밀번호 확인을 해주세요.";
+			$("#pwdDoubleMsg").css("color","#ff7474");
+		}else if(pwd != pwdChk){
+			pwdDoubleMsg.innerHTML = "비밀번호가 일치하지 않습니다";
+			$("#pwdDoubleMsg").css("color","#ff7474");
+			$("#customerPwdChk").val("");
+		}else{
+			pwdDoubleMsg.innerHTML = "";
+		}
+		return;
+	}
+	
+	/* 연락처 유효성 검사 */
+	function telChk(){
+		var tel = $("#customerTel").val();
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!tel){
+			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+		}else if(!isValidTel(tel)){
+			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+		}else{
+			telMsg.innerHTML = "";
+		}
+		return;
+	}	
+	
+	/* 연락처 변경 시 인증번호칸 입력 가능 */
+	function telChkInput(){
+		$("#customerTelChk").attr("readonly",false);
+		return;
+	}
+	
+	/* 연락처 인증번호 */
+ 	function telChkBtn(){
+		var customerTel = $("#customerTel").val();
+		var telChkMsg = document.querySelector("#telChkMsg");
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!customerTel){
+			telMsg.innerHTML = "연락처를 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			event.preventDefault();
+			return;
+		}else if(!isValidTel(customerTel)){
+			telMsg.innerHTML = "올바른 연락처 형식을 입력해주세요.(예: 01012345678)";
+			$("#telMsg").css("color","#ff7474");
+			$("#customerTel").val("");
+			event.preventDefault();
+			return;
+		}else if(customerTel){
+			$("#customerTel").attr("readonly",true);
+			telChkMsg.innerHTML = "인증번호가 발송되었습니다.";
+			$("#telChkMsg").css("color","green");
+			event.preventDefault();
+		}
+		
+		$.ajax({
+			url:"/check/sendSMS",
+			type:"GET",
+			data:{customerTel:customerTel},
+			success:function(res){
+				$("#customerTelChk").blur(function(){
+					if(res==$("#customerTelChk").val()){
+						telChkMsg.innerHTML = "인증이 완료되었습니다.";
+						$("#telChkMsg").css("color","green");
+						event.preventDefault();
+					}else{
+						telChkMsg.innerHTML = "인증번호가 올바르지 않습니다.";
+						$("#telChkMsg").css("color","#ff7474");
+						$("#customerTelChk").val("");
+						event.preventDefault();
+					}
+				});
+			}
+		});
+		return;
+	} 	
+	</script>
     
     <script type="text/javascript">
 	$('#editProfile').on('hidden.bs.modal', function (e) {

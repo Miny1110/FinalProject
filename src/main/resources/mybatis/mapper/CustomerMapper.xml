@@ -40,7 +40,7 @@
 	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
-		customerRAddr,customerJAddr,customerDAddr,customerGrade
+		customerRAddr,customerJAddr,customerDAddr,customerGrade,customerPoint
 		from customer where customerEmail=#{customerEmail}
 	</select>
 	
@@ -49,6 +49,12 @@
 		update customer set customerPwd=#{customerPwd},customerTel=#{customerTel},
 		customerZipCode=#{customerZipCode},customerRAddr=#{customerRAddr},
 		customerJAddr=#{customerJAddr},customerDAddr=#{customerDAddr}
+		where customerEmail=#{customerEmail}
+	</update>
+	
+	<!-- 포인트 수정 -->
+	<update id="updatePoint" parameterType="CustomerDto">
+		update customer set customerPoint=#{customerPoint}
 		where customerEmail=#{customerEmail}
 	</update>
 	

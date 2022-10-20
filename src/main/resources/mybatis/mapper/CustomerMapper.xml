@@ -12,9 +12,9 @@
 	<!-- 데이터 한개 입력 -->
 	<insert id="insertData" parameterType="CustomerDto">
 		insert into customer (customerEmail,customerPwd,customerName,
-		customerTel,customerDate,customerGrade,customerType,customerPoint)
+		customerTel,customerDate,customerGrade,customerType,customerPoint,userRole)
 		values (#{customerEmail},#{customerPwd},#{customerName},#{customerTel},
-		sysdate,'FAMILY',0,3000)
+		sysdate,'FAMILY',0,3000,#{userRole})
 	</insert>
 	
 	<!-- 로그인 확인 -->
@@ -40,7 +40,7 @@
 	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
-		customerRAddr,customerJAddr,customerDAddr,customerGrade
+		customerRAddr,customerJAddr,customerDAddr,customerGrade,userRole
 		from customer where customerEmail=#{customerEmail}
 	</select>
 	

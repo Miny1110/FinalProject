@@ -2,11 +2,9 @@ package com.exe.cozy.domain;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CustomerDto {
 	
 	private String customerEmail;
@@ -22,7 +20,7 @@ public class CustomerDto {
 	private String customerGrade;
 	private int customerType;
 	private int customerPoint;
+	private String userRole;
 	
-
 
 }

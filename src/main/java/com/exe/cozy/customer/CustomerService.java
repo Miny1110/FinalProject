@@ -16,10 +16,4 @@ public interface CustomerService {
 	public void updateData(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
-	
-//	일반메소드
-	public boolean loginCheck(String customerEmail,String customerPwd);
-	public boolean forgotCheck(String customerEmail, String customerTel);
-	public String getTmpPwd();
-	
 }

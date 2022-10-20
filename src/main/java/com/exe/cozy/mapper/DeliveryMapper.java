@@ -14,6 +14,6 @@ public interface DeliveryMapper {
     
     public void deleteDeliver(int deliverNum);
     
-    public int updateDeliver(DeliverDto ddto);
+    public void updateDeliver(DeliverDto ddto);
     public int selectDeliverType(String deliverType);
 }

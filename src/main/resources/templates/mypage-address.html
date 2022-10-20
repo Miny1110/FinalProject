@@ -167,6 +167,7 @@
 	                                                                <tr>
 	                                                                    <td colspan="2" th:text="${deliverDto.deliverName}">수령자이름</td>
 	                                                                    <td><input type="hidden" id="deliverNum" name="deliverNum" th:value="${deliverDto.deliverNum}"></td>
+	                                                                    <td><input type="hidden" class="deliverType" name="deliverType" th:value="${deliverDto.deliverType}"></td>
 	                                                                </tr>
 	
 	                                                                <tr>
@@ -509,6 +510,13 @@
 	/* 배송지 삭제하기 */
 	function deliverDel(num){
 		var f = document.deleteForm[num];
+		
+		var type = $('.deliverType').eq(num).val();
+		if(type=='기본'){
+			alert('기본배송지는 삭제할 수 없습니다.');
+			event.preventDefault();
+			return;
+		}
 		
 		var msg ="삭제하시겠습니까? \n삭제 후 복구할 수 없습니다.";
 		

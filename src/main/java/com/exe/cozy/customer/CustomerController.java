@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.exe.cozy.deliver.DeliveryDupChk;
 import com.exe.cozy.deliver.DeliveryService;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
@@ -40,6 +41,7 @@ public class CustomerController {
 	@Resource private DeliveryService deliveryService;
 	
 	@Autowired AddDate addDate;
+	@Autowired DeliveryDupChk deliveryDupChk;
     
 	//이메일 중복확인
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
@@ -228,53 +230,18 @@ public class CustomerController {
     	customerService.updateData(dto);
     	
     	if(dto.getCustomerZipCode()!=null) { //주소를 입력했으면
+    		
     		String customerEmail = dto.getCustomerEmail();
     		List<DeliverDto> dList = deliveryService.listDeliver(customerEmail); //DELIVERDTO 객체들 LIST
     		
-    		int typeChk = 0;
+    		int typeChk = deliveryDupChk.typeChk(dList);
     		
-    		for(int i=0;i<dList.size();i++) { //기본배송지 체크
-    			DeliverDto ddto = dList.get(i);
-    			
-    			boolean type = ddto.getDeliverType().equals("기본");
-    			
-    			if(type) { //기본배송지가 있으면 typeChk!=0 (deliver 테이블 update)
-    				typeChk++;
-    			}
-    		}
-    		
-    		if(typeChk!=0) { //기본배송지가 있으면 (deliver 테이블 update) -> customer테이블에 데이터가 있다.
-    			int deliverNum = deliveryService.selectDeliverType("기본");
-    			
-    			DeliverDto ddto = new DeliverDto();
-    			
-    			ddto.setDeliverNum(deliverNum);
-    			ddto.setDeliverName(dto.getCustomerName());
-    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
-    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
-    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
-    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
-    			ddto.setDeliverTel(dto.getCustomerTel());
-    			
+    		if(typeChk!=0) {
+    			DeliverDto ddto = deliveryDupChk.update(dto);
     			deliveryService.updateDeliver(ddto);
-    			
-    		}else { //기본배송지가 없으면 (deliver 테이블 insert)
-    			DeliverDto ddto = new DeliverDto();
-    			
-    			int maxNum = deliveryService.maxNumDeliver();
-    			
-    			ddto.setDeliverNum(maxNum+1);
-    			ddto.setCustomerEmail(customerEmail);
-    			ddto.setDeliverName(dto.getCustomerName());
-    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
-    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
-    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
-    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
-    			ddto.setDeliverTel(dto.getCustomerTel());
-    			ddto.setDeliverType("기본");
-    			
+    		}else {
+    			DeliverDto ddto = deliveryDupChk.insert(dto);
     			deliveryService.insertDeliver(ddto);
-      			
     		}
     		
     	}
@@ -308,36 +275,41 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
 
-    	int dup = deliveryService.insertDeliver(ddto);
+    	String customerEmail = "wjdalswjd453@naver.com";
+    	ddto.setCustomerEmail(customerEmail);
+    	
+    	int dup = deliveryDupChk.dupChk(ddto);
     	
     	if(dup==0) {
     		AlertRedirect.warningMessage(response, "address", "배송지가 등록되었습니다.");
-    		mav.setViewName(null);
-        	return mav;
+    		ddto.setDeliverType("추가");
+    		deliveryService.insertDeliver(ddto);
     	}else {
     		AlertRedirect.warningMessage(response, "중복된 배송지입니다.");
-    		mav.setViewName(null);
-        	return mav;
     	}
-    
+    	mav.setViewName(null);
+    	return mav;
     }
     
     //마이페이지 배송지 수정
     @PostMapping("addressUp")
-    public ModelAndView addressUp(HttpServletResponse response, DeliverDto dto) throws Exception {
+    public ModelAndView addressUp(HttpServletResponse response, DeliverDto ddto) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	int dup = deliveryService.updateDeliver(dto);
+    	String customerEmail = "wjdalswjd453@naver.com";
+    	ddto.setCustomerEmail(customerEmail);
+    	
+    	int dup = deliveryDupChk.dupChk(ddto);
     	
     	if(dup==0) {
     		AlertRedirect.warningMessage(response, "address" ,"배송지가 수정되었습니다.");
-        	return mav;
+    		deliveryService.updateDeliver(ddto);
     	}else {
     		AlertRedirect.warningMessage(response, "동일한 배송지가 존재합니다.");
-        	return mav;
     	}
-    	
+    	mav.setViewName(null);
+    	return mav;
     }
     
     //마이페이지 배송지 삭제

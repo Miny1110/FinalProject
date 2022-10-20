@@ -19,17 +19,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 	}
 
 	@Override
-	public int insertDeliver(DeliverDto ddto) {
-		int dup = dupChk(ddto);
-		
-		if(dup==0) {
-			int maxNum = maxNumDeliver();
-			ddto.setDeliverNum(maxNum+1);
-			ddto.setDeliverType("추가");
-			ddto.setCustomerEmail("wjdalswjd453@naver.com");
-			deliveryMapper.insertDeliver(ddto);
-		}
-		return dup;
+	public void insertDeliver(DeliverDto ddto) {
+		deliveryMapper.insertDeliver(ddto);
 	}
 
 	@Override
@@ -43,13 +34,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 	}
 	
 	@Override
-	public int updateDeliver(DeliverDto ddto) {
-		int dup = dupChk(ddto);
-		
-		if(dup==0) {
-			deliveryMapper.updateDeliver(ddto);
-		}
-		return dup;
+	public void updateDeliver(DeliverDto ddto) {
+		deliveryMapper.updateDeliver(ddto);
 	}
 
 	@Override
@@ -57,27 +43,4 @@ public class DeliveryServiceImpl implements DeliveryService{
 		return deliveryMapper.selectDeliverType(deliverType);
 	}
 
-//일반메소드-----------------------------------------------------------------
-	
-	//중복데이터 체크
-	private int dupChk(DeliverDto ddto) {
-				
-		String customerEmail = "wjdalswjd453@naver.com";
-		
-		List<DeliverDto> dList = listDeliver(customerEmail);
-		int dup = 0;
-		
-		for(DeliverDto ddtoChk : dList) {
-    		boolean name = ddtoChk.getDeliverName() == null || ddtoChk.getDeliverName().equals(ddto.getDeliverName());
-			boolean tel = ddtoChk.getDeliverTel() == null || ddtoChk.getDeliverTel().equals(ddto.getDeliverTel());
-			boolean zipcode = ddtoChk.getDeliverZipCode() == null || ddtoChk.getDeliverZipCode().equals(ddto.getDeliverZipCode());
-			boolean raddr = ddtoChk.getDeliverRAddr() == null || ddtoChk.getDeliverRAddr().equals(ddto.getDeliverRAddr());
-			boolean daddr = ddtoChk.getDeliverDAddr() == null || ddtoChk.getDeliverDAddr().equals(ddto.getDeliverDAddr());
-			
-			if(name && tel && zipcode && raddr && daddr) { //데이터가 동일하면
-				dup++;
-			}
-    	}
-		return dup;
-	}
 }

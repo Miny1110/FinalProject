@@ -16,5 +16,6 @@ public interface CustomerMapper {
 	
 	public CustomerDto getReadData(String customerEmail); //회원정보 읽어오기
 	public void updateData(CustomerDto dto); //회원정보수정
+	public void updatePoint(CustomerDto dto); //포인트 수정
 	public void deleteData(String customerEmail); //회원탈퇴
 }

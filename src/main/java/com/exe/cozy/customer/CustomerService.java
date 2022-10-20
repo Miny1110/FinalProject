@@ -14,6 +14,7 @@ public interface CustomerService {
 	public void updatePwd(CustomerDto dto);
 	
 	public void updateData(CustomerDto dto);
+	public void updatePoint(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
 }

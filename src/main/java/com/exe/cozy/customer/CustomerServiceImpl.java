@@ -1,14 +1,14 @@
 package com.exe.cozy.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.mapper.CustomerMapper;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 	
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public CustomerDto getReadData(String customerEmail) {
-		return customerMapper.getReadData(customerEmail);
+		return customerMapper.getReadData(customerEmail);		
 	}
 
 	@Override
@@ -54,5 +54,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public void deleteData(String customerEmail) {
 		customerMapper.deleteData(customerEmail);
 	}
+
+	@Override
+	public void updatePoint(CustomerDto dto) {
+		customerMapper.updatePoint(dto);
+	}
+
 
 }

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<div th:replace="head.html :: headFragment"></div>
+<title>리뷰수정</title>
+
+
+<!-- Google font -->
+<link rel="preconnect" href="https://fonts.gstatic.com/">
+<link href="./reviewWritehtml_files/css2" rel="stylesheet">
+<link href="./reviewWritehtml_files/css2(1)" rel="stylesheet">
+<link href="./reviewWritehtml_files/css2(2)" rel="stylesheet">
+
+<!-- bootstrap css -->
+<link id="rtl-link" rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/bootstrap.css">
+
+<!-- font-awesome css -->
+<link rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/font-awesome.css">
+
+<!-- feather icon css -->
+<link rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/feather-icon.css">
+
+<!-- slick css -->
+<link rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/slick.css">
+<link rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/slick-theme.css">
+
+<!-- Iconly css -->
+<link rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/bulk-style.css">
+
+<!-- Template css -->
+<link id="color-link" rel="stylesheet" type="text/css"
+	href="./reviewWritehtml_files/style.css">
+<link id="color-link" rel="stylesheet" type="text/css"
+	href="../assets/css/stylecj.css">
+
+</head>
+
+<body>
+
+	<!-- Loader Start -->
+
+	<!-- Loader End -->
+	<header th:replace="header.html :: headerFragment"></header>
+	<!-- Header Start -->
+
+	<!-- Header End -->
+
+	<!-- mobile fix menu start -->
+	<div class="mobile-menu d-md-none d-block mobile-cart">
+		<ul>
+			<li class="active"><a
+				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/index.html">
+					<i class="iconly-Home icli"></i> <span>Home</span>
+			</a></li>
+
+			<li class="mobile-category"><a href="javascript:void(0)"> <i
+					class="iconly-Category icli js-link"></i> <span>Category</span>
+			</a></li>
+
+			<li><a
+				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/search.html"
+				class="search-box"> <i class="iconly-Search icli"></i> <span>Search</span>
+			</a></li>
+
+			<li><a
+				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/wishlist.html"
+				class="notifi-wishlist"> <i class="iconly-Heart icli"></i> <span>My
+						Wish</span>
+			</a></li>
+
+			<li><a
+				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/cart.html">
+					<i class="iconly-Bag-2 icli fly-cate"></i> <span>Cart</span>
+			</a></li>
+		</ul>
+	</div>
+	<!-- mobile fix menu end -->
+
+	<!-- Breadcrumb Section Start -->
+	<section class="breadscrumb-section pt-0">
+		<div class="container-fluid-lg">
+			<div class="row">
+				<div class="col-12">
+					<div class="review-title">
+						<br>
+						<h2>리뷰수정</h2>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+
+	<!-- Cart Section Start -->
+	<section class="cart-section section-b-space">
+		<div class="container-fluid-lg">
+			<div class="row g-sm-5 g-3">
+				<div class="col-xxl-9">
+					<div class="cart-table">
+						<form action="reviewUpdate_ok" method="post"
+							th:object="${replyDto}">
+
+							<input type="hidden" th:field="*{itemNum}"> <input
+								type="hidden" th:field="*{replyId}"> <input
+								type="hidden" th:field="*{customerEmail}">
+
+
+							<div class="table-responsive-xl">
+								<select th:field="*{rating}">
+									<option value="">평점을 선택해주세요</option>
+									<option value="1.0">1.0</option>
+									<option value="1.5">1.5</option>
+									<option value="2.0">2.0</option>
+									<option value="2.5">2.5</option>
+									<option value="3.0">3.0</option>
+									<option value="3.5">3.5</option>
+									<option value="4.0">4.0</option>
+									<option value="4.5">4.5</option>
+									<option value="5.0">5.0</option>
+								</select> <br />
+								<br />
+
+								<div class="col-12">
+									<div class="form-floating theme-form-floating">
+										<textarea class="form-control"
+											placeholder="Leave a comment here" id="floatingTextarea2"
+											style="height: 150px" th:field="*{content}">[[*{content}]]</textarea>
+										<label for="floatingTextarea2">내용을 입력해주세요 (300자 이내)</label>
+									</div>
+									<br>
+
+								</div>
+							</div>
+							<br>
+							<div>
+								<button class="btn-anii" type="submit">수정하기</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+	<!-- Cart Section End -->
+
+	<!-- Footer Section Start -->
+	<footer th:replace="footer.html :: footerFragment"></footer>
+	<!-- Footer Section End -->
+
+	<!-- Location Modal Start -->
+	<div class="modal location-modal fade theme-modal" id="locationModal"
+		tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Choose your
+						Delivery Location</h5>
+					<p class="mt-1 text-content">Enter your address and we will
+						specify the offer for your area.</p>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="location-list">
+						<div class="search-input">
+							<input type="search" class="form-control"
+								placeholder="Search Your Area"> <i
+								class="fa-solid fa-magnifying-glass"></i>
+						</div>
+
+						<div class="disabled-box">
+							<h6>Select a Location</h6>
+						</div>
+
+						<ul class="location-select custom-height">
+							<li><a href="javascript:void(0)">
+									<h6>Alabama</h6> <span>Min: $130</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Arizona</h6> <span>Min: $150</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>California</h6> <span>Min: $110</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Colorado</h6> <span>Min: $140</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Florida</h6> <span>Min: $160</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Georgia</h6> <span>Min: $120</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Kansas</h6> <span>Min: $170</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Minnesota</h6> <span>Min: $120</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>New York</h6> <span>Min: $110</span>
+							</a></li>
+
+							<li><a href="javascript:void(0)">
+									<h6>Washington</h6> <span>Min: $130</span>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Location Modal End -->
+
+
+	<!-- Deal Box Modal Start -->
+	<div class="modal fade theme-modal deal-modal" id="deal-box"
+		tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div>
+						<h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
+						<p class="mt-1 text-content">Recommended deals for you.</p>
+					</div>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="deal-offer-box">
+						<ul class="deal-offer-list">
+							<li class="list-1">
+								<div class="deal-offer-contain">
+									<a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-image"> <img
+										src="./reviewWritehtml_files/10.png" class="blur-up lazyload"
+										alt="">
+									</a> <a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-contain">
+										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+										<h6>
+											$52.57
+											<del>57.62</del>
+											<span>500 G</span>
+										</h6>
+									</a>
+								</div>
+							</li>
+
+							<li class="list-2">
+								<div class="deal-offer-contain">
+									<a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-image"> <img
+										src="./reviewWritehtml_files/11.png" class="blur-up lazyload"
+										alt="">
+									</a> <a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-contain">
+										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+										<h6>
+											$52.57
+											<del>57.62</del>
+											<span>500 G</span>
+										</h6>
+									</a>
+								</div>
+							</li>
+
+							<li class="list-3">
+								<div class="deal-offer-contain">
+									<a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-image"> <img
+										src="./reviewWritehtml_files/12.png" class="blur-up lazyload"
+										alt="">
+									</a> <a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-contain">
+										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+										<h6>
+											$52.57
+											<del>57.62</del>
+											<span>500 G</span>
+										</h6>
+									</a>
+								</div>
+							</li>
+
+							<li class="list-1">
+								<div class="deal-offer-contain">
+									<a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-image"> <img
+										src="./reviewWritehtml_files/13.png" class="blur-up lazyload"
+										alt="">
+									</a> <a
+										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
+										class="deal-contain">
+										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+										<h6>
+											$52.57
+											<del>57.62</del>
+											<span>500 G</span>
+										</h6>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Deal Box Modal End -->
+
+	<!-- Tap to top start -->
+	<div class="theme-option">
+		<div class="back-to-top" style="">
+			<a id="back-to-top"
+				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/reviewWrite.html#">
+				<i class="fas fa-chevron-up"></i>
+			</a>
+		</div>
+	</div>
+	<!-- Tap to top end -->
+
+	<!-- Bg overlay Start -->
+	<div class="bg-overlay"></div>
+	<!-- Bg overlay End -->
+
+	<!-- latest jquery-->
+	<script src="./reviewWritehtml_files/jquery-3.6.0.min.js.다운로드"></script>
+
+	<!-- jquery ui-->
+	<script src="./reviewWritehtml_files/jquery-ui.min.js.다운로드"></script>
+
+	<!-- Bootstrap js-->
+	<script src="./reviewWritehtml_files/bootstrap.bundle.min.js.다운로드"></script>
+	<script src="./reviewWritehtml_files/popper.min.js.다운로드"></script>
+	<script src="./reviewWritehtml_files/bootstrap-notify.min.js.다운로드"></script>
+
+	<!-- feather icon js-->
+	<script src="./reviewWritehtml_files/feather.min.js.다운로드"></script>
+	<script src="./reviewWritehtml_files/feather-icon.js.다운로드"></script>
+
+	<!-- Lazyload Js -->
+	<script src="./reviewWritehtml_files/lazysizes.min.js.다운로드"></script>
+
+	<!-- Slick js-->
+	<script src="./reviewWritehtml_files/slick.js.다운로드"></script>
+	<script src="./reviewWritehtml_files/custom_slick.js.다운로드"></script>
+
+	<!-- Quantity js -->
+	<script src="./reviewWritehtml_files/quantity.js.다운로드"></script>
+
+	<!-- script js -->
+	<script src="./reviewWritehtml_files/script.js.다운로드"></script>
+	<!-- Code injected by live-server -->
+	<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body>
+</html>

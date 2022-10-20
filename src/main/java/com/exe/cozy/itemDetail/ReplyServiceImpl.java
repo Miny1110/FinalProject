@@ -9,44 +9,48 @@ import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.mapper.ReplyMapper;
 
 @Service
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl implements ReplyService {
 	@Autowired
 	private ReplyMapper replyMapper;
 
-	/*리뷰등록*/
+	/* 리뷰등록 */
 	@Override
 	public void insertReply(ReplyDto rdto) throws Exception {
-		
+
 		replyMapper.insertReply(rdto);
-		
+
 	}
 
-	@Override
-	public int checkReply(ReplyDto rdto) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	/* 리뷰목록불러오기 */
 	@Override
 	public List<ReplyDto> getReadReplyData(int itemNum) throws Exception {
 		return replyMapper.getReadReplyData(itemNum);
 	}
 
+	/* 리뷰게시글번호 증가 */
 	@Override
 	public int replyMaxNum() throws Exception {
 		return replyMapper.replyMaxNum();
 	}
 
-/*	@Override
-	public int checkReply(ReplyDto rdto) throws Exception {
-		
-		Integer result = replyMapper.checkReply(rdto);
-		
-		if(result == null) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}*/
+	/* 리뷰수정 */
+	@Override
+	public void updateReply(ReplyDto rdto) throws Exception {
+		replyMapper.updateReply(rdto);
+
+	}
+
+	/* 리뷰replyId값으로 불러오기 */
+	@Override
+	public ReplyDto findReply(int replyId) throws Exception {
+		return replyMapper.findReply(replyId);
+	}
+
+	/* 리뷰 삭제 */
+	@Override
+	public void deleteReply(int replyId) throws Exception {
+		replyMapper.deleteReply(replyId);
+
+	}
 
 }

@@ -1046,10 +1046,13 @@
             <div class="row g-sm-5 g-3">
                 <div class="col-xxl-9">
                     <div class="cart-table">
-                    <form action="reviewWrite_ok" method="post">
+                    <form action="reviewWrite_ok" method="post" th:object="${replyDto}">
+                    	
                     	<input type="hidden" th:value="${itemNum}" name="itemNum">
+                    	
+                    	
                         <div class="table-responsive-xl">
-                                    <select name="raitng">
+                                    <select name="rating">
                                         <option value="">평점을 선택해주세요</option>
                                         <option value="1.0">1.0</option>
                                         <option value="1.5">1.5</option>
@@ -1069,7 +1072,8 @@
                                         placeholder="Leave a comment here"
                                         id="floatingTextarea2"
                                         style="height: 150px"
-                                        name="content"></textarea>
+                                        name="content"
+                                        ></textarea>
                                     <label for="floatingTextarea2">내용을 입력해주세요 (300자 이내)</label>
                                 </div>
                                 <br>

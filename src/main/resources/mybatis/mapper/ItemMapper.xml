@@ -10,10 +10,10 @@
 
     <insert id="insertItem" parameterType="ItemDetailDto">
         insert into item(itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
-                         itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
+                         itemImage1, itemImage2, itemImage3, itemImage4, detailImage, itemHitcount,itemStock, itemState, todaydeal,
                          itemColor, itemSize)
         values (#{itemNum}, #{itemName}, #{itemMainType}, #{itemSubType}, #{itemPrice}, #{itemDiscount}, #{itemContent},
-                #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{itemImage5}, #{detailImage},
+                #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{detailImage},
                 0,#{itemStock}, #{itemState}, #{todaydeal}, #{itemColor}, #{itemSize})
     </insert>
     <select id="getItemDataCount" parameterType="hashMap" resultType="int">
@@ -28,7 +28,7 @@
     <!--ItemNum 으로 item 읽기-->
     <select id="getReadItemData" parameterType="int" resultType="ItemDetailDto">
         select itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
-               itemImage1, itemImage2, itemImage3, itemImage4, itemImage5, detailImage, itemHitcount,itemStock, itemState, todaydeal,
+               itemImage1, itemImage2, itemImage3, itemImage4, detailImage, itemHitcount,itemStock, itemState, todaydeal,
                itemColor, itemSize from item where itemNum=#{itemNum}
     </select>
 

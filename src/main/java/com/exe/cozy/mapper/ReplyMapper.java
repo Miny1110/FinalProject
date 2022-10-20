@@ -11,10 +11,15 @@ import com.exe.cozy.domain.ReplyDto;
 public interface ReplyMapper {
 
 	public int replyMaxNum() throws Exception;
-	public void insertReply(ReplyDto rdto)throws Exception;
 
-	public int checkReply(ReplyDto rdto);
-	
+	public void insertReply(ReplyDto rdto) throws Exception;
+
+	public ReplyDto findReply(int replyId);
+
 	public List<ReplyDto> getReadReplyData(int itemNum) throws Exception;
+
+	public void updateReply(ReplyDto rdto) throws Exception;
+	
+	public void deleteReply(int replyId);
 
 }

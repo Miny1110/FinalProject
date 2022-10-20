@@ -3,6 +3,7 @@ package com.exe.cozy.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.ReplyDto;
 
 @Mapper
 public interface CustomerMapper {
@@ -18,4 +19,6 @@ public interface CustomerMapper {
 	public void updateData(CustomerDto dto); //회원정보수정
 	public void updatePoint(CustomerDto dto); //포인트 수정
 	public void deleteData(String customerEmail); //회원탈퇴
+	
+	public ReplyDto getReviewList(String customerEmail);
 }

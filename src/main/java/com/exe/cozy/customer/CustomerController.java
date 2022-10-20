@@ -25,6 +25,8 @@ import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
 import com.exe.cozy.domain.PointDto;
+import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.itemDetail.ReplyService;
 import com.exe.cozy.mail.MailService;
 import com.exe.cozy.point.PointService;
 import com.exe.cozy.util.AddDate;
@@ -38,6 +40,7 @@ public class CustomerController {
 	@Resource private PointService pointService;
 	@Resource private MailService mailService;
 	@Resource private DeliveryService deliveryService;
+	@Resource private ReplyService replyService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -242,6 +245,56 @@ public class CustomerController {
     	
     	return mav;
     	
+    }
+    
+    //마이페이지 주문조회
+    @GetMapping("order")
+    public ModelAndView order() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-order");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 주문취소조회
+    @GetMapping("orderCancle")
+    public ModelAndView orderCancle() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-order-cancle");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 문의답변
+    @GetMapping("qna")
+    public ModelAndView qna() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-qna");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 마이리뷰
+    @GetMapping("review")
+    public ModelAndView review(HttpSession session) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	
+    	List<ReplyDto> lists = replyService.getListReplyData(customerEmail);
+    	
+    	mav.addObject("lists", lists);
+    	
+    	mav.setViewName("mypage-review");
+    	
+    	return mav;
     }
     
     //마이페이지 배송지관리

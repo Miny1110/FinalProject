@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +40,7 @@ public class CustomerController {
 	@Resource private DeliveryService deliveryService;
 	
 	@Autowired AddDate addDate;
+	@Autowired CustomerChk customerChk;
 	@Autowired DeliveryDupChk deliveryDupChk;
     
 	//이메일 중복확인
@@ -110,8 +110,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	customerService.getLogin(customerEmail);
-    	boolean check = customerService.loginCheck(customerEmail, customerPwd);
+    	boolean check = customerChk.loginCheck(customerEmail, customerPwd);
 
     	if(!check) { //로그인 실패
     		rattr.addFlashAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
@@ -149,9 +148,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	customerService.forgot(customerEmail);
-    	
-    	boolean check = customerService.forgotCheck(customerEmail, customerTel);
+    	boolean check = customerChk.forgotCheck(customerEmail, customerTel);
     	
     	if(!check) {
     		rattr.addFlashAttribute("msg", "회원정보가 없습니다.");
@@ -162,7 +159,7 @@ public class CustomerController {
     	}
 
     	//임시비밀번호 발급
-    	String customerPwd = customerService.getTmpPwd();
+    	String customerPwd = customerChk.getTmpPwd();
     	
     	//이메일발송
     	MailDto mailDto = mailService.createMail(customerPwd, customerEmail);
@@ -207,12 +204,7 @@ public class CustomerController {
     	CustomerDto customerDto = customerService.getReadData(customerEmail);
     	
     	//비밀번호 *로 변환
-    	String customerPwd = customerDto.getCustomerPwd();
-    	int customerPwdLen = customerPwd.length();
-    	String changePwd = "";
-    	for(int i=0;i<customerPwdLen;i++) {
-    		changePwd += "*";
-    	}
+    	String changePwd = customerChk.changePwd(customerDto.getCustomerPwd());
     	customerDto.setCustomerPwd(changePwd);
     	
     	mav.addObject("customerDto", customerDto);

@@ -63,4 +63,27 @@
 		delete customer where customerEmail=#{customerEmail}
 	</delete>
 	
+
+	
+	<select id="getReviewList" parameterType="String" resultMap="ReplyDto">
+		select 
+			a.replyId
+			,a.itemNum
+			,a.customerEmail
+			,a.regDate
+			,a.content
+			,a.rating
+			,b.itemName
+			,b.itemMainType
+			,b.itemSubType
+			,b.itemImage1
+		from 
+			reply a,item b
+		where 
+			customerEmail=#{customerEmail}
+			and a.itemNum=b.itemNum(+)
+		order by
+			a.replyId desc
+	</select>
+	
 </mapper>

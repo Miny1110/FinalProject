@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.mapper.CustomerMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -58,6 +59,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void updatePoint(CustomerDto dto) {
 		customerMapper.updatePoint(dto);
+	}
+
+	@Override
+	public ReplyDto getReviewList(String customerEmail) {
+		return customerMapper.getReviewList(customerEmail);
 	}
 
 

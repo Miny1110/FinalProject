@@ -1,4 +1,4 @@
-package com.exe.cozy.deliver;
+package com.exe.cozy.delivery;
 
 import java.util.List;
 

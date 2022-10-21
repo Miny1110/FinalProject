@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -45,8 +46,6 @@ public class OrderController {
         int itemQty = 2;
 
 
-
-
         String customerEmail="eunjis";
 
 
@@ -76,20 +75,22 @@ public class OrderController {
         return mav;}
 
     @PostMapping("/order")
-    public ModelAndView order_ok(HttpSession session, @ModelAttribute OrderDto odto, @ModelAttribute DeliverDto ddto, HttpServletRequest request){
-
+    public ModelAndView order_ok(HttpSession session, @ModelAttribute OrderDto odto, @ModelAttribute DeliverDto ddto, HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView();
      /*   int orderMaxNum = orderService.OrderMaxNum();*/
         //String customerEmail = (String)session.getAttribute("customerEmail");
-        String customerEmail = "eunjis";
-        int deliverMaxNum = deliveryService.maxNumDeliver();
-
-     /*   odto.setOrderNum(orderMaxNum +1);
+        /*   odto.setOrderNum(orderMaxNum +1);
         orderService.insertOrder(odto);*/
+        String customerEmail = "eunjis";
+        ddto.setCustomerEmail(customerEmail);
 
-        ddto.setDeliverNum(deliverMaxNum +1);
+        int deliverMaxNum = deliveryService.maxNumDeliver();
+        response.setContentType("text/html; charset=UTF-8");
+        ddto.setDeliverNum(deliverMaxNum+1);
         ddto.setDeliverType("추가");
+        System.out.println(ddto.getDeliverTel());
         deliveryService.insertDeliver(ddto);
-        ModelAndView mav = new ModelAndView();
+
 
         mav.setViewName("redirect:order");
 

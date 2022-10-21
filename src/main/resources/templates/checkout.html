@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <div th:replace="head.html :: headFragment"></div>
 
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
@@ -286,7 +287,11 @@
 
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
-                            <h2 class="tab-title mb-0">배송지 정보</h2>
+                            <h2 class="tab-title mb-0">등록된 배송지</h2>
+                            <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
+                                <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
+                                <span class="d-none d-sm-block">다른 주소로 받을래요</span>
+                            </button>
                         </div>
 <!--세션등록되면 수정 -->
                         <div class="row g-4">
@@ -294,8 +299,9 @@
                                 <div class="delivery-address-box" >
                                     <div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="jack"
-                                                   id="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" name="deliverCheck"
+                                                   id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()">
+                                            <input id="deliverNum" name="deliverNum" type="hidden" th:value="${ddto.getDeliverNum()}">
                                         </div>
 
                                      <!--   <div class="label"> &lt;!&ndash; label1 하면 기본배송지로 나오게 설정해둠 &ndash;&gt;
@@ -324,29 +330,32 @@
                                 </div>
                             </div>
                             <!--배송지 추가-->
-                            <form class="row g-4" name="deliverForm" method="post" th:object="${ddto}" >
-                                <div id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down" >
 
 
+
+                            <form name="deliverForm" method="post" th:object="${DeliverDto}">
+                                <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel1">배송주소</h5>
-
+                                                <h5 class="modal-title" id="exampleModalLabel">배송지 추가</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
                                             </div>
 
 
                                             <div class="modal-body">
 
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
+                                                    <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName">
                                                     <label for="deliverName">주문자</label>
                                                     <p id="dnameMsg"></p>
                                                 </div>
 
 
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
+                                                    <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel">
                                                     <label for="deliverTel">전화번호</label>
                                                     <P id="telMsg"></P>
                                                 </div>
@@ -354,7 +363,7 @@
 
 
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverZipCode" placeholder="우편번호">
+                                                    <input type="text" class="form-control" id="deliverZipCode" name="deliverZipCode" placeholder="우편번호">
                                                     <label for="deliverZipCode">우편번호</label>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
@@ -362,7 +371,7 @@
                                                     <br>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr" onblur="addrChk();">
+                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr">
                                                     <label for="deliverRAddr">도로명주소</label>
                                                     <p id="addrMsg"></p>
                                                 </div>
@@ -372,7 +381,7 @@
                                                     <span id="guide" style="color:#999;display:none"></span>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr" onblur="addrdChk();" >
+                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr">
                                                     <label for="deliverDAddr">상세주소</label>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
@@ -387,8 +396,9 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                                <input type="checkbox" name="saveDeliver" id="saveDeliver">
-                                                <h6>이번만 배송 받기</h6>
+                                               <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
+                                                <h6>이번만 배송 받기</h6>-->
+                                                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
                                                 <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
                                                     <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
                                                     <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
@@ -399,9 +409,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </form>
                             <!-- 배송지 추가 끝 -->
                         </div>
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                        <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
+                        <label for="deliverMsg">배송 메세지</label>
+                    </div>
 
 
 
@@ -490,69 +507,12 @@
                                             <div class="accordion-button collapsed" data-bs-toggle="collapse"
                                                  data-bs-target="#flush-collapseOne">
                                                 <div class="custom-form-check form-check mb-0">
-                                                    <label class="form-check-label" for="credit"><input
-                                                            class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="credit" checked> 신용카드 </label>
+                                                    <label class="form-check-label" for="credit">
+                                                        <input class="form-check-input mt-0" type="radio"
+                                                            name="credit" id="credit" value="card" checked> 신용카드 </label>
                                                 </div>
                                             </div>
                                         </div>
-                                  <!--      <div id="flush-collapseOne" class="accordion-collapse collapse show"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <div class="row g-2">
-                                                    <div class="col-12">
-                                                        <div class="payment-method">
-                                                            <div
-                                                                    class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                                <input type="text" class="form-control" id="customerEmail"
-                                                                       placeholder="Enter Credit & Debit Card Number">
-                                                                <label for="customerEmail" th:text="${cdto.customerEmail}">
-                                                                  </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xxl-4">
-                                                        <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="hidden" class="form-control" id="customerName"
-                                                                   placeholder="Enter Expiry Date" th:value="${cdto.customerName}">
-                                                            <label for="customerName" ></label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xxl-4">
-                                                        <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="text" class="form-control" id="customerTel"
-                                                                   placeholder="Enter CVV Number">
-                                                            <label for="customerTel" th:text = "${cdto.customerTel}"></label>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xxl-4">
-                                                        <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="password" class="form-control"
-                                                                   id="password" placeholder="Enter Password">
-                                                            <label for="password">Password</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="button-group mt-0">
-                                                        <ul>
-                                                            <li>
-                                                                <button
-                                                                        class="btn btn-light shopping-button">Cancel</button>
-                                                            </li>
-
-                                                            <li>
-                                                                <button class="btn btn-animation">Use This
-                                                                    Card</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
                                     </div>
 
                                     <div class="accordion-item">
@@ -562,7 +522,7 @@
                                                 <div class="custom-form-check form-check mb-0">
                                                     <label class="form-check-label" for="banking"><input
                                                             class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="banking"> 무통장입금 </label>
+                                                            name="credit" id="banking" value="bank"> 무통장입금 </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -575,11 +535,12 @@
                                                 <div class="custom-form-check form-check mb-0">
                                                     <label class="form-check-label" for="wallet"><input
                                                             class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="wallet"> My Wallet</label>
+                                                            name="credit" id="wallet" value="phone"> 휴대폰 결제</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+
+                                        <!--<div id="flush-collapseThree" class="accordion-collapse collapse"
                                              data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 <h5 class="text-uppercase mb-4">Select Your Wallet</h5>
@@ -639,30 +600,52 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
-
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="flush-headingFour">
                                             <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                                                 data-bs-target="#flush-collapseFour">
+                                                 data-bs-target="#flush-collapseThree">
                                                 <div class="custom-form-check form-check mb-0">
-                                                    <label class="form-check-label" for="cash"><input
+                                                    <label class="form-check-label" for="wallet"><input
                                                             class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="cash"> Cash On
-                                                        Delivery</label>
+                                                            name="credit" id="simple" value="simple">간편결제</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="flush-collapseFour" class="accordion-collapse collapse"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <h5 class="cod-review">Pay digitally with SMS Pay Link. Cash may not
-                                                    be accepted in COVID restricted areas. <a
-                                                            href="javascript:void(0)">Know more.</a></h5>
-                                            </div>
-                                        </div>
+                                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionFlushExample">
+                                           <div class="accordion-body">
+                                               <div class="row">
+                                                   <div class="col-md-6">
+                                                       <div class="custom-form-check form-check">
+                                                           <label class="form-check-label" for="kakao"><input
+                                                                   class="form-check-input mt-0" type="radio"
+                                                                   name="credit" id="kakao" value="kakao">카카오페이</label>
+                                                       </div>
+                                                   </div>
+
+                                                   <div class="col-md-6">
+                                                       <div class="custom-form-check form-check">
+                                                           <input class="form-check-input mt-0" type="radio"
+                                                                  name="credit" id="toss" value="toss">
+                                                           <label class="form-check-label" for="toss">토스</label>
+                                                       </div>
+                                                   </div>
+
+                                                   <div class="col-md-6">
+                                                       <div class="custom-form-check form-check">
+                                                           <input class="form-check-input mt-0" type="radio"
+                                                                  name="credit" id="payco" value="payco">
+                                                           <label class="form-check-label" for="payco">페이코</label>
+                                                       </div>
+                                                   </div>
+
+                                               </div>
+                                           </div>
+                                       </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -676,6 +659,7 @@
 
                                 <li>
                                     <button  class="btn btn-animation"  onclick="requestPay()">결제</button>
+                                    <input type="hidden" id="payCheck" name="payCheck" th:value="${payCheck}">
                                                     <!--"location.href = 'order-success.html';"-->
 
                                 </li>
@@ -1238,68 +1222,7 @@
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
-        <script >
-            function requestPay() {
-
-
-            //아임포트 결제연동
-            var IMP = window.IMP;
-            IMP.init("imp73716258");
-
-
-                // IMP.request_pay(param, callback) 결제창 호출
-                IMP.request_pay({ // param(결제에대한 정보)
-                    pg: "kcp",
-                    pay_method: 'vbank' ,
-                    merchant_uid: 'ssss',
-                    name: $('#itemName').html() ,
-                    amount: $('#pointTotalPrice').html(),
-                    buyer_email: $('#customerEmail').html() ,
-                    buyer_name: $('#customerName').val(),
-                    buyer_tel: $('#customerTel').html() ,
-                    buyer_addr: $('#deliverAddr1').html(),
-                    buyer_postcode: "01181"
-                },  function (rsp) { // callback함수
-                    if (rsp.success) {
-                        // 결제 성공 시 로직,
-                        let imp_uid = rsp.imp_id;
-                        let merchant_uid = rsp.merchant_uid;
-                        let paid_amount = rsp.paid_amount;
-                        let apply_num = rsp.apply_num;
-
-
-
-                        let data = {imp_uid:imp_uid,
-                            merchant_uid:merchant_uid,
-                            paid_amount:paid_amount,
-                            apply_num:apply_num
-                        };
-
-                        $.ajax({
-                            url: "/success_order",
-                            data:data,
-                            success: function(data){
-                                let msg = "결제가 완료되었습니다.\n";
-                                msg += "고유ID: " + imp_uid;
-                                msg += "\n상점거래ID : " + merchant_uid;
-                                msg += "\n결제금액 : " + paid_amount;
-                                msg += "\n 카드승인번호 : " + apply_num;
-                                alert(msg);
-                                location.href="payok.html";
-                            }
-                        })// end ajax
-
-
-                    } else {
-                        // 결제 실패 시 로직,
-                        let msg = "결제에 실패하였습니다./n"
-                        msg = "에러내용: " + rsp.error_msg;
-
-                        alert("msg");
-                    }
-                });
-            }
-        </script>
+<script src="../assets/js/payment.js"></script>
 
         <script>
             //총가격 구하기
@@ -1348,7 +1271,7 @@
         <script type="text/javascript">
             //배송지 등록시 검사
             function addAddr(){
-                var f = document.insertForm;
+                var f = document.deliverForm;
 
                 var name =$("#deliverName").val();
                 var tel = $("#deliverTel").val();
@@ -1439,6 +1362,19 @@
                 }).open();
             }
         </script>
+<script>
+  /*  function getDeliver(){
+      let check=document.getElementById("deliverCheck");
+      let num = $("#deliverNum")
+        alert(num)
+      mode.innerHTML(num)
+        alert(num)
+    }*/
+  $(document).ready(function(){
+    //라디오 배열
+    $("input[name=deliverCheck]").each(function($("#deliverNum")))
+  })
+</script>
 </body>
 
 </html>

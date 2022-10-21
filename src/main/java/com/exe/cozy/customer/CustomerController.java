@@ -297,6 +297,20 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지 마이리뷰 수정
+    @PostMapping("reviewUp")
+    public ModelAndView review(ReplyDto rdto) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	replyService.updateReply(rdto);
+    	
+    	mav.setViewName("redirect:review");
+    	
+    	return mav;
+    }    
+    
+    //마이페이지 마이리뷰 삭제
     @PostMapping("reviewDel")
     public ModelAndView review(int replyId) throws Exception {
     	

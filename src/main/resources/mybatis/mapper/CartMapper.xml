@@ -24,15 +24,15 @@
 		update cart set itemQty=#{itemQty} where customerEmail = #{customerEmail}
 	</update>
 	<!-- 카트목록 -->
-	<select id="listCart" resultType="CartDto" parameterType="map">
+	<select id="listCart" resultType="CartDto" parameterType="String">
 		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,
-		       b.itemName, b.itemPrice, b.itemDiscount, b.itemImage1
-		from cart a left outer join item b on a.itemNum = b.itemNum
+		       b.itemName, b.itemPrice, b.itemDiscount,b.itemSize,b.itemColor
+		       from cart a join item b on a.itemNum = b.itemNum
 		where customerEmail = #{customerEmail}
 	</select>
 
 	<!--카트확인-->
-	<select id="checkCart" resultType="CartDto">
+	<select id="checkCart" resultType="int">
 		select * from cart
 		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
 	</select>

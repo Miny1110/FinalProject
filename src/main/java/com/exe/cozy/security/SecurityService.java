@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Service("securityService")
 public class SecurityService implements UserDetailsService {
 	
-	@Autowired CustomerService customerSerivce;
+	@Autowired @Lazy CustomerService customerSerivce;
 	
 	//사용자명으로 비밀번호를 조회해서 리턴하는 메소드
 	@Override

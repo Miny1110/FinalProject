@@ -1,5 +1,7 @@
 package com.exe.cozy.customer;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ReplyDto getReviewList(String customerEmail) {
+	public List<ReplyDto> getReviewList(String customerEmail) {
 		return customerMapper.getReviewList(customerEmail);
 	}
 

@@ -288,11 +288,23 @@ public class CustomerController {
     	
     	String customerEmail = (String)session.getAttribute("customerEmail");
     	
-    	List<ReplyDto> lists = replyService.getListReplyData(customerEmail);
+    	List<ReplyDto> lists = customerService.getReviewList(customerEmail);
     	
     	mav.addObject("lists", lists);
     	
     	mav.setViewName("mypage-review");
+    	
+    	return mav;
+    }
+    
+    @PostMapping("reviewDel")
+    public ModelAndView review(int replyId) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	replyService.deleteReply(replyId);
+    	
+    	mav.setViewName("redirect:review");
     	
     	return mav;
     }

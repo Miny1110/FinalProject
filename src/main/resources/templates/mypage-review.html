@@ -167,16 +167,19 @@
                                     </div>
 								
 									<!-- 리뷰출력 시작 -->
-                                   <div class="profile-about dashboard-bg-box">
                                    <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}">
+                                   <div class="profile-about dashboard-bg-box">
                                         <div class="row">
                                         <div class="dashboard-title mb-3">
-                                            <h3 style="display: inline;" name="itemName">상품명</h3>
-                                            <h7 style="display: inline;">(옵션내용)</h7>
+                                            <h3 style="display: inline;" th:text="${replyDto.item.itemName}">상품명</h3>
+                                            <input type="hidden" name="itemMainType" th:value="${replyDto.item.itemMainType}">
+                                            <input type="hidden" name="itemSubType" th:value="${replyDto.item.itemSubType}">
+                                            <input type="hidden" name="customerEmail" th:value="${replyDto.customerEmail}">
+                                            <input type="hidden" name="replyId" th:value="${replyDto.replyId}">
                                         </div>
                                         </div>
                                         <div class="row">
-                                           <div style="width: 70px; margin-right: 30px;">
+                                           <div style="width: 70px; margin-right: 20px; margin-left: 10px;">
                                                <img src="../assets/svg/product.svg" style="width: 70px; height: 70px;">
                                            </div>
                                            
@@ -199,21 +202,21 @@
                                                             <i data-feather="star"></i>
                                                         </li>
                                                     </ul>
-                                                    <a style="display: inline; font-size:12px; color: gray;">&nbsp;(2021년 10월 13일)</a>
+                                                    &nbsp;&nbsp;
+                                                    <a style="display: inline; font-size:12px; color: gray;" th:text="${#dates.format(replyDto.regDate,'yyyy-MM-dd')}"></a>
                                                 </div>
-                                                <div>
-                                                    리뷰내용ㅇ어쩌구저쩌구 이상품정말좋네용 리뷰내용ㅇ어쩌구저쩌구 이상품정말좋네용 리뷰내용ㅇ어쩌구저쩌구 이상품정말좋네용 리뷰내용ㅇ어쩌구저쩌구 이상품정말좋네용
+                                                <div th:text="${replyDto.content}">
                                                 </div>
                                             </div>
                                             <div style="width: auto;">
                                                 <span class="review">수정하기</span>
                                                 <br/>
-                                                <span class="review">삭제하기</span>
+                                                <span class="review" th:onclick="|reviewDel(${i.index})|">삭제하기</span>
                                             </div>
                                         </div>
-                                    </form>
                                     </div>
                                     <br/>
+                                    </form>
                                     <!-- 리뷰출력 끝 -->
                                     
                                    
@@ -522,7 +525,26 @@
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
 
-
+	<script type="text/javascript">
+	
+	/* 리뷰 삭제하기 */
+	function reviewDel(num){
+		var f = document.reviewForm[num];
+		
+		var msg ="삭제하시겠습니까? \n삭제 후 복구할 수 없습니다.";
+		
+		if(!confirm(msg)){
+			alert("취소되었습니다.");
+			event.preventDefault();
+			return;
+		}else{
+			alert("삭제되었습니다.");
+			f.action="reviewDel";
+			f.submit();
+		}
+	}
+	
+	</script>
 
 
 <!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->

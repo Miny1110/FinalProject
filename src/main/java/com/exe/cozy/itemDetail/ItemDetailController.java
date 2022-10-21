@@ -46,6 +46,17 @@ public class ItemDetailController {
 		idto.setItemNum(itemMaxNum + 1);
 		itemDetailService.insertItem(idto);
 
+		/*
+		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
+		String pageNum = request.getParameter("pageNum");
+		String searchValue = request.getParameter("searchValue");
+		 
+		if(searchValue!=null && !searchValue.equals("")) { searchValue =
+		URLDecoder.decode(searchValue,"UTF-8");}
+		*/
+
+		//mav.setViewName("redirect:/itemDetail?pageNum=\"+pageNum");
+		
 		mav.setViewName("redirect:/");
 		return mav;
 	}
@@ -116,13 +127,10 @@ public class ItemDetailController {
 			return mav;
 
 		}
-		/*
-		 * String param = "pageNum=" + pageNum;
+		/*String searchValue = request.getParameter("searchValue");
 		 * 
-		 * if(searchValue!=null&&!searchValue.equals("")) {
-		 * 
-		 * param += "&searchKey=" + searchKey; param += "&searchValue=" +
-		 * URLEncoder.encode(searchValue,"UTF-8"); }
+		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
+		 * URLDecoder.decode(searchValue,"UTF-8");}
 		 */
 
 		int salePrice = idto.getItemPrice() - idto.getItemDiscount();

@@ -64,8 +64,24 @@
 	</delete>
 	
 
+	<resultMap type="ReplyDto" id="ReplyDto">
+		<result column="replyId" property="replyId"/>
+		<result column="itemNum" property="itemNum"/>
+		<result column="customerEmail" property="customerEmail"/>
+		<result column="regDate" property="regDate"/>
+		<result column="content" property="content"/>
+		<result column="rating" property="rating"/>
+		<collection property="item" resultMap="ItemDetailDto"></collection>
+	</resultMap>
 	
-	<select id="getReviewList" parameterType="String" resultMap="ReplyDto">
+	<resultMap type="ItemDetailDto" id="ItemDetailDto">
+		<result column="itemName" property="itemName"/>
+		<result column="itemMainType" property="itemMainType"/>
+		<result column="itemSubType" property="itemSubType"/>
+		<result column="itemImage1" property="itemImage1"/>
+	</resultMap>
+	
+	<select id="getReviewList" parameterType="ReplyDto" resultMap="ReplyDto">
 		select 
 			a.replyId
 			,a.itemNum
@@ -78,10 +94,11 @@
 			,b.itemSubType
 			,b.itemImage1
 		from 
-			reply a,item b
-		where 
-			customerEmail=#{customerEmail}
-			and a.itemNum=b.itemNum(+)
+			reply a left join item b
+		on
+			a.itemNum=b.itemNum
+		where
+			a.customerEmail=#{customerEmail}
 		order by
 			a.replyId desc
 	</select>

@@ -1,5 +1,7 @@
 package com.exe.cozy.customer;
 
+import java.util.List;
+
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
 
@@ -18,6 +20,6 @@ public interface CustomerService {
 	public void updatePoint(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
-	public ReplyDto getReviewList(String customerEmail);
+	public List<ReplyDto> getReviewList(String customerEmail);
 	
 }

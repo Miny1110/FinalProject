@@ -173,6 +173,7 @@
                                         <div class="dashboard-title mb-3">
                                             <h3 style="display: inline;" th:text="${replyDto.item.itemName}">상품명</h3>
                                             <input type="hidden" name="itemMainType" th:value="${replyDto.item.itemMainType}">
+                                            <input type="hidden" name="itemNum" th:value="${replyDto.itemNum}">
                                             <input type="hidden" name="itemSubType" th:value="${replyDto.item.itemSubType}">
                                             <input type="hidden" name="customerEmail" th:value="${replyDto.customerEmail}">
                                             <input type="hidden" name="replyId" th:value="${replyDto.replyId}">
@@ -202,14 +203,19 @@
                                                             <i data-feather="star"></i>
                                                         </li>
                                                     </ul>
-                                                    &nbsp;&nbsp;
+                                                    <a th:text="|(${replyDto.rating}점)|"></a>
+                                                    &nbsp;
                                                     <a style="display: inline; font-size:12px; color: gray;" th:text="${#dates.format(replyDto.regDate,'yyyy-MM-dd')}"></a>
                                                 </div>
                                                 <div th:text="${replyDto.content}">
                                                 </div>
                                             </div>
                                             <div style="width: auto;">
-                                                <span class="review">수정하기</span>
+                                                <span class="review" data-bs-toggle="modal" data-bs-target="#edit-review"
+                                                th:data-id="${replyDto.replyId}" th:data-name="${replyDto.item.itemName}"
+                                                th:data-num="${replyDto.itemNum}" th:data-rating="${replyDto.rating}" 
+                                                th:data-content="${replyDto.content}" th:onclick="|reviewEdit(${i.index})|">
+                                                수정하기</span>
                                                 <br/>
                                                 <span class="review" th:onclick="|reviewDel(${i.index})|">삭제하기</span>
                                             </div>
@@ -259,78 +265,6 @@
     <!-- Footer Section End -->
 
     <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                        <p class="mt-1 text-content">Recommended deals for you.</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Deal Box Modal End -->
 
     <!-- Tap to top start -->
@@ -350,145 +284,61 @@
     
 
     <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Location Modal End -->
 
     <!-- Remove Profile Modal Start -->
-    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>The permission for the use/group, preview is inherited from the object, object will create a
-                            new permission for this object</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade theme-modal" id="edit-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">리뷰 수정</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <h4 class="text-content">It's Removed.</h4>
-                    </div>
-                </div>
-                <div class="modal-footer pt-0">
-                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" data-bs-dismiss="modal">Close</button>
-                </div>
+                <form name="editForm" method="post" th:object="${ReplyDto}">
+	                <div class="modal-body">
+	                	<div class="col-xxl-12">
+	                        <div class="form-floating mb-4 theme-form-floating">
+	                        	<input type="hidden" id="replyIdEdit" name="replyId">
+	                        	<input type="hidden" id="itemNumEdit" name="itemNum">
+	                            <input type="text" class="form-control" id="itemNameEdit" name="itemName" 
+	                            readonly="readonly">
+	                            <label for="fname">상품명</label>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-xxl-3">
+	                        <div class="form-floating mb-4 theme-form-floating">
+		                    	<select id="ratingEdit" name="rating" class="form-control">
+									<option value="1.0">1.0</option>
+									<option value="1.5">1.5</option>
+									<option value="2.0">2.0</option>
+									<option value="2.5">2.5</option>
+									<option value="3.0">3.0</option>
+									<option value="3.5">3.5</option>
+									<option value="4.0">4.0</option>
+									<option value="4.5">4.5</option>
+									<option value="5.0">5.0</option>
+								</select>
+	                            <label for="lname">별점</label>
+	                        </div>
+	                    </div>
+
+	                    <div class="col-xxl-12">    
+	                        <div class="form-floating mb-4 theme-form-floating" >
+	                        	<textarea class="form-control" style="height: 150px" name="content" id="contentEdit"></textarea>
+	                            <label for="pin">내용</label>
+	                        </div>
+	                    </div>
+	                        
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
+	                    <button type="button" class="btn theme-bg-color btn-sm text-white"
+	                    onclick="sendEdit();" id="editBtn">수정</button>
+	                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -544,6 +394,42 @@
 		}
 	}
 	
+	/* 리뷰 수정 모달로 데이터 보내기 */
+	$('#edit-review').on('show.bs.modal',function(e) {
+		var id = $(e.relatedTarget).data('id');
+		var name = $(e.relatedTarget).data('name');
+		var num = $(e.relatedTarget).data('num');
+		var rating = $(e.relatedTarget).data('rating');
+		var content = $(e.relatedTarget).data('content');
+
+		$('#replyIdEdit').val(id);
+		$('#itemNameEdit').val(name);
+		$('#itemNumEdit').val(num);
+		$('#ratingEdit').val(rating);
+		$('#contentEdit').val(content);
+		
+    });
+	
+	/* 리뷰 수정 */
+	function sendEdit(){
+		var f = document.editForm;
+		
+		var rating = $("#ratingEdit").val();
+        var content = $("#contentEdit").val();
+        
+		//입력창이 하나라도 비어있으면
+        if(!rating || !content){
+        	alert("내용을 입력해주세요.");
+        	return;
+        }
+        
+        //입력창에 내용이 있으면
+        alert("리뷰가 수정되었습니다.");
+        
+        f.action="reviewUp";
+        f.submit();
+        
+	}
 	</script>
 
 

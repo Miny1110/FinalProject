@@ -1,8 +1,9 @@
 package com.exe.cozy.order;
 
-import com.exe.cozy.domain.DeliverDto;
-import com.exe.cozy.domain.ItemDetailDto;
-import com.exe.cozy.domain.OrderDto;
+import com.exe.cozy.cart.CartService;
+import com.exe.cozy.customer.CustomerService;
+import com.exe.cozy.deliver.DeliveryService;
+import com.exe.cozy.domain.*;
 import com.exe.cozy.itemDetail.ItemDetailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,19 +22,24 @@ public class OrderController {
     @Resource
     private OrderService orderService;
     @Resource
-    private DeliverService deliverService;
+    private DeliveryService deliveryService;
 
     @Resource
     private ItemDetailService itemDetailService;
 
-    @RequestMapping("/order")//order 가면 일단 리스트도 다 떠야함...
+    @Resource
+    private CustomerService customerService;
+    @Resource
+    private CartService cartService;
+    @GetMapping ("/order")//order 가면 일단 리스트도 다 떠야함...
     public ModelAndView order(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
-                              @ModelAttribute OrderDto odto) throws Exception {
+                              @ModelAttribute OrderDto odto)  throws Exception {
 /*상세페이지 완성되면 이거 풀기*/
 //        int itemNum = Integer.parseInt(request.getParameter("itemNum"));
         int itemNum =3;
         ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 
+
         //바로결제 진행시 수량
         //int itemQty = Integer.parseInt((request.getParameter("itemQty")));
         int itemQty = 100;
@@ -40,11 +47,17 @@ public class OrderController {
 
 
 
-        String customerEmail="eunji";
-        List<DeliverDto> dlist =deliverService.listDeliver(customerEmail);
+        String customerEmail="eunjis";
 
-        int salePrice = idto.getItemPrice() - idto.getItemDiscount();
-        int totalPrice = idto.getItemPrice() *itemQty;
+
+        CustomerDto cdto = customerService.getReadData(customerEmail);
+        List<DeliverDto> dlist =deliveryService.listDeliver(customerEmail);
+
+        int saleTotalPrice =idto.getItemPrice() - idto.getItemDiscount();
+        int preTotalPrice = idto.getItemPrice() *itemQty;
+        int salePrice = idto.getItemDiscount() *itemQty;
+        int totalPrice = preTotalPrice - saleTotalPrice;
+
 
 
 
@@ -52,62 +65,35 @@ public class OrderController {
         mav.addObject("dlist",dlist);
         mav.addObject("ddto",ddto);
         mav.addObject("idto",idto);
-        mav.addObject("salePrice",salePrice);
+        mav.addObject("saleTotalPrice",saleTotalPrice);
+        mav.addObject("preTotalPrice", preTotalPrice);
+        mav.addObject("salePrice", salePrice);
         mav.addObject("totalPrice",totalPrice);
         mav.addObject("itemQty",itemQty);
-
+        mav.addObject("cdto",cdto);
 
         mav.setViewName("checkout");
         return mav;}
 
     @PostMapping("/order")
-    public ModelAndView order_ok(@ModelAttribute OrderDto odto, @ModelAttribute DeliverDto ddto, HttpServletRequest request){
+    public ModelAndView order_ok(HttpSession session, @ModelAttribute OrderDto odto, @ModelAttribute DeliverDto ddto, HttpServletRequest request){
+
+     /*   int orderMaxNum = orderService.OrderMaxNum();*/
+        //String customerEmail = (String)session.getAttribute("customerEmail");
+        String customerEmail = "eunjis";
+        int deliverMaxNum = deliveryService.maxNumDeliver();
+
+     /*   odto.setOrderNum(orderMaxNum +1);
+        orderService.insertOrder(odto);*/
+
+        ddto.setDeliverNum(deliverMaxNum +1);
+        ddto.setDeliverType("추가");
+        deliveryService.insertDeliver(ddto);
         ModelAndView mav = new ModelAndView();
-        int orderMaxNum = orderService.OrderMaxNum();
-        int deliverMaxNum = deliverService.maxNumDeliver();
 
-        odto.setOrderNum(orderMaxNum +1);
-        orderService.insertOrder(odto);
-
-        mav.setViewName("redirect:cart");
+        mav.setViewName("redirect:order");
 
         return mav;
-    }
-    @GetMapping("/deliver")
-    public ModelAndView deliver(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
-                                @ModelAttribute OrderDto odto) throws Exception {
-
-
-        int itemNum =3;
-        ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
-
-        //바로결제 진행시 수량
-        //int itemQty = Integer.parseInt((request.getParameter("itemQty")));
-        int itemQty = 100;
-
-
-
-
-        String customerEmail="eunji";
-        List<DeliverDto> dlist =deliverService.listDeliver(customerEmail);
-
-        int salePrice = idto.getItemPrice() - idto.getItemDiscount();
-        int totalPrice = idto.getItemPrice() *itemQty;
-
-
-
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("dlist",dlist);
-        mav.addObject("ddto",ddto);
-        mav.addObject("idto",idto);
-        mav.addObject("salePrice",salePrice);
-        mav.addObject("totalPrice",totalPrice);
-        mav.addObject("itemQty",itemQty);
-
-        mav.setViewName("deliver");
-        return mav;
-
     }
 
    /* @PostMapping("deliver")
@@ -122,7 +108,52 @@ public class OrderController {
 
         return mav;
    }*/
+   @GetMapping("/cartOrder")//order 가면 일단 리스트도 다 떠야함...
+   public ModelAndView cartOrder(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
+                             @ModelAttribute OrderDto odto)  throws Exception {
+       /*상세페이지 완성되면 이거 풀기*/
+//        int itemNum = Integer.parseInt(request.getParameter("itemNum"));
+       int itemNum =3;
+       ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
+
+
+       //바로결제 진행시 수량
+       //int itemQty = Integer.parseInt((request.getParameter("itemQty")));
+       int itemQty = 100;
+
+
+
+
+       String customerEmail="eunjis";
+
+
+       CustomerDto cdto = customerService.getReadData(customerEmail);
+       List<DeliverDto> dlist =deliveryService.listDeliver(customerEmail);
+
+       int saleTotalPrice =idto.getItemPrice() - idto.getItemDiscount();
+       int preTotalPrice = idto.getItemPrice() *itemQty;
+       int salePrice = idto.getItemDiscount() *itemQty;
+       int totalPrice = preTotalPrice - saleTotalPrice;
+
+
+
+
+       ModelAndView mav = new ModelAndView();
+       mav.addObject("dlist",dlist);
+       mav.addObject("ddto",ddto);
+       mav.addObject("idto",idto);
+       mav.addObject("saleTotalPrice",saleTotalPrice);
+       mav.addObject("preTotalPrice", preTotalPrice);
+       mav.addObject("salePrice", salePrice);
+       mav.addObject("totalPrice",totalPrice);
+       mav.addObject("itemQty",itemQty);
+       mav.addObject("cdto",cdto);
+
+       mav.setViewName("cartOrder");
+       return mav;}
 
     @RequestMapping("/order-success.*")
     public String order_success(){ return "order-success";}
+
+
 }

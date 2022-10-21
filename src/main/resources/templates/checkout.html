@@ -6,157 +6,14 @@
 
     <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
     <title>Checkout</title>
-
-    <!-- Google font -->
-
-
-    <!-- bootstrap css -->
-
-
-    <!-- font-awesome css -->
-
-    <!-- feather icon css -->
-
-    <!-- slick css -->
-
-    <!-- Iconly css -->
-
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleej.css">
       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                <script>
-                    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-                    function sample4_execDaumPostcode() {
-                        new daum.Postcode({
-                            oncomplete: function(data) {
-                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- iamport.payment.js -->
 
-                                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                                var extraRoadAddr = ''; // 참고 항목 변수
 
-                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                                    extraRoadAddr += data.bname;
-                                }
-                                // 건물명이 있고, 공동주택일 경우 추가한다.
-                                if(data.buildingName !== '' && data.apartment === 'Y'){
-                                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                                }
-                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                                if(extraRoadAddr !== ''){
-                                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                                }
-
-                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                document.getElementById('sample4_postcode').value = data.zonecode;
-                                document.getElementById("deliverAddr1").value = roadAddr;
-                                document.getElementById("deliverAddr2").value = data.jibunAddress;
-
-                                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                                if(roadAddr !== ''){
-                                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                                } else {
-                                    document.getElementById("sample4_extraAddress").value = '';
-                                }
-
-                                var guideTextBox = document.getElementById("guide");
-                                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                                if(data.autoRoadAddress) {
-                                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                                    guideTextBox.style.display = 'block';
-
-                                } else if(data.autoJibunAddress) {
-                                    var expJibunAddr = data.autoJibunAddress;
-                                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                                    guideTextBox.style.display = 'block';
-                                } else {
-                                    guideTextBox.innerHTML = '';
-                                    guideTextBox.style.display = 'none';
-                                }
-                            }
-                        }).open();
-                    }
-                </script>
-    <script type="text/javascript">
-
-        /*배송지 등록*/
-        //이름 유효성 검사
-        function nameChk(){
-            var dname =$("#deliverName").val();
-            var dnameMsg =$("#dnameMsg");
-
-            if(!dname){
-                dnameMsg.html("주문자 이름을 입력해주세요");
-                $("#dnameMsg").css("color","#ff7474");
-            }else if(!isValidKorean(dname)){
-                dnameMsg.html("이름은 한국어로만 입력 가능합니다.");
-                $("#dnameMsg").css("color","#ff7474");
-                $("#deliverName").val("");
-            }else {
-                dnameMsg.html("");
-            }
-            return;
-        }
-       // 전화번호 체크
-        function telChk(){
-            var tel = $("#deliverTel").val();
-            var telMsg = $("#telMsg");
-
-            if(!tel){
-                telMsg.html("주문자 전화번호를 입력해주세요");
-                $("#telMsg").css("color","#ff7474");
-            }else if(!isValidTel(tel)){
-                telMsg.html("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
-                $("#telMsg").css("color","#ff7474");
-            }else{
-                telMsg.html("");
-            }
-            return;
-        }
-
-        // 배송지 체크
-        function addrChk(){
-            var addr = $("#deliverAddr1").val();
-            var addrMsg =$("#addrMsg");
-
-            if(!addr){
-                addrMsg.html("주문자 주소를 입력해주세요");
-                $("#addrMsg").css("color","#ff7474");
-            }else{
-                addrMsg.html("");
-            }
-            return;
-        }
-        /* 배송지 등록 성공 */
-        function sendIt(){
-            var f = document.deliverForm;
-
-            nameChk();
-            telChk();
-            addrChk();
-
-            var name = $("#deliverName").val();
-            var tel = $("#deliverTel").val();
-            var addr = $("#deliverAddr1").val();
-
-            if(!name || !tel || !addr){
-                alert("내용을 입력해주세요");
-                event.preventDefault();
-                return;
-            }
-
-            alert(name + "님 신규 배송지가 등록되었습니다.");
-            event.preventDefault();
-
-            f.action="order";
-            f.submit();
-        }
-
-    </script>
     <style id="__web-inspector-hide-shortcut-style__">
         .__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
         {
@@ -411,117 +268,7 @@
                                                                         </table>
                                                                     </div>
                                                                 </div>
-                                                                <!-- 샘플 다 되면 지우기-->
-                        <!--<div class="tab-content" id="progressBar">
-                            <div class="tab-pane active" id="s-cart" role="tabpanel" aria-labelledby="shopping-cart">
-                                <h2 class="tab-title">주문상품</h2>
-                                <div class="cart-table p-0">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tbody>
-                                            <tr class="product-box-contain">
-                                                <td class="product-detail">
-                                                    <div class="product border-0">
-                                                        <a href="product-left.html" class="product-image">
-                                                            <img src="../assets/images/vegetable/product/1.png"
-                                                                 class="img-fluid blur-up lazyload" alt="">
-                                                        </a>
-                                                        <div class="product-detail">
-                                                            <ul>
-                                                                <li class="name">
-                                                                    <a href="product-left.html" class="text-title">Bell
-                                                                        pepper</a>
-                                                                </li>
 
-                                                                <li class="text-content"><span class="text-title">Sold
-                                                                        By :</span> Fresho</li>
-
-                                                                <li class="text-content"><span
-                                                                        class="text-title">Quantity</span> - 500 g</li>
-
-                                                                <li>
-                                                                    <h5 class="text-content d-inline-block">Price :</h5>
-                                                                    <span>$35.10</span>
-                                                                    <span class="text-content">$45.68</span>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                                </li>
-
-                                                                <li class="quantity-price-box">
-                                                                    <div class="cart_qty">
-                                                                        <div class="input-group">
-                                                                            <button type="button" class="qty-left-minus"
-                                                                                    data-type="minus" data-field="">
-                                                                                <i class="fa fa-minus"
-                                                                                   aria-hidden="true"></i>
-                                                                            </button>
-                                                                            <input
-                                                                                    class="form-control input-number qty-input"
-                                                                                    type="text" name="quantity" value="0">
-                                                                            <button type="button" class="qty-right-plus"
-                                                                                    data-type="plus" data-field="">
-                                                                                <i class="fa fa-plus"
-                                                                                   aria-hidden="true"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-
-                                                                <li>
-                                                                    <h5>Total: $35.10</h5>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td class="price">
-                                                    <h4 class="table-title text-content">상품금액</h4>
-                                                    <h5>$35.10 <del class="text-content">$45.68</del></h5>
-                                                    <h6 class="theme-color">할인금액 : $20.68</h6>
-                                                </td>
-
-                                                <td class="quantity">
-                                                    <h4 class="table-title text-content">수량</h4>
-                                                    <div class="quantity-price">
-                                                        <div class="cart_qty">
-                                                            <div class="input-group">
-                                                                <button type="button" class="qty-left-minus"
-                                                                        data-type="minus" data-field="">
-                                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                                </button>
-                                                                <input class="form-control input-number qty-input"
-                                                                       type="text" name="quantity" value="0">
-                                                                <button type="button" class="qty-right-plus"
-                                                                        data-type="plus" data-field="">
-                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td class="subtotal">
-                                                    <h4 class="table-title text-content">결제금액</h4>
-                                                    <h5>$35.10</h5>
-                                                </td>
-
-                                                <td class="save-remove">
-                                                    <h4 class="table-title text-content">Action</h4>
-                                                    <a class="save notifi-wishlist" href="javascript:void(0)">Save for
-                                                        later</a>
-                                                    <a class="remove close_button" href="javascript:void(0)">삭제</a>
-                                                </td>
-                                            </tr>
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>-->
-                                <!-- 샘플 다 되면 지우기 끝-->
                         <div class="button-group">
                             <ul class="button-group-list">
                                 <li>
@@ -540,27 +287,20 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">배송지 정보</h2>
-                            <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button"
-                                    onclick="location.href = '/order/deliver';">
-                                <i class="fa-solid fa-plus d-block d-sm-none m-0">
-
-                                </i>
-                                <span class="d-none d-sm-block">새로운 주소 추가하기</span>
-                            </button>
                         </div>
 <!--세션등록되면 수정 -->
                         <div class="row g-4">
                             <div class="col-xxl-6 col-lg-12 col-md-6" th:each="ddto:${dlist}">
-                                <div class="delivery-address-box">
+                                <div class="delivery-address-box" >
                                     <div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="jack"
                                                    id="flexRadioDefault1">
                                         </div>
 
-                                        <div class="label"> <!-- label1 하면 기본배송지로 나오게 설정해둠 -->
+                                     <!--   <div class="label"> &lt;!&ndash; label1 하면 기본배송지로 나오게 설정해둠 &ndash;&gt;
                                             <label th:text="${ddto.getDeliverType()}"></label>
-                                        </div>
+                                        </div>-->
 
                                         <ul class="delivery-address-detail">
                                             <li>
@@ -569,7 +309,7 @@
 
                                             <li>
                                                 <p class="text-content"><span class="text-title"
-                                                th:text="'주소 : ' + |${ddto.getDeliverAddr1()}, ${ddto.getDeliverAddrd()}|"></span></p>
+                                                th:text="'주소 : ' + |${ddto.getDeliverRAddr()}, ${ddto.getDeliverDAddr()}|"></span></p>
                                             </li>
 
 
@@ -583,44 +323,87 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--배송지 추가-->
+                            <form class="row g-4" name="deliverForm" method="post" th:object="${ddto}" >
+                                <div id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down" >
 
 
-                            <!--div class="col-xxl-6 col-lg-12 col-md-6">
-                                <div class="delivery-address-box">
-                                    <div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="jack"
-                                                   id="flexRadioDefault2" checked="checked">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel1">배송주소</h5>
+
+                                            </div>
+
+
+                                            <div class="modal-body">
+
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
+                                                    <label for="deliverName">주문자</label>
+                                                    <p id="dnameMsg"></p>
+                                                </div>
+
+
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
+                                                    <label for="deliverTel">전화번호</label>
+                                                    <P id="telMsg"></P>
+                                                </div>
+
+
+
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" class="form-control" id="deliverZipCode" placeholder="우편번호">
+                                                    <label for="deliverZipCode">우편번호</label>
+                                                </div>
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                                                    <br>
+                                                </div>
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr" onblur="addrChk();">
+                                                    <label for="deliverRAddr">도로명주소</label>
+                                                    <p id="addrMsg"></p>
+                                                </div>
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" class="form-control" id="deliverJAddr" placeholder="지번주소" name="deliverJAddr">
+                                                    <label for="deliverJAddr">지번주소</label>
+                                                    <span id="guide" style="color:#999;display:none"></span>
+                                                </div>
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr" onblur="addrdChk();" >
+                                                    <label for="deliverDAddr">상세주소</label>
+                                                </div>
+                                                <div class="form-floating mb-4 theme-form-floating">
+                                                    <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
+                                                    <label for="deliverMsg">배송 메세지</label>
+                                                </div>
+                                                <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
+
+
+
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="checkbox" name="saveDeliver" id="saveDeliver">
+                                                <h6>이번만 배송 받기</h6>
+                                                <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
+                                                    <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
+                                                    <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
+                                                </button>
+
+
+                                            </div>
                                         </div>
-
-                                        <div class="label">
-                                            <label>Office</label>
-                                        </div>
-
-                                        <ul class="delivery-address-detail">
-                                            <li>
-                                                <h4 class="fw-500">전초롱</h4>
-                                            </li>
-
-                                            <li>
-                                                <p class="text-content"><span class="text-title">주소
-                                                            : </span>서울 강남구 강남대로 아이티윌</p>
-                                            </li>
-
-                                            <li>
-                                                <h6 class="text-content"><span class="text-title">우편번호
-                                                            :</span> 보지마 시키야</h6>
-                                            </li>
-
-                                            <li>
-                                                <h6 class="text-content mb-0"><span class="text-title">저나버노
-                                                            :</span> 안알랴줌</h6>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
-                            </div>-->
+                            </form>
+                            <!-- 배송지 추가 끝 -->
                         </div>
+
+
 
                         <div class="button-group">
                             <ul class="button-group-list">
@@ -650,65 +433,56 @@
 
                                     <ul class="summery-contain bg-white custom-height">
                                         <li>
-                                            <h4>Bell pepper <span>X 1</span></h4>
-                                            <h4 class="price">$32.34</h4>
+                                            <span id="itemName" th:text ="${idto.itemName}"></span>
+                                                <span th:text="| X ${itemQty}|"></span>
+                                            <h4 class="price" th:text="|${#numbers.formatInteger(preTotalPrice,0,'COMMA')} 원|"></h4>
                                         </li>
 
-                                        <li>
-                                            <h4>Eggplant <span>X 3</span></h4>
-                                            <h4 class="price">$12.23</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Onion <span>X 2</span></h4>
-                                            <h4 class="price">$18.27</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Potato <span>X 1</span></h4>
-                                            <h4 class="price">$26.90</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Baby Chili <span>X 1</span></h4>
-                                            <h4 class="price">$19.28</h4>
-                                        </li>
-
-                                        <li>
-                                            <h4>Broccoli <span>X 2</span></h4>
-                                            <h4 class="price">$29.69</h4>
-                                        </li>
                                     </ul>
 
                                     <ul class="summery-total bg-white">
                                         <li>
                                             <h4>상품금액</h4>
-                                            <h4 class="price">$111.81</h4>
+                                            <h4 class="price" th:text="|${#numbers.formatInteger(preTotalPrice,0,'COMMA')} 원|"></h4>
+                                        </li>
+                                        <li>
+                                            <h4>가용 포인트</h4>
+                                            <input type="hidden" id="checkPoint" th:value="${cdto.getCustomerPoint()}">
+
+                                            <h4 class="price" th:text="${cdto.getCustomerPoint()}">
+
+                                            </h4>
+                                        </li>
+                                        <div class="summery-contain">
+                                            <div class="coupon-cart">
+                                        <div class="mb-3 coupon-box input-group">
+                                            <input type="email" class="form-control" id="use" name="use" placeholder="포인트 입력">
+                                            <button class="btn-apply" onclick="point()">적용하기</button>
+                                        </div>
+                                            </div>
+                                        </div>
+                                        <li>
+                                            <h4>포인트사용</h4>
+                                            <h4 class="price" id="usePoint"></h4>
                                         </li>
 
                                         <li>
                                             <h4>할인금액</h4>
-                                            <h4 class="price">$8.90</h4>
+                                            <h4 class="price" th:text = "|${#numbers.formatInteger(salePrice,0,'COMMA')} 원|"></h4>
                                         </li>
 
-                                        <li>
-                                            <h4>Tax</h4>
-                                            <h4 class="price">$29.498</h4>
-                                        </li>
 
-                                        <li>
-                                            <h4>쿠폰/포인트</h4>
-                                            <h4 class="price">$-23.10</h4>
-                                        </li>
+
 
                                         <li class="list-total">
+                                            <input type="hidden" id="totalPrice" th:value="${totalPrice}">
                                             <h4>결제금액</h4>
-                                            <h4 class="price">$19.28</h4>
+                                            <h4 class="price" id="pointTotalPrice" onload="price()"></h4>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-
+                            <input type="hidden" class="form-control" id="customerName" th:value="${cdto.customerName}">
                             <div class="col-xxl-8 col-lg-12 col-md-7 order-xxl-1 order-lg-2 order-md-1">
                                 <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                     <div class="accordion-item">
@@ -722,7 +496,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                  <!--      <div id="flush-collapseOne" class="accordion-collapse collapse show"
                                              data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 <div class="row g-2">
@@ -730,27 +504,28 @@
                                                         <div class="payment-method">
                                                             <div
                                                                     class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                                <input type="text" class="form-control" id="credit2"
+                                                                <input type="text" class="form-control" id="customerEmail"
                                                                        placeholder="Enter Credit & Debit Card Number">
-                                                                <label for="credit2">
-                                                                    Enter Credit & Debit Card Number</label>
+                                                                <label for="customerEmail" th:text="${cdto.customerEmail}">
+                                                                  </label>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-xxl-4">
                                                         <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="text" class="form-control" id="expiry"
-                                                                   placeholder="Enter Expiry Date">
-                                                            <label for="expiry">Expiry Date</label>
+                                                            <input type="hidden" class="form-control" id="customerName"
+                                                                   placeholder="Enter Expiry Date" th:value="${cdto.customerName}">
+                                                            <label for="customerName" ></label>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-xxl-4">
                                                         <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="text" class="form-control" id="cvv"
+                                                            <input type="text" class="form-control" id="customerTel"
                                                                    placeholder="Enter CVV Number">
-                                                            <label for="cvv">CVV Number</label>
+                                                            <label for="customerTel" th:text = "${cdto.customerTel}"></label>
+
                                                         </div>
                                                     </div>
 
@@ -777,7 +552,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
 
                                     <div class="accordion-item">
@@ -787,86 +562,7 @@
                                                 <div class="custom-form-check form-check mb-0">
                                                     <label class="form-check-label" for="banking"><input
                                                             class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="banking"> Net
-                                                        Banking</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <h5 class="text-uppercase mb-4">Select Your Bank</h5>
-                                                <div class="row g-2">
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank1">
-                                                            <label class="form-check-label" for="bank1">Industrial &
-                                                                Commercial Bank</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank2">
-                                                            <label class="form-check-label" for="bank2">Agricultural
-                                                                Bank</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank3">
-                                                            <label class="form-check-label" for="bank3">Bank of
-                                                                America</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank4">
-                                                            <label class="form-check-label" for="bank4">Construction
-                                                                Bank Corp.</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank5">
-                                                            <label class="form-check-label" for="bank5">HSBC
-                                                                Holdings</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="bank6">
-                                                            <label class="form-check-label" for="bank6">JPMorgan
-                                                                Chase & Co.</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <div class="select-option">
-                                                            <div class="form-floating theme-form-floating">
-                                                                <select class="form-select theme-form-select"
-                                                                        aria-label="Default select example">
-                                                                    <option value="hsbc">HSBC Holdings</option>
-                                                                    <option value="loyds">Lloyds Banking Group
-                                                                    </option>
-                                                                    <option value="natwest">Nat West Group</option>
-                                                                    <option value="Barclays">Barclays</option>
-                                                                    <option value="other">Others Bank</option>
-                                                                </select>
-                                                                <label>Select Other Bank</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            name="flexRadioDefault" id="banking"> 무통장입금 </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -979,8 +675,9 @@
                                 </li>
 
                                 <li>
-                                    <button onclick="location.href = 'order-success.html';"
-                                            class="btn btn-animation">결제</button>
+                                    <button  class="btn btn-animation"  onclick="requestPay()">결제</button>
+                                                    <!--"location.href = 'order-success.html';"-->
+
                                 </li>
                             </ul>
                         </div>
@@ -1346,7 +1043,7 @@
 <!-- Location Modal End -->
 
 <!--배송지 추가-->
- <form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
+ <!--<form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
 <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
@@ -1396,7 +1093,7 @@
                         <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
                         <label for="deliverAddrd">상세주소</label>
                     </div>
-                    <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
+                    &lt;!&ndash;  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> &ndash;&gt;
 
 
                 
@@ -1410,7 +1107,7 @@
         </div>
     </div>
 </div>
- </form>
+ </form>-->
 <!-- 배송지 추가 끝 -->
 
 
@@ -1541,6 +1238,207 @@
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
+        <script >
+            function requestPay() {
+
+
+            //아임포트 결제연동
+            var IMP = window.IMP;
+            IMP.init("imp73716258");
+
+
+                // IMP.request_pay(param, callback) 결제창 호출
+                IMP.request_pay({ // param(결제에대한 정보)
+                    pg: "kcp",
+                    pay_method: 'vbank' ,
+                    merchant_uid: 'ssss',
+                    name: $('#itemName').html() ,
+                    amount: $('#pointTotalPrice').html(),
+                    buyer_email: $('#customerEmail').html() ,
+                    buyer_name: $('#customerName').val(),
+                    buyer_tel: $('#customerTel').html() ,
+                    buyer_addr: $('#deliverAddr1').html(),
+                    buyer_postcode: "01181"
+                },  function (rsp) { // callback함수
+                    if (rsp.success) {
+                        // 결제 성공 시 로직,
+                        let imp_uid = rsp.imp_id;
+                        let merchant_uid = rsp.merchant_uid;
+                        let paid_amount = rsp.paid_amount;
+                        let apply_num = rsp.apply_num;
+
+
+
+                        let data = {imp_uid:imp_uid,
+                            merchant_uid:merchant_uid,
+                            paid_amount:paid_amount,
+                            apply_num:apply_num
+                        };
+
+                        $.ajax({
+                            url: "/success_order",
+                            data:data,
+                            success: function(data){
+                                let msg = "결제가 완료되었습니다.\n";
+                                msg += "고유ID: " + imp_uid;
+                                msg += "\n상점거래ID : " + merchant_uid;
+                                msg += "\n결제금액 : " + paid_amount;
+                                msg += "\n 카드승인번호 : " + apply_num;
+                                alert(msg);
+                                location.href="payok.html";
+                            }
+                        })// end ajax
+
+
+                    } else {
+                        // 결제 실패 시 로직,
+                        let msg = "결제에 실패하였습니다./n"
+                        msg = "에러내용: " + rsp.error_msg;
+
+                        alert("msg");
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            //총가격 구하기
+            $(function (){
+                price()
+
+            })
+            function price(){
+                let totalPrice= $('#totalPrice').val();
+                $('#pointTotalPrice').html(totalPrice)
+
+            }
+        </script>
+        <script>
+        //포인트
+            $("button").click(function point() {
+                let use = $('#use').val(); //사용할 포인트
+                let check = $('#checkPoint').val();
+                let usePoint = parseInt(use);
+                let checkPoint = parseInt(check);
+
+
+                if (usePoint > checkPoint) {
+                    alert("보유포인트 이내로 사용가능합니다.");
+                    return;
+                }
+                $('#usePoint').html(usePoint)
+
+               $(document).ready(function price() {
+                   let pointTotalPrice=$('#totalPrice').val();
+                   let use = $('#use').val(); //사용할 포인트
+                   let usePoint = parseInt(use);
+
+                   if (use !== null) {
+                       pointTotalPrice = pointTotalPrice - usePoint
+                   }
+
+                     $('#pointTotalPrice').html(pointTotalPrice)
+
+                 })
+            })
+        </script>
+
+        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js">//결제Import</script>
+
+        <script type="text/javascript">
+            //배송지 등록시 검사
+            function addAddr(){
+                var f = document.insertForm;
+
+                var name =$("#deliverName").val();
+                var tel = $("#deliverTel").val();
+                var RAddr = $("#deliverRAddr").val();
+                var JAddr = $("#deliverJAddr").val();
+                var DAddr = $("#deliverDAddr").val();
+                var ZipCode = $("#deliverZipCode").val();
+
+                //입력창이 하나라도 비어있으면(지번주소, 상세주소 제외)
+                if(!name || !tel || !RAddr || !ZipCode){
+                    alert("내용을 입력해주세요.");
+                    return;
+                }
+
+                //입력창에 내용이 있으면
+                if(!name){
+                    alert("수령자 이름을 입력해주세요.");
+                    return;
+                }
+
+                if(!tel){
+                    alert("주문자 전화번호를 입력해주세요.(예: 01012345678)");
+                    return;
+                }
+
+                alert(name + "님 신규 배송지가 등록되었습니다.");
+
+                f.action="/order";
+                f.submit();
+
+            }
+        </script>
+
+        <script> //배송지 검색
+            //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+            function sample4_execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        var roadAddr = data.roadAddress; // 도로명 주소 변수
+                        var extraRoadAddr = ''; // 참고 항목 변수
+
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                            extraRoadAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if(data.buildingName !== '' && data.apartment === 'Y'){
+                            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if(extraRoadAddr !== ''){
+                            extraRoadAddr = ' (' + extraRoadAddr + ')';
+                        }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('deliverZipCode').value = data.zonecode;
+                        document.getElementById("deliverRAddr").value = roadAddr;
+                        document.getElementById("deliverJAddr").value = data.jibunAddress;
+
+                        // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                        if(roadAddr !== ''){
+                            document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                        } else {
+                            document.getElementById("sample4_extraAddress").value = '';
+                        }
+
+                        var guideTextBox = document.getElementById("guide");
+                        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                        if(data.autoRoadAddress) {
+                            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                            guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                            guideTextBox.style.display = 'block';
+
+                        } else if(data.autoJibunAddress) {
+                            var expJibunAddr = data.autoJibunAddress;
+                            guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                            guideTextBox.style.display = 'block';
+                        } else {
+                            guideTextBox.innerHTML = '';
+                            guideTextBox.style.display = 'none';
+                        }
+                    }
+                }).open();
+            }
+        </script>
 </body>
 
 </html>

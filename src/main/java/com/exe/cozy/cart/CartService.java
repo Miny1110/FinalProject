@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface CartService {
 
-	public int cartMaxNum() throws Exception;
-	public int insertCart(CartDto cdto) throws Exception;
+	public int cartMaxNum();
+	public void insertCart(CartDto cdto);
 	/**카트삭제*/
-	public void deleteCart(int cartNum) throws Exception;
+	public void deleteCart(int cartNum);
 	/**카트수량수정*/
-	public void updateCart(CartDto cdto) throws Exception;
+	public void updateCart(CartDto cdto);
 	/**카트목록*/
-	public List<CartDto> listCart(String customerEmail) throws Exception;
+	public List<CartDto> listCart(String customerEmail);
 	/**카트확인*/
-	public int checkCart(CartDto cdto) throws Exception;
+	public int checkCart(CartDto cdto);
 
 }

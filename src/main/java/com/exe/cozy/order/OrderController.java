@@ -42,7 +42,7 @@ public class OrderController {
 
         //바로결제 진행시 수량
         //int itemQty = Integer.parseInt((request.getParameter("itemQty")));
-        int itemQty = 100;
+        int itemQty = 2;
 
 
 
@@ -53,10 +53,10 @@ public class OrderController {
         CustomerDto cdto = customerService.getReadData(customerEmail);
         List<DeliverDto> dlist =deliveryService.listDeliver(customerEmail);
 
-        int saleTotalPrice =idto.getItemPrice() - idto.getItemDiscount();
+        int saleTotalPrice =idto.getItemPrice()-idto.getItemDiscount();
         int preTotalPrice = idto.getItemPrice() *itemQty;
         int salePrice = idto.getItemDiscount() *itemQty;
-        int totalPrice = preTotalPrice - saleTotalPrice;
+        int totalPrice = preTotalPrice - salePrice;
 
 
 

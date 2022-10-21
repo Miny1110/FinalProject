@@ -1,6 +1,9 @@
 package com.exe.cozy.customer;
 
+import java.util.List;
+
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.ReplyDto;
 
 public interface CustomerService {
 
@@ -14,12 +17,9 @@ public interface CustomerService {
 	public void updatePwd(CustomerDto dto);
 	
 	public void updateData(CustomerDto dto);
+	public void updatePoint(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
-	
-//	일반메소드
-	public boolean loginCheck(String customerEmail,String customerPwd);
-	public boolean forgotCheck(String customerEmail, String customerTel);
-	public String getTmpPwd();
+	public List<ReplyDto> getReviewList(String customerEmail);
 	
 }

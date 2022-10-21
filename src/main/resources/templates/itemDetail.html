@@ -23,7 +23,8 @@
 <!-- Template css -->
 <link id="color-link" rel="stylesheet" type="text/css"
 	href="../assets/css/stylecj.css">
-<link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">	
+<link id="color-link" rel="stylesheet" type="text/css"
+	href="../assets/css/stylemj.css">
 <style id="__web-inspector-hide-shortcut-style__">
 .__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *,
 	.__web-inspector-hidebefore-shortcut__::before,
@@ -110,16 +111,17 @@
 										<div class="product-main-1 no-arrow">
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/1.jpg"
-														id="img-1"
-														data-zoom-image="../assets/images/product/category/1.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage1}|} "
+														width=750px, height=750px id="img-1"
+														data-zoom-image="../assets/img/sodwkdrh1_1.png"
 														class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
 												</div>
 											</div>
 
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/2.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage2}|}"
+														width=750px, height=750px
 														data-zoom-image="../assets/images/product/category/2.jpg"
 														class="img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
 												</div>
@@ -127,35 +129,22 @@
 
 											<div>
 												<div class="slider-image">
-													<img src="../assets/images/product/category/3.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage3}|}"
+														width=750px, height=750px
+														data-zoom-image="../assets/images/product/category/3.jpg"
+														class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
+												</div>
+											</div>
+											<div>
+												<div class="slider-image">
+													<img th:src="@{|/assets/img/${idto.itemImage4}|}"
+														width=750px, height=750px
 														data-zoom-image="../assets/images/product/category/3.jpg"
 														class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
 												</div>
 											</div>
 
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/4.jpg"
-														data-zoom-image="../assets/images/product/category/4.jpg"
-														class="img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
-												</div>
-											</div>
 
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/5.jpg"
-														data-zoom-image="../assets/images/product/category/5.jpg"
-														class="img-fluid image_zoom_cls-4 blur-up lazyload" alt="">
-												</div>
-											</div>
-
-											<div>
-												<div class="slider-image">
-													<img src="../assets/images/product/category/6.jpg"
-														data-zoom-image="../assets/images/product/category/6.jpg"
-														class="img-fluid image_zoom_cls-5 blur-up lazyload" alt="">
-												</div>
-											</div>
 										</div>
 									</div>
 
@@ -164,45 +153,34 @@
 											class="bottom-slider-image left-slider no-arrow slick-top">
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/1.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage1}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
 
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/2.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage2}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
 
 											<div>
 												<div class="sidebar-image">
-													<img src="../assets/images/product/category/3.jpg"
+													<img th:src="@{|/assets/img/${idto.itemImage3}|}"
+														class="img-fluid blur-up lazyload" alt="">
+												</div>
+											</div>
+											<div>
+												<div class="sidebar-image">
+													<img th:src="@{|/assets/img/${idto.itemImage4}|}"
 														class="img-fluid blur-up lazyload" alt="">
 												</div>
 											</div>
 
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/4.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
 
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/5.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
 
-											<div>
-												<div class="sidebar-image">
-													<img src="../assets/images/product/category/6.jpg"
-														class="img-fluid blur-up lazyload" alt="">
-												</div>
-											</div>
+
 										</div>
 									</div>
 								</div>
@@ -211,14 +189,18 @@
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
 							<div class="right-box-contain">
-								<h6 class="offer-top" th:text="${idto.itemDiscount}">세일</h6>
+								<h6 class="offer-top"
+									th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
 								<h2 class="name" th:text="${idto.itemName }"></h2>
 								<div class="price-rating">
 									<h3 class="theme-color price">
-										<del class="text-content" th:text="${idto.itemPrice}"></del>
-										<span class="text-content" th:text="${salePrice}"></span> <span
-											class="offer theme-color"> ([[${idto.itemDiscount}]]
-											원 할인)</span>
+										<del class="text-content"
+											th:text="|${#numbers.formatInteger(idto.ItemPrice , 0, 'COMMA')} 원|"></del>
+										<span class="text-content"
+											th:text="|${#numbers.formatInteger(idto.getItemPrice()-idto.itemDiscount , 0, 'COMMA')} 원|"></span>
+										<span class="offer theme-color">
+											([[|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')}
+											원|]] 할인)</span>
 
 									</h3>
 									<div class="product-rating custom-rate">
@@ -427,21 +409,21 @@
 
 
 											<div class="nav-desh">
-												<p th:src="@{${idto.detailImage}} ">상품
-													상세내용</p>
+												<p th:src="@{${idto.detailImage}} " width=1198px,
+													height=297px>상품 상세내용</p>
 											</div>
 
 
 
 											<div class="banner-contain nav-desh">
-												<img src="../assets/images/vegetable/banner/14.jpg"
+												<img th:src="@{|/assets/img/${idto.detailImage}|}"
 													class="bg-img blur-up lazyload" alt="">
 												<div
 													class="banner-details p-center banner-b-space w-100 text-center">
 													<div>
-														<h6 class="ls-expanded theme-color mb-sm-3 mb-1">SUMMER</h6>
-														<h2>VEGETABLE</h2>
-														<p class="mx-auto mt-1">Save up to 5% OFF</p>
+														<h6 class="ls-expanded theme-color mb-sm-3 mb-1"></h6>
+														<h2></h2>
+														<p class="mx-auto mt-1"></p>
 													</div>
 												</div>
 											</div>
@@ -495,71 +477,77 @@
 									<div class="tab-pane fade" id="care" role="tabpanel"
 										aria-labelledby="care-tab">
 										<div class="information-box">
-										<form action="qnaWrite_ok" method="post">
-										<input type="hidden" th:value="${itemNum}" name="itemNum">
-										
-											<h2>Q & A</h2>
-											<hr />
-											<p>상품문의</p>
-											<div class="form-floating theme-form-floating">
-											<input type="text"  name="customerEmail"> 
-											
-												<input type="text" class="form-control" id="itemQnaTitle"
-													placeholder="Name" name="itemQnaTitle"> <label for="itemQnaTitle">문의 제목
-													(30자 이내)</label>
-											</div>
-											<br>
-											<div class="col-12">
+											<form action="qnaWrite_ok" method="post">
+												<input type="hidden" th:value="${itemNum}" name="itemNum">
+
+												<h2>Q & A</h2>
+												<hr />
+												<p>상품문의</p>
 												<div class="form-floating theme-form-floating">
-													<textarea class="form-control"
-														placeholder="Leave a comment here" id="itemQnaContent"
-														style="height: 150px" name="itemQnaContent"></textarea>
-													<label for="floatingTextarea2">문의 내용을 입력해주세요(300자
-														이내)</label>
+													<input type="text" name="customerEmail"> <input
+														type="text" class="form-control" id="itemQnaTitle"
+														placeholder="Name" name="itemQnaTitle"> <label
+														for="itemQnaTitle">문의 제목 (30자 이내)</label>
 												</div>
-											</div>
-											<br>
-											<div>
-												<ul>
-													<button class="btn-ani" type="submit" >등록하기
-														<button class="btn-cancel" type="button" onclick="">등록취소</button>
-												</ul>
-											</div>
+												<br>
+												<div class="col-12">
+													<div class="form-floating theme-form-floating">
+														<textarea class="form-control"
+															placeholder="Leave a comment here" id="itemQnaContent"
+															style="height: 150px" name="itemQnaContent"></textarea>
+														<label for="floatingTextarea2">문의 내용을 입력해주세요(300자
+															이내)</label>
+													</div>
+												</div>
+												<br>
+												<div>
+													<ul>
+														<button class="btn-ani" type="submit">
+															등록하기
+															<button class="btn-cancel" type="button" onclick="">등록취소</button>
+													</ul>
+												</div>
 
 											</form>
 										</div>
 										<hr>
 										<div class="profile-about dashboard-bg-box">
-                                        <div class="row">
-                                        <div class="dashboard-title mb-3">
-                                            <h3 style="display: inline;">상품문의</h3>
-                                            <h7 style="display: inline;">(답변은 CS팀이 개별연락드립니다.)</h7><hr>
-                                        </div>
-                                        </div>
-                                        <div class="row" th:each="qdto : ${qdtoList}">
-                                           <div style="width: 70px; margin-right: 30px;">
-                                               <img src="../assets/svg/product.svg" style="width: 70px; height: 70px;">
-                                           </div>
-                                           
-                                            <div class="col-xxl-9"  style="text-align: left;">
-                                                <div class="dashboard-title mb-2">
-                                                    <a style="display: inline; font-size:12px; color: gray;" th:text="${qdto.customerEmail}">님</a>
-                                                    <a style="display: inline; font-size:12px; color: gray;" th:text="${#dates.format(qdto.itemQnaCreate, 'yyyy-MM-dd')}">문의날짜</a>
-                                                </div>
-                                                <div >
-                                                    <a style="display: inline; font-size:12px; color: gray;" ><b th:text="${qdto.itemQnaTitle}"></b></a><br><br>
-                                                    <a style="display: inline; font-size:12px; color: gray;" th:text="${qdto.itemQnaContent}">내용</a>
-                                                </div><hr>
-                                            </div>
-                                            <div style="width: auto;">
-                                                <span class="review">수정하기</span>
-                                                <br/>
-                                                <span class="review">삭제하기</span>
-                                            </div>
-                                        </div>
-                                    </div>
-										
-										
+											<div class="row">
+												<div class="dashboard-title mb-3">
+													<h3 style="display: inline;">상품문의</h3>
+													<h7 style="display: inline;">(답변은 CS팀이 개별연락드립니다.)</h7>
+													<hr>
+												</div>
+											</div>
+											<div class="row" th:each="qdto : ${qdtoList}">
+												<div style="width: 70px; margin-right: 30px;">
+													<img src="../assets/svg/product.svg"
+														style="width: 70px; height: 70px;">
+												</div>
+
+												<div class="col-xxl-9" style="text-align: left;">
+													<div class="dashboard-title mb-2">
+														<a style="display: inline; font-size: 12px; color: gray;"
+															th:text="${qdto.customerEmail}">님</a> <a
+															style="display: inline; font-size: 12px; color: gray;"
+															th:text="${#dates.format(qdto.itemQnaCreate, 'yyyy-MM-dd')}">문의날짜</a>
+													</div>
+													<div>
+														<a style="display: inline; font-size: 12px; color: gray;"><b
+															th:text="${qdto.itemQnaTitle}"></b></a><br> <br> <a
+															style="display: inline; font-size: 12px; color: gray;"
+															th:text="${qdto.itemQnaContent}">내용</a>
+													</div>
+													<hr>
+												</div>
+												<div style="width: auto;">
+													<span class="review">수정하기</span> <br /> <span
+														class="review">삭제하기</span>
+												</div>
+											</div>
+										</div>
+
+
 									</div>
 
 
@@ -604,14 +592,14 @@
 																			</div>
 																		</div>
 
-																		<div class="reply" th:text="${rdto.content}">
-																			<p>
-																				<a href="javascript:void(0)">Reply</a>
+																		<div class="reply">
+																			<p>[[${rdto.content}]]
+																				<button th:onclick="|location.href = '@{|reviewUpdate?replyId=${rdto.replyId}|}';|">수정하기</button>
+																				<input type="button" value=" 삭제 " th:onclick="@{|location.href='/deleteReply?replyId=${rdto.replyId}'|}"/>
 																			</p>
 																		</div>
+																		
 																	</div>
-
-
 																</div>
 															</li>
 														</ul>

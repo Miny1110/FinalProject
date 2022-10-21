@@ -21,7 +21,6 @@ public class ItemDetailDto {
     private String itemImage2;
     private String itemImage3;
     private String itemImage4;
-    private String itemImage5;
     private String detailImage; //상세페이지 이미지
     private int itemHitcount;
     private int itemStock; //재고수량

@@ -1,17 +1,13 @@
 package com.exe.cozy.customer;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,19 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.exe.cozy.deliver.DeliveryService;
+import com.exe.cozy.delivery.DeliveryDupChk;
+import com.exe.cozy.delivery.DeliveryService;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
 import com.exe.cozy.domain.PointDto;
+import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.itemDetail.ReplyService;
 import com.exe.cozy.mail.MailService;
 import com.exe.cozy.point.PointService;
 import com.exe.cozy.util.AddDate;
+import com.exe.cozy.util.AlertRedirect;
 
-@Controller
+@RestController
 @RequestMapping("/customer")
 public class CustomerController {
 	
@@ -39,9 +40,11 @@ public class CustomerController {
 	@Resource private PointService pointService;
 	@Resource private MailService mailService;
 	@Resource private DeliveryService deliveryService;
+	@Resource private ReplyService replyService;
 	
-	@Autowired
-	AddDate addDate;
+	@Autowired AddDate addDate;
+	@Autowired CustomerChk customerChk;
+	@Autowired DeliveryDupChk deliveryDupChk;
     
 	//이메일 중복확인
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
@@ -110,8 +113,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	customerService.getLogin(customerEmail);
-    	boolean check = customerService.loginCheck(customerEmail, customerPwd);
+    	boolean check = customerChk.loginCheck(customerEmail, customerPwd);
 
     	if(!check) { //로그인 실패
     		rattr.addFlashAttribute("msg", "이메일 또는 비밀번호가 일치하지 않습니다.");
@@ -149,9 +151,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	customerService.forgot(customerEmail);
-    	
-    	boolean check = customerService.forgotCheck(customerEmail, customerTel);
+    	boolean check = customerChk.forgotCheck(customerEmail, customerTel);
     	
     	if(!check) {
     		rattr.addFlashAttribute("msg", "회원정보가 없습니다.");
@@ -162,7 +162,7 @@ public class CustomerController {
     	}
 
     	//임시비밀번호 발급
-    	String customerPwd = customerService.getTmpPwd();
+    	String customerPwd = customerChk.getTmpPwd();
     	
     	//이메일발송
     	MailDto mailDto = mailService.createMail(customerPwd, customerEmail);
@@ -207,12 +207,7 @@ public class CustomerController {
     	CustomerDto customerDto = customerService.getReadData(customerEmail);
     	
     	//비밀번호 *로 변환
-    	String customerPwd = customerDto.getCustomerPwd();
-    	int customerPwdLen = customerPwd.length();
-    	String changePwd = "";
-    	for(int i=0;i<customerPwdLen;i++) {
-    		changePwd += "*";
-    	}
+    	String changePwd = customerChk.changePwd(customerDto.getCustomerPwd());
     	customerDto.setCustomerPwd(changePwd);
     	
     	mav.addObject("customerDto", customerDto);
@@ -230,53 +225,18 @@ public class CustomerController {
     	customerService.updateData(dto);
     	
     	if(dto.getCustomerZipCode()!=null) { //주소를 입력했으면
+    		
     		String customerEmail = dto.getCustomerEmail();
     		List<DeliverDto> dList = deliveryService.listDeliver(customerEmail); //DELIVERDTO 객체들 LIST
     		
-    		int typeChk = 0;
+    		int typeChk = deliveryDupChk.typeChk(dList);
     		
-    		for(int i=0;i<dList.size();i++) { //기본배송지 체크
-    			DeliverDto ddto = dList.get(i);
-    			
-    			boolean type = ddto.getDeliverType().equals("기본");
-    			
-    			if(type) { //기본배송지가 있으면 typeChk!=0 (deliver 테이블 update)
-    				typeChk++;
-    			}
-    		}
-    		
-    		if(typeChk!=0) { //기본배송지가 있으면 (deliver 테이블 update) -> customer테이블에 데이터가 있다.
-    			int deliverNum = deliveryService.selectDeliverType("기본");
-    			
-    			DeliverDto ddto = new DeliverDto();
-    			
-    			ddto.setDeliverNum(deliverNum);
-    			ddto.setDeliverName(dto.getCustomerName());
-    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
-    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
-    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
-    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
-    			ddto.setDeliverTel(dto.getCustomerTel());
-    			
+    		if(typeChk!=0) {
+    			DeliverDto ddto = deliveryDupChk.update(dto);
     			deliveryService.updateDeliver(ddto);
-    			
-    		}else { //기본배송지가 없으면 (deliver 테이블 insert)
-    			DeliverDto ddto = new DeliverDto();
-    			
-    			int maxNum = deliveryService.maxNumDeliver();
-    			
-    			ddto.setDeliverNum(maxNum+1);
-    			ddto.setCustomerEmail(customerEmail);
-    			ddto.setDeliverName(dto.getCustomerName());
-    			ddto.setDeliverRAddr(dto.getCustomerRAddr());
-    			ddto.setDeliverJAddr(dto.getCustomerJAddr());
-    			ddto.setDeliverDAddr(dto.getCustomerDAddr());
-    			ddto.setDeliverZipCode(dto.getCustomerZipCode());
-    			ddto.setDeliverTel(dto.getCustomerTel());
-    			ddto.setDeliverType("기본");
-    			
+    		}else {
+    			DeliverDto ddto = deliveryDupChk.insert(dto);
     			deliveryService.insertDeliver(ddto);
-      			
     		}
     		
     	}
@@ -285,6 +245,82 @@ public class CustomerController {
     	
     	return mav;
     	
+    }
+    
+    //마이페이지 주문조회
+    @GetMapping("order")
+    public ModelAndView order() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-order");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 주문취소조회
+    @GetMapping("orderCancle")
+    public ModelAndView orderCancle() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-order-cancle");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 문의답변
+    @GetMapping("qna")
+    public ModelAndView qna() {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("mypage-qna");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 마이리뷰
+    @GetMapping("review")
+    public ModelAndView review(HttpSession session) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	
+    	List<ReplyDto> lists = customerService.getReviewList(customerEmail);
+    	
+    	mav.addObject("lists", lists);
+    	
+    	mav.setViewName("mypage-review");
+    	
+    	return mav;
+    }
+    
+    //마이페이지 마이리뷰 수정
+    @PostMapping("reviewUp")
+    public ModelAndView review(ReplyDto rdto) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	replyService.updateReply(rdto);
+    	
+    	mav.setViewName("redirect:review");
+    	
+    	return mav;
+    }    
+    
+    //마이페이지 마이리뷰 삭제
+    @PostMapping("reviewDel")
+    public ModelAndView review(int replyId) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	replyService.deleteReply(replyId);
+    	
+    	mav.setViewName("redirect:review");
+    	
+    	return mav;
     }
     
     //마이페이지 배송지관리
@@ -306,51 +342,44 @@ public class CustomerController {
     
     //마이페이지 배송지 추가
     @PostMapping("addressIn")
-    public ModelAndView adressIn(DeliverDto ddto,HttpSession session) {
+    public ModelAndView adressIn(HttpServletResponse response, DeliverDto ddto) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+
+    	String customerEmail = "wjdalswjd453@naver.com";
+    	ddto.setCustomerEmail(customerEmail);
+    	
+    	int dup = deliveryDupChk.dupChk(ddto);
+    	
+    	if(dup==0) {
+    		AlertRedirect.warningMessage(response, "address", "배송지가 등록되었습니다.");
+    		ddto.setDeliverType("추가");
+    		deliveryService.insertDeliver(ddto);
+    	}else {
+    		AlertRedirect.warningMessage(response, "중복된 배송지입니다.");
+    	}
+    	mav.setViewName(null);
+    	return mav;
+    }
+    
+    //마이페이지 배송지 수정
+    @PostMapping("addressUp")
+    public ModelAndView addressUp(HttpServletResponse response, DeliverDto ddto) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	String customerEmail = (String)session.getAttribute("customerEmail");
+    	String customerEmail = "wjdalswjd453@naver.com";
+    	ddto.setCustomerEmail(customerEmail);
     	
-    	List<DeliverDto> dList = deliveryService.listDeliver(customerEmail); //DELIVERDTO 객체들 LIST
+    	int dup = deliveryDupChk.dupChk(ddto);
     	
-    	int dup = 0;
-    	
-    	for(int i=0;i<dList.size();i++) {
-			DeliverDto ddtoChk = dList.get(i);
-			
-			boolean name = ddtoChk.getDeliverName().equals(ddto.getDeliverName());
-			boolean tel = ddtoChk.getDeliverTel().equals(ddto.getDeliverTel());
-			boolean zipcode = ddtoChk.getDeliverZipCode().equals(ddto.getDeliverZipCode());
-			boolean raddr = ddtoChk.getDeliverRAddr().equals(ddto.getDeliverRAddr());
-			boolean daddr = ddtoChk.getDeliverDAddr().equals(ddto.getDeliverDAddr());
-			
-			if(name && tel && zipcode && raddr && daddr) { //데이터가 동일하면
-				dup++;
-			}
-		}
-    	
-    	//동일데이터가 없으면
-		if(dup==0) {
-			DeliverDto dto = new DeliverDto();
-			
-			int maxNum = deliveryService.maxNumDeliver();
-			
-			dto.setDeliverNum(maxNum+1);
-			dto.setCustomerEmail(customerEmail);
-			dto.setDeliverName(ddto.getDeliverName());
-			dto.setDeliverRAddr(ddto.getDeliverRAddr());
-			dto.setDeliverJAddr(ddto.getDeliverJAddr());
-			dto.setDeliverDAddr(ddto.getDeliverDAddr());
-			dto.setDeliverZipCode(ddto.getDeliverZipCode());
-			dto.setDeliverTel(ddto.getDeliverTel());
-			dto.setDeliverType("추가");
-			
-			deliveryService.insertDeliver(dto); //deliver 테이블에 데이터 insert
-		}
-
-    	mav.setViewName("redirect:address");
-    	
+    	if(dup==0) {
+    		AlertRedirect.warningMessage(response, "address" ,"배송지가 수정되었습니다.");
+    		deliveryService.updateDeliver(ddto);
+    	}else {
+    		AlertRedirect.warningMessage(response, "동일한 배송지가 존재합니다.");
+    	}
+    	mav.setViewName(null);
     	return mav;
     }
     

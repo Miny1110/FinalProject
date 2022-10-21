@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.domain.ReplyDto;
 
@@ -42,5 +44,14 @@ public class ReplyController {
         mav.setViewName("redirect:/");
         return mav;
     }
+	@PostMapping("updateReview")
+    public ModelAndView updateReply(@ModelAttribute ReplyDto rdto) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+    	replyService.updateReply(rdto);
+				
+		return mav;
+		
+	}
 
 }

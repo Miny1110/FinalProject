@@ -12,6 +12,147 @@
     <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+                <script>
+                    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+                    function sample4_execDaumPostcode() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                                var extraRoadAddr = ''; // 참고 항목 변수
+
+                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                    extraRoadAddr += data.bname;
+                                }
+                                // 건물명이 있고, 공동주택일 경우 추가한다.
+                                if(data.buildingName !== '' && data.apartment === 'Y'){
+                                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                }
+                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                if(extraRoadAddr !== ''){
+                                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                                }
+
+                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                document.getElementById('sample4_postcode').value = data.zonecode;
+                                document.getElementById("deliverAddr1").value = roadAddr;
+                                document.getElementById("deliverAddr2").value = data.jibunAddress;
+
+                                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                                if(roadAddr !== ''){
+                                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                                } else {
+                                    document.getElementById("sample4_extraAddress").value = '';
+                                }
+
+                                var guideTextBox = document.getElementById("guide");
+                                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                                if(data.autoRoadAddress) {
+                                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                                    guideTextBox.style.display = 'block';
+
+                                } else if(data.autoJibunAddress) {
+                                    var expJibunAddr = data.autoJibunAddress;
+                                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                                    guideTextBox.style.display = 'block';
+                                } else {
+                                    guideTextBox.innerHTML = '';
+                                    guideTextBox.style.display = 'none';
+                                }
+                            }
+                        }).open();
+                    }
+                </script>
+    <script type="text/javascript">
+
+        /*배송지 등록*/
+        //이름 유효성 검사
+        function nameChk(){
+            var dname =$("#deliverName").val();
+            var dnameMsg =$("#dnameMsg");
+
+            if(!dname){
+                dnameMsg.html("주문자 이름을 입력해주세요");
+                $("#dnameMsg").css("color","#ff7474");
+            }else if(!isValidKorean(dname)){
+                dnameMsg.html("이름은 한국어로만 입력 가능합니다.");
+                $("#dnameMsg").css("color","#ff7474");
+                $("#deliverName").val("");
+            }else {
+                dnameMsg.html("");
+            }
+            return;
+        }
+       // 전화번호 체크
+        function telChk(){
+            var tel = $("#deliverTel").val();
+            var telMsg = $("#telMsg");
+
+            if(!tel){
+                telMsg.html("주문자 전화번호를 입력해주세요");
+                $("#telMsg").css("color","#ff7474");
+            }else if(!isValidTel(tel)){
+                telMsg.html("올바른 연락처 형식을 입력해주세요.(예: 01012345678)");
+                $("#telMsg").css("color","#ff7474");
+            }else{
+                telMsg.html("");
+            }
+            return;
+        }
+
+        // 배송지 체크
+        function addrChk(){
+            var addr = $("#deliverAddr1").val();
+            var addrMsg =$("#addrMsg");
+
+            if(!addr){
+                addrMsg.html("주문자 주소를 입력해주세요");
+                $("#addrMsg").css("color","#ff7474");
+            }else{
+                addrMsg.html("");
+            }
+            return;
+        }
+        /* 배송지 등록 성공 */
+        function sendIt(){
+            var f = document.deliverForm;
+
+            nameChk();
+            telChk();
+            addrChk();
+
+            var name = $("#deliverName").val();
+            var tel = $("#deliverTel").val();
+            var addr = $("#deliverAddr1").val();
+
+            if(!name || !tel || !addr){
+                alert("내용을 입력해주세요");
+                event.preventDefault();
+                return;
+            }
+
+            alert(name + "님 신규 배송지가 등록되었습니다.");
+            event.preventDefault();
+
+            f.action="order";
+            f.submit();
+        }
+
+    </script>
+
+    <!-- jQuery -->
+
+
+
+
+
 
 
     <style id="__web-inspector-hide-shortcut-style__">
@@ -191,7 +332,7 @@
 
                                                         <li>
                                                             <h5 class="text-content d-inline-block">가격 :</h5>
-                                                            <span th:text="${saleTotalPrice}"></span>
+                                                            <span th:text="${salePrice}"></span>
                                                             <span class="text-content" th:text="${idto.getItemPrice()}"></span>
                                                         </li>
 
@@ -229,7 +370,7 @@
 
                                         <td class="price">
                                             <h4 class="table-title text-content">상품금액</h4>
-                                            <h5 ><th:block th:text="|${#numbers.formatInteger(saleTotalPrice, 0, 'COMMA')} 원|"></th:block><del class="text-content"
+                                            <h5 ><th:block th:text="|${#numbers.formatInteger(salePrice , 0, 'COMMA')} 원|"></th:block><del class="text-content"
                                                                                                   th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del></h5>
                                             <h6 class="theme-color"
 
@@ -287,6 +428,10 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">배송지 정보</h2>
+                            <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
+                                <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
+                                <span class="d-none d-sm-block">새로운 주소 추가하기</span>
+                            </button>
                         </div>
 <!--세션등록되면 수정 -->
                         <div class="row g-4">
@@ -354,26 +499,26 @@
 
 
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverZipCode" placeholder="우편번호">
-                                                    <label for="deliverZipCode">우편번호</label>
+                                                    <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
+                                                    <label for="sample4_postcode">우편번호</label>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
                                                     <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
                                                     <br>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr" onblur="addrChk();">
-                                                    <label for="deliverRAddr">도로명주소</label>
+                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverAddr1" name="deliverAddr1" onblur="addrChk();">
+                                                    <label for="deliverAddr1">도로명주소</label>
                                                     <p id="addrMsg"></p>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverJAddr" placeholder="지번주소" name="deliverJAddr">
-                                                    <label for="deliverJAddr">지번주소</label>
+                                                    <input type="text" class="form-control" id="deliverAddr2" placeholder="지번주소" name="deliverAddr2">
+                                                    <label for="deliverAddr2">지번주소</label>
                                                     <span id="guide" style="color:#999;display:none"></span>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr" onblur="addrdChk();" >
-                                                    <label for="deliverDAddr">상세주소</label>
+                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
+                                                    <label for="deliverAddrd">상세주소</label>
                                                 </div>
                                                 <div class="form-floating mb-4 theme-form-floating">
                                                     <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
@@ -389,12 +534,6 @@
                                             <div class="modal-footer">
                                                 <input type="checkbox" name="saveDeliver" id="saveDeliver">
                                                 <h6>이번만 배송 받기</h6>
-                                                <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
-                                                    <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                    <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
-                                                </button>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -445,26 +584,6 @@
                                             <h4>상품금액</h4>
                                             <h4 class="price" th:text="|${#numbers.formatInteger(preTotalPrice,0,'COMMA')} 원|"></h4>
                                         </li>
-                                        <li>
-                                            <h4>가용 포인트</h4>
-                                            <input type="hidden" id="checkPoint" th:value="${cdto.getCustomerPoint()}">
-
-                                            <h4 class="price" th:text="${cdto.getCustomerPoint()}">
-
-                                            </h4>
-                                        </li>
-                                        <div class="summery-contain">
-                                            <div class="coupon-cart">
-                                        <div class="mb-3 coupon-box input-group">
-                                            <input type="email" class="form-control" id="use" name="use" placeholder="포인트 입력">
-                                            <button class="btn-apply" onclick="point()">적용하기</button>
-                                        </div>
-                                            </div>
-                                        </div>
-                                        <li>
-                                            <h4>포인트사용</h4>
-                                            <h4 class="price" id="usePoint"></h4>
-                                        </li>
 
                                         <li>
                                             <h4>할인금액</h4>
@@ -472,17 +591,19 @@
                                         </li>
 
 
-
+                                        <li>
+                                            <h4>쿠폰/포인트</h4>
+                                            <h4 class="price">$-23.10</h4>
+                                        </li>
 
                                         <li class="list-total">
-                                            <input type="hidden" id="totalPrice" th:value="${totalPrice}">
                                             <h4>결제금액</h4>
-                                            <h4 class="price" id="pointTotalPrice" onload="price()"></h4>
+                                            <h4 class="price" id="totalPrice" th:text="|${#numbers.formatInteger(totalPrice,0,'COMMA')} 원|"></h4>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <input type="hidden" class="form-control" id="customerName" th:value="${cdto.customerName}">
+
                             <div class="col-xxl-8 col-lg-12 col-md-7 order-xxl-1 order-lg-2 order-md-1">
                                 <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                     <div class="accordion-item">
@@ -496,7 +617,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                  <!--      <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse show"
                                              data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 <div class="row g-2">
@@ -514,7 +635,7 @@
 
                                                     <div class="col-xxl-4">
                                                         <div class="form-floating mb-lg-3 mb-2 theme-form-floating">
-                                                            <input type="hidden" class="form-control" id="customerName"
+                                                            <input type="text" class="form-control" id="customerName"
                                                                    placeholder="Enter Expiry Date" th:value="${cdto.customerName}">
                                                             <label for="customerName" ></label>
                                                         </div>
@@ -552,7 +673,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>-->
+                                        </div>
                                     </div>
 
                                     <div class="accordion-item">
@@ -562,7 +683,86 @@
                                                 <div class="custom-form-check form-check mb-0">
                                                     <label class="form-check-label" for="banking"><input
                                                             class="form-check-input mt-0" type="radio"
-                                                            name="flexRadioDefault" id="banking"> 무통장입금 </label>
+                                                            name="flexRadioDefault" id="banking"> Net
+                                                        Banking</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                             data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <h5 class="text-uppercase mb-4">Select Your Bank</h5>
+                                                <div class="row g-2">
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank1">
+                                                            <label class="form-check-label" for="bank1">Industrial &
+                                                                Commercial Bank</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank2">
+                                                            <label class="form-check-label" for="bank2">Agricultural
+                                                                Bank</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank3">
+                                                            <label class="form-check-label" for="bank3">Bank of
+                                                                America</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank4">
+                                                            <label class="form-check-label" for="bank4">Construction
+                                                                Bank Corp.</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank5">
+                                                            <label class="form-check-label" for="bank5">HSBC
+                                                                Holdings</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="custom-form-check form-check">
+                                                            <input class="form-check-input mt-0" type="radio"
+                                                                   name="flexRadioDefault" id="bank6">
+                                                            <label class="form-check-label" for="bank6">JPMorgan
+                                                                Chase & Co.</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12">
+                                                        <div class="select-option">
+                                                            <div class="form-floating theme-form-floating">
+                                                                <select class="form-select theme-form-select"
+                                                                        aria-label="Default select example">
+                                                                    <option value="hsbc">HSBC Holdings</option>
+                                                                    <option value="loyds">Lloyds Banking Group
+                                                                    </option>
+                                                                    <option value="natwest">Nat West Group</option>
+                                                                    <option value="Barclays">Barclays</option>
+                                                                    <option value="other">Others Bank</option>
+                                                                </select>
+                                                                <label>Select Other Bank</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1253,7 +1453,7 @@
                     pay_method: 'vbank' ,
                     merchant_uid: 'ssss',
                     name: $('#itemName').html() ,
-                    amount: $('#pointTotalPrice').html(),
+                    amount: $('#totalPrice').html(),
                     buyer_email: $('#customerEmail').html() ,
                     buyer_name: $('#customerName').val(),
                     buyer_tel: $('#customerTel').html() ,
@@ -1276,7 +1476,7 @@
                         };
 
                         $.ajax({
-                            url: "/success_order",
+                            url: "insertOrdList",
                             data:data,
                             success: function(data){
                                 let msg = "결제가 완료되었습니다.\n";
@@ -1298,145 +1498,6 @@
                         alert("msg");
                     }
                 });
-            }
-        </script>
-
-        <script>
-            //총가격 구하기
-            $(function (){
-                price()
-
-            })
-            function price(){
-                let totalPrice= $('#totalPrice').val();
-                $('#pointTotalPrice').html(totalPrice)
-
-            }
-        </script>
-        <script>
-        //포인트
-            $("button").click(function point() {
-                let use = $('#use').val(); //사용할 포인트
-                let check = $('#checkPoint').val();
-                let usePoint = parseInt(use);
-                let checkPoint = parseInt(check);
-
-
-                if (usePoint > checkPoint) {
-                    alert("보유포인트 이내로 사용가능합니다.");
-                    return;
-                }
-                $('#usePoint').html(usePoint)
-
-               $(document).ready(function price() {
-                   let pointTotalPrice=$('#totalPrice').val();
-                   let use = $('#use').val(); //사용할 포인트
-                   let usePoint = parseInt(use);
-
-                   if (use !== null) {
-                       pointTotalPrice = pointTotalPrice - usePoint
-                   }
-
-                     $('#pointTotalPrice').html(pointTotalPrice)
-
-                 })
-            })
-        </script>
-
-        <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js">//결제Import</script>
-
-        <script type="text/javascript">
-            //배송지 등록시 검사
-            function addAddr(){
-                var f = document.insertForm;
-
-                var name =$("#deliverName").val();
-                var tel = $("#deliverTel").val();
-                var RAddr = $("#deliverRAddr").val();
-                var JAddr = $("#deliverJAddr").val();
-                var DAddr = $("#deliverDAddr").val();
-                var ZipCode = $("#deliverZipCode").val();
-
-                //입력창이 하나라도 비어있으면(지번주소, 상세주소 제외)
-                if(!name || !tel || !RAddr || !ZipCode){
-                    alert("내용을 입력해주세요.");
-                    return;
-                }
-
-                //입력창에 내용이 있으면
-                if(!name){
-                    alert("수령자 이름을 입력해주세요.");
-                    return;
-                }
-
-                if(!tel){
-                    alert("주문자 전화번호를 입력해주세요.(예: 01012345678)");
-                    return;
-                }
-
-                alert(name + "님 신규 배송지가 등록되었습니다.");
-
-                f.action="/order";
-                f.submit();
-
-            }
-        </script>
-
-        <script> //배송지 검색
-            //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-            function sample4_execDaumPostcode() {
-                new daum.Postcode({
-                    oncomplete: function(data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var roadAddr = data.roadAddress; // 도로명 주소 변수
-                        var extraRoadAddr = ''; // 참고 항목 변수
-
-                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                            extraRoadAddr += data.bname;
-                        }
-                        // 건물명이 있고, 공동주택일 경우 추가한다.
-                        if(data.buildingName !== '' && data.apartment === 'Y'){
-                            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                        }
-                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                        if(extraRoadAddr !== ''){
-                            extraRoadAddr = ' (' + extraRoadAddr + ')';
-                        }
-
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('deliverZipCode').value = data.zonecode;
-                        document.getElementById("deliverRAddr").value = roadAddr;
-                        document.getElementById("deliverJAddr").value = data.jibunAddress;
-
-                        // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                        if(roadAddr !== ''){
-                            document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                        } else {
-                            document.getElementById("sample4_extraAddress").value = '';
-                        }
-
-                        var guideTextBox = document.getElementById("guide");
-                        // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                        if(data.autoRoadAddress) {
-                            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                            guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                            guideTextBox.style.display = 'block';
-
-                        } else if(data.autoJibunAddress) {
-                            var expJibunAddr = data.autoJibunAddress;
-                            guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                            guideTextBox.style.display = 'block';
-                        } else {
-                            guideTextBox.innerHTML = '';
-                            guideTextBox.style.display = 'none';
-                        }
-                    }
-                }).open();
             }
         </script>
 </body>

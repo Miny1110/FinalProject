@@ -1,13 +1,19 @@
 package com.exe.cozy.customer;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.mapper.CustomerMapper;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service("customerService")
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private CustomerMapper customerMapper;
@@ -39,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public CustomerDto getReadData(String customerEmail) {
-		return customerMapper.getReadData(customerEmail);
+		return customerMapper.getReadData(customerEmail);		
 	}
 
 	@Override
@@ -52,60 +58,15 @@ public class CustomerServiceImpl implements CustomerService{
 		customerMapper.deleteData(customerEmail);
 	}
 
-	
-	
-//	일반메소드
-	
-	//로그인 아이디, 비밀번호 체크 메소드
 	@Override
-	public boolean loginCheck(String customerEmail, String customerPwd) {
-		CustomerDto dto = null;
-
-        try {
-            dto = getLogin(customerEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return dto!=null && dto.getCustomerPwd().equals(customerPwd);
+	public void updatePoint(CustomerDto dto) {
+		customerMapper.updatePoint(dto);
 	}
 
-	
-	//비밀번호찾기 이메일, 연락처 체크 메소드
 	@Override
-    public boolean forgotCheck(String customerEmail, String customerTel) {
-        CustomerDto dto = null;
-
-        try {
-            dto = forgot(customerEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return dto!=null && dto.getCustomerTel().equals(customerTel);
-    }
-	
-	//임시비밀번호 발급 메소드
-	@Override
-	public String getTmpPwd() {
-		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-                'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    	
-    	String tmpPwd = "";
-    	
-    	/* 문자 배열 길이의 값을 랜덤으로 10개를 뽑아 조합 */
-        int idx = 0;
-        for(int i = 0; i < 10; i++){
-            idx = (int) (charSet.length * Math.random());
-            tmpPwd += charSet[idx];
-        }
-        
-        return tmpPwd;
+	public List<ReplyDto> getReviewList(String customerEmail) {
+		return customerMapper.getReviewList(customerEmail);
 	}
-	
-    
+
 
 }

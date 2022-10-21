@@ -3,7 +3,7 @@
         PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.exe.cozy.mapper.DeliverMapper">
+<mapper namespace="com.exe.cozy.mapper.DeliveryMapper">
 
     <select id="maxNumDeliver" resultType="int">
         select nvl(max(deliverNum),0) from deliver

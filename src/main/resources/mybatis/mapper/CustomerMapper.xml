@@ -40,7 +40,7 @@
 	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
-		customerRAddr,customerJAddr,customerDAddr,customerGrade
+		customerRAddr,customerJAddr,customerDAddr,customerGrade,customerPoint
 		from customer where customerEmail=#{customerEmail}
 	</select>
 	
@@ -52,9 +52,55 @@
 		where customerEmail=#{customerEmail}
 	</update>
 	
+	<!-- 포인트 수정 -->
+	<update id="updatePoint" parameterType="CustomerDto">
+		update customer set customerPoint=#{customerPoint}
+		where customerEmail=#{customerEmail}
+	</update>
+	
 	<!-- 데이터 삭제 -->
 	<delete id="deleteData" parameterType="String">
 		delete customer where customerEmail=#{customerEmail}
 	</delete>
+	
+
+	<resultMap type="ReplyDto" id="ReplyDto">
+		<result column="replyId" property="replyId"/>
+		<result column="itemNum" property="itemNum"/>
+		<result column="customerEmail" property="customerEmail"/>
+		<result column="regDate" property="regDate"/>
+		<result column="content" property="content"/>
+		<result column="rating" property="rating"/>
+		<collection property="item" resultMap="ItemDetailDto"></collection>
+	</resultMap>
+	
+	<resultMap type="ItemDetailDto" id="ItemDetailDto">
+		<result column="itemName" property="itemName"/>
+		<result column="itemMainType" property="itemMainType"/>
+		<result column="itemSubType" property="itemSubType"/>
+		<result column="itemImage1" property="itemImage1"/>
+	</resultMap>
+	
+	<select id="getReviewList" parameterType="ReplyDto" resultMap="ReplyDto">
+		select 
+			a.replyId
+			,a.itemNum
+			,a.customerEmail
+			,a.regDate
+			,a.content
+			,a.rating
+			,b.itemName
+			,b.itemMainType
+			,b.itemSubType
+			,b.itemImage1
+		from 
+			reply a left join item b
+		on
+			a.itemNum=b.itemNum
+		where
+			a.customerEmail=#{customerEmail}
+		order by
+			a.replyId desc
+	</select>
 	
 </mapper>

@@ -1,4 +1,4 @@
-package com.exe.cozy.deliver;
+package com.exe.cozy.delivery;
 
 import java.util.List;
 
@@ -6,43 +6,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.DeliverDto;
-import com.exe.cozy.mapper.DeliverMapper;
+import com.exe.cozy.mapper.DeliveryMapper;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService{
 
-	@Autowired
-	private DeliverMapper deliverMapper;
+	@Autowired private DeliveryMapper deliveryMapper;
 	
 	@Override
 	public int maxNumDeliver() {
-		return deliverMapper.maxNumDeliver();
+		return deliveryMapper.maxNumDeliver();
 	}
 
 	@Override
 	public void insertDeliver(DeliverDto ddto) {
-		deliverMapper.insertDeliver(ddto);
+		deliveryMapper.insertDeliver(ddto);
 	}
 
 	@Override
 	public List<DeliverDto> listDeliver(String customerEmail) {
-		return deliverMapper.listDeliver(customerEmail);
+		return deliveryMapper.listDeliver(customerEmail);
 	}
 
 	@Override
 	public void deleteDeliver(int deliverNum) {
-		deliverMapper.deleteDeliver(deliverNum);
+		deliveryMapper.deleteDeliver(deliverNum);
 	}
 	
 	@Override
 	public void updateDeliver(DeliverDto ddto) {
-		deliverMapper.updateDeliver(ddto);
+		deliveryMapper.updateDeliver(ddto);
 	}
 
 	@Override
 	public int selectDeliverType(String deliverType) {
-		return deliverMapper.selectDeliverType(deliverType);
+		return deliveryMapper.selectDeliverType(deliverType);
 	}
-
 
 }

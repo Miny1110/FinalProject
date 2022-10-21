@@ -20,5 +20,4 @@ public class CustomerDto {
 	private String customerGrade;
 	private int customerType;
 	private int customerPoint;
-	
 }

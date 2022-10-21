@@ -16,5 +16,5 @@ public class ReplyDto {
 	private String content;
 	private String rating;
 	
-	
+	private ItemDetailDto item;
 }

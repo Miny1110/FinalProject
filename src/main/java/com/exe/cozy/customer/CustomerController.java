@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.exe.cozy.deliver.DeliveryDupChk;
-import com.exe.cozy.deliver.DeliveryService;
+import com.exe.cozy.delivery.DeliveryDupChk;
+import com.exe.cozy.delivery.DeliveryService;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;

@@ -2,7 +2,7 @@ package com.exe.cozy.order;
 
 import com.exe.cozy.cart.CartService;
 import com.exe.cozy.customer.CustomerService;
-import com.exe.cozy.deliver.DeliveryService;
+import com.exe.cozy.delivery.DeliveryService;
 import com.exe.cozy.domain.*;
 import com.exe.cozy.itemDetail.ItemDetailService;
 import org.springframework.stereotype.Controller;

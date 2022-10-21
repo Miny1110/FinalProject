@@ -23023,7 +23023,7 @@ header .offcanvas-backdrop {
     color: #fff;
     padding: 4px 6px;
     border-radius: 4px;
-    margin-left: calc(9px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    margin-left: calc(50px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
     margin-right: calc(9px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
     margin-bottom: 2px;
     margin-top: 2px;

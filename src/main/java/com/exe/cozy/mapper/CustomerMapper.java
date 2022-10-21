@@ -1,5 +1,7 @@
 package com.exe.cozy.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.exe.cozy.domain.CustomerDto;
@@ -20,5 +22,5 @@ public interface CustomerMapper {
 	public void updatePoint(CustomerDto dto); //포인트 수정
 	public void deleteData(String customerEmail); //회원탈퇴
 	
-	public ReplyDto getReviewList(String customerEmail);
+	public List<ReplyDto> getReviewList(String customerEmail);
 }

@@ -31,15 +31,15 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	//list
 	@Override
-	public int getNoticeDataCount(String searchKey,String searchValue) throws Exception{
+	public int getNoticeDataCount(String searchNoticeKey,String searchNoticeValue) throws Exception{
 		
-		return noticeMapper.getNoticeDataCount(searchKey,searchValue);
+		return noticeMapper.getNoticeDataCount(searchNoticeKey,searchNoticeValue);
 	}
 	
 	@Override
-	public List<NoticeDto> getNoticeLists(int start,int end,String searchKey, String searchValue) throws Exception{
+	public List<NoticeDto> getNoticeLists(int start, int end, String searchNoticeKey, String searchNoticeValue) throws Exception{
 		
-		return noticeMapper.getNoticeLists(start,end,searchKey,searchValue);
+		return noticeMapper.getNoticeLists(start, end, searchNoticeKey, searchNoticeValue);
 	}
 	
 	
@@ -49,6 +49,19 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		return noticeMapper.getReadNoticeData(noticeNum);
 	}
+
+	@Override
+	public void updateNoticeData(NoticeDto ndto) throws Exception {
+		
+		noticeMapper.updateNoticeData(ndto);
+	}
+
+	@Override
+	public void deleteNoticeData(int noticeNum) throws Exception {
+		
+		noticeMapper.deleteNoticeData(noticeNum);
+	}
+	
 	
 	
 	

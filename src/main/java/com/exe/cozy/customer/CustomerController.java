@@ -350,10 +350,12 @@ public class CustomerController {
     	ddto.setCustomerEmail(customerEmail);
     	
     	int dup = deliveryDupChk.dupChk(ddto);
+    	int maxNum = deliveryService.maxNumDeliver();
     	
     	if(dup==0) {
     		AlertRedirect.warningMessage(response, "address", "배송지가 등록되었습니다.");
     		ddto.setDeliverType("추가");
+    		ddto.setDeliverNum(maxNum+1);
     		deliveryService.insertDeliver(ddto);
     	}else {
     		AlertRedirect.warningMessage(response, "중복된 배송지입니다.");

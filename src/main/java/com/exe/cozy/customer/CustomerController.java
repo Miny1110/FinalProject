@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,15 +68,10 @@ public class CustomerController {
     
     //회원가입
     @PostMapping("signUp")
-    public ModelAndView signUp(
-			@ModelAttribute CustomerDto dto, HttpServletRequest req) {
+    public ModelAndView signUp(@ModelAttribute CustomerDto dto, HttpServletRequest req, BindingResult bindingResult) {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	//customer 테이블에 데이터 넣기
-    	customerService.insertData(dto);
-    	
-    	//point 테이블에 데이터 넣기
     	PointDto pointDto = new PointDto();
     	
     	int pointNum = pointService.maxNum();
@@ -87,6 +83,15 @@ public class CustomerController {
     	pointDto.setPointEndDate(addDate.addDate(30));
     	pointDto.setCustomerEmail(dto.getCustomerEmail());
     	
+    	if(bindingResult.hasErrors()) {
+    		mav.setViewName("sign-up");
+    		return mav;
+    	}
+    	
+    	//customer 테이블에 데이터 넣기
+    	customerService.insertData(dto);
+    	
+    	//point 테이블에 데이터 넣기
     	pointService.insertData(pointDto);
     	
     	//로그인 화면으로 이동

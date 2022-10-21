@@ -109,7 +109,7 @@
                                     <i class="fa-solid fa-bars"></i>
                                 </span>
                             </button>
-                            <a href="index.html" class="web-logo nav-logo">
+                            <a th:href="@{/}" class="web-logo nav-logo">
                                 <img src="../assets/images/logo/logo_cozy.png" class="img-fluid blur-up lazyload" alt="">
                             </a>
 
@@ -233,8 +233,8 @@
                                                 <i data-feather="user"></i>
                                             </div>
                                             <div class="delivery-detail">
-                                                <h6>Hello,</h6>
-                                                <h5>My Account</h5>
+                                                <h6>반갑습니다,</h6>
+                                                <h5>COZY</h5>
                                             </div>
                                         </div>
 
@@ -242,15 +242,16 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="log-in.html">Log In</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/login}">로그인</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/login}">로그아웃</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="sign-up.html">Register</a>
+                                                    <a th:href="@{/customer/signUp}">회원가입</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="forgot.html">Forgot Password</a>
+                                                    <a th:href="@{/customer/forgot}">비밀번호 찾기</a>
                                                 </li>
                                             </ul>
                                         </div>

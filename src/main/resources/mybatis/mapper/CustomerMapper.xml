@@ -5,7 +5,7 @@
         
 <mapper namespace="com.exe.cozy.mapper.CustomerMapper">
 	<!-- 이메일 중복확인 -->
-	<select id="emailChk" resultType="int">
+	<select id="emailChk" resultType="int" parameterType="String">
 		select count(*) from customer where customerEmail=#{customerEmail}
 	</select>
 	

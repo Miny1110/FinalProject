@@ -2,7 +2,7 @@ package com.exe.cozy.customer;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
@@ -15,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 	
-	@Autowired
-	private CustomerMapper customerMapper;
+	private final CustomerMapper customerMapper;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public int emailChk(String customerEmail) {
@@ -25,6 +25,10 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void insertData(CustomerDto dto) {
+		//비밀번호는 암호화해서 저장
+		//BCrypt 해싱 함수를 사용해서 암호화
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
+		
 		customerMapper.insertData(dto);
 	}
 
@@ -67,6 +71,5 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<ReplyDto> getReviewList(String customerEmail) {
 		return customerMapper.getReviewList(customerEmail);
 	}
-
 
 }

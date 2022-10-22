@@ -102,6 +102,7 @@
 	<header th:replace="header.html :: headerFragment"></header>          
     <!-- Header End -->
 
+   
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
             <div class="row">
@@ -126,7 +127,6 @@
     </section>
     <br />
     <br />
-    
     <!-- Breadcrumb Section Start -->
     <form action="" method="post" name="myForm" enctype="multipart/form-data">
     <section class="cart-section section-b-space">
@@ -165,34 +165,34 @@
                                     <select name="itemSubType" id="mallSelect">
                                         <option value="0">중분류를 선택해주세요</option>
                                         
-                                        <option value="electric" class="mall1">냉장고</option>
-                                        <option value="electric" class="mall1">TV</option>
-                                        <option value="electric" class="mall1">에어컨&공기청정기</option>
-                                        <option value="electric" class="mall1">세탁기</option>
-                                        <option value="electric" class="mall1">청소기</option>
+                                        <option value="가전" class="mall1">냉장고</option>
+                                        <option value="가전" class="mall1">TV</option>
+                                        <option value="가전" class="mall1">에어컨&공기청정기</option>
+                                        <option value="가전" class="mall1">세탁기</option>
+                                        <option value="가전" class="mall1">청소기</option>
                                
-                                        <option value="funiture" class="mall2">침대</option>
-                                        <option value="funiture" class="mall2">쇼파</option>
-                                        <option value="funiture" class="mall2">테이블&의자</option>
-                                        <option value="funiture" class="mall2">옷장</option>
-                                        <option value="funiture" class="mall2">행거</option>
+                                        <option value="가구" class="mall2">침대</option>
+                                        <option value="가구" class="mall2">쇼파</option>
+                                        <option value="가구" class="mall2">테이블&의자</option>
+                                        <option value="가구" class="mall2">옷장</option>
+                                        <option value="가구" class="mall2">행거</option>
                               
-                                        <option value="kitchen" class="mall3">냄비*프라이팬*솥</option>
-                                        <option value="kitchen" class="mall3">홈세트(식기류)</option>
-                                        <option value="kitchen" class="mall3">칼</option>
-                                        <option value="kitchen" class="mall3">수저</option>
-                                        <option value="kitchen" class="mall3">도마</option>
+                                        <option value="주방용품" class="mall3">냄비*프라이팬*솥</option>
+                                        <option value="주방용품" class="mall3">홈세트(식기류)</option>
+                                        <option value="주방용품" class="mall3">칼</option>
+                                        <option value="주방용품" class="mall3">수저</option>
+                                        <option value="주방용품" class="mall3">도마</option>
                               
-                                        <option value="Storage" class="mall4">선반</option>
-                                        <option value="Storage" class="mall4">수납장*트롤리</option>
-                                        <option value="Storage" class="mall4">신발장</option>
-                                        <option value="Storage" class="mall4">리빙박스*바구니</option>
+                                        <option value="수납&정리" class="mall4">선반</option>
+                                        <option value="수납&정리" class="mall4">수납장*트롤리</option>
+                                        <option value="수납&정리" class="mall4">신발장</option>
+                                        <option value="수납&정리" class="mall4">리빙박스*바구니</option>
                            
-                                        <option value="necessity" class="mall5">휴지</option>
-                                        <option value="necessity" class="mall5">주방세제</option>
-                                        <option value="necessity" class="mall5">세탁세제</option>
-                                        <option value="necessity" class="mall5">바디케어</option>
-                                        <option value="necessity" class="mall5">청소용품</option>
+                                        <option value="생필품" class="mall5">휴지</option>
+                                        <option value="생필품" class="mall5">주방세제</option>
+                                        <option value="생필품" class="mall5">세탁세제</option>
+                                        <option value="생필품" class="mall5">바디케어</option>
+                                        <option value="생필품" class="mall5">청소용품</option>
                                     </select>
                                 </div>
                             </div>
@@ -207,13 +207,12 @@
                                     <label for="review1">상품가격</label>
                                 </div>
                             </div><br>
-                            
                             <div class="col-12">
-                                <h3><b>할인금액(원)</b></h3><br>
+                                <h3><b>할인가격</b></h3><br>
                                 <div class="form-floating theme-form-floating">
                                     <input type="url" class="form-control" id="review1" name="itemDiscount"
                                         placeholder="Give your review a title">
-                                    <label for="review1">할인금액(원)</label>
+                                    <label for="review1">할인가격</label>
                                 </div>
                             </div>
                             <br /><br />
@@ -384,6 +383,15 @@
                                                 </label>
                                              </div>   
                                         </li>
+                                        <br/>
+                                        <li>
+                                            <div>
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="XL">
+                                                <label class="form-check-label" for="fruit">
+                                                    <span class="name">옵션없음</span>
+                                                </label>
+                                             </div>   
+                                        </li>
                                      </ul> 
                                 </div>
                                 
@@ -447,7 +455,15 @@
                                                 </label>
                                              </div>   
                                         </li>
-                                        
+                                        <br/>
+                                        <li>
+                                            <div>
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="XL">
+                                                <label class="form-check-label" for="fruit">
+                                                    <span class="name">옵션없음</span>
+                                                </label>
+                                             </div>   
+                                        </li>
                                      </ul> 
                                 </div>
                                 <br><br><br><hr>
@@ -1057,11 +1073,8 @@
     <br />
     <br />
     <!-- Footer Section Start -->
-    <footer th:replace="footer.html :: footerFragment"></footer>
+	<footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
-
-    
-
 
     <!-- Deal Box Modal Start -->
     <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -1185,7 +1198,7 @@
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
     
-    <!-- 유효성 검사 -->
+    <!-- 유효성 검사(대분류, 중분류 카테고리 구분) -->
     <script type="text/javascript">
 		var malls = false;
 		

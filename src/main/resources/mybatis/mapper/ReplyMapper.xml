@@ -33,7 +33,7 @@
 
 	<!-- 리뷰수정 -->
 	<update id="updateReply" parameterType="ReplyDto">
-		update reply set rating=#{rating},content=#{content} where
+		update reply set rating=#{rating},content=#{content},regDate=sysdate where
 		replyId=#{replyId}
 	</update>
 

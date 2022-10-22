@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.ItemQnaMapper">
+
+	<!--새 리뷰 번호 -->
+	<select id="itemQnaMaxNum" resultType="int">		
+		select nvl(max(itemQnaNum),0)
+		from itemQna	
+	</select>
+
+	<!-- 리뷰등록 -->
+	<insert id="insertItemQna" parameterType="ItemQnaDto">		
+		insert into itemQna(itemQnaNum, itemNum, itemQnaTitle, ItemQnaCreate ,itemQnaContent,customerEmail)
+		values(#{itemQnaNum}, #{itemNum}, #{itemQnaTitle},sysdate, #{itemQnaContent}, #{customerEmail})	
+	</insert>
+
+	<!-- 리뷰확인 -->
+	<select id="findItemQna" parameterType="int" resultType="ItemQnaDto">	
+		select * from itemQna
+		where itemQnaNum = #{itemQnaNum}
+	</select>
+
+	<!--ItemNum 으로 읽기 -->
+	<select id="getReadItemQnaData" parameterType="int" resultType="ItemQnaDto">
+		select itemQnaNum, itemNum, itemQnaTitle, ItemQnaCreate, itemQnacontent from itemQna
+		where itemNum=#{itemNum}
+	</select>
+
+
+	<!-- 리뷰수정 -->
+	<update id="updateItemQna" parameterType="ItemQnaDto">
+		update itemQna set itemQnaContent=#{itemQnaContent},ItemQnaCreate= sysdate where
+		itemQnaNum=#{itemQnaNum}
+	</update>
+
+	<!-- 리뷰삭제 -->
+	<delete id="deleteItemQna" parameterType="int">
+		delete itemQna where
+		itemQnaNum=#{itemQnaNum}
+	</delete>
+
+</mapper>

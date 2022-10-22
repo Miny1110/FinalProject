@@ -7,7 +7,12 @@
     <select id="itemMaxNum" resultType="int">
         select nvl(max(itemNum),0) from item
     </select>
+    
+    <select id="fileMaxNum" resultType="int">
+        select nvl(max(no), 0) from file_store
+    </select>
 
+	<!-- 상품등록 -->
     <insert id="insertItem" parameterType="ItemDetailDto">
         insert into item(itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
                          itemImage1, itemImage2, itemImage3, itemImage4, detailImage, itemHitcount,itemStock, itemState, todaydeal,
@@ -16,6 +21,25 @@
                 #{itemImage1}, #{itemImage2}, #{itemImage3}, #{itemImage4}, #{detailImage},
                 0,#{itemStock}, #{itemState}, #{todaydeal}, #{itemColor}, #{itemSize})
     </insert>
+    
+    <insert id="insertItemMap" parameterType="hashMap">
+        insert into item(itemNum, itemName, itemMainType, itemSubType, itemPrice, itemDiscount, itemContent,
+                         itemImage1, itemImage2, itemImage3, itemImage4, detailImage, itemHitcount, itemStock, itemState, todaydeal,
+                         itemColor, itemSize)
+        values (#{itemNum}, #{itemName}, #{itemMainType}, #{itemSubType}, #{itemPrice}, #{itemDiscount}, #{itemContent},
+                #{image1}, #{image2}, #{image3}, #{image4}, #{image5},
+                #{itemHitcount}, #{itemStock}, #{itemState}, #{todaydeal}, #{itemColor}, #{itemSize})
+    </insert>
+    
+    <!-- 이미지 등록 -->
+    <insert id="insertFile" parameterType="HashMap">
+    	insert into file_store(no, original_file_name, uuid_file_name, file_path, file_extension, reg_dt)
+    	values (#{no},#{original_file_name},#{uuid_file_name},
+    	#{file_path}, #{file_extension}, SYSDATE)    
+    </insert>
+    
+    
+    
     <select id="getItemDataCount" parameterType="hashMap" resultType="int">
         select nvl(count(*),0) from item
         where ${searchKey} like '%' || #{searchValue} || '%'

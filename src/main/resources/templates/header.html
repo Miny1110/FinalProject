@@ -228,7 +228,7 @@
                                         </div>
                                     </li>
                                     <li class="right-side onhover-dropdown">
-                                        <div class="delivery-login-box">
+                                        <div class="delivery-login-box" >
                                             <div class="delivery-icon">
                                                 <i data-feather="user"></i>
                                             </div>
@@ -243,15 +243,17 @@
                                                 <li class="product-box-contain">
                                                     <i></i>
                                                     <a sec:authorize="isAnonymous()" th:href="@{/customer/login}">로그인</a>
-                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/login}">로그아웃</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/info}">마이페이지</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a th:href="@{/customer/signUp}">회원가입</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/signUp}">회원가입</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/logout}">로그아웃</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a th:href="@{/customer/forgot}">비밀번호 찾기</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/forgot}">비밀번호 찾기</a>
+                                                    <a sec:authorize="isAuthenticated()"></a>
                                                 </li>
                                             </ul>
                                         </div>

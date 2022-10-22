@@ -182,7 +182,7 @@
                                             <div class="address-box">
                                                 <div>
                                                     <div class="table-responsive address-table">
-                                                    	<form action="" name="deliverForm" method="post">
+                                                    	<form th:action="addressDel" name="deliverForm" method="post" id="deliverForm">
                                                         	<table class="table">
 	                                                            <tbody id="lists">
 	                                                                <tr>
@@ -233,6 +233,12 @@
                                                       
                                         </div>
                                         <!-- 배송지 출력 반복 끝 -->
+                                        
+                                        <div class="profile-about dashboard-bg-box" th:unless="${#lists.size(lists)>0}">
+                                        	<div class="row" style="display: table-cell; vertical-align: middle; height: 100px;">
+	                                        	<h4 style="color: gray;">등록된 배송지가 없습니다.</h4>
+                                        	</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +281,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${DeliverDto}">
+                <form name="editForm" method="post" th:object="${DeliverDto}" th:action="addressUp">
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
@@ -354,7 +360,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form method="post" th:object="${DeliverDto}" name="insertForm">
+                <form method="post" th:object="${DeliverDto}" name="insertForm" th:action="addressIn">
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
@@ -548,8 +554,7 @@
 			return;
 		}else{
 			alert("삭제되었습니다.");
-			f.action="addressDel";
-			f.submit();
+			$('#deliverForm').submit();
 		}
 	}
 	
@@ -622,7 +627,6 @@
             return;
         }
         
-        f.action="addressUp";
         f.submit();
         
 	}
@@ -663,7 +667,6 @@
             return;
         }
         
-        f.action="addressIn";
 	    f.submit();
 		
 	}

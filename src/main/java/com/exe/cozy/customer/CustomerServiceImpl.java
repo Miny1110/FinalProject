@@ -2,6 +2,7 @@ package com.exe.cozy.customer;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void updatePwd(CustomerDto dto) {
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
 		customerMapper.updatePwd(dto);
 	}
 
@@ -54,11 +56,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void updateData(CustomerDto dto) {
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
 		customerMapper.updateData(dto);
 	}
 
 	@Override
 	public void deleteData(String customerEmail) {
+		SecurityContextHolder.clearContext();
 		customerMapper.deleteData(customerEmail);
 	}
 

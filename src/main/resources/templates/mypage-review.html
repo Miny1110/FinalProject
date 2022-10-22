@@ -96,7 +96,7 @@
 
                         <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="javascript:location.href='order';">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="javascript:location.href='info';">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 회원정보</button>
@@ -168,6 +168,7 @@
 								
 									<!-- 리뷰출력 시작 -->
                                    <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}">
+                                   
                                    <div class="profile-about dashboard-bg-box">
                                         <div class="row">
                                         <div class="dashboard-title mb-3">
@@ -190,20 +191,8 @@
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
                                                         </li>
-                                                        <li>
-                                                            <i data-feather="star" class="fill"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star" class="fill"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star"></i>
-                                                        </li>
                                                     </ul>
-                                                    <a th:text="|(${replyDto.rating}점)|"></a>
+                                                    <a th:text="|(평점: ${replyDto.rating}점)|"></a>
                                                     &nbsp;
                                                     <a style="display: inline; font-size:12px; color: gray;" th:text="${#dates.format(replyDto.regDate,'yyyy-MM-dd')}"></a>
                                                 </div>
@@ -224,6 +213,14 @@
                                     <br/>
                                     </form>
                                     <!-- 리뷰출력 끝 -->
+                                    
+                                    <!-- 리뷰 내역 없으면 출력 -->
+                                    <div class="profile-about dashboard-bg-box" th:unless="${#lists.size(lists)>0}">
+	                                   <div class="row" style="display: table-cell; vertical-align: middle; height: 100px;">
+	                                   		<h4 style="color: gray;">작성한 리뷰가 없습니다.</h4>
+	                                   </div>
+                                   	</div>
+                                    <!-- 리뷰 내역 없으면 출력 -->
                                     
                                    
                                 </div>
@@ -321,7 +318,7 @@
 									<option value="4.5">4.5</option>
 									<option value="5.0">5.0</option>
 								</select>
-	                            <label for="lname">별점</label>
+	                            <label for="lname">평점</label>
 	                        </div>
 	                    </div>
 

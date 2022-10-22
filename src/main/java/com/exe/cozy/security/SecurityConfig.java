@@ -5,17 +5,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Configuration //이 클래스를 스프링부트의 환경세팅으로 만드는 어노테이션
 @EnableWebSecurity //url이 security의 영향을 받게함
+@EnableGlobalMethodSecurity(prePostEnabled = true) //Global -> 하나의 프로젝트 안의 모든 파일을 감시
 public class SecurityConfig {
 	
 	//스프링 시큐리티에 등록
@@ -29,6 +32,10 @@ public class SecurityConfig {
 		.authorizeRequests().antMatchers("/**").permitAll() //모든 주소 허가
 		.and()
 		.formLogin().usernameParameter("customerEmail").passwordParameter("customerPwd").loginPage("/customer/login").defaultSuccessUrl("/") //로그인이 성공하면 이 주소로 가라
+		.and()
+		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout")) //이 주소와 일치하면 로그아웃
+		.logoutSuccessUrl("/") //로그아웃 성공하면 여기로 이동
+		.invalidateHttpSession(true) //세션을 삭제
 		;
 		
 		return http.build();

@@ -275,7 +275,7 @@
     <!-- Location Modal Start -->
     <!-- Location Modal End -->
 
-    <!-- Edit Profile Start -->
+    <!-- 회원정보수정 모달 Start -->
     <div class="modal fade theme-modal" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel2" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down" style="display: flex; justify-content: center">
             <div class="modal-content" style="width: 75%;">
@@ -285,7 +285,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${CustomerDto}">
+                <form name="editForm" method="post" th:object="${CustomerDto}" th:action="info">
                 <div class="modal-body">
                     <div class="row g-4">
                         <div class="col-xxl-12">
@@ -383,7 +383,7 @@
             </div>
         </div>
     </div>
-    <!-- Edit Profile End -->
+    <!-- 회원정보수정 모달 End -->
 
     
 
@@ -611,7 +611,7 @@
 		var pwd = $("#customerPwd").val();
 		var pwdChk = $("#customerPwdChk").val();
 		var tel = $("#customerTel").val();
-		var telChk = $("#customerTelChk").val();
+		//var telChk = $("#customerTelChk").val();
 		
 		var customerTelChk = $("#customerTelChk").attr("readonly");
 		
@@ -622,7 +622,8 @@
 				return;
 			}
 		}else{
-			if(!pwd || !pwdChk || !tel || !telChk){
+			//if(!pwd || !pwdChk || !tel || !telChk){
+			if(!pwd || !pwdChk || !tel){
 				alert("내용을 입력해주세요.");
 				event.preventDefault();
 				return;
@@ -630,7 +631,6 @@
 		}
 		alert('정보가 수정되었습니다.');
 
-		f.action="info";
 		f.submit();
 	}
     </script>

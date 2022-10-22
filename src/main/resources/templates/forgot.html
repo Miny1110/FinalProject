@@ -9,52 +9,6 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
     
-    <script type="text/javascript">
-    /* 이메일 널값 검사 */
-    function emailChk(){
-    	var email = $("#customerEmail").val();
-    	var emailMsg = document.querySelector("#emailMsg");
-    		
-    	if(!email){
-    		emailMsg.innerHTML = "이메일을 입력해주세요.";
-			$("#emailMsg").css("color","#ff7474");
-    	}else{
-    		emailMsg.innerHTML = "";
-    	}
-    	return;
-    }
-    
-    /* 연락처 널값 검사 */
-    function telChk(){
-    	var tel = $("#customerTel").val();
-		var telMsg = document.querySelector("#telMsg");
-		
-		if(!tel){
-			telMsg.innerHTML = "비밀번호를 입력해주세요.";
-			$("#telMsg").css("color","#ff7474");
-		}else{
-			telMsg.innerHTML = "";
-		}
-		return;
-    }
-    
-    /* 비밀번호찾기 성공 */
-    function sendIt(){
-    	var f = document.forgotForm;
-    	
-    	var email = $("#customerEmail").val();
-    	var tel = $("#customerTel").val();
-    	
-    	if(!email || !tel){
-    		alert("내용을 입력해주세요");
-    		event.preventDefault();
-			return;
-    	}
-    	
-    	f.action = "forgot";
-    	f.submit();
-    }	
-    </script>
 </head>
 
 <body>
@@ -115,7 +69,12 @@
                             <div class="input-box">
                             
                             	<!-- 비밀번호 찾기 form 시작 -->
-                                <form class="row g-4" name="forgotForm" method="post" th:object="${CustomerDto}">
+                                <form class="row g-4" name="forgotForm" method="post" th:object="${CustomerDto}" th:action="forgot">
+	                                <div th:if="${param.error}">
+	                            		<div class="alert alert-danger">
+											회원정보가 없습니다.
+	                            		</div>
+	                            	</div>
                                     <div class="col-12">
                                         <div class="form-floating theme-form-floating log-in-form">
                                             <input type="email" class="form-control" id="customerEmail" name="customerEmail"
@@ -194,6 +153,52 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+    /* 이메일 널값 검사 */
+    function emailChk(){
+    	var email = $("#customerEmail").val();
+    	var emailMsg = document.querySelector("#emailMsg");
+    		
+    	if(!email){
+    		emailMsg.innerHTML = "이메일을 입력해주세요.";
+			$("#emailMsg").css("color","#ff7474");
+    	}else{
+    		emailMsg.innerHTML = "";
+    	}
+    	return;
+    }
+    
+    /* 연락처 널값 검사 */
+    function telChk(){
+    	var tel = $("#customerTel").val();
+		var telMsg = document.querySelector("#telMsg");
+		
+		if(!tel){
+			telMsg.innerHTML = "연락처를 입력해주세요.";
+			$("#telMsg").css("color","#ff7474");
+		}else{
+			telMsg.innerHTML = "";
+		}
+		return;
+    }
+    
+    /* 비밀번호찾기 성공 */
+    function sendIt(){
+    	var f = document.forgotForm;
+    	
+    	var email = $("#customerEmail").val();
+    	var tel = $("#customerTel").val();
+    	
+    	if(!email || !tel){
+    		alert("내용을 입력해주세요");
+    		event.preventDefault();
+			return;
+    	}
+    	
+    	f.submit();
+    }	
+    </script>
 </body>
 
 </html>

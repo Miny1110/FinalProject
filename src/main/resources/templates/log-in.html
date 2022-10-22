@@ -98,9 +98,6 @@
                                 <div class="col-12">
                                     <button class="btn btn-animation w-100 justify-content-center" onclick="sendIt();">로그인</button>
                                 </div>
-                                <div style="margin-top: 20; text-align: center;">
-                                	<span style="color: #ff7474;" th:text="${msg}"></span>
-                                </div>
                             </form>
                             <!-- 로그인 form 끝 -->
                             
@@ -224,7 +221,7 @@
     	}else{				// 체크가 해제 된 경우 (false)
     	    deleteCookie("cookie");	// 쿠키 정보를 지우는 이벤트를 호출한다.
     	}
-    	f.action = "login";
+
     	f.submit();
     }
     

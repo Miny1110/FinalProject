@@ -1,14 +1,19 @@
 package com.exe.cozy;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MainController {
 
 	@RequestMapping("/")
-	public String home() {
+	public String home(Principal principal) {
+		if(principal==null) {
+			return"index";
+		}
+		System.out.println(principal.getName());
 		return "index";
 	}
 	

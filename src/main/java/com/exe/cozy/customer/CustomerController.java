@@ -240,6 +240,17 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지 주문상세조회
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("order/detail")
+    public ModelAndView orderDetail() {
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("invoice");
+    	
+    	return mav;
+    }   
+    
     //마이페이지 주문취소조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("orderCancle")

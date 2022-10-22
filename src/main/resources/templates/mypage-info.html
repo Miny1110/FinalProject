@@ -186,10 +186,8 @@
                                                             <tr>
                                                                 <td>이메일:</td>
                                                                 <td th:text="${customerDto.customerEmail}"></td>
-                                                            </tr><tr>
-                                                                <td>비밀번호:</td>
-                                                                <td th:text="${customerDto.customerPwd}"></td>
-                                                            </tr><tr>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>연락처:</td>
                                                                 <td th:text="${customerDto.customerTel}"></td>
                                                             </tr>
@@ -370,7 +368,7 @@
                         <div class="col-xxl-12">
                             <div class="form-floating theme-form-floating">
                                 <input type="text" class="form-control" id="customerDAddr"
-                                th:value="${customerDto.customerDAddr}" name="customerDAddr">
+                                th:value="${customerDto.customerDAddr}" name="customerDAddr" readonly="readonly">
                                 <label for="address2">상세주소</label>
                             </div>
                         </div>
@@ -601,6 +599,7 @@
 		var customerTelChk = $("#customerTelChk").val();
 		
 		$("#customerTelChk").attr("readonly",true);
+		$("#customerDAddr").attr("readonly",true);
 		
 	});
 	
@@ -672,6 +671,8 @@
 					} else {
 						document.getElementById("customerDAddr").value = '';
 					}
+					
+					$("#customerDAddr").attr("readonly",false);
 
 					var guideTextBox = document.getElementById("guide");
 					// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.

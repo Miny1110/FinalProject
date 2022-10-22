@@ -236,16 +236,13 @@
 											</button>
 											<ul class="dropdown-menu"
 												aria-labelledby="dropdownMenuButton1">
-												<li><a class="dropdown-item" id="pop1"
-													   href="javascript:void(0)">싱글</a></li>
-												<br/>
+												<th:block th:each="size : ${itemSizes}">
+											<li><a class="dropdown-item" id="pop1"
+												href="javascript:void(0)" th:text="${size }"></a></li>
+											<br />
+											</th:block>
 
-												<li><a class="dropdown-item" id="low1"
-													   href="javascript:void(0)">슈퍼싱글</a></li>
-												<br/>
-												<li><a class="dropdown-item" id="high1"
-													   href="javascript:void(0)">퀸</a></li>
-
+												
 
 											</ul>
 										</div>
@@ -261,21 +258,13 @@
 											</button>
 											<ul class="dropdown-menu"
 												aria-labelledby="dropdownMenuButton1">
-												<li><a class="dropdown-item" id="pop"
-													   href="javascript:void(0)">빨</a></li>
-												<br/>
+												<th:block th:each="color : ${itemColors}">
+											<li><a class="dropdown-item" id="pop"
+												href="javascript:void(0)" th:text="${color}"></a></li>
+											<br/>
+											</th:block>
 
-												<li><a class="dropdown-item" id="low"
-													   href="javascript:void(0)">주</a></li>
-												<br/>
-												<li><a class="dropdown-item" id="high"
-													   href="javascript:void(0)">노</a></li>
-												<br/>
-												<li><a class="dropdown-item" id="bye"
-													   href="javascript:void(0)">초</a></li>
-												<br/>
-												<li><a class="dropdown-item" id="final"
-													   href="javascript:void(0)">파</a></li>
+												
 
 
 											</ul>

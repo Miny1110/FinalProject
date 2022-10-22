@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.domain.ItemDetailInsertDto;
+import com.exe.cozy.domain.ItemQnaDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.util.MyPage;
 
@@ -29,6 +30,8 @@ public class ItemDetailController {
 	private ItemDetailService itemDetailService;
 	@Resource
 	private ReplyService replyService;
+	@Resource
+	private ItemQnaService itemQnaService;
 
 	@Autowired
 	MyPage myPage;
@@ -150,11 +153,14 @@ public class ItemDetailController {
 		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
 		 * URLDecoder.decode(searchValue,"UTF-8");}
 		 */
+		
+	
 
 		// itemDetailService.updateItemHitCount(itemNum);
 
 		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 		List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);
+		List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
 			// 일단은 index 로 리다이렉트 시키기
@@ -171,6 +177,16 @@ public class ItemDetailController {
 		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
 		 * URLDecoder.decode(searchValue,"UTF-8");}
 		 */
+		
+		
+		//DB Split사용
+		//사이즈 옵션 불러오기
+		String itemSizeList = idto.getItemSize();
+		String [] itemSizes = itemSizeList.split(",");
+		
+		//컬러옵션 불러오기
+		String itemColorList = idto.getItemColor();
+		String [] itemColors = itemColorList.split(",");
 
 		int salePrice = idto.getItemPrice() - idto.getItemDiscount();
 
@@ -180,6 +196,9 @@ public class ItemDetailController {
 		// System.out.println(rdtoList.get(0).getRegDate());
 		mav.addObject("idto", idto);
 		mav.addObject("rdtoList", rdtoList);
+		mav.addObject("qdtoList",qdtoList);
+		mav.addObject("itemSizes",itemSizes);
+		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
 
 		// mav.addObject("params",param);

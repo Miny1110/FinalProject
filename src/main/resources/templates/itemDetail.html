@@ -73,6 +73,7 @@
 	<!-- mobile fix menu end -->
 
 	<!-- Breadcrumb Section Start -->
+
 	<section class="breadscrumb-section pt-0">
 		<div class="container-fluid-lg">
 			<div class="row">
@@ -95,7 +96,10 @@
 				</div>
 			</div>
 		</div>
+
+
 	</section>
+
 	<!-- Breadcrumb Section End -->
 
 	<!-- Product Left Sidebar Start -->
@@ -188,156 +192,165 @@
 						</div>
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
-							<div class="right-box-contain">
-								<h6 class="offer-top"
-									th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
-								<h2 class="name" th:text="${idto.itemName }"></h2>
-								<div class="price-rating">
-									<h3 class="theme-color price">
-										<del class="text-content"
-											th:text="|${#numbers.formatInteger(idto.ItemPrice , 0, 'COMMA')} 원|"></del>
-										<span class="text-content"
-											th:text="|${#numbers.formatInteger(idto.getItemPrice()-idto.itemDiscount , 0, 'COMMA')} 원|"></span>
-										<span class="offer theme-color">
+							<form action="/order" name="order" type="post">
+								<input type="hidden" th:value="${idto.getItemNum()}" name="num">
+								<div class="right-box-contain">
+									<h6 class="offer-top"
+										th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
+									<h2 class="name" th:text="${idto.itemName }"></h2>
+									<div class="price-rating">
+										<h3 class="theme-color price">
+											<del class="text-content"
+												 th:text="|${#numbers.formatInteger(idto.ItemPrice , 0, 'COMMA')} 원|"></del>
+											<span class="text-content"
+												  th:text="|${#numbers.formatInteger(idto.getItemPrice()-idto.itemDiscount , 0, 'COMMA')} 원|"></span>
+											<span class="offer theme-color">
 											([[|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')}
 											원|]] 할인)</span>
 
-									</h3>
-									<div class="product-rating custom-rate">
-										<ul class="rating">
-											<li><i data-feather="star" class="fill"></i></li>
-											<li><i data-feather="star" class="fill"></i></li>
-											<li><i data-feather="star" class="fill"></i></li>
-											<li><i data-feather="star" class="fill"></i></li>
-											<li><i data-feather="star"></i></li>
-										</ul>
-										<span class="review">23 개의 리뷰</span>
-									</div>
-								</div>
-
-								<div class="procuct-contain">
-									<p th:text="${idto.itemContent}"></p>
-								</div>
-
-								<div class="product-packege">
-									<div class="product-title">
-										<h4>사이즈 옵션</h4>
-									</div>
-									<div class="dropdown">
-										<button class="dropdown-toggle" type="button"
-											id="dropdownMenuButton1" data-bs-toggle="dropdown">
-											<span>사이즈를 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
-										</button>
-										<ul class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" id="pop1"
-												href="javascript:void(0)">싱글</a></li>
-											<br />
-
-											<li><a class="dropdown-item" id="low1"
-												href="javascript:void(0)">슈퍼싱글</a></li>
-											<br />
-											<li><a class="dropdown-item" id="high1"
-												href="javascript:void(0)">퀸</a></li>
-
-
-										</ul>
-									</div>
-								</div>
-								<div class="product-packege">
-									<div class="product-title">
-										<h4>색상 옵션</h4>
-									</div>
-									<div class="dropdown">
-										<button class="dropdown-toggle" type="button"
-											id="dropdownMenuButton" data-bs-toggle="dropdown">
-											<span>색상을 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
-										</button>
-										<ul class="dropdown-menu"
-											aria-labelledby="dropdownMenuButton1">
-											<li><a class="dropdown-item" id="pop"
-												href="javascript:void(0)">빨</a></li>
-											<br />
-
-											<li><a class="dropdown-item" id="low"
-												href="javascript:void(0)">주</a></li>
-											<br />
-											<li><a class="dropdown-item" id="high"
-												href="javascript:void(0)">노</a></li>
-											<br />
-											<li><a class="dropdown-item" id="bye"
-												href="javascript:void(0)">초</a></li>
-											<br />
-											<li><a class="dropdown-item" id="final"
-												href="javascript:void(0)">파</a></li>
-
-
-										</ul>
-									</div>
-								</div>
-
-								<div class="time deal-timer product-deal-timer mx-md-0 mx-auto">
-									<div class="product-title">
-										<h4>오늘의 딜 남은시간!!</h4>
-									</div>
-									<ul>
-										<li>
-											<div class="counter">
-												<div>
-													<h5 id="days2"></h5>
-													<h6>일</h6>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="counter">
-												<div>
-													<h5 id="hours2"></h5>
-													<h6>시간</h6>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="counter">
-												<div>
-													<h5 id="minutes2"></h5>
-													<h6>분</h6>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div class="counter">
-												<div>
-													<h5 id="seconds2"></h5>
-													<h6>초</h6>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-
-
-
-								<div class="note-box product-packege">
-									<div class="cart_qty qty-box product-qty">
-										<div class="input-group">
-											<button type="button" class="qty-right-plus" data-type="plus"
-												data-field="">
-												<i class="fa fa-plus" aria-hidden="true"></i>
-											</button>
-											<input class="form-control input-number qty-input"
-												type="text" name="quantity" value="0">
-											<button type="button" class="qty-left-minus"
-												data-type="minus" data-field="">
-												<i class="fa fa-minus" aria-hidden="true"></i>
-											</button>
+										</h3>
+										<div class="product-rating custom-rate">
+											<ul class="rating">
+												<li><i data-feather="star" class="fill"></i></li>
+												<li><i data-feather="star" class="fill"></i></li>
+												<li><i data-feather="star" class="fill"></i></li>
+												<li><i data-feather="star" class="fill"></i></li>
+												<li><i data-feather="star"></i></li>
+											</ul>
+											<span class="review">23 개의 리뷰</span>
 										</div>
 									</div>
 
-									<button onclick="location.href = 'cart.html';"
-										class="btn btn-md bg-dark cart-button text-white w-40">장바구니</button>
-									<button onclick="location.href = 'checkout';"
-										class="btn btn-md bg-dark cart-button text-white w-40">바로결제</button>
+									<div class="procuct-contain">
+										<p th:text="${idto.itemContent}"></p>
+									</div>
+
+									<div class="product-packege">
+										<div class="product-title">
+											<h4>사이즈 옵션</h4>
+										</div>
+										<div class="dropdown">
+											<button class="dropdown-toggle" type="button"
+													id="dropdownMenuButton1" data-bs-toggle="dropdown">
+												<span>사이즈를 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
+											</button>
+											<ul class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton1">
+												<li><a class="dropdown-item" id="pop1"
+													   href="javascript:void(0)">싱글</a></li>
+												<br/>
+
+												<li><a class="dropdown-item" id="low1"
+													   href="javascript:void(0)">슈퍼싱글</a></li>
+												<br/>
+												<li><a class="dropdown-item" id="high1"
+													   href="javascript:void(0)">퀸</a></li>
+
+
+											</ul>
+										</div>
+									</div>
+									<div class="product-packege">
+										<div class="product-title">
+											<h4>색상 옵션</h4>
+										</div>
+										<div class="dropdown">
+											<button class="dropdown-toggle" type="button"
+													id="dropdownMenuButton" data-bs-toggle="dropdown">
+												<span>색상을 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
+											</button>
+											<ul class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton1">
+												<li><a class="dropdown-item" id="pop"
+													   href="javascript:void(0)">빨</a></li>
+												<br/>
+
+												<li><a class="dropdown-item" id="low"
+													   href="javascript:void(0)">주</a></li>
+												<br/>
+												<li><a class="dropdown-item" id="high"
+													   href="javascript:void(0)">노</a></li>
+												<br/>
+												<li><a class="dropdown-item" id="bye"
+													   href="javascript:void(0)">초</a></li>
+												<br/>
+												<li><a class="dropdown-item" id="final"
+													   href="javascript:void(0)">파</a></li>
+
+
+											</ul>
+										</div>
+									</div>
+
+									<div class="time deal-timer product-deal-timer mx-md-0 mx-auto">
+										<div class="product-title">
+											<h4>오늘의 딜 남은시간!!</h4>
+										</div>
+										<ul>
+											<li>
+												<div class="counter">
+													<div>
+														<h5 id="days2"></h5>
+														<h6>일</h6>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="counter">
+													<div>
+														<h5 id="hours2"></h5>
+														<h6>시간</h6>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="counter">
+													<div>
+														<h5 id="minutes2"></h5>
+														<h6>분</h6>
+													</div>
+												</div>
+											</li>
+											<li>
+												<div class="counter">
+													<div>
+														<h5 id="seconds2"></h5>
+														<h6>초</h6>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+
+
+									<div class="note-box product-packege">
+										<div class="cart_qty qty-box product-qty">
+											<div class="input-group">
+												<button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
+													<i class="fa fa-minus ms-0" aria-hidden="true"></i>
+												</button>
+												<input class="form-control input-number qty-input"
+													   type="text" name="itemQty" value="1">
+												<button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
+													<i class="fa fa-plus ms-0" aria-hidden="true"></i>
+												</button>
+											</div>
+										</div>
+
+
+										<button onclick="location.href = '/cart';"
+												class="btn btn-md bg-dark cart-button text-white w-40">장바구니
+										</button>
+										<button onclick="location.href = '/order';"
+												class="btn btn-md bg-dark cart-button text-white w-40">바로결제
+										</button>
+
+
+									</div>
+							</form>
+
+
+									<!--<input type="hidden" id="itemQty" name="itemQty" th:value="${itemQty}">-->
 
 
 								</div>
@@ -1494,6 +1507,8 @@
 	<script src="../assets/js/filter-sidebar.js"></script>
 
 	<!-- Quantity js -->
+	<script src="../assets/js/quantity-1.js"></script>
+	<script src="../assets/js/quantity-2.js"></script>
 	<script src="../assets/js/quantity-3.js"></script>
 
 	<!-- Zoom Js -->
@@ -1509,6 +1524,7 @@
 
 	<!-- script js -->
 	<script src="../assets/js/script.js"></script>
+
 
 </body>
 

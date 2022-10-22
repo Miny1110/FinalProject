@@ -253,7 +253,7 @@ public class CustomerController {
     
     //마이페이지 주문취소조회
     @PreAuthorize("isAuthenticated")
-    @GetMapping("orderCancle")
+    @GetMapping("order/cancle")
     public ModelAndView orderCancle() {
     	
     	ModelAndView mav = new ModelAndView();
@@ -262,6 +262,17 @@ public class CustomerController {
     	
     	return mav;
     }
+    
+    //마이페이지 주문취소상세조회
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("order/cancle/detail")
+    public ModelAndView orderCancleDetail() {
+    	ModelAndView mav = new ModelAndView();
+    	
+    	mav.setViewName("invoice-cancle");
+    	
+    	return mav;
+    } 
     
     //마이페이지 문의답변
     @PreAuthorize("isAuthenticated")

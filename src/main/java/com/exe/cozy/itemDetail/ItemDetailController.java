@@ -1,20 +1,26 @@
 package com.exe.cozy.itemDetail;
 
-import com.exe.cozy.domain.ItemDetailDto;
-import com.exe.cozy.domain.ReplyDto;
-import com.exe.cozy.util.MyPage;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.net.URLDecoder;
-import java.util.Date;
-import java.util.List;
+import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ItemDetailInsertDto;
+import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.util.MyPage;
 
 @Controller
 public class ItemDetailController {
@@ -38,25 +44,57 @@ public class ItemDetailController {
 
 	// 상품등록
 	@PostMapping("createItem_ok")
-	public ModelAndView createItem_ok(ItemDetailDto idto, HttpServletRequest request) throws Exception {
-
+	public ModelAndView createItem_ok(ItemDetailInsertDto idto, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		int itemMaxNum = itemDetailService.itemMaxNum();
+		Map<String, Object> insertMap = new HashMap<String, Object>();
 
-		idto.setItemNum(itemMaxNum + 1);
-		itemDetailService.insertItem(idto);
+		List<MultipartFile> fileList = new LinkedList<MultipartFile>();
+		fileList.add(idto.getItemImage1());
+		fileList.add(idto.getItemImage2());
+		fileList.add(idto.getItemImage3());
+		fileList.add(idto.getItemImage4());
+		fileList.add(idto.getDetailImage());
+
+		int i = 0;
+		for (MultipartFile file : fileList) {
+			i++;
+			if (file == null || file.isEmpty()) {
+				continue;
+			}
+			int rstKey = itemDetailService.fileWrite(file);
+
+			insertMap.put("image" + i, String.valueOf(rstKey));
+		}
+
+		int itemMaxNum = itemDetailService.itemMaxNum() + 1;
+
+		insertMap.put("itemNum", itemMaxNum);
+		insertMap.put("itemName", idto.getItemName());
+		insertMap.put("itemMainType", idto.getItemMainType());
+		insertMap.put("itemSubType", idto.getItemSubType());
+		insertMap.put("itemPrice", idto.getItemPrice());
+		insertMap.put("itemDiscount", idto.getItemDiscount());
+		insertMap.put("itemContent", idto.getItemContent());
+		insertMap.put("itemHitcount", 0);
+		insertMap.put("itemStock", idto.getItemStock());
+		insertMap.put("itemState", idto.getItemState());
+		insertMap.put("todaydeal", idto.getTodaydeal());
+		insertMap.put("itemColor", idto.getItemColor());
+		insertMap.put("itemSize", idto.getItemSize());
+
+		itemDetailService.insertItem(insertMap);
 
 		/*
-		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
-		String pageNum = request.getParameter("pageNum");
-		String searchValue = request.getParameter("searchValue");
-		 
-		if(searchValue!=null && !searchValue.equals("")) { searchValue =
-		URLDecoder.decode(searchValue,"UTF-8");}
-		*/
+		 * int itemNum = Integer.parseInt(request.getParameter("itemNum")); String
+		 * pageNum = request.getParameter("pageNum"); String searchValue =
+		 * request.getParameter("searchValue");
+		 * 
+		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
+		 * URLDecoder.decode(searchValue,"UTF-8");}
+		 */
 
-		//mav.setViewName("redirect:/itemDetail?pageNum=\"+pageNum");
-		
+		// mav.setViewName("redirect:/itemDetail?pageNum=\"+pageNum");
+
 		mav.setViewName("redirect:/");
 		return mav;
 	}
@@ -127,7 +165,8 @@ public class ItemDetailController {
 			return mav;
 
 		}
-		/*String searchValue = request.getParameter("searchValue");
+		/*
+		 * String searchValue = request.getParameter("searchValue");
 		 * 
 		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
 		 * URLDecoder.decode(searchValue,"UTF-8");}

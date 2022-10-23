@@ -69,8 +69,10 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String storedFileName = "";
 		String originFileNmae = file.getOriginalFilename();
 		String fileExtension = StringUtils.substringAfter(originFileNmae, ".");
-		String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
-
+		//String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
+							
+		String filePath = "D:\\test";
+		
 		// 1.fileWriter 호출
 		storedFileName = FileUtil.FileWriter(file);
 

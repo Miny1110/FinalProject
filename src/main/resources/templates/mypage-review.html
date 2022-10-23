@@ -167,7 +167,7 @@
                                     </div>
 								
 									<!-- 리뷰출력 시작 -->
-                                   <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}">
+                                   <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}" th:action="reviewDel">
                                    
                                    <div class="profile-about dashboard-bg-box">
                                         <div class="row">
@@ -178,6 +178,7 @@
                                             <input type="hidden" name="itemSubType" th:value="${replyDto.item.itemSubType}">
                                             <input type="hidden" name="customerEmail" th:value="${replyDto.customerEmail}">
                                             <input type="hidden" name="replyId" th:value="${replyDto.replyId}">
+                                            <input type="hidden" name="pageNum" th:value="${page.pageNum}">
                                         </div>
                                         </div>
                                         <div class="row">
@@ -203,7 +204,8 @@
                                                 <span class="review" data-bs-toggle="modal" data-bs-target="#edit-review"
                                                 th:data-id="${replyDto.replyId}" th:data-name="${replyDto.item.itemName}"
                                                 th:data-num="${replyDto.itemNum}" th:data-rating="${replyDto.rating}" 
-                                                th:data-content="${replyDto.content}" th:onclick="|reviewEdit(${i.index})|">
+                                                th:data-content="${replyDto.content}" th:data-page="${page.pageNum}"
+                                                th:onclick="|reviewEdit(${i.index})|">
                                                 수정하기</span>
                                                 <br/>
                                                 <span class="review" th:onclick="|reviewDel(${i.index})|">삭제하기</span>
@@ -227,27 +229,35 @@
                                 
                                 <nav class="custome-pagination">
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
+                                    	
+										<li class="page-item" th:if="${page.navigateFirstPage>1}">
+                                            <a class="page-link" th:href="@{/customer/review(pageNum=${page.navigateFirstPage-1})}">
                                                 <i class="fa-solid fa-angles-left"></i>
                                             </a>
                                         </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="javascript:void(0)">1</a>
+										<li class="page-item" th:unless="${page.navigateFirstPage>1}">
                                         </li>
-                                        <li class="page-item" aria-current="page">
-                                            <a class="page-link" href="javascript:void(0)">2</a>
+                                        
+                                        
+                                        <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
+                                        	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
+                                        </li> -->
+                                        <li class="page-item" th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+                                        	<a class="page-link" th:text="${pages}" th:href="@{/customer/review(pageNum=${pages})}"></a>
                                         </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">
+                                        
+                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+                                            <a class="page-link" th:href="@{/customer/review(pageNum=${page.navigateLastPage+1})}">
                                                 <i class="fa-solid fa-angles-right"></i>
                                             </a>
                                         </li>
+                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+                                        </li>
+                                        
                                     </ul>
                                 </nav>  
+                                
                             </div>
                         </div>
                     </div>
@@ -293,12 +303,13 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${ReplyDto}">
+                <form name="editForm" method="post" th:object="${ReplyDto}" th:action="reviewUp">
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                        	<input type="hidden" id="replyIdEdit" name="replyId">
 	                        	<input type="hidden" id="itemNumEdit" name="itemNum">
+	                        	<input type="hidden" id="pageEdit" name="pageNum">
 	                            <input type="text" class="form-control" id="itemNameEdit" name="itemName" 
 	                            readonly="readonly">
 	                            <label for="fname">상품명</label>
@@ -386,7 +397,6 @@
 			return;
 		}else{
 			alert("삭제되었습니다.");
-			f.action="reviewDel";
 			f.submit();
 		}
 	}
@@ -398,12 +408,14 @@
 		var num = $(e.relatedTarget).data('num');
 		var rating = $(e.relatedTarget).data('rating');
 		var content = $(e.relatedTarget).data('content');
+		var page = $(e.relatedTarget).data('page');
 
 		$('#replyIdEdit').val(id);
 		$('#itemNameEdit').val(name);
 		$('#itemNumEdit').val(num);
 		$('#ratingEdit').val(rating);
 		$('#contentEdit').val(content);
+		$('#pageEdit').val(page);
 		
     });
 	
@@ -423,7 +435,6 @@
         //입력창에 내용이 있으면
         alert("리뷰가 수정되었습니다.");
         
-        f.action="reviewUp";
         f.submit();
         
 	}

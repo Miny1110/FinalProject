@@ -34,6 +34,8 @@ import com.exe.cozy.mail.MailService;
 import com.exe.cozy.point.PointService;
 import com.exe.cozy.util.AddDate;
 import com.exe.cozy.util.AlertRedirect;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("/customer")
@@ -289,13 +291,23 @@ public class CustomerController {
     //마이페이지 마이리뷰
     @PreAuthorize("isAuthenticated")
     @GetMapping("review")
-    public ModelAndView review(Principal principal) throws Exception {
+    public ModelAndView review(Principal principal, HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	List<ReplyDto> lists = customerService.getReviewList(principal.getName());
-
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr = "1";
+    	}
+    	
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
+    	Page<ReplyDto> lists = customerService.getReviewPaging(principal.getName(), pageNum);
+    	
+    	PageInfo<ReplyDto> page = new PageInfo<>(lists,3);
+    	
     	mav.addObject("lists", lists);
+    	mav.addObject("page", page);
     	
     	mav.setViewName("mypage-review");
     	
@@ -305,12 +317,16 @@ public class CustomerController {
     //마이페이지 마이리뷰 수정
     @PreAuthorize("isAuthenticated")
     @PostMapping("reviewUp")
-    public ModelAndView review(ReplyDto rdto) throws Exception {
+    public ModelAndView review(ReplyDto rdto, HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	replyService.updateReply(rdto);
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.setViewName("redirect:review");
     	
     	return mav;
@@ -319,12 +335,16 @@ public class CustomerController {
     //마이페이지 마이리뷰 삭제
     @PreAuthorize("isAuthenticated")
     @PostMapping("reviewDel")
-    public ModelAndView review(int replyId) throws Exception {
+    public ModelAndView review(int replyId, HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	replyService.deleteReply(replyId);
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.setViewName("redirect:review");
     	
     	return mav;

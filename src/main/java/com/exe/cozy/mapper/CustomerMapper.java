@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.github.pagehelper.Page;
 
 @Mapper
 public interface CustomerMapper {
@@ -22,5 +23,6 @@ public interface CustomerMapper {
 	public void updatePoint(CustomerDto dto); //포인트 수정
 	public void deleteData(String customerEmail); //회원탈퇴
 	
-	public List<ReplyDto> getReviewList(String customerEmail);
+	public List<ReplyDto> getReviewList(String customerEmail); //리뷰 목록
+	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum); //리뷰 페이징처리 목록
 }

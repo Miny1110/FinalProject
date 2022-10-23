@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.mapper.CustomerMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -73,7 +75,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<ReplyDto> getReviewList(String customerEmail) {
+		
 		return customerMapper.getReviewList(customerEmail);
 	}
 
+	@Override
+	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum){
+		PageHelper.startPage(pageNum, 5);
+		return customerMapper.getReviewPaging(customerEmail, pageNum);
+	}
 }

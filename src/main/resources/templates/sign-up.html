@@ -1,11 +1,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <div th:replace="head.html :: headFragment"></div>
 
 	<title>회원가입</title>
 
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/stylemj.css">
 
 	<style id="__web-inspector-hide-shortcut-style__">
 	.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
@@ -14,8 +15,213 @@
 	}
 	</style>
 	
-	<script type="text/javascript" src="../assets/js/util.js"></script>
+
+	
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header th:replace="header.html :: headerFragment"></header>
+    <!-- Header End -->
+
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2 class="mb-2">회원가입</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active">회원가입</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- log in section start -->
+    <section class="log-in-section section-b-space">
+        <div class="container-fluid-lg w-100">
+            <div class="row">
+                
+                <div class="col-xl-5" style="margin: auto;">
+                    <div class="log-in-box">
+                        <div class="log-in-title">
+                            <h3>회원가입</h3>
+                        </div>
+
+                        <div class="input-box">
+                        
+							<!-- 회원가입 form 시작 -->         
+                            <form class="row g-4" name="signUpForm" method="post" th:object="${CustomerDto}" th:action="signUp">
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="text" class="form-control" id="customerName" placeholder="이름을 입력하세요"
+                                        name="customerName" onblur="nameChk();">
+                                        <label for="customerName">이름</label>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 5;" id="nameMsg"></div>
+                                
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="email" class="form-control" id="customerEmail" placeholder="Email Address"
+                                        name="customerEmail" onblur="emailChk();">
+                                        <label for="email">이메일</label>
+                               
+                                    </div>
+                                </div>
+                                <div style="margin-top: 5;" id="emailMsg"></div>
+                                <input type="hidden" id="emailDobuleChk"/>
+
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="password" class="form-control" id="customerPwd" placeholder="Password"
+                                        name="customerPwd" onblur="pwdChk();">
+                                        <label for="password">비밀번호</label>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 5;" id="pwdMsg"></div>
+
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="password" class="form-control" id="customerPwdChk" placeholder="Password"
+                                        name="customerPwdChk" onblur="pwdDoubleChk();">
+                                        <label for="password">비밀번호 확인</label>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 5;" id="pwdDoubleMsg"></div>
+                                   
+                                <div class="col-12">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="tel" class="form-control" id="customerTel" placeholder="Tel"
+                                        name="customerTel" onblur="telChk();">
+                                        <label for="password">연락처</label>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 5;" id="telMsg"></div>
+                                   
+                                <div class="col-8">
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="text" class="form-control" id="customerTelChk" placeholder="TelChk"
+                                        name="customerTelChk" >
+                                        <label for="password">인증번호</label>
+                                    </div>
+                                <div style="margin-top: 5;" id="telChkMsg"></div>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-animation w-100" onclick="telChkBtn();">인증번호 요청</button>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="forgot-box">
+                                        <div class="form-check ps-0 m-0 remember-box">
+                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                <a th:href="@{/}">이용약관</a>에 동의합니다
+                                            </label>
+                                            <div style="margin-left: 15;" id="chkMsg"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <button class="btn btn-animation w-100" onclick="sendIt();">회원가입</button>
+                                </div>
+                            </form>
+							<!-- 회원가입 form 끝 -->  
+                            
+                        </div>
+
+                        <div class="other-log-in">
+                            <h6>or</h6>
+                        </div>
+
+                        <div class="log-in-button">
+                            <ul>
+                                <li>
+                                    <a href="https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin" class="btn google-button w-100">
+                                        <img src="/assets/images/inner-page/google.png" class="blur-up lazyloaded" alt="">구글 계정으로 가입하기</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
+                                        <img src="/assets/images/inner-page/facebook.png" class="blur-up lazyloaded" alt="">페이스북 계정으로 가입하기</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="other-log-in">
+                            <h6></h6>
+                        </div>
+
+                        <div class="sign-up-box">
+                            <h4>이미 회원이신가요?</h4>
+                            <a th:href="@{/customer/login}">로그인하기</a>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+    <!-- log in section end -->
+
+    <!-- Footer Section Start -->
+    <footer th:replace="footer.html :: footerFragment"></footer>
+    <!-- Footer Section End -->
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="back-to-top" style="display: none;">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="/assets/js/feather/feather.min.js"></script>
+    <script src="/assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="/assets/js/lazysizes.min.js"></script>
+
+    <!-- script js -->
+    <script src="/assets/js/script.js"></script>
+    
+    	<script type="text/javascript" src="/assets/js/util.js"></script>
 	<script type="text/javascript">
+	let header = $("meta[name='_csrf_header']").attr("content");
+	let token = $("meta[name='_csrf']").attr("content");
+	
 
 	/* 이름 유효성 검사 */
 	function nameChk(){
@@ -49,9 +255,12 @@
 			$("#customerEmail").val("");
 		}else{
 			 $.ajax({
-		            url:'./emailChk', //Controller에서 요청 받을 주소
+		            url:'emailChk', //Controller에서 요청 받을 주소
 		            type:'POST', //POST 방식으로 전달
 		            data:{email:email},
+		            beforeSend: function (jqXHR) {
+	                    jqXHR.setRequestHeader(header, token);
+	                },
 		            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
 		                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
 		                	emailMsg.innerHTML = "";
@@ -209,6 +418,7 @@
 		var tel = $("#customerTel").val();
 		//var telChk = $("#customerTelChk").val();
 		
+
 //		if(!name || !email || !pwd || !pwdChk || !tel || !telChk){
 		if(!name || !email || !pwd || !pwdChk || !tel){
 			alert("내용을 입력해주세요");
@@ -220,213 +430,10 @@
 		alert(name + "님 반갑습니다.\n회원가입해주셔서 감사합니다.");
 		event.preventDefault();
 		
-		f.action="signUp";
 		f.submit();
 	}
 	
-	
-	
 	</script>
-	
-</head>
-
-<body>
-
-    <!-- Loader Start -->
-    
-    <!-- Loader End -->
-
-    <!-- Header Start -->
-    <header th:replace="header.html :: headerFragment"></header>
-    <!-- Header End -->
-
-
-    <!-- Breadcrumb Section Start -->
-    <section class="breadscrumb-section pt-0">
-        <div class="container-fluid-lg">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadscrumb-contain">
-                        <h2 class="mb-2">회원가입</h2>
-                        <nav>
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item">
-                                    <a href="index.html">
-                                        <i class="fa-solid fa-house"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item active">회원가입</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- log in section start -->
-    <section class="log-in-section section-b-space">
-        <div class="container-fluid-lg w-100">
-            <div class="row">
-                
-                <div class="col-xl-5" style="margin: auto;">
-                    <div class="log-in-box">
-                        <div class="log-in-title">
-                            <h3>회원가입</h3>
-                        </div>
-
-                        <div class="input-box">
-                        
-							<!-- 회원가입 form 시작 -->         
-                            <form class="row g-4" name="signUpForm" method="post" th:object="${CustomerDto}">
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="customerName" placeholder="이름을 입력하세요"
-                                        name="customerName" onblur="nameChk();">
-                                        <label for="customerName">이름</label>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 5;" id="nameMsg"></div>
-                                
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="email" class="form-control" id="customerEmail" placeholder="Email Address"
-                                        name="customerEmail" onblur="emailChk();">
-                                        <label for="email">이메일</label>
-                               
-                                    </div>
-                                </div>
-                                <div style="margin-top: 5;" id="emailMsg"></div>
-                                <input type="hidden" id="emailDobuleChk"/>
-
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="customerPwd" placeholder="Password"
-                                        name="customerPwd" onblur="pwdChk();">
-                                        <label for="password">비밀번호</label>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 5;" id="pwdMsg"></div>
-
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="password" class="form-control" id="customerPwdChk" placeholder="Password"
-                                        name="customerPwdChk" onblur="pwdDoubleChk();">
-                                        <label for="password">비밀번호 확인</label>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 5;" id="pwdDoubleMsg"></div>
-                                   
-                                <div class="col-12">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="tel" class="form-control" id="customerTel" placeholder="Tel"
-                                        name="customerTel" onblur="telChk();">
-                                        <label for="password">연락처</label>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 5;" id="telMsg"></div>
-                                   
-                                <div class="col-8">
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="customerTelChk" placeholder="TelChk"
-                                        name="customerTelChk" >
-                                        <label for="password">인증번호</label>
-                                    </div>
-                                <div style="margin-top: 5;" id="telChkMsg"></div>
-                                </div>
-                                <div class="col-4">
-                                    <button class="btn btn-animation w-100" onclick="telChkBtn();">인증번호 요청</button>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <div class="forgot-box">
-                                        <div class="form-check ps-0 m-0 remember-box">
-                                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                <a th:href="@{/}">이용약관</a>에 동의합니다
-                                            </label>
-                                            <div style="margin-left: 15;" id="chkMsg"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <button class="btn btn-animation w-100" onclick="sendIt();">회원가입</button>
-                                </div>
-                            </form>
-							<!-- 회원가입 form 끝 -->  
-                            
-                        </div>
-
-                        <div class="other-log-in">
-                            <h6>or</h6>
-                        </div>
-
-                        <div class="log-in-button">
-                            <ul>
-                                <li>
-                                    <a href="https://accounts.google.com/signin/v2/identifier?flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin" class="btn google-button w-100">
-                                        <img src="../assets/images/inner-page/google.png" class="blur-up lazyloaded" alt="">구글 계정으로 가입하기</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
-                                        <img src="../assets/images/inner-page/facebook.png" class="blur-up lazyloaded" alt="">페이스북 계정으로 가입하기</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="other-log-in">
-                            <h6></h6>
-                        </div>
-
-                        <div class="sign-up-box">
-                            <h4>이미 회원이신가요?</h4>
-                            <a th:href="@{/customer/login}">로그인하기</a>
-                        </div>
-                    </div>
-                </div>
-
-                
-            </div>
-        </div>
-    </section>
-    <!-- log in section end -->
-
-    <!-- Footer Section Start -->
-    <footer th:replace="footer.html :: footerFragment"></footer>
-    <!-- Footer Section End -->
-
-    <!-- Tap to top start -->
-    <div class="theme-option">
-        <div class="back-to-top" style="display: none;">
-            <a id="back-to-top" href="#">
-                <i class="fas fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
-    <!-- Tap to top end -->
-
-    <!-- Bg overlay Start -->
-    <div class="bg-overlay"></div>
-    <!-- Bg overlay End -->
-
-    <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
-
-    <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
-
-    <!-- feather icon js-->
-    <script src="../assets/js/feather/feather.min.js"></script>
-    <script src="../assets/js/feather/feather-icon.js"></script>
-
-    <!-- Lazyload Js -->
-    <script src="../assets/js/lazysizes.min.js"></script>
-
-    <!-- script js -->
-    <script src="../assets/js/script.js"></script>
 
 
 </body></html>

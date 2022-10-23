@@ -76,8 +76,8 @@
                                 </div>
 
                                 <div class="profile-name">
-                                    <h3>회원이름</h3>
-                                    <h6 class="text-content">회원이메일</h6>
+                                    <h3 th:text="${customerDto.customerName}"></h3>
+                                    <h6 class="text-content" th:text="${customerDto.customerGrade}"></h6>
                                 </div>
                             </div>
                         </div>

@@ -21,6 +21,6 @@ public interface CustomerService {
 	public void updatePoint(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
-	public List<ReplyDto> getReviewList(String customerEmail);
+//	public List<ReplyDto> getReviewList(String customerEmail);
 	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum);
 }

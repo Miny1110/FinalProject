@@ -233,10 +233,13 @@ public class CustomerController {
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order")
-    public ModelAndView order() {
+    public ModelAndView order(Principal principal) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+
+    	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-order");
     	
     	return mav;
@@ -251,15 +254,18 @@ public class CustomerController {
     	mav.setViewName("invoice");
     	
     	return mav;
-    }   
+    }       
     
     //마이페이지 주문취소조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/cancle")
-    public ModelAndView orderCancle() {
+    public ModelAndView orderCancle(Principal principal) {
     	
     	ModelAndView mav = new ModelAndView();
-    	
+
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+
+    	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-order-cancle");
     	
     	return mav;
@@ -279,10 +285,13 @@ public class CustomerController {
     //마이페이지 문의답변
     @PreAuthorize("isAuthenticated")
     @GetMapping("qna")
-    public ModelAndView qna() {
+    public ModelAndView qna(Principal principal) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	
+    	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-qna");
     	
     	return mav;
@@ -306,6 +315,9 @@ public class CustomerController {
     	
     	PageInfo<ReplyDto> page = new PageInfo<>(lists,3);
     	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	
+    	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	mav.addObject("page", page);
     	
@@ -358,7 +370,9 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	List<DeliverDto> lists = deliveryService.listDeliver(principal.getName());
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	
     	mav.setViewName("mypage-address");
@@ -432,10 +446,11 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	String customerEmail = principal.getName();
-    	List<PointDto> lists = pointService.getList(customerEmail);
-    	int totalPoint = pointService.getTotal(customerEmail);
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	List<PointDto> lists = pointService.getList(principal.getName());
+    	int totalPoint = pointService.getTotal(principal.getName());
     	
+    	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	mav.addObject("totalPoint", totalPoint);
     	
@@ -447,10 +462,13 @@ public class CustomerController {
     //마이페이지 회원탈퇴 화면
     @PreAuthorize("isAuthenticated")
     @GetMapping("withdraw")
-    public ModelAndView withdraw() {
+    public ModelAndView withdraw(Principal principal) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	
+    	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-withdraw");
     	
     	return mav;
@@ -459,7 +477,7 @@ public class CustomerController {
     //마이페이지 회원탈퇴 처리
     @PreAuthorize("isAuthenticated")
     @PostMapping("withdraw")
-    public ModelAndView withdraw(Principal principal) {
+    public ModelAndView withdraw_ok(Principal principal) {
     	ModelAndView mav = new ModelAndView();
     	
     	customerService.deleteData(principal.getName());

@@ -73,11 +73,11 @@ public class CustomerServiceImpl implements CustomerService {
 		customerMapper.updatePoint(dto);
 	}
 
-	@Override
-	public List<ReplyDto> getReviewList(String customerEmail) {
-		
-		return customerMapper.getReviewList(customerEmail);
-	}
+//	@Override
+//	public List<ReplyDto> getReviewList(String customerEmail) {
+//		
+//		return customerMapper.getReviewList(customerEmail);
+//	}
 
 	@Override
 	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum){

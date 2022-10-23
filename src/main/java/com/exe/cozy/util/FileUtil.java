@@ -1,17 +1,16 @@
 package com.exe.cozy.util;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-
 public class FileUtil {
 
-	private static final String filePath = "D:\\test\\";
+	private static final String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
 
 	public static String FileWriter(MultipartFile multipartFile) throws IOException {
 		String storedFileName = "";
@@ -22,7 +21,7 @@ public class FileUtil {
 			storedFileName = UUID.randomUUID().toString();
 
 			byte fileData[] = multipartFile.getBytes();
-			fos = new FileOutputStream(filePath + storedFileName + "." + fileExtension);
+			fos = new FileOutputStream(URLDecoder.decode(filePath, "UTF-8") + "\\"+ storedFileName + "." + fileExtension);
 
 			fos.write(fileData);
 		} catch (Exception ex) {

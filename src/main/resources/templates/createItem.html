@@ -102,12 +102,13 @@
 	<header th:replace="header.html :: headerFragment"></header>          
     <!-- Header End -->
 
+   
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>상품등록</h2>
+                        <h2 style="font-size: 27px; margin-left: 18%;">상품등록</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -126,14 +127,13 @@
     </section>
     <br />
     <br />
-    
     <!-- Breadcrumb Section Start -->
     <form action="" method="post" name="myForm" enctype="multipart/form-data">
     <section class="cart-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-sm-5 g-3">
                 <div class="col-xxl-9">
-                    <div class="cart-table">
+                    <div class="cart-table" style="margin-left: 20%; width: 90%; padding: 4%">
                         <div class="table-responsive-xl">
 
                             <div class="col-12">
@@ -148,7 +148,7 @@
                             <div class="col-12">
                                 <h3><b>대분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <select name="itemMainType" id="productSelect">
+                                    <select name="itemMainType" id="productSelect" style="font-size: 18px;">
                                         <option value="0" selected="selected">대분류를 선택해주세요</option>
                                         <option value="1">가전</option>
                                         <option value="2">가구</option>
@@ -162,37 +162,37 @@
                                 
                                 <h3><b>중분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
-                                    <select name="itemSubType" id="mallSelect">
+                                    <select name="itemSubType" id="mallSelect" style="font-size: 18px;">
                                         <option value="0">중분류를 선택해주세요</option>
                                         
-                                        <option value="electric" class="mall1">냉장고</option>
-                                        <option value="electric" class="mall1">TV</option>
-                                        <option value="electric" class="mall1">에어컨&공기청정기</option>
-                                        <option value="electric" class="mall1">세탁기</option>
-                                        <option value="electric" class="mall1">청소기</option>
+                                        <option value="가전" class="mall1">냉장고</option>
+                                        <option value="가전" class="mall1">TV</option>
+                                        <option value="가전" class="mall1">에어컨&공기청정기</option>
+                                        <option value="가전" class="mall1">세탁기</option>
+                                        <option value="가전" class="mall1">청소기</option>
                                
-                                        <option value="funiture" class="mall2">침대</option>
-                                        <option value="funiture" class="mall2">쇼파</option>
-                                        <option value="funiture" class="mall2">테이블&의자</option>
-                                        <option value="funiture" class="mall2">옷장</option>
-                                        <option value="funiture" class="mall2">행거</option>
+                                        <option value="가구" class="mall2">침대</option>
+                                        <option value="가구" class="mall2">쇼파</option>
+                                        <option value="가구" class="mall2">테이블&의자</option>
+                                        <option value="가구" class="mall2">옷장</option>
+                                        <option value="가구" class="mall2">행거</option>
                               
-                                        <option value="kitchen" class="mall3">냄비*프라이팬*솥</option>
-                                        <option value="kitchen" class="mall3">홈세트(식기류)</option>
-                                        <option value="kitchen" class="mall3">칼</option>
-                                        <option value="kitchen" class="mall3">수저</option>
-                                        <option value="kitchen" class="mall3">도마</option>
+                                        <option value="주방용품" class="mall3">냄비*프라이팬*솥</option>
+                                        <option value="주방용품" class="mall3">홈세트(식기류)</option>
+                                        <option value="주방용품" class="mall3">칼</option>
+                                        <option value="주방용품" class="mall3">수저</option>
+                                        <option value="주방용품" class="mall3">도마</option>
                               
-                                        <option value="Storage" class="mall4">선반</option>
-                                        <option value="Storage" class="mall4">수납장*트롤리</option>
-                                        <option value="Storage" class="mall4">신발장</option>
-                                        <option value="Storage" class="mall4">리빙박스*바구니</option>
+                                        <option value="수납&정리" class="mall4">선반</option>
+                                        <option value="수납&정리" class="mall4">수납장*트롤리</option>
+                                        <option value="수납&정리" class="mall4">신발장</option>
+                                        <option value="수납&정리" class="mall4">리빙박스*바구니</option>
                            
-                                        <option value="necessity" class="mall5">휴지</option>
-                                        <option value="necessity" class="mall5">주방세제</option>
-                                        <option value="necessity" class="mall5">세탁세제</option>
-                                        <option value="necessity" class="mall5">바디케어</option>
-                                        <option value="necessity" class="mall5">청소용품</option>
+                                        <option value="생필품" class="mall5">휴지</option>
+                                        <option value="생필품" class="mall5">주방세제</option>
+                                        <option value="생필품" class="mall5">세탁세제</option>
+                                        <option value="생필품" class="mall5">바디케어</option>
+                                        <option value="생필품" class="mall5">청소용품</option>
                                     </select>
                                 </div>
                             </div>
@@ -207,13 +207,12 @@
                                     <label for="review1">상품가격</label>
                                 </div>
                             </div><br>
-                            
                             <div class="col-12">
-                                <h3><b>할인금액(원)</b></h3><br>
+                                <h3><b>할인가격</b></h3><br>
                                 <div class="form-floating theme-form-floating">
                                     <input type="url" class="form-control" id="review1" name="itemDiscount"
                                         placeholder="Give your review a title">
-                                    <label for="review1">할인금액(원)</label>
+                                    <label for="review1">할인가격</label>
                                 </div>
                             </div>
                             <br /><br />
@@ -227,7 +226,7 @@
                                 <br>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 1</b></h4>
-                                    <b>사진사이즈:750x750</b><br>
+                                    사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="file" name="itemImage1">
                                     </div>
@@ -235,7 +234,7 @@
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 2</b></h4>
-                                    <b>사진사이즈:750x750</b><br>
+                                    사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="file" name="itemImage2">
                                     </div>
@@ -243,7 +242,7 @@
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 3</b></h4>
-                                    <b>사진사이즈:750x750</b><br>
+									사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="file" name="itemImage3">
                                     </div>
@@ -251,7 +250,7 @@
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 4</b></h4>
-                                    <b>사진사이즈:750x750</b><br>
+                                    사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="file" name="itemImage4">
                                     </div>
@@ -259,7 +258,8 @@
                                 <hr>
 
                                 <div class="col-12">
-                                    <h4><b>상세페이지 이미지 업로드</b></h4><br>
+                                    <h4><b>상세페이지 이미지 업로드</b></h4>
+                                    사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
                                         <input type="file" name="detailImage">
                                     </div>
@@ -298,13 +298,13 @@
                                 <!-- 옵션 start -->
                                 
                                 <div class="dropdown theme-form-selectaccordion custome-accordion" id="accordionExample"
-                                        style="width: 25%; float: left">
+                                        style="width: 20%; float: left">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
                                         data-bs-toggle="dropdown" aria-expanded="false" name="itemSize">
-                                        <span>사이즈 옵션</span>
+                                        <b><span>사이즈 옵션</span></b>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="싱글">
                                                 <label class="form-check-label" for="fruit">
@@ -313,7 +313,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;"> 
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="슈퍼싱글">
                                                 <label class="form-check-label" for="fruit">
@@ -322,7 +322,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                       	<li>
+                                       	<li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="더블">
                                                 <label class="form-check-label" for="fruit">
@@ -331,7 +331,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="퀸">
                                                 <label class="form-check-label" for="fruit">
@@ -340,7 +340,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="킹">
                                                 <label class="form-check-label" for="fruit">
@@ -349,7 +349,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="S">
                                                 <label class="form-check-label" for="fruit">
@@ -358,7 +358,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="M">
                                                 <label class="form-check-label" for="fruit">
@@ -367,7 +367,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="L">
                                                 <label class="form-check-label" for="fruit">
@@ -376,7 +376,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="XL">
                                                 <label class="form-check-label" for="fruit">
@@ -384,17 +384,26 @@
                                                 </label>
                                              </div>   
                                         </li>
+                                        <br/>
+                                        <li style="margin-left: 10%;">
+                                            <div>
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="옵션없음">
+                                                <label class="form-check-label" for="fruit">
+                                                    <span class="name">옵션없음</span>
+                                                </label>
+                                             </div>   
+                                        </li>
                                      </ul> 
                                 </div>
                                 
                                  <div class="dropdown theme-form-selectaccordion custome-accordion" id="accordionExample"
-                                        style="width: 25%; float: left">
+                                        style="width: 15%; float: left">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
                                         data-bs-toggle="dropdown" aria-expanded="false" name="itemColor">
-                                        <span>색상 옵션</span>
+                                        <b><span>색상 옵션</span></b>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블랙">
                                                 <label class="form-check-label" for="fruit">
@@ -403,7 +412,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="화이트">
                                                 <label class="form-check-label" for="fruit">
@@ -412,7 +421,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                       	<li>
+                                       	<li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="우드">
                                                 <label class="form-check-label" for="fruit">
@@ -421,7 +430,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="레드">
                                                 <label class="form-check-label" for="fruit">
@@ -430,7 +439,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블루">
                                                 <label class="form-check-label" for="fruit">
@@ -439,7 +448,7 @@
                                              </div>   
                                         </li>
                                         <br/>
-                                        <li>
+                                        <li style="margin-left: 10%;">
                                             <div>
                                             <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="그린">
                                                 <label class="form-check-label" for="fruit">
@@ -447,7 +456,15 @@
                                                 </label>
                                              </div>   
                                         </li>
-                                        
+                                        <br/>
+                                        <li style="margin-left: 10%;">
+                                            <div>
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="옵션없음">
+                                                <label class="form-check-label" for="fruit">
+                                                    <span class="name">옵션없음</span>
+                                                </label>
+                                             </div>   
+                                        </li>
                                      </ul> 
                                 </div>
                                 <br><br><br><hr>
@@ -1057,11 +1074,8 @@
     <br />
     <br />
     <!-- Footer Section Start -->
-    <footer th:replace="footer.html :: footerFragment"></footer>
+	<footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
-
-    
-
 
     <!-- Deal Box Modal Start -->
     <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -1185,7 +1199,7 @@
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
     
-    <!-- 유효성 검사 -->
+    <!-- 유효성 검사(대분류, 중분류 카테고리 구분) -->
     <script type="text/javascript">
 		var malls = false;
 		

@@ -97,3 +97,10 @@ FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
 ON DELETE CASCADE);
 
 
+CREATE table file_reg_dt, store (
+no NUMBER(8) PRIMARY KEY,
+original_file_name VARCHAR2(100),
+uuid_file_name VARCHAR2(100),
+file_path VARCHAR2(100),
+reg_dt DATE
+);

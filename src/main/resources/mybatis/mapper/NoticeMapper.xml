@@ -4,9 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.exe.cozy.mapper.NoticeMapper">
-	
-	<select id="getNoticeList" resultType="com.exe.model.NoticeDto">
-		select * from ServiceNotice;
-	</select>
-	
+
+<select id="maxNoticeNum" resultType="int">
+	select nvl(max(noticeNum),0) from notice
+</select>
+
+<insert id="insertNoticeData" parameterType="NoticeDto">
+	insert into notice(noticeNum,noticeTitle,noticeContent,noticeDate)
+	values (#{noticeNum},#{noticeTitle},#{noticeContent},sysdate)
+</insert>
+
+
+<select id="getNoticeDataCount" parameterType="hashMap" resultType="int">
+	select nvl(count(*),0) from notice where #{searchKey} like '%' || #{searchValue} || '%'
+</select>
+
+
+<select id="getNoticeLists" parameterType="map" resultType="NoticeDto">
+	select * from (
+	select rownum rnum, data.* from (
+	select noticeNum,noticeTitle,noticeContent,noticeDate
+	from notice where ${searchKey} like '%' || #{searchValue} || '%'
+	order by noticeNum desc) data)
+<![CDATA[
+	where rnum>=#{start} and rnum<=#{end}
+]]>	
+</select>
+ 
+
+<select id="getReadNoticeData" parameterType="int" resultType="NoticeDto">
+	select noticeNum,noticeTitle,noticeContent,noticeDate
+	from notice where noticeNum=#{noticeNum}
+</select>
+
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.exe.cozy.customer.CustomerService;
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.mapper.CustomerMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,14 +23,14 @@ import lombok.RequiredArgsConstructor;
 @Service("securityService")
 public class SecurityService implements UserDetailsService {
 	
-	@Autowired @Lazy CustomerService customerSerivce;
+	@Autowired CustomerMapper customerMapper;
 	
 	//사용자명으로 비밀번호를 조회해서 리턴하는 메소드
 	@Override
 	public UserDetails loadUserByUsername(String customerEmail) throws UsernameNotFoundException {
 		
 		//사용자명으로 SiteUser 객체를 조회
-		CustomerDto customerDto = customerSerivce.getReadData(customerEmail);
+		CustomerDto customerDto = customerMapper.getReadData(customerEmail);
 				
 		if(customerDto==null) { //isEmpty()
 			throw new UsernameNotFoundException("이메일 또는 비밀번호가 일치하지 않습니다.");

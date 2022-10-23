@@ -70,7 +70,7 @@ public class CustomerController {
     
     //회원가입
     @PostMapping("signUp")
-    public ModelAndView signUp(@ModelAttribute CustomerDto dto, HttpServletRequest req, BindingResult bindingResult) {
+    public ModelAndView signUp(@ModelAttribute CustomerDto dto, BindingResult bindingResult, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
     	

@@ -479,14 +479,20 @@
 									<div class="tab-pane fade" id="care" role="tabpanel"
 										aria-labelledby="care-tab">
 										<div class="information-box">
-											<form action="qnaWrite_ok" method="post">
-												<input type="hidden" th:value="${itemNum}" name="itemNum">
+											<form action="qnaWrite_ok" method="post" th:object="${itemDetailDto}">
+												
 
 												<h2>Q & A</h2>
 												<hr />
 												<p>상품문의</p>
 												<div class="form-floating theme-form-floating">
-													<input type="text" name="customerEmail"> <input
+												
+												<input type="hidden" name="itemNum" id="itemNum" th:value="${idto.itemNum}" >
+												<input type="hidden" name="customerEmail" id="customerEmail" value="pageSession@email.com" >
+												
+												
+												
+													<input
 														type="text" class="form-control" id="itemQnaTitle"
 														placeholder="Name" name="itemQnaTitle"> <label
 														for="itemQnaTitle">문의 제목 (30자 이내)</label>
@@ -517,7 +523,7 @@
 											<div class="row">
 												<div class="dashboard-title mb-3">
 													<h3 style="display: inline;">상품문의</h3>
-													<h7 style="display: inline;">(답변은 CS팀이 개별연락드립니다.)</h7>
+													
 													<hr>
 												</div>
 											</div>
@@ -543,8 +549,9 @@
 													<hr>
 												</div>
 												<div style="width: auto;">
-													<span class="review">수정하기</span> <br /> <span
-														class="review">삭제하기</span>
+													<button class="btn-anii" type="button"
+															th:onclick="|location.href = '@{|itemQnaAnswer?itemQnaNum=${qdto.itemQnaNum}|}';|">답변하기</button>
+													<span class="review">삭제하기</span>
 												</div>
 											</div>
 										</div>

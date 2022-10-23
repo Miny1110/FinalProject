@@ -208,5 +208,44 @@ public class ItemDetailController {
 		return mav;
 
 	}
+	@PostMapping("/qnaWrite_ok")
+    public ModelAndView reviewWrite_ok(ItemQnaDto qdto, HttpServletRequest request) throws Exception{
 
+        ModelAndView mav = new ModelAndView();
+        
+        int itemQnaMaxNum = itemQnaService.itemQnaMaxNum();
+        qdto.setItemQnaNum(itemQnaMaxNum +1);
+       
+    
+        itemQnaService.insertItemQna(qdto);
+        mav.setViewName("redirect:/");
+        return mav;
+    }
+	// 문의답변창으로 이동
+		@GetMapping("itemQnaAnswer") /** itemQna update view */
+		public ModelAndView reviewUpdate(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
+			int itemQnaNum = Integer.parseInt(request.getParameter("itemQnaNum"));
+
+			qdto = itemQnaService.findItemQna(itemQnaNum);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("itemQnaAnswer");
+			mav.addObject("itemQnaDto", qdto);
+
+			return mav;
+		}
+
+		// 문의답변
+		@PostMapping("itemQnaAnswer_ok")
+		public ModelAndView itemQnaAnswer_ok(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
+
+			ModelAndView mav = new ModelAndView();
+			
+			itemQnaService.updateItemQna(qdto);
+			
+			// System.out.println(rdto.getRating());
+			// System.out.println(rdto.getContent());
+			mav.setViewName("redirect:/");
+			return mav;
+		}
+	
 }

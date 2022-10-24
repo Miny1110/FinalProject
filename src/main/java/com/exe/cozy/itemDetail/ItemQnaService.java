@@ -13,14 +13,16 @@ public interface ItemQnaService {
 	public void insertItemQna(ItemQnaDto qdto) throws Exception;
 
 	/* 문의게시글번호로 불러오기 */
-	public ItemQnaDto findReply(int itemQnaNum) throws Exception;
+	public ItemQnaDto findItemQna(int itemQnaNum) throws Exception;
 
 	/* 문의목록불러오기 */
 	public List<ItemQnaDto> getReadItemQnaData(int itemQnaNum) throws Exception;
 
 	/* 문의수정 */
-	public void updateReply(ItemQnaDto qdto) throws Exception;
+	public void updateItemQna(ItemQnaDto qdto) throws Exception;
 	
 	/*문의삭제*/
-	public void deleteReply(int itemQnaNum) throws Exception;
+	public void deleteItemQna(int itemQnaNum) throws Exception;
+	
+	public List<ItemQnaDto> getReadQnaList(int itemNum) throws Exception;
 }

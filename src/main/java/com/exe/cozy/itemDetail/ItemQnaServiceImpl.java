@@ -26,8 +26,7 @@ public class ItemQnaServiceImpl  implements ItemQnaService{
 		
 	}
 
-	@Override
-	public ItemQnaDto findReply(int itemQnaNum) throws Exception {
+	public ItemQnaDto findItemQna(int itemQnaNum) throws Exception {
 		return itemQnaMapper.findItemQna(itemQnaNum);
 	}
 
@@ -37,15 +36,26 @@ public class ItemQnaServiceImpl  implements ItemQnaService{
 	}
 
 	@Override
-	public void updateReply(ItemQnaDto qdto) throws Exception {
+	public void updateItemQna(ItemQnaDto qdto) throws Exception {
 		itemQnaMapper.updateItemQna(qdto);
 		
 	}
 
 	@Override
-	public void deleteReply(int itemQnaNum) throws Exception {
+	public void deleteItemQna(int itemQnaNum) throws Exception {
 		itemQnaMapper.deleteItemQna(itemQnaNum);
 		
+	}
+
+	@Override
+	public List<ItemQnaDto> getReadQnaList(int itemNum) throws Exception {
+		List<ItemQnaDto> list=itemQnaMapper.getReadQnaList(itemNum);
+		for(ItemQnaDto dto : list) {
+			
+		
+		System.out.println("aa" + dto.getItemQnaNum());
+		}
+		return list;
 	}
 
 	

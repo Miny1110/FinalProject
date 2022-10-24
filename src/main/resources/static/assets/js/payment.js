@@ -1,7 +1,9 @@
 
 
-function requestPay() {
+$(document).click(function requestPay() {
+    alert("여기는 오니?")
 
+/*   let f = document.orderForm*/
    //let payment = $("#payment").val();
    let payment = $(':radio[name="credit"]:checked').val();
    if(payment===""){
@@ -11,22 +13,6 @@ function requestPay() {
         alert("간편결제 선택후 이용가능합니다.")
         return
     }
-/*    $(document).ready(function () {
-        $('#payCheck').val("card");
-
-     /*   $('input[type="radio"]').on('click', (function () {
-
-            if ($("input[name='credit']:checked").val() === 'card') {
-                $("#payCheck").val("card");
-            } else if ($("input[name='credit']:checked").val() === 'bank') {
-                $("#payCheck").val("bank");
-            } else if ($("input[name='credit']:checked").val() === 'phone') {
-                $("#payCheck").val("phone");
-            } else {
-                $("#payCheck").val("kakao");
-            }
-        }));
-    });*/
 
     if(payment==="card"){
         pgName="html5_inicis";
@@ -55,12 +41,15 @@ function requestPay() {
     }
 
     payOrder();
-}
+
+})
 let pgName="";
 let payMethod="";
 let payName="";
 
 function payOrder(){
+
+
 
     //아임포트 결제연동
     var IMP = window.IMP;
@@ -96,24 +85,51 @@ function payOrder(){
             let apply_num = rsp.apply_num;
             //db저장용
             let email=rsp.buyer_email;
+            let form = $('#orderForm')[0];
+
+            let data =new FormData(form);
 
             let msg='결제가 완료되었습니다.';
             msg += '구매자:' +name;
             msg += "\n상점거래ID : " + merchant_uid;
             msg += "\n결제금액 : " + paid_amount;
-            msg += "\itemQty : " + qty;
+
 
             alert(msg)
-            location.href="/order_ok";
 
+            $.ajax({
+                type:"Post",
+                url: "/order_ok",
+                dataType:'json',
+                data:data{
+                    'orderNum':merchant_uid,
+                    "itemNum":$('#itemNum').val(),
+                    "itemQty":$('#itemQty').val(),
+                    "deliverName":$('#deliverName').val(),
+                    "deliverRAddr":$('#deliverRAddr').val(),
+                    "deliverJAddr":$('#deliverJAddr').val(),
+                    "deliverDAddr":$('#deliverDAddr').val(),
+                    "deliverZipCode":$('#deliverZipCode').val(),
+                    "deliverTel":$('#deliverTel').val(),
+                    "usePoint":$('#use').val(),
+                },
+                success: function(data){
+                    let msg = "결제가 완료되었습니다.\n";
 
-            /*
-                    $.ajax({
+                    alert(msg);
+
+                    location.href=url;
+                },error: function (){
+                    alert('결제를 실패하였습니다.')
+                }
+
+            })
+
+                 /*   $.ajax({
                         url: "order_ok",
                         type:"POST",
                         data:{
-                            itemNum:$('#itemNum').val(),
-                            itemQty:$('#itemQty').val(),
+
 
                         },
                       success: function(data){

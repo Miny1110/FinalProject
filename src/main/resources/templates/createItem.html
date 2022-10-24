@@ -201,12 +201,15 @@
                                     </div>
                                 </div>
                                 <hr>
+              
                                 
                                 <div class="col-12">
                                     <h3><b>오늘의 딜 적용 여부</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 적용">&nbsp;&nbsp;&nbsp;<b>오늘의 딜 적용</b>
-                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 미적용">&nbsp;&nbsp;&nbsp;<b>오늘의 딜 미적용</b>
+                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 적용" onclick='checkOnlyOne(this)'>
+                                        	&nbsp;&nbsp;&nbsp;<b>오늘의 딜 적용</b>
+                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 미적용" onclick='checkOnlyOne(this)'>
+                                        	&nbsp;&nbsp;&nbsp;<b>오늘의 딜 미적용</b>
                                     </div>
                                 </div>
                                 <hr>
@@ -214,14 +217,19 @@
                                 <div class="col-12">
                                     <h3><b>판매 상태 여부</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="checkbox" name="itemState" value="판매중">&nbsp;&nbsp;&nbsp;<b>판매중</b>
-                                        <input type="checkbox" name="itemState" value="판매중지">&nbsp;&nbsp;&nbsp;<b>판매중지</b>
-                                        <input type="checkbox" name="itemState" value="일시품절">&nbsp;&nbsp;&nbsp;<b>일시품절</b>
+                                        <input type="checkbox" name="itemState" value="판매중" onclick='checkOnlyOne2(this)'>
+                                        	&nbsp;&nbsp;&nbsp;<b>판매중</b>
+                                        <input type="checkbox" name="itemState" value="판매중지" onclick='checkOnlyOne2(this)'>
+                                        	&nbsp;&nbsp;&nbsp;<b>판매중지</b>
+                                        <input type="checkbox" name="itemState" value="일시품절" onclick='checkOnlyOne2(this)'>
+                                        	&nbsp;&nbsp;&nbsp;<b>일시품절</b>
                                     </div>
                                 </div>
                                 <hr>
                                 
                                 <!-- 옵션 start -->
+                                
+  
                                 
                                 <div class="dropdown theme-form-selectaccordion custome-accordion" id="accordionExample"
                                         style="width: 20%; float: left">
@@ -932,7 +940,37 @@
 		  $("#productSelect").trigger("change");
 		});
 	</script>
+
+	<script type="text/javascript">
 	
+	function checkOnlyOne(element) {
+		  
+		  const checkboxes 
+		      = document.getElementsByName("todaydeal");
+		  
+		  checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+		}
+	</script>
+	
+	<script type="text/javascript">
+	function checkOnlyOne2(element) {
+		  
+		  const checkboxes 
+		      = document.getElementsByName("itemState");
+		  
+		  checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+		}
+	</script>
+	
+
 	<script type="text/javascript">
 
 	//function sendIt() {
@@ -951,6 +989,20 @@
 			return;
 		}
 		f.itemName.value = str;
+		
+		str = f.itemMainType.value;
+		if(!str) {
+			alert("\n대분류를 입력해주세요");
+			f.itemMainType.focus();
+			return;
+		}
+		
+		str = f.itemSubType.value;
+		if(!str) {
+			alert("\n중분류를 입력해주세요");
+			f.itemSubType.focus();
+			return;
+		}
 	
 		str = f.itemPrice.value;
 		str = str.trim();
@@ -960,6 +1012,41 @@
 			return;
 		}
 		f.itemPrice.value = str;
+		
+		str = f.itemImage1.value;
+		if(!str) {
+			alert("\n첫번째 이미지를 첨부해주세요");
+			f.itemImage1.focus();
+			return;
+		}
+		
+		str = f.itemImage2.value;
+		if(!str) {
+			alert("\n두번째 이미지를 첨부해주세요");
+			f.itemImage2.focus();
+			return;
+		}
+		
+		str = f.itemImage3.value;
+		if(!str) {
+			alert("\n세번째 이미지를 첨부해주세요");
+			f.itemImage3.focus();
+			return;
+		}
+		
+		str = f.itemImage4.value;
+		if(!str) {
+			alert("\n네번째 이미지를 첨부해주세요");
+			f.itemImage4.focus();
+			return;
+		}
+		
+		str = f.detailImage.value;
+		if(!str) {
+			alert("\n디테일 이미지를 첨부해주세요");
+			f.detailImage.focus();
+			return;
+		}
 		
 		str = f.itemStock.value;
 		str = str.trim();
@@ -973,7 +1060,6 @@
 		f.submit();
 	}
 </script>
-
 </body>
 
 </html>

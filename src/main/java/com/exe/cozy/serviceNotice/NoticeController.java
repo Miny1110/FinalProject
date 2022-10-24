@@ -109,7 +109,7 @@ public class NoticeController {
 		
 		String param = "";
 		if(searchNoticeValue!=null && !searchNoticeValue.equals("")) {
-			param = "searNoticechKey=" + searchNoticeKey;
+			param = "searchNoticeKey=" + searchNoticeKey;
 			param+= "&searchNoticeValue=" + URLEncoder.encode(searchNoticeValue, "UTF-8");
 		}
 		
@@ -121,7 +121,7 @@ public class NoticeController {
 		
 		String pageIndexList = myPage.pageIndexList(currentPage, totalPage, listUrl);
 		
-		String articleUrl = "/article.action?pageNum=" + currentPage;
+		String articleUrl = "/noticeArticle?pageNum=" + currentPage;
 		
 		if(!param.equals("")) {
 			articleUrl += "&" + param;
@@ -264,7 +264,7 @@ public class NoticeController {
 	}
 	
 	
-	@GetMapping("/delete")
+	@GetMapping("/noticeDelete")
 	public ModelAndView delete_ok(HttpServletRequest request) throws Exception{
 		
 		

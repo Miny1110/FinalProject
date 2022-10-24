@@ -267,5 +267,19 @@ public class ItemDetailController {
 			mav.setViewName("redirect:/");
 			return mav;
 		}
+		
+		
+		
+		// 문의삭제
+		@GetMapping("deleteQna")
+		public ModelAndView deleteItemQna(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
+			int itemQnaNum = Integer.parseInt(request.getParameter("itemQnaNum"));
+
+			ModelAndView mav = new ModelAndView();
+			itemQnaService.deleteItemQna(itemQnaNum);
+			mav.setViewName("redirect:/");
+			return mav;
+		}
+
 	
 }

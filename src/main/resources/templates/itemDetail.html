@@ -551,7 +551,7 @@
 												<div style="width: auto;">
 													<button class="btn-anii" type="button"
 															th:onclick="|location.href = '@{|itemQnaAnswer?itemQnaNum=${qdto.itemQnaNum}|}';|">답변하기</button>
-													<span class="review">삭제하기</span>
+													<input type="button" value=" 삭제 " th:onclick="@{|location.href='/deleteQna?itemQnaNum=${qdto.itemQnaNum}'|}"/>
 												</div>
 											</div>
 										

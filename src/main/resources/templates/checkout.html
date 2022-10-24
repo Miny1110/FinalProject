@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -101,8 +101,10 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Checkout section Start -->
+
 <section class="checkout-section section-b-space">
     <div class="container-fluid-lg">
+<!--<form th:object="${OrderDto}">-->
         <div class="row g-sm-4 g-3">
             <div class="col-xxl-3 col-lg-4">
                 <!-- Nav tabs -->
@@ -138,7 +140,7 @@
                         </div>
                     </li>
 
- 			
+
                     <li class="nav-item" role="presentation">
                         <div class="nav-link" id="payment-option" data-bs-toggle="tab" data-bs-target="#p-options"
                              role="tab">
@@ -157,6 +159,7 @@
                 </ul>
             </div>
 
+
             <div class="col-xxl-9 col-lg-8">
                 <!-- Tab panes -->
                 <div class="tab-content" id="progressBar">
@@ -170,7 +173,7 @@
                                         <td class="product-detail">
                                             <div class="product border-0">
                                                 <a href="product-left.html" class="product-image">
-                                                    <img src="../assets/images/vegetable/product/238_detail_061.jpg"
+                                                    <img th:src="@{|/assets/img/${idto.itemImage1}|}"
                                                          class="img-fluid blur-up lazyload" alt="">
                                                     <!--
                                                     <img th:src="여기 나중에 경로쓰기"
@@ -273,13 +276,13 @@
                         <div class="button-group">
                             <ul class="button-group-list">
                                 <li>
-                                    <button onclick="location.href = '/';"
+                                    <button type="button" onclick="location.href = '/';"
                                             class="btn btn-light shopping-button text-dark"><i
                                             class="fa-solid fa-arrow-left-long ms-0"></i>쇼핑 계속하기</button>
                                 </li>
 
                                 <li>
-                                    <button class="btn btn-animation proceed-btn">배송정보</button>
+                                    <button type="button" class="btn btn-animation proceed-btn">배송정보</button>
                                 </li>
                             </ul>
                         </div>
@@ -288,11 +291,15 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
+                            <button class="btn theme-bg-color btn-sm text-white ms-auto" type="button">나의 배송지 추가</button>
+                            <br/>
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
                                 <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
-                                <span class="d-none d-sm-block">다른 주소로 받을래요</span>
+                                <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
                             </button>
+
                         </div>
+                        <br/>
 <!--세션등록되면 수정 -->
                         <div class="row g-4">
                             <div class="col-xxl-6 col-lg-12 col-md-6" th:each="ddto:${dlist}">
@@ -328,12 +335,13 @@
                                         </ul>
                                     </div>
                                 </div>
+
                             </div>
                             <!--배송지 추가-->
 
 
 
-                            <form name="deliverForm" method="post" th:object="${DeliverDto}">
+
                                 <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                                         <div class="modal-content">
@@ -384,10 +392,10 @@
                                                     <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr">
                                                     <label for="deliverDAddr">상세주소</label>
                                                 </div>
-                                                <div class="form-floating mb-4 theme-form-floating">
+                                                <!--<div class="form-floating mb-4 theme-form-floating">
                                                     <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
                                                     <label for="deliverMsg">배송 메세지</label>
-                                                </div>
+                                                </div>-->
                                                 <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
 
 
@@ -401,17 +409,21 @@
                                                 <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
                                                 <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
                                                     <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                    <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
+                                                    <span class="d-none d-sm-block">여기로 배송받기</span>
                                                 </button>
+                                                <input type="text" name="itemNum" th:value="${itemNum}" hidden>
+                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>
 
 
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
 
 
-                            </form>
+
+
                             <!-- 배송지 추가 끝 -->
                         </div>
 
@@ -445,7 +457,7 @@
                                 <div class="summery-box">
                                     <div class="summery-header bg-white">
                                         <h3>주문정보</h3>
-                                        <a href="cart.html">장바구니</a>
+                                        <a href="/cart">장바구니</a>
                                     </div>
 
                                     <ul class="summery-contain bg-white custom-height">
@@ -473,7 +485,7 @@
                                         <div class="summery-contain">
                                             <div class="coupon-cart">
                                         <div class="mb-3 coupon-box input-group">
-                                            <input type="email" class="form-control" id="use" name="use" placeholder="포인트 입력">
+                                            <input type="text" class="form-control" id="use" name="usePoint" placeholder="포인트 입력">
                                             <button class="btn-apply" onclick="point()">적용하기</button>
                                         </div>
                                             </div>
@@ -500,6 +512,7 @@
                                 </div>
                             </div>
                             <input type="hidden" class="form-control" id="customerName" th:value="${cdto.customerName}">
+
                             <div class="col-xxl-8 col-lg-12 col-md-7 order-xxl-1 order-lg-2 order-md-1">
                                 <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                     <div class="accordion-item">
@@ -539,73 +552,13 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!--<div id="flush-collapseThree" class="accordion-collapse collapse"
-                                             data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <h5 class="text-uppercase mb-4">Select Your Wallet</h5>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <label class="form-check-label" for="amazon"><input
-                                                                    class="form-check-input mt-0" type="radio"
-                                                                    name="flexRadioDefault" id="amazon"> Amazon
-                                                                Pay</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="gpay">
-                                                            <label class="form-check-label" for="gpay">Google
-                                                                Pay</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="airtel">
-                                                            <label class="form-check-label" for="airtel">Airtel
-                                                                Money</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="paytm">
-                                                            <label class="form-check-label" for="paytm">Paytm
-                                                                Pay</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="jio">
-                                                            <label class="form-check-label" for="jio">JIO
-                                                                Money</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="custom-form-check form-check">
-                                                            <input class="form-check-input mt-0" type="radio"
-                                                                   name="flexRadioDefault" id="free">
-                                                            <label class="form-check-label"
-                                                                   for="free">Freecharge</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>-->
                                     </div>
+
+
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="flush-headingFour">
                                             <div class="accordion-button collapsed" data-bs-toggle="collapse"
-                                                 data-bs-target="#flush-collapseThree">
+                                                 data-bs-target="#flush-collapseFour">
                                                 <div class="custom-form-check form-check mb-0">
                                                     <label class="form-check-label" for="wallet"><input
                                                             class="form-check-input mt-0" type="radio"
@@ -613,7 +566,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        <div id="flush-collapseFour" class="accordion-collapse collapse"
                                             data-bs-parent="#accordionFlushExample">
                                            <div class="accordion-body">
                                                <div class="row">
@@ -658,19 +611,44 @@
                                 </li>
 
                                 <li>
-                                    <button  class="btn btn-animation"  onclick="requestPay()">결제</button>
-                                    <input type="hidden" id="payCheck" name="payCheck" th:value="${payCheck}">
-                                                    <!--"location.href = 'order-success.html';"-->
+
+                                    <button type="button" class="btn btn-animation" onclick="return requestPay()">결제</button>
+                                    <form name="order_ok" id="order_ok" th:object="${OrderDto}">
+
+                                        <input type="text" id="payment" name="payment" th:value="${payment}" hidden>
+                                        <input type="text" id="customerEmail" th:value="${cdto.customerEmail}" hidden>
+                                        <!-- <input type="hidden" id="itemNum" th:value="${itemNum}">
+                                          <input type="hidden" id="itemQty" th:value="${itemQty}">-->
+                                        <input type="text" id="itemColor" th:value="${idto.itemColor}" hidden>
+                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
+                                        <input type="text" id="deliver" th:value="${idto.itemSize}" hidden>
+                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
+                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
+
+                                    </form>
+
+
+                                    <!--결제할때 들고갈것들 -->
+
+
 
                                 </li>
                             </ul>
+
                         </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
+
+<!--</form>-->
+
     </div>
+
 </section>
+
 <!-- Checkout section End -->
 
 <!-- Footer Section Start -->
@@ -1026,73 +1004,73 @@
 </div>
 <!-- Location Modal End -->
 
-<!--배송지 추가-->
- <!--<form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
-<div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">신규배송지</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-            
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
-                        <label for="deliverName">주문자</label>
-                        <p id="dnameMsg"></p>
-                    </div>
-                
-             
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
-                        <label for="deliverTel">전화번호</label>
-                        <P id="telMsg"></P>
-                    </div>
-               
+        <!--배송지 추가-->
+        <!--<form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
+       <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLabel1">신규배송지</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                           <i class="fa-solid fa-xmark"></i>
+                       </button>
+                   </div>
+                   <div class="modal-body">
 
-                
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
-                        <label for="sample4_postcode">우편번호</label>
-                    </div>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-                        <br>
-                    </div>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" placeholder="도로명주소" id="deliverAddr1" name="deliverAddr1" onblur="addrChk();">
-                        <label for="deliverAddr1">도로명주소</label>
-                        <p id="addrMsg"></p>
-                    </div>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" class="form-control" id="deliverAddr2" placeholder="지번주소" name="deliverAddr2">
-                        <label for="deliverAddr2">지번주소</label>
-                        <span id="guide" style="color:#999;display:none"></span>
-                    </div>
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
-                        <label for="deliverAddrd">상세주소</label>
-                    </div>
-                    &lt;!&ndash;  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> &ndash;&gt;
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
+                               <label for="deliverName">주문자</label>
+                               <p id="dnameMsg"></p>
+                           </div>
 
 
-                
-              
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
+                               <label for="deliverTel">전화번호</label>
+                               <P id="telMsg"></P>
+                           </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal" onclick="sendIt();">등록하기</button>
-            </div>
-        </div>
-    </div>
-</div>
- </form>-->
-<!-- 배송지 추가 끝 -->
+
+
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
+                               <label for="sample4_postcode">우편번호</label>
+                           </div>
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                               <br>
+                           </div>
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" class="form-control" placeholder="도로명주소" id="deliverAddr1" name="deliverAddr1" onblur="addrChk();">
+                               <label for="deliverAddr1">도로명주소</label>
+                               <p id="addrMsg"></p>
+                           </div>
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" class="form-control" id="deliverAddr2" placeholder="지번주소" name="deliverAddr2">
+                               <label for="deliverAddr2">지번주소</label>
+                               <span id="guide" style="color:#999;display:none"></span>
+                           </div>
+                           <div class="form-floating mb-4 theme-form-floating">
+                               <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
+                               <label for="deliverAddrd">상세주소</label>
+                           </div>
+                           &lt;!&ndash;  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> &ndash;&gt;
+
+
+
+
+
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">닫기</button>
+                       <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal" onclick="sendIt();">등록하기</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+        </form>-->
+        <!-- 배송지 추가 끝 -->
 
 
 <!-- Deal Box Modal Start -->
@@ -1299,7 +1277,7 @@
 
                 alert(name + "님 신규 배송지가 등록되었습니다.");
 
-                f.action="/order";
+                f.action="/deliver";
                 f.submit();
 
             }
@@ -1362,19 +1340,6 @@
                 }).open();
             }
         </script>
-<script>
-  /*  function getDeliver(){
-      let check=document.getElementById("deliverCheck");
-      let num = $("#deliverNum")
-        alert(num)
-      mode.innerHTML(num)
-        alert(num)
-    }*/
-  $(document).ready(function(){
-    //라디오 배열
-    $("input[name=deliverCheck]").each(function($("#deliverNum")))
-  })
-</script>
 </body>
 
 </html>

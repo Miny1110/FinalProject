@@ -73,7 +73,7 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String fileName = multipartFile.getOriginalFilename();
 		String fileExtension = fileName.substring(fileName.lastIndexOf((".")));
 		String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
-		String filePath = "C:\\test";
+		String filePath = "E:\\GIt\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
 
 		File file = new File(filePath + storedFileName);
 
@@ -104,7 +104,7 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String originFileNmae = file.getOriginalFilename();
 		String fileExtension = StringUtils.substringAfter(originFileNmae, ".");
 
-		String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
+		String filePath = "E:\\GIt\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
 							
 //		String filePath = "D:\\test";
 		

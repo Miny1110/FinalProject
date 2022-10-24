@@ -21,7 +21,7 @@
             visibility: hidden !important;
         }
         </style></head>
-</head>
+
 
 <body>
         <!-- Loader Start -->
@@ -36,6 +36,7 @@
 
 
 <!-- mobile fix menu start -->
+
 <div class="mobile-menu d-md-none d-block mobile-cart">
     <ul>
         <li class="active">
@@ -104,7 +105,7 @@
 
 <section class="checkout-section section-b-space">
     <div class="container-fluid-lg">
-<!--<form th:object="${OrderDto}">-->
+    <form method="post" onsubmit="return false">
         <div class="row g-sm-4 g-3">
             <div class="col-xxl-3 col-lg-4">
                 <!-- Nav tabs -->
@@ -291,7 +292,8 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
-                            <button class="btn theme-bg-color btn-sm text-white ms-auto" type="button">나의 배송지 추가</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn theme-bg-color btn-sm text-white" type="button" >나의 배송지 추가</button>
                             <br/>
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
                                 <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
@@ -301,6 +303,7 @@
                         </div>
                         <br/>
 <!--세션등록되면 수정 -->
+
                         <div class="row g-4">
                             <div class="col-xxl-6 col-lg-12 col-md-6" th:each="ddto:${dlist}">
                                 <div class="delivery-address-box" >
@@ -406,13 +409,13 @@
                                             <div class="modal-footer">
                                                <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
                                                 <h6>이번만 배송 받기</h6>-->
-                                                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
+                                            <!--    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>-->
                                                 <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
                                                     <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
                                                     <span class="d-none d-sm-block">여기로 배송받기</span>
                                                 </button>
-                                                <input type="text" name="itemNum" th:value="${itemNum}" hidden>
-                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>
+                                              <!--  <input type="text" name="itemNum" th:value="${itemNum}" hidden>
+                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>-->
 
 
                                             </div>
@@ -437,12 +440,12 @@
                         <div class="button-group">
                             <ul class="button-group-list">
                                 <li>
-                                    <button class="btn btn-light shopping-button backward-btn text-dark">
+                                    <button type="button" class="btn btn-light shopping-button backward-btn text-dark">
                                         <i class="fa-solid fa-arrow-left-long ms-0"></i>쇼핑 계속하기</button>
                                 </li>
 
                                 <li>
-                                    <button class="btn btn-animation proceed-btn">결제</button>
+                                    <button type="button" class="btn btn-animation proceed-btn">결제</button>
                                 </li>
                             </ul>
 
@@ -486,7 +489,7 @@
                                             <div class="coupon-cart">
                                         <div class="mb-3 coupon-box input-group">
                                             <input type="text" class="form-control" id="use" name="usePoint" placeholder="포인트 입력">
-                                            <button class="btn-apply" onclick="point()">적용하기</button>
+                                            <button class="btn-apply" type="button" onclick="point()">적용하기</button>
                                         </div>
                                             </div>
                                         </div>
@@ -591,6 +594,11 @@
                                                            <input class="form-check-input mt-0" type="radio"
                                                                   name="credit" id="payco" value="payco">
                                                            <label class="form-check-label" for="payco">페이코</label>
+                                                           <input type="hidden" id="payment" name="payment" th:value="${payment}" >
+                                                           <input type="hidden" id="customerEmail" name="customerEmail" th:value="${cdto.customerEmail}" >
+                                                           <input type="hidden" id="itemQty" name="itemQty" th:value="${itemQty}" >
+                                                           <input type="hidden" id="itemNum" name="itemNum" th:value="${itemNum}" >
+                                                           <input type="hidden" name="deliverNum" th:value="${ddto.getDeliverNum()}" >
                                                        </div>
                                                    </div>
 
@@ -612,20 +620,18 @@
 
                                 <li>
 
-                                    <button type="button" class="btn btn-animation" onclick="return requestPay()">결제</button>
-                                    <form name="order_ok" id="order_ok" th:object="${OrderDto}">
+                                    <button type="button" class="btn btn-animation" onclick="requestPay()">결제</button>
 
-                                        <input type="text" id="payment" name="payment" th:value="${payment}" hidden>
-                                        <input type="text" id="customerEmail" th:value="${cdto.customerEmail}" hidden>
-                                        <!-- <input type="hidden" id="itemNum" th:value="${itemNum}">
+
+
+
+                                      <!--  <input type="text" name="deliverCost" th:value="${ddto.getDeliverNum()}" hidden>-->
+                                         <!--<input type="hidden" id="itemNum" th:value="${itemNum}">
                                           <input type="hidden" id="itemQty" th:value="${itemQty}">-->
-                                        <input type="text" id="itemColor" th:value="${idto.itemColor}" hidden>
-                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
-                                        <input type="text" id="deliver" th:value="${idto.itemSize}" hidden>
-                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
-                                        <input type="text" id="itemSize" th:value="${idto.itemSize}" hidden>
+                                       <!-- <input type="text" id="itemColor" name="itemColor" th:value="${idto.itemColor}" hidden>
 
-                                    </form>
+                                        <input type="text" id="itemSize" name="itemSize" th:value="${idto.itemSize}" hidden>-->
+
 
 
                                     <!--결제할때 들고갈것들 -->
@@ -638,12 +644,14 @@
                         </div>
 
                     </div>
+
                 </div>
             </div>
 
+
         </div>
 
-<!--</form>-->
+</form>
 
     </div>
 

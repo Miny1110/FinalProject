@@ -350,14 +350,14 @@ public class CustomerController {
     //마이페이지 마이리뷰 삭제
     @PreAuthorize("isAuthenticated")
     @PostMapping("reviewDel")
-    public ModelAndView review(int replyId, HttpServletRequest req) throws Exception {
+    public ModelAndView reviewDel(HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
-    	
+    	System.out.println(req.getParameter("replyId"));
     	String pageNumStr = req.getParameter("pageNum");
     	int pageNum = Integer.parseInt(pageNumStr);
     	
-    	replyService.deleteReply(replyId);
+    	replyService.deleteReply(Integer.parseInt(req.getParameter("replyId")));
     	
     	mav.addObject("pageNum", pageNum);
     	mav.setViewName("redirect:review");

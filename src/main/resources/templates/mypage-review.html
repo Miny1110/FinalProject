@@ -167,7 +167,7 @@
                                     </div>
 								
 									<!-- 리뷰출력 시작 -->
-                                   <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}" th:action="reviewDel">
+                                   <form method="post" th:id="|reviewForm${replyDto.replyId}|" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}" th:action="@{reviewDel}">
                                    
                                    <div class="profile-about dashboard-bg-box">
                                         <div class="row">
@@ -208,7 +208,7 @@
                                                 th:onclick="|reviewEdit(${i.index})|">
                                                 수정하기</span>
                                                 <br/>
-                                                <span class="review" th:onclick="|reviewDel(${i.index})|">삭제하기</span>
+                                                <span class="review" th:onclick="|reviewDel(${replyDto.replyId})|">삭제하기</span>
                                             </div>
                                         </div>
                                     </div>
@@ -304,7 +304,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${ReplyDto}" th:action="reviewUp">
+                <form name="editForm" method="post" th:object="${ReplyDto}" th:action="@{reviewUp}">
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
@@ -388,7 +388,7 @@
 	
 	/* 리뷰 삭제하기 */
 	function reviewDel(num){
-		var f = document.reviewForm[num];
+		var f = $('#reviewForm'+num)
 		
 		var msg ="삭제하시겠습니까? \n삭제 후 복구할 수 없습니다.";
 		
@@ -399,6 +399,7 @@
 		}else{
 			alert("삭제되었습니다.");
 			f.submit();
+			
 		}
 	}
 	

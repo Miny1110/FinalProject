@@ -19,10 +19,11 @@
 	</insert>
 	
 	<!-- 포인트 소멸 -->
-	<update id="updateData" parameterType="PointDto">
-		update point set pointTitle=#{pointTitle},pointContent=#{pointContent},
-		pointAmount=#{pointAmount},pointState=#{pointState},pointDate=sysdate
-		from point where pointNum=#{pointNum}
+	<update id="insertDelData" parameterType="PointDto">
+		insert into point (pointNum,pointTitle,pointContent,pointAmount,pointState,
+		pointDate,customerEmail)
+		values (#{pointNum},#{pointTitle},#{pointContent},#{pointAmount},#{pointState},
+		sysdate,#{customerEmail})
 	</update>
 	
 	<!-- 포인트 내역 출력 -->

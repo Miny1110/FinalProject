@@ -12,6 +12,7 @@ public interface PointMapper {
 	public int maxNum();
 	
 	public void insertData(PointDto dto);
+	public void insertDelData(PointDto dto);
 	
 	public List<PointDto> getList(String customerEmail);
 	

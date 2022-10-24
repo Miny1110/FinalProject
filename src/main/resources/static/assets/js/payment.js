@@ -1,7 +1,8 @@
-
+let header = $("meta[name='_csrf_header']").attr("content");
+let token = $("meta[name='_csrf']").attr("content");
 
 function requestPay() {
-    alert("여기는 오니?")
+
 
 /*   let f = document.orderForm*/
    //let payment = $("#payment").val();
@@ -69,7 +70,6 @@ function payOrder(){
         buyer_email: $('#customerEmail').val() ,//구매자 메일
         buyer_name: $('#customerName').val(), //구매자 이름
         buyer_tel: $('#customerTel').html() ,
-        payName: payName,
         //form 안쓰기에 저장 필요
 
 
@@ -85,42 +85,45 @@ function payOrder(){
             let apply_num = rsp.apply_num;
             //db저장용
             let email=rsp.buyer_email;
-            let form = $('#orderForm')[0];
-
-            let data =new FormData(form);
 
             let msg='결제가 완료되었습니다.';
             msg += '구매자:' +name;
-            msg += "\n상점거래ID : " + merchant_uid;
+            msg += "\n주문번호 : " + merchant_uid;
             msg += "\n결제금액 : " + paid_amount;
+
 
 
             alert(msg)
 
             $.ajax({
-                type:"POST",
+                method:"POST",
                 url: "/order_ok",
                 contentType:'application/json',
                 data:JSON.stringify({
                     orderNum:merchant_uid,
-                    itemNum:$('#itemNum').val(),
-                    itemQty:$('#itemQty').val(),
+                    itemNum:parseInt($('#itemNum').val()),
+                    itemQty:parseInt($('#itemQty').val()),
                     deliverName:$('#deliverName').val(),
                     deliverRAddr:$('#deliverRAddr').val(),
                     deliverJAddr:$('#deliverJAddr').val(),
+                    payment:payName,
                     deliverDAddr:$('#deliverDAddr').val(),
                     deliverZipCode:$('#deliverZipCode').val(),
                     deliverTel:$('#deliverTel').val(),
                     usePoint:$('#use').val(),
-                }),
+                    itemSize:$('#itemSize').val(),
+                    itemColor:$('#itemColor').val()
+                }), beforeSend: function (jqXHR) {
+                    jqXHR.setRequestHeader(header, token);
+                },
                 success: function(data){
                     let msg = "결제가 완료되었습니다.\n";
 
                     alert(msg);
 
-                    location.href=url;
+                    location.href="/success-order";
                 },error: function (){
-                    alert('결제를 실패하였습니다.')
+                    alert("에러발생")
                 }
 
             })

@@ -105,7 +105,7 @@
 
 <section class="checkout-section section-b-space">
     <div class="container-fluid-lg">
-    <form method="post" onsubmit="return false">
+
         <div class="row g-sm-4 g-3">
             <div class="col-xxl-3 col-lg-4">
                 <!-- Nav tabs -->
@@ -493,10 +493,18 @@
                                         </div>
                                             </div>
                                         </div>
+
                                         <li>
                                             <h4>포인트사용</h4>
                                             <h4 class="price" id="usePoint"></h4>
                                         </li>
+
+
+                                        <li>
+                                            <h4>배송비</h4>
+                                            <h4 class="price">2,500 원</h4>
+                                        </li>
+
 
                                         <li>
                                             <h4>할인금액</h4>
@@ -628,9 +636,8 @@
                                       <!--  <input type="text" name="deliverCost" th:value="${ddto.getDeliverNum()}" hidden>-->
                                          <!--<input type="hidden" id="itemNum" th:value="${itemNum}">
                                           <input type="hidden" id="itemQty" th:value="${itemQty}">-->
-                                       <!-- <input type="text" id="itemColor" name="itemColor" th:value="${idto.itemColor}" hidden>
-
-                                        <input type="text" id="itemSize" name="itemSize" th:value="${idto.itemSize}" hidden>-->
+                                        <input type="text" id="itemColor" name="itemColor" th:value="${idto.itemColor}" hidden>
+                                        <input type="text" id="itemSize" name="itemSize" th:value="${idto.itemSize}" hidden>
 
 
 
@@ -651,7 +658,7 @@
 
         </div>
 
-</form>
+<!--</form>-->
 
     </div>
 

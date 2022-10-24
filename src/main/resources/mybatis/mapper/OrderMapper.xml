@@ -16,10 +16,13 @@
                                orderNum,customerEmail,itemNum,deliverNum,cartNum,
                           itemQty,orderState,payment,deliverCost,deliverName,deliverRAddr,
                                deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverMessage,orderDate,usePoint,
-                          itemColor,itemSize) values (#{orderNum}, #{customerEmail}, #{itemNum}, #{deliverNum}, #{cartNum}, #{itemQty},
-                                                      #{orderState},
-              #{payment}, #{deliverCost}, #{deliverName}, #{deliverRAddr}, #{deliverJAddr}, #{deliverDAddr}, #{deliverZipCode},
-                                                      #{deliverTel}, #{deliverMessage}, sysdate, #{usePoint}, #{itemColor}, #{itemSize})
+                          itemColor,itemSize) values (#{orderNum, jdbcType=NUMERIC}, #{customerEmail, jdbcType=VARCHAR}, #{itemNum, jdbcType=NUMERIC},
+                                                      0, 1, #{itemQty, jdbcType=NUMERIC},
+                                                      '주문완료',
+                                                      #{payment, jdbcType=VARCHAR}, 2500, #{deliverName, jdbcType=VARCHAR}, #{deliverRAddr, jdbcType=VARCHAR}, #{deliverJAddr, jdbcType=VARCHAR},
+                                                      #{deliverDAddr, jdbcType=VARCHAR}, #{deliverZipCode, jdbcType=VARCHAR},
+                                                      #{deliverTel, jdbcType=VARCHAR}, #{deliverMessage, jdbcType=VARCHAR},
+                                                      sysdate, #{usePoint, jdbcType=VARCHAR},  #{itemColor, jdbcType=VARCHAR},  #{itemSize, jdbcType=VARCHAR})
     </insert>
 
 <!--    <select id="readDateOrder" resultType="int" parameterType="Order">

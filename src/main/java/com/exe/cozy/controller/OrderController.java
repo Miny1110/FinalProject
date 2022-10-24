@@ -3,17 +3,19 @@ package com.exe.cozy.controller;
 import com.exe.cozy.domain.*;
 
 import com.exe.cozy.service.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -31,6 +33,8 @@ public class OrderController {
     private CustomerService customerService;
     @Resource
     private CartService cartService;
+    @Resource
+    private ObjectMapper objectMapper = new ObjectMapper();
     @GetMapping("/order")//order 가면 일단 리스트도 다 떠야함...
     public ModelAndView order(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
                               @ModelAttribute OrderDto odto)  throws Exception {
@@ -98,31 +102,24 @@ public class OrderController {
 
         return mav;
     }
-    @RequestMapping("/order_ok")
+    @PostMapping(value = "/order_ok")
+    @ResponseBody
     public ModelAndView order_ok(
-            HttpSession session,@ModelAttribute OrderDto odto,@ModelAttribute DeliverDto ddto,
-            HttpServletRequest request, HttpServletResponse response){
+            HttpSession session, @ModelAttribute DeliverDto ddto,
+            HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
-
+//제이슨으로 받은 데이터 바꾸기
+        ServletInputStream inputStream = request.getInputStream();
+        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+        OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
         // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
         String customerEmail = "eunjis";
-        response.setContentType("text/html; charset=UTF-8");
+       /* response.setContentType("text/html; charset=UTF-8");*/
 
-        odto.setCartNum(0);
+
         odto.setCustomerEmail(customerEmail);
-        odto.setOrderState("주문완료");
-        odto.setPayment("신용카드");
-        odto.setDeliverCost(2500);
-       /* odto.setDeliverName("전은지");
-        odto.setDeliverRAddr("전은지");
-        odto.setDeliverDAddr("전은지");
-        odto.setDeliverJAddr("전은지");
-        odto.setDeliverTel("010010");*/
-        odto.setDeliverMessage("빠른배송이여");
-    /*    odto.setUsePoint(3000);*/
-        odto.setItemColor("핑크");
-        odto.setItemColor("라지");
-
+        odto.setCartNum(1);
+        odto.setDeliverNum(0);
         orderService.insertOrder(odto);
 
 
@@ -130,7 +127,6 @@ public class OrderController {
 
         return mav;
     }
-
 
 
 

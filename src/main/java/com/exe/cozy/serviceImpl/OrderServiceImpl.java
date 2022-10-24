@@ -13,8 +13,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
 
     @Override
-    public int OrderMaxNum() {
-        return orderMapper.OrderMaxNum();
+    public int orderMaxNum() {
+        return orderMapper.orderMaxNum();
     }
 
     @Override

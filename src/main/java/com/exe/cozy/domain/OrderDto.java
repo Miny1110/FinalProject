@@ -21,6 +21,15 @@ public class OrderDto {
     private String orderState; //주문상태
     private String payment; //결제수단
     private int deliverCost; //배송비
+    private String deliverName; //주문자 이름
+    private String deliverRAddr;
+    private String deliverJAddr;
+    private String deliverDAddr;
+    private String deliverZipCode;
+    private String deliverTel;
+    private String deliverMessage;
+
+
     private int usePoint;
     private Date orderDate;
     private int itemPrice;

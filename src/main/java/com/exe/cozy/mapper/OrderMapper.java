@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface OrderMapper {
-    public int OrderMaxNum();
+    public int orderMaxNum();
     public void insertOrder(OrderDto odto) ;
 
 }

@@ -12,10 +12,14 @@
 
     <!-- 결제하기 누르면 insert되게 하기-->
     <insert id="insertOrder" parameterType="OrderDto">
-        insert into cozyOrder (orderNum,customerEmail,itemNum,deliverNum,cartNum,
-                          itemQty,orderState,payment,deliverCost,orderDate,usePoint,
-                          itemColor,itemSize) values (#{orderNum}, #{customerEmail}, #{itemNum}, #{deliverNum}, #{cartNum}, #{itemQty}, #{orderState},
-              #{payment}, #{deliverCost}, sysdate, #{usePoint}, #{itemColor}, #{itemSize})
+        insert into cozyOrder (
+                               orderNum,customerEmail,itemNum,deliverNum,cartNum,
+                          itemQty,orderState,payment,deliverCost,deliverName,deliverRAddr,
+                               deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverMessage,orderDate,usePoint,
+                          itemColor,itemSize) values (#{orderNum}, #{customerEmail}, #{itemNum}, #{deliverNum}, #{cartNum}, #{itemQty},
+                                                      #{orderState},
+              #{payment}, #{deliverCost}, #{deliverName}, #{deliverRAddr}, #{deliverJAddr}, #{deliverDAddr}, #{deliverZipCode},
+                                                      #{deliverTel}, #{deliverMessage}, sysdate, #{usePoint}, #{itemColor}, #{itemSize})
     </insert>
 
 <!--    <select id="readDateOrder" resultType="int" parameterType="Order">

@@ -1,6 +1,6 @@
 
 
-$(document).click(function requestPay() {
+function requestPay() {
     alert("여기는 오니?")
 
 /*   let f = document.orderForm*/
@@ -42,7 +42,7 @@ $(document).click(function requestPay() {
 
     payOrder();
 
-})
+}
 let pgName="";
 let payMethod="";
 let payName="";
@@ -98,21 +98,21 @@ function payOrder(){
             alert(msg)
 
             $.ajax({
-                type:"Post",
+                type:"POST",
                 url: "/order_ok",
-                dataType:'json',
-                data:data{
-                    'orderNum':merchant_uid,
-                    "itemNum":$('#itemNum').val(),
-                    "itemQty":$('#itemQty').val(),
-                    "deliverName":$('#deliverName').val(),
-                    "deliverRAddr":$('#deliverRAddr').val(),
-                    "deliverJAddr":$('#deliverJAddr').val(),
-                    "deliverDAddr":$('#deliverDAddr').val(),
-                    "deliverZipCode":$('#deliverZipCode').val(),
-                    "deliverTel":$('#deliverTel').val(),
-                    "usePoint":$('#use').val(),
-                },
+                contentType:'application/json',
+                data:JSON.stringify({
+                    orderNum:merchant_uid,
+                    itemNum:$('#itemNum').val(),
+                    itemQty:$('#itemQty').val(),
+                    deliverName:$('#deliverName').val(),
+                    deliverRAddr:$('#deliverRAddr').val(),
+                    deliverJAddr:$('#deliverJAddr').val(),
+                    deliverDAddr:$('#deliverDAddr').val(),
+                    deliverZipCode:$('#deliverZipCode').val(),
+                    deliverTel:$('#deliverTel').val(),
+                    usePoint:$('#use').val(),
+                }),
                 success: function(data){
                     let msg = "결제가 완료되었습니다.\n";
 

@@ -17,10 +17,11 @@ public interface ItemQnaMapper {
 
 	public ItemQnaDto findItemQna(int itemQnaNum);
 
-	public List<ItemQnaDto> getReadItemQnaData(int itemQnaNum) throws Exception;
+	public List<ItemQnaDto> getReadItemQnaData(int itemNum) throws Exception;
 
 	public void updateItemQna(ItemQnaDto qdto) throws Exception;
 	
 	public void deleteItemQna(int itemQnaNum);
-
+	
+	public  List<ItemQnaDto> getReadQnaList(int itemNum) throws Exception;
 }

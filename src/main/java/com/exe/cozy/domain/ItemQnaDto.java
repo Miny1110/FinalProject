@@ -16,7 +16,7 @@ public class ItemQnaDto {
 	private Date ItemQnaCreate;
 	private String itemQnaContent;
 
-	
+	private QnaAnswerDto answer;
 	
 	
 }

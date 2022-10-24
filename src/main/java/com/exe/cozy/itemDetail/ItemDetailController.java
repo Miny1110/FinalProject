@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.domain.ItemDetailInsertDto;
 import com.exe.cozy.domain.ItemQnaDto;
+import com.exe.cozy.domain.QnaAnswerDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.util.MyPage;
 
@@ -32,6 +34,9 @@ public class ItemDetailController {
 	private ReplyService replyService;
 	@Resource
 	private ItemQnaService itemQnaService;
+	@Resource
+	private QnaAnswerService qnaAnswerService;
+	
 
 	@Autowired
 	MyPage myPage;
@@ -143,6 +148,7 @@ public class ItemDetailController {
 	@RequestMapping("itemDetail") /** item 상세페에지 view */
 	public ModelAndView detail(HttpServletRequest request) throws Exception {
 		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
+		
 		/*
 		 * detail 페이지 완성되면 이거 풀기 String pageNum = request.getParameter("pageNum");
 		 */
@@ -160,7 +166,10 @@ public class ItemDetailController {
 
 		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 		List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);
-		List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
+		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
+		List<ItemQnaDto> qdtoList = itemQnaService.getReadQnaList(itemNum);
+		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
+	
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
 			// 일단은 index 로 리다이렉트 시키기
@@ -197,6 +206,7 @@ public class ItemDetailController {
 		mav.addObject("idto", idto);
 		mav.addObject("rdtoList", rdtoList);
 		mav.addObject("qdtoList",qdtoList);
+		//mav.addObject("adtoList",adtoList);
 		mav.addObject("itemSizes",itemSizes);
 		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
@@ -231,16 +241,22 @@ public class ItemDetailController {
 			mav.setViewName("itemQnaAnswer");
 			mav.addObject("itemQnaDto", qdto);
 
+
 			return mav;
 		}
 
 		// 문의답변
 		@PostMapping("itemQnaAnswer_ok")
-		public ModelAndView itemQnaAnswer_ok(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
+		public ModelAndView itemQnaAnswer_ok(QnaAnswerDto adto, HttpServletRequest request) throws Exception {
 
 			ModelAndView mav = new ModelAndView();
 			
-			itemQnaService.updateItemQna(qdto);
+			int qnaAnswerMaxNum = qnaAnswerService.qnaAnswerMaxNum();
+			adto.setQnaAnswerNum(qnaAnswerMaxNum + 1);
+			
+			qnaAnswerService.insertQnaAnswer(adto);
+			
+
 			
 			// System.out.println(rdto.getRating());
 			// System.out.println(rdto.getContent());

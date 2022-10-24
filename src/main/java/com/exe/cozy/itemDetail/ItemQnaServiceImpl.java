@@ -47,5 +47,16 @@ public class ItemQnaServiceImpl  implements ItemQnaService{
 		
 	}
 
+	@Override
+	public List<ItemQnaDto> getReadQnaList(int itemNum) throws Exception {
+		List<ItemQnaDto> list=itemQnaMapper.getReadQnaList(itemNum);
+		for(ItemQnaDto dto : list) {
+			
+		
+		System.out.println("aa" + dto.getItemQnaNum());
+		}
+		return list;
+	}
+
 	
 }

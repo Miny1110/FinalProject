@@ -28,6 +28,44 @@
 		select itemQnaNum, itemNum, itemQnaTitle, ItemQnaCreate, itemQnacontent from itemQna
 		where itemNum=#{itemNum}
 	</select>
+	
+	
+	<resultMap type="ItemQnaDto" id="ItemQnaDto">
+		<result column="itemQnaNum" property="itemQnaNum" />
+		<result column="itemNum" property="itemNum" />
+		<result column="itemQnaTitle" property="itemQnaTitle" />
+		<result column="customerEmail" property="customerEmail" />
+		<result column="ItemQnaCreate" property="ItemQnaCreate" />
+		<result column="itemQnaContent" property="itemQnaContent" />
+		
+		<collection property="answer" resultMap="QnaAnswerDto"></collection>
+	</resultMap>
+	
+	<resultMap type="QnaAnswerDto" id="QnaAnswerDto">
+		<result column="qnaAnswerNum" property="qnaAnswerNum" />
+		<result column="itemQnaNum" property="itemQnaNum" />
+		<result column="answerCreate" property="answerCreate" />
+		<result column="qnaContent" property="qnaContent" />
+	</resultMap>
+	
+
+	
+	<select id="getReadQnaList" parameterType="ItemQnaDto" resultMap="ItemQnaDto">
+	select 
+	a.itemQnaNum ,
+	a.itemNum, 
+	a.itemQnaTitle,
+	a.customerEmail,
+	a.ItemQnaCreate,
+	a.itemQnaContent, 
+	 b.qnaAnswerNum, 
+	 b.answerCreate, 
+	 b.qnaContent
+	FROM ITEMQNA a left join qnaAnswer b 
+	on a.itemQnaNum =b.itemQnaNum 
+	WHERE a.itemNum =#{itemNum} 
+	order by itemQnaNum desc
+	</select>
 
 
 	<!-- 문의수정 -->

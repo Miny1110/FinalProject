@@ -62,6 +62,39 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		return itemMapper.getReadItemData(itemNum);
 	}
 
+	
+
+	private String filePath(MultipartFile multipartFile) throws Exception {
+		if (multipartFile.isEmpty()) {
+			return null;
+		}
+		FileOutputStream fos = null;
+		String fileName = multipartFile.getOriginalFilename();
+		String fileExtension = fileName.substring(fileName.lastIndexOf((".")));
+		String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
+		String filePath = "C:\\test";
+
+		File file = new File(filePath + storedFileName);
+
+		multipartFile.transferTo(file);
+
+//		try {
+//			byte fileData[] = multipartFile.getBytes();
+//			fos = new FileOutputStream(filePath + fileName);
+//
+//			fos.write(fileData);
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		} finally {
+//			if (fos != null) {
+//				fos.close();
+//			}
+//		}
+
+		return storedFileName;
+	}
+
+
 	@Override
 	public int fileWrite(MultipartFile file) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -69,10 +102,12 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String storedFileName = "";
 		String originFileNmae = file.getOriginalFilename();
 		String fileExtension = StringUtils.substringAfter(originFileNmae, ".");
+
 		String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
 							
 //		String filePath = "D:\\test";
 		
+
 		// 1.fileWriter 호출
 		storedFileName = FileUtil.FileWriter(file);
 

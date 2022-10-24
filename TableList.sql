@@ -96,11 +96,30 @@ deliverType VARCHAR2(45),
 FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
 ON DELETE CASCADE);
 
-
-CREATE table file_reg_dt, store (
+//Item이미지
+CREATE table file_store (
 no NUMBER(8) PRIMARY KEY,
 original_file_name VARCHAR2(100),
 uuid_file_name VARCHAR2(100),
 file_path VARCHAR2(100),
-reg_dt DATE
+reg_dt DATE,
+FILE_EXTENSION VARCHAR2(50)
 );
+
+//상품답변
+CREATE TABLE qnaAnswer
+(qnaAnswerNum NUMBER(38) PRIMARY KEY,
+itemQnaNum NUMBER(38),
+answerCreate date,
+qnaContent VARCHAR2(4000),
+FOREIGN KEY (itemQnaNum) REFERENCES ITEMQNA(itemQnaNum)
+ON DELETE CASCADE);
+
+//상품질문
+CREATE TABLE ITEMQNA
+(itemQnaNum NUMBER(38) PRIMARY KEY,
+itemNum NUMBER(38),
+itemQnaTitle varchar2(500),
+itemQnaCreate date,
+itemQnaContent varchar2(4000),
+customerEmail varchar2(4000));

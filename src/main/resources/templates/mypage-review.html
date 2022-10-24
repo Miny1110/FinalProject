@@ -242,7 +242,8 @@
                                         <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
                                         	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
                                         </li> -->
-                                        <li class="page-item" th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+                                        <li class="page-item" th:if="${page.startRow!=0}"
+                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
                                         th:classappend="(${pages}==${page.pageNum})?'active'">
                                         	<a class="page-link" th:text="${pages}" th:href="@{/customer/review(pageNum=${pages})}"></a>
                                         </li>

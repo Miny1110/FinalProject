@@ -319,6 +319,7 @@ public class CustomerController {
     	
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
+    	System.out.println(lists);
     	mav.addObject("page", page);
     	
     	mav.setViewName("mypage-review");

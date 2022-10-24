@@ -120,26 +120,26 @@
 						<form action="" method="get" name="searchForm">
 							<div class="left-sidebar-box wow fadeInUp">
 								<div class="left-search-box">
-									<select name="searchKey" class="search-box">
+									<select name="searchNoticeKey" class="search-box">
 										<option value="noticeTitle">제목</option>
 										<option value="noticeContent">내용</option>
 									</select> 
-									<input type="text" name="searchValue" class="form-control"/>
+									<input type="text" name="searchNoticeValue" class="form-control"/>
 									<input type="button" value="검색" class="form-control" onclick="sendIt();"/>
 								</div>
 							</div>
 						</form>
 
 						<!--공지 제목 부분-->
-						<div class="col-12" th:if="${#nlists.size(nlists)>0}" th:each="ndto : ${nlists}">
+						<div class="col-12" th:each="ndto : ${nlists}">
 							<div class="blog-box blog-list wow fadeInUp">
 								<div class="blog-contain blog-contain-2">
 									<div class="blog-label">
 										<span class="time">
-										<i data-feather="clock" th:text="${#dates.format(ndto.noticeDate, 'yyyy-MM-dd')}"></i>
+										<i data-feather="clock" th:text="${ndto.noticeDate}"></i>
 										</span>
 									</div>
-									<a th:href="@{${listUrl}} + '&noticeNum=' + @{${ndto.noticeNum}}">
+									<a th:href="@{${articleUrl}} + '&no' + 'ticeNum=' + @{${ndto.noticeNum}}">
 										<h3 th:text="${ndto.noticeTitle}"></h3>
 									</a>
 
@@ -151,22 +151,33 @@
 
 					</div>
 
-					<nav class="custome-pagination">
-						<ul class="pagination justify-content-center">
-							<li class="page-item disabled"><a class="page-link"
-								href="javascript:void(0)" tabindex="-1"> <i
-									class="fa-solid fa-angles-left"></i>
-							</a></li>
-							<li class="page-item active"><a class="page-link"
-								href="javascript:void(0)">1</a></li>
-							<li class="page-item" aria-current="page"><a
-								class="page-link" href="javascript:void(0)">2</a></li>
-							<li class="page-item"><a class="page-link"
-								href="javascript:void(0)">3</a></li>
-							<li class="page-item"><a class="page-link"
-								href="javascript:void(0)"> <i
-									class="fa-solid fa-angles-right"></i>
-							</a></li>
+					<nav class="custom-pagination">
+						<ul class="pagination justify-content-center" 
+							th:if="${#lists.size(noticeDataCount)}>0" th:each="noticeDataCount:${noticeDataCount}">
+							
+							<li class="page-item disabled">
+								<a th:utext="${pageIndexList}"></a>
+							<!-- 
+							<a class="page-link" th:href="@{/noticeList/list(page=${paging.number})}" tabindex="-1"> 
+								<i class="fa-solid fa-angles-left"></i></a>
+							</li>
+							
+							
+							<li class="page-item active" th:each="page : ${#numbers.sequence(startNumber,endNumber)}"
+								th:classappend="(${page}==${paging.number+1})?'active'">
+							<a class="page-link" th:href="@{/noticeList/list(page=${page})}" th:text="${page}"></a>
+							</li>
+							
+							
+							<li class="page-item" th:style="${paging.last}?'display:none'">
+							<a class="page-link"
+								th:href="@{/noticeList/list(page=${paging.number+2})}">
+								<i class="fa-solid fa-angles-right"></i></a>
+								
+								 -->
+								
+							</li>
+							
 						</ul>
 					</nav>
 				</div>

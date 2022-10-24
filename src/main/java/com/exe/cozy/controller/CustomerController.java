@@ -34,6 +34,7 @@ import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.AddDate;
 import com.exe.cozy.util.AlertRedirect;
+import com.exe.cozy.util.CreatePoint;
 import com.exe.cozy.util.CustomerChk;
 import com.exe.cozy.util.DeliveryDupChk;
 import com.github.pagehelper.Page;
@@ -52,6 +53,7 @@ public class CustomerController {
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
 	@Autowired DeliveryDupChk deliveryDupChk;
+	@Autowired CreatePoint createPoint;
     
 	//이메일 중복확인
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
@@ -78,17 +80,6 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	PointDto pointDto = new PointDto();
-    	
-    	int pointNum = pointService.maxNum();
-    	pointDto.setPointNum(pointNum+1);
-    	pointDto.setPointTitle("회원가입");
-    	pointDto.setPointContent("회원가입 축하 포인트");
-    	pointDto.setPointAmount(3000);
-    	pointDto.setPointState("지급");
-    	pointDto.setPointEndDate(addDate.addDate(30));
-    	pointDto.setCustomerEmail(dto.getCustomerEmail());
-    	
     	if(bindingResult.hasErrors()) {
     		mav.setViewName("sign-up");
     		return mav;
@@ -98,7 +89,7 @@ public class CustomerController {
     	customerService.insertData(dto);
     	
     	//point 테이블에 데이터 넣기
-    	pointService.insertData(pointDto);
+    	pointService.insertData(createPoint.signUpPoint(dto.getCustomerEmail()));
     	
     	//로그인 화면으로 이동
     	mav.setViewName("redirect:login");
@@ -350,14 +341,15 @@ public class CustomerController {
     //마이페이지 마이리뷰 삭제
     @PreAuthorize("isAuthenticated")
     @PostMapping("reviewDel")
-    public ModelAndView review(int replyId, HttpServletRequest req) throws Exception {
+    public ModelAndView reviewDel(HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
-    	
     	String pageNumStr = req.getParameter("pageNum");
     	int pageNum = Integer.parseInt(pageNumStr);
     	
-    	replyService.deleteReply(replyId);
+    	//point 테이블에 데이터 넣기
+    	pointService.insertDelData(createPoint.reviewDelpoint(req.getParameter("customerEmail")));
+    	replyService.deleteReply(Integer.parseInt(req.getParameter("replyId")));
     	
     	mav.addObject("pageNum", pageNum);
     	mav.setViewName("redirect:review");

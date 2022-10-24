@@ -24,6 +24,11 @@ public class PointServiceImpl implements PointService{
 	public void insertData(PointDto dto) {
 		pointMapper.insertData(dto);
 	}
+	
+	@Override
+	public void insertDelData(PointDto dto) {
+		pointMapper.insertDelData(dto);
+	}
 
 	@Override
 	public List<PointDto> getList(String customerEmail) {

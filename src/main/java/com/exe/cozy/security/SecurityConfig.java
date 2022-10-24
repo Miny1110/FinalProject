@@ -26,7 +26,7 @@ public class SecurityConfig {
 
 	@Bean //메소드의 객체 생성
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		//http.csrf().disable();
 		//인증되지 않은 모든 요청을 허락
 		http
 		.authorizeRequests().antMatchers("/**").permitAll() //모든 주소 허가

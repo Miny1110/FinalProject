@@ -2,12 +2,15 @@ package com.exe.cozy.customer;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.mapper.CustomerMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 	
-	@Autowired
-	private CustomerMapper customerMapper;
+	private final CustomerMapper customerMapper;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public int emailChk(String customerEmail) {
@@ -25,6 +28,10 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void insertData(CustomerDto dto) {
+		//비밀번호는 암호화해서 저장
+		//BCrypt 해싱 함수를 사용해서 암호화
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
+		
 		customerMapper.insertData(dto);
 	}
 
@@ -40,6 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void updatePwd(CustomerDto dto) {
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
 		customerMapper.updatePwd(dto);
 	}
 
@@ -50,11 +58,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void updateData(CustomerDto dto) {
+		dto.setCustomerPwd(passwordEncoder.encode(dto.getCustomerPwd()));
 		customerMapper.updateData(dto);
 	}
 
 	@Override
 	public void deleteData(String customerEmail) {
+		SecurityContextHolder.clearContext();
 		customerMapper.deleteData(customerEmail);
 	}
 
@@ -63,10 +73,15 @@ public class CustomerServiceImpl implements CustomerService {
 		customerMapper.updatePoint(dto);
 	}
 
+//	@Override
+//	public List<ReplyDto> getReviewList(String customerEmail) {
+//		
+//		return customerMapper.getReviewList(customerEmail);
+//	}
+
 	@Override
-	public List<ReplyDto> getReviewList(String customerEmail) {
-		return customerMapper.getReviewList(customerEmail);
+	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum){
+		PageHelper.startPage(pageNum, 5);
+		return customerMapper.getReviewPaging(customerEmail, pageNum);
 	}
-
-
 }

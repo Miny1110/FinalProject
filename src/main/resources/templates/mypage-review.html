@@ -5,7 +5,7 @@
 	<title>마이페이지</title>
 
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/stylemj.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/stylemj.css">
     
 	<style id="__web-inspector-hide-shortcut-style__">
 	.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
@@ -72,13 +72,13 @@
                         </div>
                         <div class="profile-box">
                             <div class="cover-image">
-                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyloaded" alt="">
+                                <img src="/assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyloaded" alt="">
                             </div>
 
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="../assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
+                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
                                         <div class="cover-icon">
                                             <i class="fa-solid fa-pen">
                                                 <input type="file" onchange="readURL(this,0)">
@@ -88,15 +88,15 @@
                                 </div>
 
                                 <div class="profile-name">
-                                    <h3>회원이름</h3>
-                                    <h6 class="text-content">회원이메일</h6>
+                                    <h3 th:text="${customerDto.customerName}"></h3>
+                                    <h6 class="text-content" th:text="${customerDto.customerGrade}"></h6>
                                 </div>
                             </div>
                         </div>
 
                         <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="javascript:location.href='info';">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 회원정보</button>
@@ -113,19 +113,19 @@
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-qna-tab" data-bs-toggle="pill" data-bs-target="#pills-qna" type="button" role="tab" aria-controls="pills-qna" aria-selected="false" onclick="javascript:location.href='qna';">
-                                <img src="../assets/images/question.png" width="18" height="19" style="margin-right: 7;"/>
+                                <img src="/assets/images/question.png" width="18" height="19" style="margin-right: 7;"/>
                                 문의답변</button>
                             </li>
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-card-tab" data-bs-toggle="pill" data-bs-target="#pills-card" type="button" role="tab" aria-controls="pills-card" aria-selected="false" onclick="javascript:location.href='review';">
-                                <img src="../assets/images/review.png" width="20" height="20" style="margin-right: 7;"/>
+                                <button class="nav-link active" id="pills-card-tab" data-bs-toggle="pill" data-bs-target="#pills-card" type="button" role="tab" aria-controls="pills-card" aria-selected="true" onclick="javascript:location.href='review';">
+                                <img src="/assets/images/review.png" width="20" height="20" style="margin-right: 7;"/>
                                 마이리뷰</button>
                             </li>
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-point-tab" data-bs-toggle="pill" data-bs-target="#pills-point" type="button" role="tab" aria-controls="pills-point" aria-selected="false" onclick="javascript:location.href='point';">
-                                <img src="../assets/images/dollar.png" width="23" height="24" style="margin-right: 7;"/>
+                                <img src="/assets/images/dollar.png" width="23" height="24" style="margin-right: 7;"/>
                                 포인트</button>
                             </li>
 
@@ -160,14 +160,15 @@
                                             <h2>마이리뷰</h2>
                                             <span class="title-leaf">
                                                 <svg class="icon-width bg-gray">
-                                                    <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                                    <use xlink:href="/assets/svg/leaf.svg#leaf"></use>
                                                 </svg>
                                             </span>
                                         </div>
                                     </div>
 								
 									<!-- 리뷰출력 시작 -->
-                                   <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}">
+                                   <form name="reviewForm" method="post" id="lists" th:if="${#lists.size(lists)>0}" th:each="replyDto, i:${lists}" th:action="reviewDel">
+                                   
                                    <div class="profile-about dashboard-bg-box">
                                         <div class="row">
                                         <div class="dashboard-title mb-3">
@@ -177,11 +178,12 @@
                                             <input type="hidden" name="itemSubType" th:value="${replyDto.item.itemSubType}">
                                             <input type="hidden" name="customerEmail" th:value="${replyDto.customerEmail}">
                                             <input type="hidden" name="replyId" th:value="${replyDto.replyId}">
+                                            <input type="hidden" name="pageNum" th:value="${page.pageNum}">
                                         </div>
                                         </div>
                                         <div class="row">
                                            <div style="width: 70px; margin-right: 20px; margin-left: 10px;">
-                                               <img src="../assets/svg/product.svg" style="width: 70px; height: 70px;">
+                                               <img src="/assets/svg/product.svg" style="width: 70px; height: 70px;">
                                            </div>
                                            
                                             <div class="col-xxl-9"  style="text-align: left;">
@@ -190,20 +192,8 @@
                                                         <li>
                                                             <i data-feather="star" class="fill"></i>
                                                         </li>
-                                                        <li>
-                                                            <i data-feather="star" class="fill"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star" class="fill"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star"></i>
-                                                        </li>
-                                                        <li>
-                                                            <i data-feather="star"></i>
-                                                        </li>
                                                     </ul>
-                                                    <a th:text="|(${replyDto.rating}점)|"></a>
+                                                    <a th:text="|(평점: ${replyDto.rating}점)|"></a>
                                                     &nbsp;
                                                     <a style="display: inline; font-size:12px; color: gray;" th:text="${#dates.format(replyDto.regDate,'yyyy-MM-dd')}"></a>
                                                 </div>
@@ -214,7 +204,8 @@
                                                 <span class="review" data-bs-toggle="modal" data-bs-target="#edit-review"
                                                 th:data-id="${replyDto.replyId}" th:data-name="${replyDto.item.itemName}"
                                                 th:data-num="${replyDto.itemNum}" th:data-rating="${replyDto.rating}" 
-                                                th:data-content="${replyDto.content}" th:onclick="|reviewEdit(${i.index})|">
+                                                th:data-content="${replyDto.content}" th:data-page="${page.pageNum}"
+                                                th:onclick="|reviewEdit(${i.index})|">
                                                 수정하기</span>
                                                 <br/>
                                                 <span class="review" th:onclick="|reviewDel(${i.index})|">삭제하기</span>
@@ -225,32 +216,49 @@
                                     </form>
                                     <!-- 리뷰출력 끝 -->
                                     
+                                    <!-- 리뷰 내역 없으면 출력 -->
+                                    <div class="profile-about dashboard-bg-box" th:unless="${#lists.size(lists)>0}">
+	                                   <div class="row" style="display: table-cell; vertical-align: middle; height: 100px;">
+	                                   		<h4 style="color: gray;">작성한 리뷰가 없습니다.</h4>
+	                                   </div>
+                                   	</div>
+                                    <!-- 리뷰 내역 없으면 출력 -->
+                                    
                                    
                                 </div>
                                 
                                 <nav class="custome-pagination">
                                     <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
+                                    	
+										<li class="page-item" th:if="${page.navigateFirstPage>1}">
+                                            <a class="page-link" th:href="@{/customer/review(pageNum=${page.navigateFirstPage-1})}">
                                                 <i class="fa-solid fa-angles-left"></i>
                                             </a>
                                         </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="javascript:void(0)">1</a>
+										<li class="page-item" th:unless="${page.navigateFirstPage>1}">
                                         </li>
-                                        <li class="page-item" aria-current="page">
-                                            <a class="page-link" href="javascript:void(0)">2</a>
+                                        
+                                        
+                                        <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
+                                        	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
+                                        </li> -->
+                                        <li class="page-item" th:if="${page.startRow!=0}"
+                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+                                        	<a class="page-link" th:text="${pages}" th:href="@{/customer/review(pageNum=${pages})}"></a>
                                         </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">
+                                        
+                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+                                            <a class="page-link" th:href="@{/customer/review(pageNum=${page.navigateLastPage+1})}">
                                                 <i class="fa-solid fa-angles-right"></i>
                                             </a>
                                         </li>
+                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+                                        </li>
+                                        
                                     </ul>
                                 </nav>  
+                                
                             </div>
                         </div>
                     </div>
@@ -296,12 +304,13 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${ReplyDto}">
+                <form name="editForm" method="post" th:object="${ReplyDto}" th:action="reviewUp">
 	                <div class="modal-body">
 	                	<div class="col-xxl-12">
 	                        <div class="form-floating mb-4 theme-form-floating">
 	                        	<input type="hidden" id="replyIdEdit" name="replyId">
 	                        	<input type="hidden" id="itemNumEdit" name="itemNum">
+	                        	<input type="hidden" id="pageEdit" name="pageNum">
 	                            <input type="text" class="form-control" id="itemNameEdit" name="itemName" 
 	                            readonly="readonly">
 	                            <label for="fname">상품명</label>
@@ -321,7 +330,7 @@
 									<option value="4.5">4.5</option>
 									<option value="5.0">5.0</option>
 								</select>
-	                            <label for="lname">별점</label>
+	                            <label for="lname">평점</label>
 	                        </div>
 	                    </div>
 
@@ -345,35 +354,35 @@
     <!-- Remove Profile Modal End -->
     
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- jquery ui-->
-    <script src="../assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
 
     <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="/assets/js/bootstrap/popper.min.js"></script>
 
     <!-- feather icon js-->
-    <script src="../assets/js/feather/feather.min.js"></script>
-    <script src="../assets/js/feather/feather-icon.js"></script>
+    <script src="/assets/js/feather/feather.min.js"></script>
+    <script src="/assets/js/feather/feather-icon.js"></script>
 
     <!-- Lazyload Js -->
-    <script src="../assets/js/lazysizes.min.js"></script>
+    <script src="/assets/js/lazysizes.min.js"></script>
 
     <!-- Wizard js -->
-    <script src="../assets/js/wizard.js"></script>
+    <script src="/assets/js/wizard.js"></script>
 
     <!-- Slick js-->
-    <script src="../assets/js/slick/slick.js"></script>
-    <script src="../assets/js/slick/custom_slick.js"></script>
+    <script src="/assets/js/slick/slick.js"></script>
+    <script src="/assets/js/slick/custom_slick.js"></script>
 
     <!-- Quantity js -->
-    <script src="../assets/js/quantity.js"></script>
+    <script src="/assets/js/quantity.js"></script>
 
     <!-- script js -->
-    <script src="../assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 
 	<script type="text/javascript">
 	
@@ -389,7 +398,6 @@
 			return;
 		}else{
 			alert("삭제되었습니다.");
-			f.action="reviewDel";
 			f.submit();
 		}
 	}
@@ -401,12 +409,14 @@
 		var num = $(e.relatedTarget).data('num');
 		var rating = $(e.relatedTarget).data('rating');
 		var content = $(e.relatedTarget).data('content');
+		var page = $(e.relatedTarget).data('page');
 
 		$('#replyIdEdit').val(id);
 		$('#itemNameEdit').val(name);
 		$('#itemNumEdit').val(num);
 		$('#ratingEdit').val(rating);
 		$('#contentEdit').val(content);
+		$('#pageEdit').val(page);
 		
     });
 	
@@ -426,7 +436,6 @@
         //입력창에 내용이 있으면
         alert("리뷰가 수정되었습니다.");
         
-        f.action="reviewUp";
         f.submit();
         
 	}

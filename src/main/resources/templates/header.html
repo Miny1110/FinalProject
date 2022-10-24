@@ -8,7 +8,10 @@
                     <div class="col-xxl-3 d-xxl-block d-none">
                         <div class="top-left-header">
                             <i class="iconly-Location icli text-white"></i>
-                            <span class="text-white">1418 Riverwood Drive, CA 96052, US</span>
+                            <span class="text-white">
+                            <a sec:authorize="isAnonymous()" >로그인 후 구매 가능합니다</a>
+                            <a sec:authorize="isAuthenticated()" th:text="|${customerName}님 반갑습니다.|"></a>
+                            </span>
                         </div>
                     </div>
 
@@ -43,28 +46,28 @@
                                 <div class="dropdown theme-form-select">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="../assets/images/country/united-states.png"
+                                        <img src="/assets/images/country/united-states.png"
                                             class="img-fluid blur-up lazyload" alt="">
                                         <span>English</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
                                         <li>
                                             <a class="dropdown-item" href="javascript:void(0)" id="english">
-                                                <img src="../assets/images/country/united-kingdom.png"
+                                                <img src="/assets/images/country/united-kingdom.png"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <span>English</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="javascript:void(0)" id="france">
-                                                <img src="../assets/images/country/germany.png"
+                                                <img src="/assets/images/country/germany.png"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <span>Germany</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="javascript:void(0)" id="chinese">
-                                                <img src="../assets/images/country/turkish.png"
+                                                <img src="/assets/images/country/turkish.png"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <span>Turki</span>
                                             </a>
@@ -109,8 +112,8 @@
                                     <i class="fa-solid fa-bars"></i>
                                 </span>
                             </button>
-                            <a href="index.html" class="web-logo nav-logo">
-                                <img src="../assets/images/logo/logo_cozy.png" class="img-fluid blur-up lazyload" alt="">
+                            <a th:href="@{/}" class="web-logo nav-logo">
+                                <img src="/assets/images/logo/logo_cozy.png" class="img-fluid blur-up lazyload" alt="">
                             </a>
 
                             <div class="middle-box">
@@ -177,7 +180,7 @@
                                                     <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left.html" class="drop-image">
-                                                                <img src="../assets/images/vegetable/product/1.png"
+                                                                <img src="/assets/images/vegetable/product/1.png"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
@@ -196,7 +199,7 @@
                                                     <li class="product-box-contain">
                                                         <div class="drop-cart">
                                                             <a href="product-left.html" class="drop-image">
-                                                                <img src="../assets/images/vegetable/product/2.png"
+                                                                <img src="/assets/images/vegetable/product/2.png"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
@@ -228,13 +231,13 @@
                                         </div>
                                     </li>
                                     <li class="right-side onhover-dropdown">
-                                        <div class="delivery-login-box">
+                                        <div class="delivery-login-box" >
                                             <div class="delivery-icon">
                                                 <i data-feather="user"></i>
                                             </div>
                                             <div class="delivery-detail">
-                                                <h6>Hello,</h6>
-                                                <h5>My Account</h5>
+                                                <h6>반갑습니다,</h6>
+                                                <h5>COZY</h5>
                                             </div>
                                         </div>
 
@@ -242,15 +245,18 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a href="log-in.html">Log In</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/login}">로그인</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/info}">마이페이지</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="sign-up.html">Register</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/signUp}">회원가입</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/logout}">로그아웃</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a href="forgot.html">Forgot Password</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/forgot}">비밀번호 찾기</a>
+                                                    <a sec:authorize="isAuthenticated()"></a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -284,7 +290,7 @@
                                 <ul class="category-list">
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="../assets/svg/1/vegetable.svg" alt="">
+                                            <img src="/assets/svg/1/vegetable.svg" alt="">
                                             <h6>가전상품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
@@ -314,7 +320,7 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="../assets/svg/1/cup.svg" alt="">
+                                            <img src="/assets/svg/1/cup.svg" alt="">
                                             <h6>가구</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
@@ -347,7 +353,7 @@
                                     
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="../assets/svg/1/pet.svg" alt="">
+                                            <img src="/assets/svg/1/pet.svg" alt="">
                                             <h6>주방용품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
@@ -380,7 +386,7 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="../assets/svg/1/meats.svg" alt="">
+                                            <img src="/assets/svg/1/meats.svg" alt="">
                                             <h6>수납 & 정리</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
@@ -408,7 +414,7 @@
 
                                     <li class="onhover-category-list">
                                         <a href="javascript:void(0)" class="category-name">
-                                            <img src="../assets/svg/1/breakfast.svg" alt="">
+                                            <img src="/assets/svg/1/breakfast.svg" alt="">
                                             <h6>생필품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
@@ -459,31 +465,31 @@
                                                 <div class="dropdown-menu dropdown-menu-2 dropdown-image">
                                                     <div class="dropdown-column">
                                                         <a class="dropdown-item" href="index.html">
-                                                            <img src="../assets/images/theme/1.jpg" class="img-fluid"
+                                                            <img src="/assets/images/theme/1.jpg" class="img-fluid"
                                                                 alt="">
                                                             <span>Kartshop</span>
                                                         </a>
 
                                                         <a class="dropdown-item" href="index-2.html">
-                                                            <img src="../assets/images/theme/2.jpg" class="img-fluid"
+                                                            <img src="/assets/images/theme/2.jpg" class="img-fluid"
                                                                 alt="">
                                                             <span>Sweetshop</span>
                                                         </a>
 
                                                         <a class="dropdown-item" href="index-3.html">
-                                                            <img src="../assets/images/theme/3.jpg" class="img-fluid"
+                                                            <img src="/assets/images/theme/3.jpg" class="img-fluid"
                                                                 alt="">
                                                             <span>Organic</span>
                                                         </a>
 
                                                         <a class="dropdown-item" href="index-4.html">
-                                                            <img src="../assets/images/theme/4.jpg" class="img-fluid"
+                                                            <img src="/assets/images/theme/4.jpg" class="img-fluid"
                                                                 alt="">
                                                             <span>Supershop</span>
                                                         </a>
 
                                                         <a class="dropdown-item" href="index-5.html">
-                                                            <img src="../assets/images/theme/5.jpg" class="img-fluid"
+                                                            <img src="/assets/images/theme/5.jpg" class="img-fluid"
                                                                 alt="">
                                                             <span>Slicktech</span>
                                                         </a>

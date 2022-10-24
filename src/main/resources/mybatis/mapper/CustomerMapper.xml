@@ -5,7 +5,7 @@
         
 <mapper namespace="com.exe.cozy.mapper.CustomerMapper">
 	<!-- 이메일 중복확인 -->
-	<select id="emailChk" resultType="int">
+	<select id="emailChk" resultType="int" parameterType="String">
 		select count(*) from customer where customerEmail=#{customerEmail}
 	</select>
 	
@@ -63,7 +63,7 @@
 		delete customer where customerEmail=#{customerEmail}
 	</delete>
 	
-
+	<!-- 마이페이지 리뷰조회 -->
 	<resultMap type="ReplyDto" id="ReplyDto">
 		<result column="replyId" property="replyId"/>
 		<result column="itemNum" property="itemNum"/>
@@ -81,7 +81,7 @@
 		<result column="itemImage1" property="itemImage1"/>
 	</resultMap>
 	
-	<select id="getReviewList" parameterType="ReplyDto" resultMap="ReplyDto">
+	<select id="getReviewPaging" parameterType="ReplyDto" resultMap="ReplyDto">
 		select 
 			a.replyId
 			,a.itemNum
@@ -101,6 +101,33 @@
 			a.customerEmail=#{customerEmail}
 		order by
 			a.replyId desc
+	</select>
+	
+<!-- 	<select id="getReviewList" parameterType="ReplyDto" resultMap="ReplyDto">
+		select 
+			a.replyId
+			,a.itemNum
+			,a.customerEmail
+			,a.regDate
+			,a.content
+			,a.rating
+			,b.itemName
+			,b.itemMainType
+			,b.itemSubType
+			,b.itemImage1
+		from 
+			reply a left join item b
+		on
+			a.itemNum=b.itemNum
+		where
+			a.customerEmail=#{customerEmail}
+		order by
+			a.replyId desc
+	</select> -->
+	
+	<!-- 마이페이지 주문조회 리스트 -->
+	<select id="getOrderList" parameterType="String" resultType="OrderDto">
+	
 	</select>
 	
 </mapper>

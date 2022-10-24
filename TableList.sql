@@ -75,11 +75,11 @@ ON DELETE CASCADE);
 
 
 //SERVICENOTICE
-CREATE TABLE ServiceNotice(
-serviceNoticeNum number NOT NULL PRIMARY KEY,
-serviceNoticeTitle VARCHAR2(150) NOT NULL,
-serviceNoticeContent VARCHAR2(3000) NOT NULL,
-serviceNoticeDate DATE DEFAULT SYSDATE);
+CREATE TABLE notice(
+noticeNum number PRIMARY KEY,
+noticeTitle VARCHAR2(150) NOT NULL,
+noticeContent VARCHAR2(3000) NOT NULL,
+noticeDate DATE DEFAULT SYSDATE);
 
 
 //DELIVER

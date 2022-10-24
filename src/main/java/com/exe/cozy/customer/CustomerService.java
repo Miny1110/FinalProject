@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.github.pagehelper.Page;
 
 public interface CustomerService {
 
@@ -20,6 +21,6 @@ public interface CustomerService {
 	public void updatePoint(CustomerDto dto);
 	public void deleteData(String customerEmail);
 	
-	public List<ReplyDto> getReviewList(String customerEmail);
-	
+//	public List<ReplyDto> getReviewList(String customerEmail);
+	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum);
 }

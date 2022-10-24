@@ -241,6 +241,7 @@ public class ItemDetailController {
 			mav.setViewName("itemQnaAnswer");
 			mav.addObject("itemQnaDto", qdto);
 
+
 			return mav;
 		}
 
@@ -255,6 +256,7 @@ public class ItemDetailController {
 			
 			qnaAnswerService.insertQnaAnswer(adto);
 			
+
 			
 			// System.out.println(rdto.getRating());
 			// System.out.println(rdto.getContent());

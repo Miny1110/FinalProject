@@ -23,6 +23,8 @@ public interface ItemQnaService {
 	
 	/*문의삭제*/
 	public void deleteItemQna(int itemQnaNum) throws Exception;
+
 	
 	public List<ItemQnaDto> getReadQnaList(int itemNum) throws Exception;
+
 }

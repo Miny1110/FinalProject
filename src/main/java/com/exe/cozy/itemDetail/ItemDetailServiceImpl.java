@@ -61,6 +61,7 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 	public ItemDetailDto getReadItemData(int itemNum) throws Exception {
 		return itemMapper.getReadItemData(itemNum);
 	}
+
 	
 
 	private String filePath(MultipartFile multipartFile) throws Exception {
@@ -93,6 +94,7 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		return storedFileName;
 	}
 
+
 	@Override
 	public int fileWrite(MultipartFile file) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -100,7 +102,11 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String storedFileName = "";
 		String originFileNmae = file.getOriginalFilename();
 		String fileExtension = StringUtils.substringAfter(originFileNmae, ".");
-		String filePath = "Z:\\Documents\\GitHub\\CozyHouse\\src\\main\\resources\\static\\assets\\img\\";
+
+		String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
+							
+//		String filePath = "D:\\test";
+		
 
 		// 1.fileWriter 호출
 		storedFileName = FileUtil.FileWriter(file);

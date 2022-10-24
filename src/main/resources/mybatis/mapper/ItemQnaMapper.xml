@@ -5,19 +5,19 @@
 
 <mapper namespace="com.exe.cozy.mapper.ItemQnaMapper">
 
-	<!--새 리뷰 번호 -->
+	<!--새 문의 번호 -->
 	<select id="itemQnaMaxNum" resultType="int">		
 		select nvl(max(itemQnaNum),0)
 		from itemQna	
 	</select>
 
-	<!-- 리뷰등록 -->
+	<!-- 문의등록 -->
 	<insert id="insertItemQna" parameterType="ItemQnaDto">		
 		insert into itemQna(itemQnaNum, itemNum, itemQnaTitle, ItemQnaCreate ,itemQnaContent,customerEmail)
 		values(#{itemQnaNum}, #{itemNum}, #{itemQnaTitle},sysdate, #{itemQnaContent}, #{customerEmail})	
 	</insert>
 
-	<!-- 리뷰확인 -->
+	<!-- 문의확인 -->
 	<select id="findItemQna" parameterType="int" resultType="ItemQnaDto">	
 		select * from itemQna
 		where itemQnaNum = #{itemQnaNum}
@@ -28,15 +28,53 @@
 		select itemQnaNum, itemNum, itemQnaTitle, ItemQnaCreate, itemQnacontent from itemQna
 		where itemNum=#{itemNum}
 	</select>
+	
+	
+	<resultMap type="ItemQnaDto" id="ItemQnaDto">
+		<result column="itemQnaNum" property="itemQnaNum" />
+		<result column="itemNum" property="itemNum" />
+		<result column="itemQnaTitle" property="itemQnaTitle" />
+		<result column="customerEmail" property="customerEmail" />
+		<result column="ItemQnaCreate" property="ItemQnaCreate" />
+		<result column="itemQnaContent" property="itemQnaContent" />
+		
+		<collection property="answer" resultMap="QnaAnswerDto"></collection>
+	</resultMap>
+	
+	<resultMap type="QnaAnswerDto" id="QnaAnswerDto">
+		<result column="qnaAnswerNum" property="qnaAnswerNum" />
+		<result column="itemQnaNum" property="itemQnaNum" />
+		<result column="answerCreate" property="answerCreate" />
+		<result column="qnaContent" property="qnaContent" />
+	</resultMap>
+	
+
+	
+	<select id="getReadQnaList" parameterType="ItemQnaDto" resultMap="ItemQnaDto">
+	select 
+	a.itemQnaNum ,
+	a.itemNum, 
+	a.itemQnaTitle,
+	a.customerEmail,
+	a.ItemQnaCreate,
+	a.itemQnaContent, 
+	 b.qnaAnswerNum, 
+	 b.answerCreate, 
+	 b.qnaContent
+	FROM ITEMQNA a left join qnaAnswer b 
+	on a.itemQnaNum =b.itemQnaNum 
+	WHERE a.itemNum =#{itemNum} 
+	order by itemQnaNum desc
+	</select>
 
 
-	<!-- 리뷰수정 -->
+	<!-- 문의수정 -->
 	<update id="updateItemQna" parameterType="ItemQnaDto">
 		update itemQna set itemQnaContent=#{itemQnaContent},ItemQnaCreate= sysdate where
 		itemQnaNum=#{itemQnaNum}
 	</update>
 
-	<!-- 리뷰삭제 -->
+	<!-- 문의삭제 -->
 	<delete id="deleteItemQna" parameterType="int">
 		delete itemQna where
 		itemQnaNum=#{itemQnaNum}

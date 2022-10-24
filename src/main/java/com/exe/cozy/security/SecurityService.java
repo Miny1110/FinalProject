@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.exe.cozy.customer.CustomerService;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.mapper.CustomerMapper;
+import com.exe.cozy.service.CustomerService;
 
 import lombok.RequiredArgsConstructor;
 

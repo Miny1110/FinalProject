@@ -63,39 +63,6 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		return itemMapper.getReadItemData(itemNum);
 	}
 
-	
-
-	private String filePath(MultipartFile multipartFile) throws Exception {
-		if (multipartFile.isEmpty()) {
-			return null;
-		}
-		FileOutputStream fos = null;
-		String fileName = multipartFile.getOriginalFilename();
-		String fileExtension = fileName.substring(fileName.lastIndexOf((".")));
-		String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + fileExtension;
-		String filePath = "E:\\GIt\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
-
-		File file = new File(filePath + storedFileName);
-
-		multipartFile.transferTo(file);
-
-//		try {
-//			byte fileData[] = multipartFile.getBytes();
-//			fos = new FileOutputStream(filePath + fileName);
-//
-//			fos.write(fileData);
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		} finally {
-//			if (fos != null) {
-//				fos.close();
-//			}
-//		}
-
-		return storedFileName;
-	}
-
-
 	@Override
 	public int fileWrite(MultipartFile file) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();

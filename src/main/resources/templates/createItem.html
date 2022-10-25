@@ -75,12 +75,12 @@
                                 <h3><b>대분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
                                     <select name="itemMainType" id="productSelect" style="font-size: 18px;">
-                                        <option value="0" selected="selected">대분류를 선택해주세요</option>
-                                        <option value="1">가전</option>
-                                        <option value="2">가구</option>
-                                        <option value="3">주방용품</option>
-                                        <option value="4">수납&정리</option>
-                                        <option value="5">생필품</option>
+                                        <option value="0" name="maxType" selected="selected">대분류를 선택해주세요</option>
+                                        <option value="1" name="electronic">가전</option>
+                                        <option value="2" name="furniture">가구</option>
+                                        <option value="3" name="kitchen">주방용품</option>
+                                        <option value="4" name="storage">수납&정리</option>
+                                        <option value="5" name="necessity">생필품</option>
                                     </select>
                                 </div><br>
                                 
@@ -89,36 +89,36 @@
                                 <h3><b>중분류</b></h3><br>
                                 <div class="form-floating theme-form-floating">
                                     <select name="itemSubType" id="mallSelect" style="font-size: 18px;">
-                                        <option value="0">중분류를 선택해주세요</option>
+                                        <option value="0" name="minType">중분류를 선택해주세요</option>
                                         
-                                        <option value="가전" class="mall1">냉장고</option>
-                                        <option value="가전" class="mall1">TV</option>
-                                        <option value="가전" class="mall1">에어컨&공기청정기</option>
-                                        <option value="가전" class="mall1">세탁기</option>
-                                        <option value="가전" class="mall1">청소기</option>
+                                        <option value="fridge" class="mall1" name="fridge">냉장고</option>
+                                        <option value="tv" class="mall1" name="tv">TV</option>
+                                        <option value="airConditioner" class="mall1" name="airConditioner">에어컨&공기청정기</option>
+                                        <option value="washer" class="mall1" name="washer">세탁기</option>
+                                        <option value="cleaner" class="mall1" name="cleaner">청소기</option>
                                
-                                        <option value="가구" class="mall2">침대</option>
-                                        <option value="가구" class="mall2">쇼파</option>
-                                        <option value="가구" class="mall2">테이블&의자</option>
-                                        <option value="가구" class="mall2">옷장</option>
-                                        <option value="가구" class="mall2">행거</option>
+                                        <option value="bed" class="mall2" name="bed">침대</option>
+                                        <option value="sofa" class="mall2" name="sofa">쇼파</option>
+                                        <option value="chair" class="mall2" name="chair">테이블&의자</option>
+                                        <option value="closet" class="mall2" name="closet">옷장</option>
+                                        <option value="hanger" class="mall2" name="hanger">행거</option>
                               
-                                        <option value="주방용품" class="mall3">냄비*프라이팬*솥</option>
-                                        <option value="주방용품" class="mall3">홈세트(식기류)</option>
-                                        <option value="주방용품" class="mall3">칼</option>
-                                        <option value="주방용품" class="mall3">수저</option>
-                                        <option value="주방용품" class="mall3">도마</option>
-                              
-                                        <option value="수납&정리" class="mall4">선반</option>
-                                        <option value="수납&정리" class="mall4">수납장*트롤리</option>
-                                        <option value="수납&정리" class="mall4">신발장</option>
-                                        <option value="수납&정리" class="mall4">리빙박스*바구니</option>
+                                        <option value="pot" class="mall3" name="pot">냄비*프라이팬*솥</option>
+                                        <option value="tableware" class="mall3" name="tableware">홈세트(식기류)</option>
+                                        <option value="knife" class="mall3" name="knife">칼</option>
+                                        <option value="spoon" class="mall3" name="spoon">수저</option>
+                                        <option value="choppingBoard" class="mall3" name="choppingBoard">도마</option>
+                               
+                                        <option value="shelf" class="mall4" name="shelf">선반</option>
+                                        <option value="trolley" class="mall4" name="trolley">수납장*트롤리</option>
+                                        <option value="shoeCloset" class="mall4" name="shoeCloset">신발장</option>
+                                        <option value="livingBox" class="mall4" name="livingBox">리빙박스*바구니</option>
                            
-                                        <option value="생필품" class="mall5">휴지</option>
-                                        <option value="생필품" class="mall5">주방세제</option>
-                                        <option value="생필품" class="mall5">세탁세제</option>
-                                        <option value="생필품" class="mall5">바디케어</option>
-                                        <option value="생필품" class="mall5">청소용품</option>
+                                        <option value="wastePaper" class="mall5" name="wastePaper">휴지</option>
+                                        <option value="kitchenDetergent" class="mall5" name="kitchenDetergent">주방세제</option>
+                                        <option value="laundryDetergent" class="mall5" name="laundryDetergent">세탁세제</option>
+                                        <option value="bodyCare" class="mall5" name="bodyCare">바디케어</option>
+                                        <option value="cleaningSupplies" class="mall5" name="cleaningSupplies">청소용품</option>
                                     </select>
                                 </div>
                             </div>

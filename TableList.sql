@@ -123,3 +123,26 @@ itemQnaTitle varchar2(500),
 itemQnaCreate date,
 itemQnaContent varchar2(4000),
 customerEmail varchar2(4000));
+
+//주문
+CREATE TABLE COZYORDER
+(orderNum VARCHAR2(100) PRIMARY KEY,
+itemNum NUMBER(8),
+customerEmail VARCHAR2(20),
+itemQty NUMBER(8),
+payment VARCHAR2(20), 
+orderState VARCHAR2(20),
+deliverCost number(10),
+deliverName VARCHAR2(20),
+deliverRAddr VARCHAR2(100),
+deliverJAddr VARCHAR2(100),
+deliverDAddr VARCHAR2(100),
+deliverZipCode VARCHAR2(10),
+deliverTel VARCHAR2(45),
+deliverMessage VARCHAR2(100),
+orderDate date default sysdate,
+usePoint number(10),
+itemColor VARCHAR2(40),
+itemSize VARCHAR2(40),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
+FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));

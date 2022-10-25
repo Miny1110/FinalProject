@@ -124,10 +124,80 @@
 		order by
 			a.replyId desc
 	</select> -->
+<!-- 	
+	마이페이지 주문조회 리스트
+	<resultMap type="ReplyDto" id="ReplyDto">
+		<result column="replyId" property="replyId"/>
+		<result column="itemNum" property="itemNum"/>
+		<result column="customerEmail" property="customerEmail"/>
+		<result column="regDate" property="regDate"/>
+		<result column="content" property="content"/>
+		<result column="rating" property="rating"/>
+		<collection property="item" resultMap="ItemDetailDto"></collection>
+	</resultMap>
 	
-	<!-- 마이페이지 주문조회 리스트 -->
+	<resultMap type="ItemDetailDto" id="ItemDetailDto">
+		<result column="itemName" property="itemName"/>
+		<result column="itemMainType" property="itemMainType"/>
+		<result column="itemSubType" property="itemSubType"/>
+		<result column="itemImage1" property="itemImage1"/>
+	</resultMap>
+	
 	<select id="getOrderList" parameterType="String" resultType="OrderDto">
-	
+		select
+			a.orderNum,
+			a.itemQty,
+			a.orderState,
+			a.orderDate,
+			b.itemNum,
+			b.(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+			from file_store fs
+			where fs.no = item.itemImage1
+        ) as itemImage1,
+			b.itemPrice,
+			b.itemDiscount
+		from
+			cozyorder a left join item b
+		on
+			a.itemNum=b.itemNum
+		where
+			customerEmail=#{customerEmail}
 	</select>
+	 -->
+	 
+	 <!-- 마이페이지 문의내역 리스트 -->
+	 <resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">
+		<result column="serviceQueNum" property="serviceQueNum"/>
+		<result column="serviceQueTitle" property="serviceQueTitle"/>
+		<result column="serviceQueDate" property="serviceQueDate"/>
+		<collection property="serviceAnswer" resultMap="ServiceAnswerDto"></collection>
+	</resultMap>
 	
+	<resultMap type="ServiceAnswerDto" id="ServiceAnswerDto">
+		<result column="serviceAnsContent" property="serviceAnsContent"/>
+	</resultMap>
+	 
+ 	 <select id="getQnaList" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">
+	 	select
+	 		a.serviceQueNum,
+	 		a.serviceQueTitle,
+	 		a.serviceQueDate,
+	 		a.serviceQueContent,
+	 		b.serviceAnsContent
+	 	from
+	 		serviceQuestion a left join serviceAnswer b
+	 	on
+	 		a.serviceQueNum=b.serviceQueNum
+	 	where
+	 		customerEmail=#{customerEmail}
+	 	<if test="searchKey == 'serviceQueTitle'">
+            AND serviceQueTitle LIKE '%'||#{searchValue}||'%'
+        </if>
+        <if test="searchKey == 'serviceQueContent'">
+            AND serviceQueContent LIKE '%'||#{searchValue}||'%'
+        </if>
+	 	order by
+	 		serviceQueNum desc
+	 </select>
+ 
 </mapper>

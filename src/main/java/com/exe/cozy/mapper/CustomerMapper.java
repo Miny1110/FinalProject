@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.github.pagehelper.Page;
 
 @Mapper
@@ -26,4 +27,6 @@ public interface CustomerMapper {
 	
 //	public List<ReplyDto> getReviewList(String customerEmail); //리뷰 목록
 	public Page<ReplyDto> getReviewPaging(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum); //리뷰 페이징처리 목록
+	
+	public Page<ServiceQuestionDto> getQnaList(@Param("customerEmail")String customerEmail,@Param("searchKey")String searchKey,@Param("searchValue")String searchValue, @Param("pageNum")int pageNum);
 }

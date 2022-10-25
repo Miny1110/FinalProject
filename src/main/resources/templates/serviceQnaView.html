@@ -1,43 +1,10 @@
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-   <div th:replace="head.html :: headFragment"></div>
+	<div th:replace="head.html :: headFragment"></div>
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
-    
-<script type="text/javascript">
-	const sendIt = () => {
-		var t = documnet.myForm
-		
-		str = t.noticeTitle.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			t.noticeTitle.focus();
-			return;
-		}
-		
-		t.noticeTitle.value = str;
-		
-		str = t.noticeContent.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			t.noticeContent.focue();
-			return;
-		}
-		
-		t.noticeContent.value = str;
-		
-		t.action = "/noticeCreate";
-		t.submit();
-	}
-</script>
-    
-    
 </head>
 
 <body>
@@ -66,7 +33,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>공지 등록</h2>
+                        <h2>Blog Details Page</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -74,8 +41,8 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">공지</li>
-                                <li class="breadcrumb-item active" aria-current="page">공지 등록</li>
+                                <li class="breadcrumb-item" aria-current="page">Blog</li>
+                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
                             </ol>
                         </nav>
                     </div>
@@ -89,9 +56,8 @@
     <section class="blog-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-4">
-                
-                   <div class="col-xxl-3 col-xl-4 col-lg-5">
-                    <section class="user-dashboard-section section-b-space">
+                <div class="col-xxl-3 col-xl-4 col-lg-5"  style="width: 30%;">
+                    <section class="user-dashboard-section section-b-space" style="width: 100%;">
                         
                     <div class="dashboard-left-sidebar">
                         <div class="profile-box">
@@ -129,45 +95,81 @@
                     </div>
                     </section>
                 </div>
-                    
 
-                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30">
-                    
-                    <div class="leave-box">
-                        <div class="leave-title mt-0">
-                            <h3>공지 등록</h3>
+                
+                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50"  style="width: 70%;">
+                    <div style="margin-top: -30%" class="blog-detail-image rounded-3 mb-4">
+                        <img  class="bg-img blur-up lazyload" alt="">
+                        <div class="blog-image-contain1">
+                            <ul class="contain-list">
+                                <li>일반 문의</li>
+                                <li> - </li>
+                                <li>1대1</li>
+                            </ul>
+                            <br/>
+                            <h2>탈퇴 안하고 아이디 변경 가능한가요?</h2>
+                            <br/>
+                            <ul class="contain-comment-list">
+                                <li  style="margin-right: 4%">
+                                    <div class="user-list">
+                                        <i data-feather="user"></i>
+                                        <span>Caroline</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="user-list">
+                                        <i data-feather="calendar"></i>
+                                        <span>April 19, 2022</span>
+                                    </div>
+                                </li>
+
+                            </ul>
                         </div>
-						
-						<form th:action="@{noticeCreate}" method="post" name="myForm">
-                        <div class="leave-comment">
-                            
-                            <div class="row g-3">
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
-                                        <input type="text" class="form-control" name="noticeTitle"
-                                            placeholder="제목">
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="blog-input">
-                                        <textarea class="form-control" rows="12" name="noticeContent"
-                                            placeholder="내용"></textarea>
-                                    </div>
-                                </div>
+                    </div>
+                    
+                    
+                    <div class="leave-box1">
+                        
+                        <div class="comment-box overflow-hidden">
+                            <div class="leave-title1">
+                                <h3>Question</h3>
                             </div>
                         </div>
                         
+                    <div class="blog-detail-contain" style="align-content: center">
+                        <br/>
+                        <p style="margin-left: 2%">
+                            제가 카카오로 가입을 했는데 아이디 변경을 하고싶어서요. 할 수 있는 방법 있을까요?오른쪽 홈패드 앞 여유공간을 어떻게 채워야할지 모르겠네요.
+                            거실장을 놓자니 필요가 없고 큰 식탁을 놓자니 협소하고..
+                            뭘로 인테리어하면 비어보이지 않으면서 예쁠까요?
+                            크기는 대략 80x150정도입니다.
+                        </p>
+                    </div>
                     </div>
                     
-                    <div>
-                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
+                    <hr/> 
+                    
+                    <div class="leave-box1">
+                        <div class="comment-box overflow-hidden">
+                            <div class="leave-title1">
+                                <h3>Comment</h3>
+                            </div>
 
-                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
+                            <div class="user-comment-box1">
+                                <ul>
+                                    <li>
+                                        <div class="user-contain">
+                                            <p>죄송합니다만 따로 변경이 어렵습니다. 앞으로 좋은 서비스를 제공하기 위해 더욱 노력하겠습니다</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
                     </div>
-                    </form>
+                    
                 </div>
-                
             </div>
         </div>
     </section>
@@ -280,6 +282,83 @@
 
 
     <!-- Deal Box Modal Start -->
+    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
+                        <p class="mt-1 text-content">Recommended deals for you.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="deal-offer-box">
+                        <ul class="deal-offer-list">
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-2">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-3">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Deal Box Modal End -->
 
     <!-- Tap to top start -->

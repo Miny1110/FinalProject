@@ -106,20 +106,22 @@
                         </div>
                         
                     
-						<form th:action="@{noticeCreate}" method="post" name="myForm">
+						<form th:action="@{createSvcQue_ok}" method="post" name="myForm">
                         <div class="leave-comment">
+                        
+                            <input type="hidden" value="customerEmail" name="customerEmail">
                             
                             <div class="row g-3">
                                 <div class="col-xxl-4 col-lg-12 col-sm-6">
                                     <div class="blog-input">
-                                        <input type="text" class="form-control" name="noticeTitle"
+                                        <input type="text" class="form-control" name="serviceQueTitle"
                                             placeholder="문의 제목">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="blog-input">
-                                        <textarea class="form-control" rows="12" name="noticeContent"
+                                        <textarea class="form-control" rows="12" name="serviceQueContent"
                                             placeholder="문의 내용"></textarea>
                                     </div>
                                 </div>
@@ -128,72 +130,14 @@
                             
                             <div style="text-align: center">
                                 <div style="display: inline-block">
-                                    <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
+                                    <button type="submit" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
                                 </div>
                                 <div style="display: inline-block">
                                     <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
                                 </div>
                             </div>
-                    </div>
-                     
-                    
-
-<!--
-                    <div class="leave-box">
-                        <div class="leave-title mt-0">
-                            <h3>Leave Comment</h3>
-                        </div>
-
-                        <div class="leave-comment">
-                            <div class="comment-notes">
-                                <p class="text-content mb-4">Your email address will not be published. Required fields
-                                    are marked</p>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="Full Name">
-                                    </div>
-                                </div>
-
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
-                                        <input type="email" class="form-control" id="exampleFormControlInput2"
-                                            placeholder="Enter Email Address">
-                                    </div>
-                                </div>
-
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
-                                        <input type="url" class="form-control" id="exampleFormControlInput3"
-                                            placeholder="Enter URL">
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="blog-input">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
-                                            placeholder="Comments"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-check d-flex mt-4 p-0">
-                                <input class="checkbox_animated" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label text-content" for="flexCheckDefault">
-                                    <span class="color color-1"> Save my name, email, and website in this
-                                        browser for the next time I comment.</span>
-                                </label>
-                            </div>
-
-                            <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold">Post
-                                Comment</button>
-                        </div>
-                    </div>
-                    -->
-                    
-                </div>
+                    	</div>
+                	</div>
             </div>
         </div>
     </section>

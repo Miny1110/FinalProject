@@ -289,7 +289,12 @@ public class CustomerController {
     	}
     	int pageNum = Integer.parseInt(pageNumStr);
     	
-    	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), pageNum);
+    	String searchKey = req.getParameter("searchKey");
+    	String searchValue = req.getParameter("searchValue");
+    	System.out.println(searchKey);
+    	System.out.println(searchValue);
+    	
+    	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), searchKey, searchValue, pageNum);
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
     	System.out.println(lists);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());

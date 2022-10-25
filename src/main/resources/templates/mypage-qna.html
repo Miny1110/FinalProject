@@ -176,29 +176,24 @@
                                     </div>
                                     
                                     <div class="qna-about dashboard-bg-box">
-                                    <div class="qna-form-tag">
-                            <div class="input-group">
-                                <div class="dropdown">
-                                    <button class="btn btn-md qna-dropdown-button dropdown-toggle" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown">제목<i class="fa-solid fa-angle-down ms-2"></i></button>
-                                    <ul class="dropdown-menu qna-dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#">제목</a></li>
-                                        <li><a class="dropdown-item" href="#">내용</a></li>
-                                        <li><a class="dropdown-item" href="#">제목+내용</a></li>
-                                    </ul>
-                                </div>
-                                <input type="search" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="검색어를 입력하세요.">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                
-                            </div>
-                        </div>
+										<form th:action="@{/customer/qna}" method="get" name="qnaForm">
+	                                    <div class="qna-form-tag">
+				                            <div class="input-group">
+												<select name="searchKey" style="border: 0px; margin-right: 20px;">
+													<option value="serviceQueTitle">제목</option>
+													<option value="serviceQueContent">내용</option>
+												</select>
+				                                <input type="search" class="form-control" id="exampleFormControlInput1"
+				                                placeholder="검색어를 입력하세요." name="searchValue">
+				                                <button type="button" onclick="sendIt();" style="border: 0;"><i class="fa-solid fa-magnifying-glass"></i></button>
+				                            </div>
+	                        			</div>
+	                        			</form>
                                     </div>                            
                                     
                                     <div class="qna-about dashboard-bg-box">
                 <!-- Bordered Table -->  
                                       <div>
-
                                           <table class="table table-bordered">
                                             <thead>
                                               <tr>
@@ -210,16 +205,20 @@
                                             <tbody>
                                             
                                               <tr th:if="${#lists.size(lists)>0}" th:each="queDto:${lists}">
-                                                <td class="state" th:if="${queDto.serviceAnswer==null}">미답변</td>
-                                                <td class="state" th:if="${queDto.serviceAnswer!=null}">답변완료</td>
+                                                <td class="state" th:if="${queDto.serviceAnswer==null}">
+                                                <span style="color: #fff; background: #ff7272; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">미답변</span></td>
+                                                <td class="state" th:if="${queDto.serviceAnswer!=null}">
+                                                <span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">답변완료</span></td>
                                                 <td class="title"><a th:text="${queDto.serviceQueTitle}" th:href="@{/}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
-                                              	
                                                 <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}"></td>
+                                              </tr>
+                                              <tr th:unless="${#lists.size(lists)>0}">
+                                              	<td colspan="3">검색결과가 없습니다.</td>
                                               </tr>
                                               
                                             </tbody>
                                           </table>
-                                    
+                                    	</form>
                                       </div>
                 <!--/ Bordered Table -->
                                     </div>        
@@ -594,7 +593,12 @@
     <!-- script js -->
     <script src="/assets/js/script.js"></script>
 
-
+	<script type="text/javascript">
+		function sendIt(){
+			var f = document.qnaForm;
+			f.submit();
+		}
+	</script>
 
 
 <!-- 모달창에 주소API 넣는거 힘들면 그냥 같은 페이지인데 input으로 하는걸로 하나 더 만들어서 쓰는게 나을거같음 -->

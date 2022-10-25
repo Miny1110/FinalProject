@@ -88,9 +88,10 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Page<ServiceQuestionDto> getQnaList(String customerEmail, int pageNum) {
+	public Page<ServiceQuestionDto> getQnaList(String customerEmail, String searchKey, String searchValue,
+			int pageNum) {
 		PageHelper.startPage(pageNum, 2);
-		return customerMapper.getQnaList(customerEmail, pageNum);
+		return customerMapper.getQnaList(customerEmail, searchKey, searchValue, pageNum);
 	}
 
 

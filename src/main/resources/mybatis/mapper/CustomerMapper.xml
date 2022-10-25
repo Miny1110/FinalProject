@@ -182,6 +182,7 @@
 	 		a.serviceQueNum,
 	 		a.serviceQueTitle,
 	 		a.serviceQueDate,
+	 		a.serviceQueContent,
 	 		b.serviceAnsContent
 	 	from
 	 		serviceQuestion a left join serviceAnswer b
@@ -189,6 +190,12 @@
 	 		a.serviceQueNum=b.serviceQueNum
 	 	where
 	 		customerEmail=#{customerEmail}
+	 	<if test="searchKey == 'serviceQueTitle'">
+            AND serviceQueTitle LIKE '%'||#{searchValue}||'%'
+        </if>
+        <if test="searchKey == 'serviceQueContent'">
+            AND serviceQueContent LIKE '%'||#{searchValue}||'%'
+        </if>
 	 	order by
 	 		serviceQueNum desc
 	 </select>

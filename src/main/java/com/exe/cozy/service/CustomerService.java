@@ -27,5 +27,5 @@ public interface CustomerService {
 //	public List<ReplyDto> getReviewList(String customerEmail);
 	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum);
 	
-	public Page<ServiceQuestionDto> getQnaList(String customerEmail, int pageNum);
+	public Page<ServiceQuestionDto> getQnaList(@Param("customerEmail")String customerEmail,@Param("searchKey")String searchKey,@Param("searchValue")String searchValue, @Param("pageNum")int pageNum);
 }

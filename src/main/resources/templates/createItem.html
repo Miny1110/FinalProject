@@ -134,11 +134,11 @@
                                 </div>
                             </div><br>
                             <div class="col-12">
-                                <h3><b>할인가격</b></h3><br>
+                                <h3><b>할인가격</b><a style="font-size:15px">(원)</a></h3><br>
                                 <div class="form-floating theme-form-floating">
                                     <input type="url" class="form-control" id="review1" name="itemDiscount"
                                         placeholder="Give your review a title">
-                                    <label for="review1">할인가격</label>
+                                    <label for="review1">할인하려는 금액을 기입해주세요</label>
                                 </div>
                             </div>
                             <br /><br />
@@ -206,10 +206,12 @@
                                 <div class="col-12">
                                     <h3><b>오늘의 딜 적용 여부</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 적용" onclick='checkOnlyOne(this)'>
-                                        	&nbsp;&nbsp;&nbsp;<b>오늘의 딜 적용</b>
-                                        <input type="checkbox" name="todaydeal" value="오늘의 딜 미적용" onclick='checkOnlyOne(this)'>
-                                        	&nbsp;&nbsp;&nbsp;<b>오늘의 딜 미적용</b>
+                                        <input type="radio" name="todaydeal" id="todaydeal1" 
+                                        	value="오늘의 딜 적용" onclick='checkOnlyOne(this)'>
+                                        	<b>오늘의 딜 적용</b>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="todaydeal" id="todaydeal2" 
+                                        	value="오늘의 딜 미적용" onclick='checkOnlyOne(this)'>
+                                        	<b>오늘의 딜 미적용</b>&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </div>
                                 <hr>
@@ -217,12 +219,15 @@
                                 <div class="col-12">
                                     <h3><b>판매 상태 여부</b></h3><br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="checkbox" name="itemState" value="판매중" onclick='checkOnlyOne2(this)'>
-                                        	&nbsp;&nbsp;&nbsp;<b>판매중</b>
-                                        <input type="checkbox" name="itemState" value="판매중지" onclick='checkOnlyOne2(this)'>
-                                        	&nbsp;&nbsp;&nbsp;<b>판매중지</b>
-                                        <input type="checkbox" name="itemState" value="일시품절" onclick='checkOnlyOne2(this)'>
-                                        	&nbsp;&nbsp;&nbsp;<b>일시품절</b>
+                                        <input type="radio" name="itemState" id="itemState1"
+                                        	value="판매중" onclick='checkOnlyOne2(this)'>
+                                        	<b>판매중</b>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="itemState" id="itemState2"
+                                        	value="판매중지" onclick='checkOnlyOne2(this)'>
+                                        	<b>판매중지</b>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="itemState" id="itemState3"
+                                        	value="일시품절" onclick='checkOnlyOne2(this)'>
+                                        	<b>일시품절</b>&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </div>
                                 <hr>
@@ -240,7 +245,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="싱글">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_single" name="itemSize" value="싱글">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">싱글</span>
                                                 </label>
@@ -249,7 +254,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;"> 
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="슈퍼싱글">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_superSingle" name="itemSize" value="슈퍼싱글">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">슈퍼싱글</span>
                                                 </label>
@@ -258,7 +263,7 @@
                                         <br/>
                                        	<li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="더블">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_double" name="itemSize" value="더블">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">더블</span>
                                                 </label>
@@ -267,7 +272,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="퀸">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_queen" name="itemSize" value="퀸">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">퀸</span>
                                                 </label>
@@ -276,7 +281,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="킹">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_king" name="itemSize" value="킹">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">킹</span>
                                                 </label>
@@ -285,7 +290,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="S">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_s" name="itemSize" value="S">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">S</span>
                                                 </label>
@@ -294,7 +299,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="M">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_m" name="itemSize" value="M">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">M</span>
                                                 </label>
@@ -303,7 +308,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="L">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_l" name="itemSize" value="L">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">L</span>
                                                 </label>
@@ -312,7 +317,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="XL">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_xl" name="itemSize" value="XL">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">XL</span>
                                                 </label>
@@ -321,7 +326,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemSize" value="옵션없음">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemSize_noOption" name="itemSize" value="옵션없음">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">옵션없음</span>
                                                 </label>
@@ -339,7 +344,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블랙">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_black" name="itemColor" value="블랙">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">블랙</span>
                                                 </label>
@@ -348,7 +353,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="화이트">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_white" name="itemColor" value="화이트">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">화이트</span>
                                                 </label>
@@ -357,7 +362,7 @@
                                         <br/>
                                        	<li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="우드">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_wood" name="itemColor" value="우드">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">우드</span>
                                                 </label>
@@ -366,7 +371,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="레드">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_red" name="itemColor" value="레드">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">레드</span>
                                                 </label>
@@ -375,7 +380,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="블루">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_blue" name="itemColor" value="블루">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">블루</span>
                                                 </label>
@@ -384,7 +389,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="그린">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_green" name="itemColor" value="그린">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">그린</span>
                                                 </label>
@@ -393,7 +398,7 @@
                                         <br/>
                                         <li style="margin-left: 10%;">
                                             <div>
-                                            <input class="checkbox_animated" type="checkbox"  id="itemSize" name="itemColor" value="옵션없음">
+                                            <input class="checkbox_animated" type="checkbox"  id="itemColor_noOption" name="itemColor" value="옵션없음">
                                                 <label class="form-check-label" for="fruit">
                                                     <span class="name">옵션없음</span>
                                                 </label>
@@ -942,36 +947,6 @@
 	</script>
 
 	<script type="text/javascript">
-	
-	function checkOnlyOne(element) {
-		  
-		  const checkboxes 
-		      = document.getElementsByName("todaydeal");
-		  
-		  checkboxes.forEach((cb) => {
-		    cb.checked = false;
-		  })
-		  
-		  element.checked = true;
-		}
-	</script>
-	
-	<script type="text/javascript">
-	function checkOnlyOne2(element) {
-		  
-		  const checkboxes 
-		      = document.getElementsByName("itemState");
-		  
-		  checkboxes.forEach((cb) => {
-		    cb.checked = false;
-		  })
-		  
-		  element.checked = true;
-		}
-	</script>
-	
-
-	<script type="text/javascript">
 
 	//function sendIt() {
 		
@@ -1057,9 +1032,67 @@
 		}
 		f.itemStock.value = str;
 		
+		str = f.todaydeal.value;
+		if(!str) {
+			alert("\n오늘의 딜 적용여부를 입력하세요");
+			f.todaydeal.focus();
+			return;
+		}
+		
+		str = f.itemState.value;
+		if(!str) {
+			alert("\n판매상태 적용여부를 입력하세요");
+			f.itemState.focus();
+			return;
+		}
+		
+		str = f.itemState.value;
+		if(!str) {
+			alert("\n판매상태 적용여부를 입력하세요");
+			f.itemState.focus();
+			return;
+		}
+		
+		
+		var chk1 = $('#itemSize_single').is(":checked");
+		var chk2 = $('#itemSize_superSingle').is(":checked");
+		var chk3 = $('#itemSize_double').is(":checked");
+		var chk4 = $('#itemSize_queen').is(":checked");
+		var chk5 = $('#itemSize_king').is(":checked");
+		var chk6 = $('#itemSize_s').is(":checked");
+		var chk7 = $('#itemSize_m').is(":checked");
+		var chk8 = $('#itemSize_l').is(":checked");
+		var chk9 = $('#itemSize_xl').is(":checked");
+		var chk10 = $('#itemSize_noOption').is(":checked");
+		 
+		if(!chk1 && !chk2 && !chk3 && !chk4 && !chk5 && !chk6 && !chk7 && !chk8 && !chk9 && !chk10){
+			alert("사이즈 옵션을 선택해주세요.");
+			event.preventDefault();
+			return;
+		}
+		
+		var confirm1 = $(itemColor_black).is(":checked");
+		var confirm2 = $(itemColor_white).is(":checked");
+		var confirm3 = $(itemColor_wood).is(":checked");
+		var confirm4 = $(itemColor_red).is(":checked");
+		var confirm5 = $(itemColor_blue).is(":checked");
+		var confirm6 = $(itemColor_green).is(":checked");
+		var confirm7 = $(itemColor_noOption).is(":checked");
+		
+		if(!confirm1 && !confirm2 && !confirm3 && !confirm4 && !confirm5 && !confirm6 && !confirm7){
+			alert("색상 옵션을 선택해주세요.");
+			event.preventDefault();
+			return;
+		}
+		
 		f.submit();
+		
+		
 	}
 </script>
+
+
+
 </body>
 
 </html>

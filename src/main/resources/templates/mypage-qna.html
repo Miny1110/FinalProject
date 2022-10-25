@@ -188,7 +188,7 @@
                                     </ul>
                                 </div>
                                 <input type="search" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="name@example.com">
+                                    placeholder="검색어를 입력하세요.">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 
                             </div>
@@ -198,29 +198,25 @@
                                     <div class="qna-about dashboard-bg-box">
                 <!-- Bordered Table -->  
                                       <div>
-                                        
+
                                           <table class="table table-bordered">
                                             <thead>
                                               <tr>
-                                                <th class="num">글번호</th>
+                                                <th class="state">답변상태</th>
                                                 <th class="title">제목</th>
                                                 <th class="date">작성일</th>
-                                                <th class="state">답변상태</th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                              <tr>
-                                                <td class="num">2</td>
-                                                <td class="title">문의합니다아아아아아아앙</td>
-                                                <td class="date">yyyy-mm-dd</td>
-                                                <td class="state">미답변</td>
+                                            
+                                              <tr th:if="${#lists.size(lists)>0}" th:each="queDto:${lists}">
+                                                <td class="state" th:if="${queDto.serviceAnswer==null}">미답변</td>
+                                                <td class="state" th:if="${queDto.serviceAnswer!=null}">답변완료</td>
+                                                <td class="title"><a th:text="${queDto.serviceQueTitle}" th:href="@{/}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
+                                              	
+                                                <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}"></td>
                                               </tr>
-                                              <tr>
-                                                <td class="num">1</td>
-                                                <td class="title">문의합니다아아아아아아앙</td>
-                                                <td class="date">yyyy-mm-dd</td>
-                                                <td class="state">답변완료</td>
-                                              </tr>
+                                              
                                             </tbody>
                                           </table>
                                     
@@ -229,28 +225,36 @@
                                     </div>        
 
                                     <nav class="custome-pagination">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
-                                                    <i class="fa-solid fa-angles-left"></i>
-                                                </a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="javascript:void(0)">1</a>
-                                            </li>
-                                            <li class="page-item" aria-current="page">
-                                                <a class="page-link" href="javascript:void(0)">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0)">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="javascript:void(0)">
-                                                    <i class="fa-solid fa-angles-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </nav>                       
+	                                    <ul class="pagination justify-content-center">
+	                                    	
+											<li class="page-item" th:if="${page.navigateFirstPage>1}">
+	                                            <a class="page-link" th:href="@{/customer/qna(pageNum=${page.navigateFirstPage-1})}">
+	                                                <i class="fa-solid fa-angles-left"></i>
+	                                            </a>
+	                                        </li>
+											<li class="page-item" th:unless="${page.navigateFirstPage>1}">
+	                                        </li>
+	                                        
+	                                        
+	                                        <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
+	                                        	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
+	                                        </li> -->
+	                                        <li class="page-item" th:if="${page.startRow!=0}"
+	                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+	                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+	                                        	<a class="page-link" th:text="${pages}" th:href="@{/customer/qna(pageNum=${pages})}"></a>
+	                                        </li>
+	                                        
+	                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+	                                            <a class="page-link" th:href="@{/customer/qna(pageNum=${page.navigateLastPage+1})}">
+	                                                <i class="fa-solid fa-angles-right"></i>
+	                                            </a>
+	                                        </li>
+	                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+	                                        </li>
+	                                        
+	                                    </ul>
+                                	</nav>             
                                 </div>
                             </div>
                         </div>

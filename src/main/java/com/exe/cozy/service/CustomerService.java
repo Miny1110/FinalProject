@@ -2,8 +2,11 @@ package com.exe.cozy.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.github.pagehelper.Page;
 
 public interface CustomerService {
@@ -23,4 +26,6 @@ public interface CustomerService {
 	
 //	public List<ReplyDto> getReviewList(String customerEmail);
 	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum);
+	
+	public Page<ServiceQuestionDto> getQnaList(String customerEmail, int pageNum);
 }

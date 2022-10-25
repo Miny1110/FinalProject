@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mapper.CustomerMapper;
 import com.exe.cozy.service.CustomerService;
 import com.github.pagehelper.Page;
@@ -85,4 +86,12 @@ public class CustomerServiceImpl implements CustomerService {
 		PageHelper.startPage(pageNum, 5);
 		return customerMapper.getReviewPaging(customerEmail, pageNum);
 	}
+
+	@Override
+	public Page<ServiceQuestionDto> getQnaList(String customerEmail, int pageNum) {
+		PageHelper.startPage(pageNum, 2);
+		return customerMapper.getQnaList(customerEmail, pageNum);
+	}
+
+
 }

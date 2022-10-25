@@ -27,6 +27,7 @@ import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mail.MailService;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
@@ -278,13 +279,24 @@ public class CustomerController {
     //마이페이지 문의답변
     @PreAuthorize("isAuthenticated")
     @GetMapping("qna")
-    public ModelAndView qna(Principal principal) {
+    public ModelAndView qna(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
+    	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), pageNum);
+    	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
+    	System.out.println(lists);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
     	mav.addObject("customerDto", customerDto);
+    	mav.addObject("lists", lists);
+    	mav.addObject("page", page);
     	mav.setViewName("mypage-qna");
     	
     	return mav;

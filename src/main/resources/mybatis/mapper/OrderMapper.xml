@@ -13,11 +13,11 @@
     <!-- 결제하기 누르면 insert되게 하기-->
     <insert id="insertOrder" parameterType="OrderDto">
         insert into cozyOrder (
-                               orderNum,customerEmail,itemNum,deliverNum,cartNum,
+                               orderNum,customerEmail,itemNum,
                           itemQty,orderState,payment,deliverCost,deliverName,deliverRAddr,
                                deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverMessage,orderDate,usePoint,
                           itemColor,itemSize) values (#{orderNum, jdbcType=NUMERIC}, #{customerEmail, jdbcType=VARCHAR}, #{itemNum, jdbcType=NUMERIC},
-                                                      0, 1, #{itemQty, jdbcType=NUMERIC},
+                                                       #{itemQty, jdbcType=NUMERIC},
                                                       '주문완료',
                                                       #{payment, jdbcType=VARCHAR}, 2500, #{deliverName, jdbcType=VARCHAR}, #{deliverRAddr, jdbcType=VARCHAR}, #{deliverJAddr, jdbcType=VARCHAR},
                                                       #{deliverDAddr, jdbcType=VARCHAR}, #{deliverZipCode, jdbcType=VARCHAR},

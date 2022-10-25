@@ -35,7 +35,7 @@ itemSize varchar2(100));
 CREATE TABLE CART
 (CARTNUM NUMBER(8) PRIMARY KEY,
 ITEMNUM NUMBER(8),
-CUSTOMEREMAIL VARCHAR2(20),
+CUSTOMEREMAIL VARCHAR2(100),
 ITEMQTY NUMBER(20),
 FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL),
 FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
@@ -124,11 +124,30 @@ itemQnaCreate date,
 itemQnaContent varchar2(4000),
 customerEmail varchar2(4000));
 
+//고객센터질문
+CREATE TABLE serviceQuestion
+(serviceQueNum NUMBER(8) PRIMARY KEY,
+CUSTOMEREMAIL VARCHAR2(100),
+serviceQueTitle varchar2(500),
+serviceQueContent varchar2(4000),
+serviceQueDate date,
+FOREIGN KEY (CUSTOMEREMAIL) REFERENCES customer(CUSTOMEREMAIL)
+ON DELETE CASCADE);
+
+//고객센터답변
+CREATE TABLE serviceAnswer
+(serviceAnsNum NUMBER(8) PRIMARY KEY,
+serviceQueNum NUMBER(8),
+serviceAnsContent varchar2(4000),
+serviceAnsDate date,
+FOREIGN KEY (serviceQueNum) REFERENCES serviceQuestion(serviceQueNum)
+ON DELETE CASCADE);
+
 //주문
 CREATE TABLE COZYORDER
 (orderNum VARCHAR2(100) PRIMARY KEY,
 itemNum NUMBER(8),
-customerEmail VARCHAR2(20),
+customerEmail VARCHAR2(100),
 itemQty NUMBER(8),
 payment VARCHAR2(20), 
 orderState VARCHAR2(20),

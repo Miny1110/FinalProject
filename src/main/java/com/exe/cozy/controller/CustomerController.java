@@ -38,6 +38,7 @@ import com.exe.cozy.util.AlertRedirect;
 import com.exe.cozy.util.CreatePoint;
 import com.exe.cozy.util.CustomerChk;
 import com.exe.cozy.util.DeliveryDupChk;
+import com.exe.cozy.util.Enter;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -55,6 +56,7 @@ public class CustomerController {
 	@Autowired CustomerChk customerChk;
 	@Autowired DeliveryDupChk deliveryDupChk;
 	@Autowired CreatePoint createPoint;
+	@Autowired Enter enter;
     
 	//이메일 중복확인
     @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
@@ -290,9 +292,14 @@ public class CustomerController {
     	int pageNum = Integer.parseInt(pageNumStr);
     	
     	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
     	String searchValue = req.getParameter("searchValue");
-    	System.out.println(searchKey);
-    	System.out.println(searchValue);
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
     	
     	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), searchKey, searchValue, pageNum);
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
@@ -322,6 +329,7 @@ public class CustomerController {
     	int pageNum = Integer.parseInt(pageNumStr);
     	
     	Page<ReplyDto> lists = customerService.getReviewPaging(principal.getName(), pageNum);
+//    	lists = enter.printEnter(lists);
     	
     	PageInfo<ReplyDto> page = new PageInfo<>(lists,3);
     	
@@ -329,7 +337,6 @@ public class CustomerController {
     	
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
-    	System.out.println(lists);
     	mav.addObject("page", page);
     	
     	mav.setViewName("mypage-review");
@@ -347,6 +354,7 @@ public class CustomerController {
     	String pageNumStr = req.getParameter("pageNum");
     	int pageNum = Integer.parseInt(pageNumStr);
     	
+//    	rdto = enter.insertEnter(rdto);
     	replyService.updateReply(rdto);
     	
     	mav.addObject("pageNum", pageNum);

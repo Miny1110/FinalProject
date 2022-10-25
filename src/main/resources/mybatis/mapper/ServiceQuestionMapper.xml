@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.ServiceQuestionMapper">
+
+	<!--새 문의 번호 -->
+	<select id="serviceQueMaxNum" resultType="int">		
+		select nvl(max(serviceQueNum),0)
+		from serviceQuestion	
+	</select>
+
+	<!-- 문의등록 -->
+	<insert id="insertServiceQue" parameterType="ServiceQuestionDto">		
+		insert into serviceQuestion (serviceQueNum, customerEmail, serviceQueTitle, serviceQueContent ,serviceQueDate)
+		values (#{serviceQueNum}, #{customerEmail}, #{serviceQueTitle}, #{serviceQueContent}, sysdate)	
+	</insert>
+
+	<!-- 문의확인 -->
+	<select id="findServiceQue" parameterType="int" resultType="ServiceQuestionDto">	
+		select * from serviceQuestion
+		where serviceQueNum = #{serviceQueNum}
+	</select>
+
+	<!--QuestionNum 으로 읽기 -->
+	<select id="getReadServiceQueData" parameterType="int" resultType="ServiceQuestionDto">
+		select serviceQueNum, customerEmail, serviceQueTitle, serviceQueContent, serviceQueDate from serviceQuestion
+		where serviceQueNum=#{serviceQueNum}
+	</select>
+	
+	
+	
+	<resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">
+		<result column="serviceQueNum" property="serviceQueNum" />
+		<result column="customerEmail" property="customerEmail" />
+		<result column="serviceQueTitle" property="serviceQueTitle" />
+		<result column="serviceQueContent" property="serviceQueContent" />
+		<result column="serviceQueDate" property="serviceQueDate" />
+		<collection property="serviceAnswer" resultMap="ServiceAnswerDto"></collection>
+	</resultMap>
+	
+	<resultMap type="ServiceAnswerDto" id="ServiceAnswerDto">
+		<result column="serviceAnsNum" property="serviceAnsNum" />
+		<result column="serviceQueNum" property="serviceQueNum" />
+		<result column="serviceAnsContent" property="serviceAnsContent" />
+		<result column="serviceAnsDate" property="serviceAnsDate" />
+	</resultMap>
+	
+
+	<select id="getReadServiceQuePaging" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">
+		select 
+			a.serviceQueNum,
+			a.customerEmail, 
+			a.serviceQueTitle,
+			a.serviceQueContent,
+			a.serviceQueDate,
+			 b.serviceAnsNum, 
+			 b.serviceAnsContent, 
+			 b.serviceAnsDate
+		FROM 
+			serviceQuestion a left join serviceAnswer b 
+		on 
+			a.serviceQueNum =b.serviceQueNum 
+		order by 
+			a.serviceQueNum desc
+	</select>
+
+
+	<!-- 문의수정 -->
+	<update id="updateServiceQue" parameterType="ServiceQuestionDto">
+		update serviceQuestion set serviceQueTitle=#{serviceQueTitle},serviceQueContent=#{serviceQueContent},serviceQueDate= sysdate 
+		where serviceQueNum = #{serviceQueNum}
+	</update>
+
+
+	<!-- 문의삭제 -->
+	<delete id="deleteServiceQue" parameterType="int">
+		delete serviceQuestion where
+		serviceQueNum = #{serviceQueNum}
+	</delete>
+
+</mapper>

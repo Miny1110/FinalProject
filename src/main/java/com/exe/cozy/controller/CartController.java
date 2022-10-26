@@ -1,6 +1,8 @@
 package com.exe.cozy.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,12 +12,12 @@ import com.exe.cozy.service.CartService;
 import com.exe.cozy.service.CustomerService;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -25,8 +27,10 @@ private CartService cartService;
 
 @Resource
     CustomerService customerService;
+@Resource
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-/*@GetMapping("/cart")
+@GetMapping("/cart")
 public ModelAndView cart(HttpServletRequest request,@ModelAttribute CartDto cdto,ItemDetailDto idto){
 
     String customerEmail = "eunjis";
@@ -47,24 +51,27 @@ public ModelAndView cart(HttpServletRequest request,@ModelAttribute CartDto cdto
 
     mav.setViewName("cart");
     return mav;
-}*/
+}
 @PostMapping("/cart_ok")
-public ModelAndView cart_ok(HttpSession session, @ModelAttribute ItemDetailDto idto,@ModelAttribute CartDto cdto, HttpServletRequest request, HttpServletResponse response){
+@ResponseBody
+public ModelAndView  cart_ok(HttpSession session,
+@ModelAttribute ItemDetailDto idto, HttpServletRequest request) throws IOException {
 ModelAndView mav = new ModelAndView();
+//제이슨으로 받은 데이터 바꾸기
+    ServletInputStream inputStream = request.getInputStream();
+    String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+    CartDto cdto = objectMapper.readValue(messageBody, CartDto.class);
 
-    int itemNum = Integer.parseInt(request.getParameter("num"));
-    int itemQty = Integer.parseInt((request.getParameter("itemQty")));
-    String param = "itemNum="+ itemNum;
 //세션 진행할때 풀기
     // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
-    String customerEmail="eunji";
-    cartService.insertCart(cdto);
+    String customerEmail="eunjis";
     int cartNum = cartService.cartMaxNum();
-    cdto.setCartNum(cartNum+1);
-    cdto.setItemNum(itemNum);
-    cdto.setItemQty(itemQty);
 
-    mav.setViewName("redirect:itemDetail?"+param);
+    cdto.setCartNum(cartNum+1);
+    cdto.setCustomerEmail(customerEmail);
+    cartService.insertCart(cdto);
+
+    mav.setViewName("redirect:cart");
 
 
 

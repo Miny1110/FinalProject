@@ -123,13 +123,11 @@ public class OrderController {
 
 
         odto.setCustomerEmail(customerEmail);
-        odto.setCartNum(1);
-        odto.setDeliverNum(0);
-        orderService.insertOrder(odto);
-
-        orderDetailService.insertOd(oddto);
         int odMaxNum = orderDetailService.odMaxNum();
         oddto.setOdNum(odMaxNum+1);
+
+        orderService.insertOrder(odto);
+        orderDetailService.insertOd(oddto);
         mav.setViewName("redirect:success_order");
 
         return mav;

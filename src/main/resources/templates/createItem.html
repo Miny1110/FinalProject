@@ -978,6 +978,15 @@
 			f.itemSubType.focus();
 			return;
 		}
+		
+		str = f.itemDiscount.value;
+		str = str.trim();
+		if(!str) {
+			alert("\n할인가격을 입력해주세요.(입력 필수, 0원부터 입력가능)");
+			f.itemDiscount.focus();
+			return;
+		}
+		f.itemDiscount.value = str;
 	
 		str = f.itemPrice.value;
 		str = str.trim();

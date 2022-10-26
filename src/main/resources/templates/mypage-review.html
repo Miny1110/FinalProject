@@ -428,12 +428,6 @@
 		var rating = $("#ratingEdit").val();
         var content = $("#contentEdit").val();
         
-    	content = content.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-    	alert(content);
-    	
-    	content = content.replaceAll("<br/>", "\r\n");
-    	$("#contentEdit").val() = content;
-        
 		//입력창이 하나라도 비어있으면
         if(!rating || !content){
         	alert("내용을 입력해주세요.");

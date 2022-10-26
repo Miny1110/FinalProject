@@ -8,6 +8,6 @@ public interface CategoryService {
 	 public int CategoryMaxNum() throws Exception;
 	 
 	 /*카테고리 화면 보여주기*/
-	 public int selectCategory(ItemDetailDto iDto);
+	 public ItemDetailDto selectCategory(String itemMainType, String itemSubType);
 	 
 }

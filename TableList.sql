@@ -143,12 +143,11 @@ serviceAnsDate date,
 FOREIGN KEY (serviceQueNum) REFERENCES serviceQuestion(serviceQueNum)
 ON DELETE CASCADE);
 
-//주문
+//---------------------------------------------------------------------------------------------------------------
+//주문(공통정보)
 CREATE TABLE COZYORDER
 (orderNum VARCHAR2(100) PRIMARY KEY,
-itemNum NUMBER(8),
 customerEmail VARCHAR2(100),
-itemQty NUMBER(8),
 payment VARCHAR2(20), 
 orderState VARCHAR2(20),
 deliverCost number(10),
@@ -161,7 +160,17 @@ deliverTel VARCHAR2(45),
 deliverMessage VARCHAR2(100),
 orderDate date default sysdate,
 usePoint number(10),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
+
+//주문상세(주문상품정보)
+create table orderdetail
+(odnum NUMBER(8) primary Key,
+orderNum VARCHAR2(100),
+itemNum number(8),
+itemQty NUMBER(8),
 itemColor VARCHAR2(40),
 itemSize VARCHAR2(40),
-FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
-FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
+FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
+FOREIGN KEY (itemNum) REFERENCES item(itemNum));
+
+

@@ -118,12 +118,12 @@ function payOrder(){
                 }), beforeSend: function (jqXHR) {
                     jqXHR.setRequestHeader(header, token);
                 },
-                success: function(data){
-                    let msg = "결제가 완료되었습니다.\n";
+                success: function(){
 
+                    let msg = "결제가 완료되었습니다.\n";
                     alert(msg);
 
-                    location.href="/success-order";
+                    location.href="/success_order";
                 },error: function (){
                     alert("결제가 정상적으로 진행되지 않았습니다.")
                 }

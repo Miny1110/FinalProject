@@ -293,8 +293,6 @@
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn theme-bg-color btn-sm text-white" type="button" >나의 배송지 추가</button>
-                            <br/>
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
                                 <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
                                 <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
@@ -343,89 +341,85 @@
                             </div>
                             <!--배송지 추가-->
 
+                                                <form name="deliverForm" method="post" th:object="${DeliverDto}">
+                                                    <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">배송지 추가</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i class="fa-solid fa-xmark"></i>
+                                                                    </button>
+                                                                </div>
+
+
+                                                                <div class="modal-body">
+
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName">
+                                                                        <label for="deliverName">주문자</label>
+                                                                        <p id="dnameMsg"></p>
+                                                                    </div>
+
+
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel">
+                                                                        <label for="deliverTel">전화번호</label>
+                                                                        <P id="telMsg"></P>
+                                                                    </div>
 
 
 
-                                <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">배송지 추가</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                                    <i class="fa-solid fa-xmark"></i>
-                                                </button>
-                                            </div>
-
-
-                                            <div class="modal-body">
-
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="deliverName">
-                                                    <label for="deliverName">주문자</label>
-                                                    <p id="dnameMsg"></p>
-                                                </div>
-
-
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel">
-                                                    <label for="deliverTel">전화번호</label>
-                                                    <P id="telMsg"></P>
-                                                </div>
-
-
-
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverZipCode" name="deliverZipCode" placeholder="우편번호">
-                                                    <label for="deliverZipCode">우편번호</label>
-                                                </div>
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-                                                    <br>
-                                                </div>
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr">
-                                                    <label for="deliverRAddr">도로명주소</label>
-                                                    <p id="addrMsg"></p>
-                                                </div>
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverJAddr" placeholder="지번주소" name="deliverJAddr">
-                                                    <label for="deliverJAddr">지번주소</label>
-                                                    <span id="guide" style="color:#999;display:none"></span>
-                                                </div>
-                                                <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr">
-                                                    <label for="deliverDAddr">상세주소</label>
-                                                </div>
-                                                <!--<div class="form-floating mb-4 theme-form-floating">
-                                                    <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
-                                                    <label for="deliverMsg">배송 메세지</label>
-                                                </div>-->
-                                                <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
-
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" class="form-control" id="deliverZipCode" name="deliverZipCode" placeholder="우편번호">
+                                                                        <label for="deliverZipCode">우편번호</label>
+                                                                    </div>
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                                                                        <br>
+                                                                    </div>
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" class="form-control" placeholder="도로명주소" id="deliverRAddr" name="deliverRAddr">
+                                                                        <label for="deliverRAddr">도로명주소</label>
+                                                                        <p id="addrMsg"></p>
+                                                                    </div>
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" class="form-control" id="deliverJAddr" placeholder="지번주소" name="deliverJAddr">
+                                                                        <label for="deliverJAddr">지번주소</label>
+                                                                        <span id="guide" style="color:#999;display:none"></span>
+                                                                    </div>
+                                                                    <div class="form-floating mb-4 theme-form-floating">
+                                                                        <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr">
+                                                                        <label for="deliverDAddr">상세주소</label>
+                                                                    </div>
+                                                                    <!--<div class="form-floating mb-4 theme-form-floating">
+                                                                        <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
+                                                                        <label for="deliverMsg">배송 메세지</label>
+                                                                    </div>-->
+                                                                    <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
 
 
 
 
-                                            </div>
-                                            <div class="modal-footer">
-                                               <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
-                                                <h6>이번만 배송 받기</h6>-->
-                                            <!--    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>-->
-                                                <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
-                                                    <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                    <span class="d-none d-sm-block">여기로 배송받기</span>
-                                                </button>
-                                              <!--  <input type="text" name="itemNum" th:value="${itemNum}" hidden>
-                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>-->
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
+                                                                     <h6>이번만 배송 받기</h6>-->
+                                                                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
+                                                                    <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
+                                                                        <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
+                                                                        <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
+                                                                    </button>
+                                                                    <input type="text" name="itemNum" th:value="${itemNum}" hidden>
+                                                                    <input type="text" name="itemQty" th:value="${itemQty}" hidden>
 
 
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
 
                             <!-- 배송지 추가 끝 -->
@@ -1217,6 +1211,12 @@
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/payment.js"></script>
+        <script>
+            function addComma(num) {
+                var regexp = /\B(?=(\d{3})+(?!\d))/g;
+                return num.toString().replace(regexp, ',');
+            }
+        </script>
 
         <script>
             //총가격 구하기
@@ -1226,13 +1226,16 @@
             })
             function price(){
                 let totalPrice= $('#totalPrice').val();
-                $('#pointTotalPrice').html(totalPrice)
+                $('#pointTotalPrice').val(totalPrice)
+                $('#pointTotalPrice').html(addComma(totalPrice)+" 원")
 
             }
         </script>
+
         <script>
-        //포인트
-            $("button").click(function point() {
+            //포인트
+            function point() {
+
                 let use = $('#use').val(); //사용할 포인트
                 let check = $('#checkPoint').val();
                 let usePoint = parseInt(use);
@@ -1245,20 +1248,22 @@
                 }
                 $('#usePoint').html(usePoint)
 
-               $(document).ready(function price() {
-                   let pointTotalPrice=$('#totalPrice').val();
-                   let use = $('#use').val(); //사용할 포인트
-                   let usePoint = parseInt(use);
+                $(document).ready(function price() {
 
-                   if (use !== null) {
-                       pointTotalPrice = pointTotalPrice - usePoint
-                   }
+                    let pointTotalPrice=$('#totalPrice').val();
+                    let use = $('#use').val(); //사용할 포인트
+                    let usePoint = parseInt(use);
 
-                     $('#pointTotalPrice').html(pointTotalPrice)
+                    if (use !== null) {
+                        pointTotalPrice = pointTotalPrice - usePoint
+                    }
+                    $('#pointTotalPrice').val(pointTotalPrice)
+                    $('#pointTotalPrice').html(addComma(pointTotalPrice)+" 원")
 
-                 })
-            })
+                })
+            }
         </script>
+
 
         <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js">//결제Import</script>
 

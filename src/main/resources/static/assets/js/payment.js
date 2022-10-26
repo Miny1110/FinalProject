@@ -66,7 +66,7 @@ function payOrder(){
         pay_method:payMethod,
         merchant_uid: 'cozy'+new Date().getTime(), //고유 order
         name: $('#itemName').html() , //item 이름
-        amount: $('#pointTotalPrice').html(), //총 가격
+        amount: $('#pointTotalPrice').val(), //총 가격
         buyer_email: $('#customerEmail').val() ,//구매자 메일
         buyer_name: $('#customerName').val(), //구매자 이름
         buyer_tel: $('#customerTel').html() ,
@@ -118,7 +118,7 @@ function payOrder(){
                 }), beforeSend: function (jqXHR) {
                     jqXHR.setRequestHeader(header, token);
                 },
-                success: function(){
+                success: function(data){
 
                     let msg = "결제가 완료되었습니다.\n";
                     alert(msg);

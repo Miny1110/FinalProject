@@ -89,6 +89,7 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Cart Section Start -->
+
 <section class="cart-section section-b-space" >
     <div class="container-fluid-lg">
         <div class="row g-sm-5 g-3">
@@ -254,8 +255,8 @@
                     <ul class="summery-total">
                         <li class="list-total border-top-0">
                             <h4>전체 주문금액</h4>
-                            <input type="hidden" id="totalPrice" >
-                                <h4 class="price theme-color" id="pointTotalPrice" onload="price()"></h4>
+                            <input type="hidden" id="totalPrice" name="totalPrice">
+                                <h4 class="price theme-color"  id="pointTotalPrice" onload="price()"></h4>
 
 
                         </li>
@@ -280,6 +281,13 @@
         </div>
     </div>
 </section>
+    <!--cartOrder에 넘길거
+    1.customerEmail / 2.전체 주문금액/ 3.전체 할인금액
+    -->
+
+    <input type="hidden" id="customerEmail" name="customerEmail" th:value="${cdto.customerEmail}" >
+
+
 <!-- Cart Section End -->
 
 

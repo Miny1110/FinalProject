@@ -147,7 +147,7 @@ ON DELETE CASCADE);
 //주문(공통정보)
 CREATE TABLE COZYORDER
 (orderNum VARCHAR2(100) PRIMARY KEY,
-customerEmail VARCHAR2(20),
+customerEmail VARCHAR2(100),
 payment VARCHAR2(20), 
 orderState VARCHAR2(20),
 deliverCost number(10),

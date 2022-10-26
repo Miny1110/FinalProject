@@ -12,4 +12,8 @@ public class OrderDetailDto {
     private int itemQty;
     private String itemColor;
     private String itemSize;
+    
+    //join에 필요
+    private OrderDto orderDto;
+    private ItemDetailDto itemDto;
 }

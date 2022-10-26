@@ -25,6 +25,8 @@ import com.exe.cozy.DataNotFoundException;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
+import com.exe.cozy.domain.OrderDetailDto;
+import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
@@ -227,14 +229,41 @@ public class CustomerController {
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order")
-    public ModelAndView order(Principal principal) {
+    public ModelAndView order(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
 
+    	Page<OrderDto> orderList = customerService.getOrderList(principal.getName(), pageNum);
+    	PageInfo<OrderDto> page = new PageInfo<>(orderList,3);
+    	List<OrderDto> orderDetailList = customerService.getOrderDetailList(principal.getName());
+    	
+    	mav.addObject("page", page);
     	mav.addObject("customerDto", customerDto);
+    	mav.addObject("orderList", orderList);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("mypage-order");
+    	
+    	return mav;
+    }
+    
+    //마이페이지에서 주문취소
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("cancle")
+    public ModelAndView orderCancle(Principal principal, HttpServletRequest req) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	
+    	
+    	mav.setViewName("redirect:order");
     	
     	return mav;
     }
@@ -242,9 +271,15 @@ public class CustomerController {
     //마이페이지 주문상세조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/detail")
-    public ModelAndView orderDetail() {
+    public ModelAndView orderDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String orderNum = req.getParameter("orderNum");
+    	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
+    	
+    	mav.addObject("odto", odto);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice");
     	
     	return mav;
@@ -301,7 +336,6 @@ public class CustomerController {
     	
     	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), searchKey, searchValue, pageNum);
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
-    	System.out.println(lists);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
     	mav.addObject("customerDto", customerDto);

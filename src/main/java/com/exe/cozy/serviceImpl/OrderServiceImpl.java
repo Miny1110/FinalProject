@@ -22,4 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.insertOrder(odto);
     }
+
+	@Override
+	public void updateState(String orderState, String orderNum) {
+		orderMapper.updateState(orderState, orderNum);
+	}
 }

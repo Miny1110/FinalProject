@@ -94,11 +94,13 @@ function payOrder(){
 
 
             alert(msg)
+           
 
             $.ajax({
                 method:"POST",
                 url: "/order_ok",
                 contentType:'application/json',
+             /*   traditional :true, 배열*/
                 data:JSON.stringify({
                     orderNum:merchant_uid,
                     itemNum:parseInt($('#itemNum').val()),
@@ -123,7 +125,7 @@ function payOrder(){
 
                     location.href="/success-order";
                 },error: function (){
-                    alert("에러발생")
+                    alert("결제가 정상적으로 진행되지 않았습니다.")
                 }
 
             })

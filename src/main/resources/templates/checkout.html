@@ -321,6 +321,7 @@
                                         <ul class="delivery-address-detail">
                                             <li>
                                                 <h4 class="fw-500" th:text="${ddto.getDeliverName()}"></h4>
+                                                <input type="text" th:value="${ddto.getDeliverName()}" id="deliverName" name="deliverName" hidden>
                                             </li>
 
                                             <li>
@@ -359,7 +360,7 @@
                                             <div class="modal-body">
 
                                                 <div class="form-floating mb-4 theme-form-floating">
-                                                    <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName">
+                                                    <input type="text" class="form-control" placeholder="이름을 입력하세요" name="deliverName">
                                                     <label for="deliverName">주문자</label>
                                                     <p id="dnameMsg"></p>
                                                 </div>
@@ -498,7 +499,7 @@
                                             <h4>포인트사용</h4>
                                             <h4 class="price" id="usePoint"></h4>
                                         </li>
-
+                                            <hr/>
 
                                         <li>
                                             <h4>배송비</h4>

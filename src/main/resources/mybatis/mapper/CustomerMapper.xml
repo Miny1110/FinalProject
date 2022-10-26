@@ -117,6 +117,15 @@
 	<select id="getOrderList" resultType="OrderDto" parameterType="String">
 		select * from COZYORDER
 		where customerEmail=#{customerEmail}
+		and not orderState='주문취소'
+		order by orderDate desc
+	</select>
+	
+	<!-- 마이페이지 주문취소조회 리스트 -->
+	<select id="getOrderCancleList" resultType="OrderDto" parameterType="String">
+		select * from COZYORDER
+		where customerEmail=#{customerEmail}
+		and orderState='주문취소'
 		order by orderDate desc
 	</select>
 	
@@ -126,29 +135,6 @@
 	</select>
 	 
 	<!-- 마이페이지 주문조회 상세리스트 -->
-<!-- 	<resultMap type="OrderDto" id="OrderDto">
-		<result column="orderNum" property="orderNum"/>
-		<result column="orderState" property="orderState"/>
-		<result column="deliverCost" property="deliverCost"/>
-		<result column="deliverName" property="deliverName"/>
-		<result column="deliverRAddr" property="deliverRAddr"/>
-		<result column="deliverJAddr" property="deliverJAddr"/>
-		<result column="deliverDAddr" property="deliverDAddr"/>
-		<result column="deliverZipCode" property="deliverZipCode"/>
-		<result column="deliverTel" property="deliverTel"/>
-		<result column="deliverMessage" property="deliverMessage"/>
-		<result column="usePoint" property="usePoint"/>
-		<result column="orderDate" property="orderDate"/>
-		<collection property="detailDto" resultMap="OrderDetailDto"></collection>
-		<collection property="itemDto" resultMap="ItemDetailDto"></collection>
-	</resultMap>
-	
-	<resultMap type="OrderDetailDto" id="OrderDetailDto">
-		<result column="itemQty" property="itemQty"/>
-		<result column="itemColor" property="itemColor"/>
-		<result column="itemSize" property="itemSize"/>
-	</resultMap> -->
-	
 	<resultMap type="OrderDto" id="OrderDto">
 		<result column="orderNum" property="orderNum"/>
 		<result column="orderState" property="orderState"/>
@@ -203,7 +189,7 @@
 		on a.orderNum=b.orderNum
 		join item c
 		on a.itemNum=c.itemNum
-		where customerEmail=#{customerEmail}
+		where customerEmail=#{customerEmail} and not orderState='주문취소'
 	</select>
 	 
 	 <select id="getOrderDetailOne" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
@@ -237,6 +223,40 @@
 		join item c
 		on a.itemNum=c.itemNum
 		where customerEmail=#{customerEmail} and b.orderNum=#{orderNum}
+	</select>
+	
+	<!-- 마이페이지 주문취소조회 상세리스트 --> 
+	<select id="getOrderCancleDetailList" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
+		SELECT
+			a.odNum,
+			a.itemQty,
+			a.itemColor,
+			a.itemSize,
+			b.orderNum,
+			b.orderState,
+			b.deliverCost,
+			b.deliverName,
+			b.deliverRAddr,
+			b.deliverJAddr,
+			b.deliverDAddr,
+			b.deliverZipCode,
+			b.deliverTel,
+			b.deliverMessage,
+			b.orderDate,
+			b.usePoint,
+			c.itemName,
+			c.itemPrice,
+			c.itemDiscount,
+			c.itemNum,
+			(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+			           from file_store fs
+			          where fs.no = c.itemImage1
+			        ) as itemImage1
+		from orderDetail a join COZYORDER b
+		on a.orderNum=b.orderNum
+		join item c
+		on a.itemNum=c.itemNum
+		where customerEmail=#{customerEmail} and orderState='주문취소'
 	</select>
 	 
 	 <!-- 마이페이지 문의내역 리스트 -->

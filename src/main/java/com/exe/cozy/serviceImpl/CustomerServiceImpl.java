@@ -111,5 +111,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getOrderDetailOne(customerEmail, orderNum);
 	}
 
+	@Override
+	public Page<OrderDto> getOrderCancleList(String customerEmail, int pageNum) {
+		PageHelper.startPage(pageNum, 2);
+		return customerMapper.getOrderCancleList(customerEmail, pageNum);
+	}
+
+	@Override
+	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail) {
+		return customerMapper.getOrderCancleDetailList(customerEmail);
+	}
+
 
 }

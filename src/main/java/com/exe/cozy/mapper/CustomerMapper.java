@@ -37,5 +37,7 @@ public interface CustomerMapper {
 
 	public OrderDto getOrderDetail(@Param("customerEmail")String customerEmail, @Param("orderNum")String orderNum);
 	public List<OrderDetailDto> getOrderDetailOne(@Param("customerEmail")String customerEmail, @Param("orderNum")String orderNum);
-
+	
+	public Page<OrderDto> getOrderCancleList(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum);
+	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail);
 }

@@ -36,4 +36,7 @@ public interface CustomerService {
 	
 	public OrderDto getOrderDetail(String customerEmail, String orderNum);
 	public List<OrderDetailDto> getOrderDetailOne(String customerEmail, String orderNum);
+	
+	public Page<OrderDto> getOrderCancleList(String customerEmail, int pageNum);
+	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail);
 }

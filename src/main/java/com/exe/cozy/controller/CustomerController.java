@@ -33,6 +33,7 @@ import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mail.MailService;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
+import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.AddDate;
@@ -52,6 +53,7 @@ public class CustomerController {
 	@Resource private MailService mailService;
 	@Resource private DeliveryService deliveryService;
 	@Resource private ReplyService replyService;
+	@Resource private OrderService orderService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -261,7 +263,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	
+    	orderService.updateState("주문취소", req.getParameter("orderNum"));
     	
     	mav.setViewName("redirect:order");
     	
@@ -288,12 +290,24 @@ public class CustomerController {
     //마이페이지 주문취소조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/cancle")
-    public ModelAndView orderCancle(Principal principal) {
+    public ModelAndView orderCancleList(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
+    	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
 
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	Page<OrderDto> orderList = customerService.getOrderCancleList(principal.getName(), pageNum);
+    	PageInfo<OrderDto> page = new PageInfo<>(orderList,3);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderCancleDetailList(principal.getName());
 
+    	mav.addObject("orderList", orderList);
+    	mav.addObject("page", page);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-order-cancle");
     	
@@ -303,9 +317,15 @@ public class CustomerController {
     //마이페이지 주문취소상세조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/cancle/detail")
-    public ModelAndView orderCancleDetail() {
+    public ModelAndView orderCancleDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String orderNum = req.getParameter("orderNum");
+    	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
+    	
+    	mav.addObject("odto", odto);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice-cancle");
     	
     	return mav;

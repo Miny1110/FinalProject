@@ -44,10 +44,10 @@
                             </div>
                             <div>
                                 
-                                <h5><span class="state"  th:text="${odto.orderState}"></span>&nbsp;
+                                <h5><span class="state" th:text="${odto.orderState}"></span>&nbsp;
                                 <span class="cancle" th:if="${#strings.equals(odto.orderState,'결제대기')}">
                                 <a onclick="cancle();" style="cursor: pointer;">취소하기</a></span></h5>
-                                <h5 class="state" name="orderNum" th:text="|주문번호: ${odto.orderNum} &nbsp; [주문날짜: ${#dates.format(odto.orderDate,'yyyy-MM-dd')}]|"></h5>
+                                <h5 class="state" th:text="|주문번호: ${odto.orderNum} &nbsp; [주문날짜: ${#dates.format(odto.orderDate,'yyyy-MM-dd')}]|"></h5>
                             </div>
                             <div>
                                 
@@ -68,6 +68,7 @@
                     <div class="cart-table order-table">
                         <div class="table-responsive">
                             <form name="itemForm" th:action="@{/customer/cancle}" method="post">
+                            <input type="hidden" name="orderNum" th:value="${odto.orderNum}">
                             <table class="table mb-0">
                                 <tbody>
                                 

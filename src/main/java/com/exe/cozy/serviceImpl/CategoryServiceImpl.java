@@ -19,8 +19,10 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public int selectCategory(ItemDetailDto iDto) {
-		return CategoryMapper.selectCategory(iDto);
+	public ItemDetailDto selectCategory(String itemMainType, String itemSubType) {
+		return CategoryMapper.selectCategory(itemMainType, itemSubType);
 	}
+
+	
 
 }

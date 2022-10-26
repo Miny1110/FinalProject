@@ -13,7 +13,7 @@
 	<!-- 상품 불러오기 -->
 	<select id="selectCategory" resultType="itemDetailDto">
 		select * from item
-		where itemMainType =#{itemMainType} and itemSubType=#{itemSubType}
+		where itemMainType =#{itemMainType} and itemSubType like '%'\\#{itemSubType}\\'%'  
 	</select>
 	     
 </mapper>	

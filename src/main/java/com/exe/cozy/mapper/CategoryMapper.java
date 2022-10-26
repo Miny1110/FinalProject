@@ -1,6 +1,7 @@
 package com.exe.cozy.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.exe.cozy.domain.ItemDetailDto;
 
@@ -11,6 +12,6 @@ public interface CategoryMapper {
 	 public int CategoryMaxNum() throws Exception;
 	 
 	 /*카테고리 화면 보여주기*/
-	 public int selectCategory(ItemDetailDto iDto);
+	 public ItemDetailDto selectCategory(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType);
 	
 }

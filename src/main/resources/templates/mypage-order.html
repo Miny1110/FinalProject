@@ -166,28 +166,28 @@
 
                                     <div class="order-contain">
                 <!-- 주문번호 시작 -->                       
-                                        <div class="order-box dashboard-bg-box">
+                                        <div class="order-box dashboard-bg-box" th:if="${#lists.size(orderList)>0 and not #strings.equals(orderDto.orderState,'주문취소')}" th:each="orderDto : ${orderList}">
                                             <div class="order-container">
                                                 <div class="order-icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                                                 </div>
 
                                                 <div class="order-detail">
-                                                    <h4>배송정보<span class="shipcomplete">배송중</span>
-                                                    <span class="review" th:onclick="javascript:location.href='order/detail';">상세보기</span></h4>
-                                                    <h6 class="text-content">주문번호: xxxxxxxx | 주문날짜: yyyy-mm-dd</h6>
+                                                    <h4>배송정보<span class="shipcomplete"><a th:text="${orderDto.orderState}">배송중</a></span>
+                                                    <span class="review"><a th:href="@{/customer/order/detail(orderNum=${orderDto.orderNum})}">상세보기</a></span></h4>
+                                                    <h6 class="text-content" th:text="|주문번호: ${orderDto.orderNum} &nbsp; [주문날짜: ${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}]|"></h6>
                                                 </div>
                                             </div>
                                             
                         <!-- 개별주문상품 시작 -->                    
-                                            <div class="product-order-detail">
-                                                <a href="product-left.html" class="order-image">
-                                                    <img src="/assets/images/vegetable/product/1.png" class="blur-up lazyloaded-mypageorder" alt="">
-                                                </a>
-
+                                            <div th:if="${#lists.size(orderDetailList)>0}" th:each="orderDetailDto : ${orderDetailList}">
+                                            <div class="product-order-detail" th:if="${#strings.equals(orderDto.orderNum, orderDetailDto.orderDto.orderNum)}" >
+                                                <a th:href="@{/itemDetail(itemNum=${orderDetailDto.itemDto.itemNum})}" class="order-image">
+                                                    <img th:src="@{|/assets/img/${orderDetailDto.itemDto.itemImage1}|}" class="blur-up lazyloaded-mypageorder" alt="">
+												</a>
                                                 <div class="order-wrap">
-                                                    <a href="product-left.html">
-                                                        <h3>상품명</h3>
+                                                    <a th:href="@{/itemDetail(itemNum=${orderDetailDto.itemDto.itemNum})}">
+                                                        <h3 th:text="${orderDetailDto.itemDto.itemName}">상품명</h3>
                                                     </a>
                                                 
                                                     <p class="text-content"></p>
@@ -195,165 +195,54 @@
                                                         <li>
                                                             <div class="size-box">
                                                                 <h6 class="text-content">가격 : </h6>
-                                                                <h5>$20.68</h5>
+                                                                <h5 th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice, 0, 'COMMA') + ' 원'}"></h5>
                                                             </div>
                                                         </li>
 
                                                         <li>
                                                             <div class="size-box">
                                                                 <h6 class="text-content">수량 : </h6>
-                                                                <h5>Fresho</h5>
+                                                                <h5 th:text="|${orderDetailDto.itemQty}개|"></h5>
                                                             </div>
                                                         </li>
                                                     </ul>
                                                 </div>
+                                            </div>
                                             </div>
                         <!-- 개별주문상품 끝 -->
-                                       <div class="product-order-detail">
-                                                <a href="product-left.html" class="order-image">
-                                                    <img src="/assets/images/vegetable/product/1.png" class="blur-up lazyloaded-mypageorder" alt="" style="width: 100">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left.html">
-                                                        <h3>상품명</h3>
-                                                    </a>
-                                                
-                                                    <p class="text-content"></p>
-                                                       <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">가격 : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">수량 : </h6>
-                                                                <h5>Fresho</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>                
                                         </div>
                 <!-- 주문번호 끝 -->
-                                                            
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                                                </div>
-
-                                                <div class="order-detail">
-                                                    <h4>배송정보<span class="shipcomplete">배송완료</span>
-                                                    <span class="review">상세보기</span></h4>
-                                                    <h6 class="text-content">주문번호: xxxxxxxx | 주문날짜: yyyy-mm-dd</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left.html" class="order-image">
-                                                    <img src="/assets/images/vegetable/product/2.png" alt="" class="blur-up lazyloaded-mypageorder">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left.html">
-                                                        <h3>상품명</h3>
-                                                    </a>
-                                                    <p class="text-content"></p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">가격 : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                       
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">수량 : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        
-
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                                                </div>
-
-                                                <div class="order-detail">
-                                                    <h4>배송정보 
-                                                    <span class="shipcomplete">결제완료</span>
-                                                    <span class="review">상세보기</span>
-                                                    </h4>
-                                                    <h6 class="text-content">주문번호: xxxxxxxx | 주문날짜: yyyy-mm-dd</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left.html" class="order-image">
-                                                    <img src="/assets/images/vegetable/product/4.png" class="blur-up lazyloaded-mypageorder" alt="">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left.html">
-                                                        <h3>상품명</h3>
-                                                    </a>
-                                                    <p class="text-content"></p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">가격 : </h6>
-                                                                <h5>$20.68</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">수량 : </h6>
-                                                                <h5>250 G</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
+                                
                                 <nav class="custome-pagination">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
-                                                <i class="fa-solid fa-angles-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a class="page-link" href="javascript:void(0)">1</a>
-                                        </li>
-                                        <li class="page-item" aria-current="page">
-                                            <a class="page-link" href="javascript:void(0)">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:void(0)">
-                                                <i class="fa-solid fa-angles-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+	                                    <ul class="pagination justify-content-center">
+	                                    	
+											<li class="page-item" th:if="${page.navigateFirstPage>1}">
+	                                            <a class="page-link" th:href="@{/customer/order(pageNum=${page.navigateFirstPage-1})}">
+	                                                <i class="fa-solid fa-angles-left"></i>
+	                                            </a>
+	                                        </li>
+											<li class="page-item" th:unless="${page.navigateFirstPage>1}">
+	                                        </li>
+	                                        
+	                                        <li class="page-item" th:if="${page.startRow!=0}"
+	                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+	                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+	                                        	<a class="page-link" th:text="${pages}" th:href="@{/customer/order(pageNum=${pages})}"></a>
+	                                        </li>
+	                                        
+	                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+	                                            <a class="page-link" th:href="@{/customer/order(pageNum=${page.navigateLastPage+1})}">
+	                                                <i class="fa-solid fa-angles-right"></i>
+	                                            </a>
+	                                        </li>
+	                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+	                                        </li>
+	                                        
+	                                    </ul>
+                                	</nav>
+                                
                                 <table width="100%">
                                     <tbody>
                                         <tr>

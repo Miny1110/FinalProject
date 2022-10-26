@@ -79,6 +79,11 @@
 		<result column="itemMainType" property="itemMainType"/>
 		<result column="itemSubType" property="itemSubType"/>
 		<result column="itemImage1" property="itemImage1"/>
+		<result column="itemPrice" property="itemPrice"/>
+		<result column="itemDiscount" property="itemDiscount"/>
+		<result column="itemNum" property="itemNum"/>
+		<result column="itemColor" property="itemColor"/>
+		<result column="itemSize" property="itemSize"/>
 	</resultMap>
 	
 	<select id="getReviewPaging" parameterType="ReplyDto" resultMap="ReplyDto">
@@ -103,46 +108,136 @@
 			a.replyId desc
 	</select>
 
-<!-- 	
-	마이페이지 주문조회 리스트
-	<resultMap type="ReplyDto" id="ReplyDto">
-		<result column="replyId" property="replyId"/>
-		<result column="itemNum" property="itemNum"/>
-		<result column="customerEmail" property="customerEmail"/>
-		<result column="regDate" property="regDate"/>
-		<result column="content" property="content"/>
-		<result column="rating" property="rating"/>
-		<collection property="item" resultMap="ItemDetailDto"></collection>
-	</resultMap>
-	
-	<resultMap type="ItemDetailDto" id="ItemDetailDto">
-		<result column="itemName" property="itemName"/>
-		<result column="itemMainType" property="itemMainType"/>
-		<result column="itemSubType" property="itemSubType"/>
-		<result column="itemImage1" property="itemImage1"/>
-	</resultMap>
-	
-	<select id="getOrderList" parameterType="String" resultType="OrderDto">
-		select
-			a.orderNum,
-			a.itemQty,
-			a.orderState,
-			a.orderDate,
-			b.itemNum,
-			b.(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
-			from file_store fs
-			where fs.no = item.itemImage1
-        ) as itemImage1,
-			b.itemPrice,
-			b.itemDiscount
-		from
-			cozyorder a left join item b
-		on
-			a.itemNum=b.itemNum
-		where
-			customerEmail=#{customerEmail}
+	<!-- 마이페이지 주문조회 orderNum -->
+	<select id="getOrderNum">
+		
 	</select>
-	 -->
+	
+	<!-- 마이페이지 주문조회 리스트 -->
+	<select id="getOrderList" resultType="OrderDto" parameterType="String">
+		select * from COZYORDER
+		where customerEmail=#{customerEmail}
+		order by orderDate desc
+	</select>
+	
+	<select id="getOrderDetail" resultType="OrderDto">
+		select * from CozyOrder
+		where customerEmail=#{customerEmail} and orderNum=#{orderNum}
+	</select>
+	 
+	<!-- 마이페이지 주문조회 상세리스트 -->
+<!-- 	<resultMap type="OrderDto" id="OrderDto">
+		<result column="orderNum" property="orderNum"/>
+		<result column="orderState" property="orderState"/>
+		<result column="deliverCost" property="deliverCost"/>
+		<result column="deliverName" property="deliverName"/>
+		<result column="deliverRAddr" property="deliverRAddr"/>
+		<result column="deliverJAddr" property="deliverJAddr"/>
+		<result column="deliverDAddr" property="deliverDAddr"/>
+		<result column="deliverZipCode" property="deliverZipCode"/>
+		<result column="deliverTel" property="deliverTel"/>
+		<result column="deliverMessage" property="deliverMessage"/>
+		<result column="usePoint" property="usePoint"/>
+		<result column="orderDate" property="orderDate"/>
+		<collection property="detailDto" resultMap="OrderDetailDto"></collection>
+		<collection property="itemDto" resultMap="ItemDetailDto"></collection>
+	</resultMap>
+	
+	<resultMap type="OrderDetailDto" id="OrderDetailDto">
+		<result column="itemQty" property="itemQty"/>
+		<result column="itemColor" property="itemColor"/>
+		<result column="itemSize" property="itemSize"/>
+	</resultMap> -->
+	
+	<resultMap type="OrderDto" id="OrderDto">
+		<result column="orderNum" property="orderNum"/>
+		<result column="orderState" property="orderState"/>
+		<result column="deliverCost" property="deliverCost"/>
+		<result column="deliverName" property="deliverName"/>
+		<result column="deliverRAddr" property="deliverRAddr"/>
+		<result column="deliverJAddr" property="deliverJAddr"/>
+		<result column="deliverDAddr" property="deliverDAddr"/>
+		<result column="deliverZipCode" property="deliverZipCode"/>
+		<result column="deliverTel" property="deliverTel"/>
+		<result column="deliverMessage" property="deliverMessage"/>
+		<result column="usePoint" property="usePoint"/>
+		<result column="orderDate" property="orderDate"/>
+	</resultMap>
+	
+	<resultMap type="OrderDetailDto" id="OrderDetailDto">
+		<result column="odNum" property="odNum"/>
+		<result column="itemQty" property="itemQty"/>
+		<result column="itemColor" property="itemColor"/>
+		<result column="itemSize" property="itemSize"/>
+		<collection property="orderDto" resultMap="OrderDto"></collection>
+		<collection property="itemDto" resultMap="ItemDetailDto"></collection>
+	</resultMap>
+	
+	<select id="getOrderDetailList" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
+		SELECT
+			a.odNum,
+			a.itemQty,
+			a.itemColor,
+			a.itemSize,
+			b.orderNum,
+			b.orderState,
+			b.deliverCost,
+			b.deliverName,
+			b.deliverRAddr,
+			b.deliverJAddr,
+			b.deliverDAddr,
+			b.deliverZipCode,
+			b.deliverTel,
+			b.deliverMessage,
+			b.orderDate,
+			b.usePoint,
+			c.itemName,
+			c.itemPrice,
+			c.itemDiscount,
+			c.itemNum,
+			(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+			           from file_store fs
+			          where fs.no = c.itemImage1
+			        ) as itemImage1
+		from orderDetail a join COZYORDER b
+		on a.orderNum=b.orderNum
+		join item c
+		on a.itemNum=c.itemNum
+		where customerEmail=#{customerEmail}
+	</select>
+	 
+	 <select id="getOrderDetailOne" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
+		SELECT
+			a.odNum,
+			a.itemQty,
+			a.itemColor,
+			a.itemSize,
+			b.orderNum,
+			b.orderState,
+			b.deliverCost,
+			b.deliverName,
+			b.deliverRAddr,
+			b.deliverJAddr,
+			b.deliverDAddr,
+			b.deliverZipCode,
+			b.deliverTel,
+			b.deliverMessage,
+			b.orderDate,
+			b.usePoint,
+			c.itemName,
+			c.itemPrice,
+			c.itemDiscount,
+			c.itemNum,
+			(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+			           from file_store fs
+			          where fs.no = c.itemImage1
+			        ) as itemImage1
+		from orderDetail a join COZYORDER b
+		on a.orderNum=b.orderNum
+		join item c
+		on a.itemNum=c.itemNum
+		where customerEmail=#{customerEmail} and b.orderNum=#{orderNum}
+	</select>
 	 
 	 <!-- 마이페이지 문의내역 리스트 -->
 	 <resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">

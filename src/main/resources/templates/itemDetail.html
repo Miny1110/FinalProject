@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 <div th:replace="head.html :: headFragment"></div>
@@ -178,7 +178,7 @@
 						</div>
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
-							<form th:action="@{/order}" name="order" type="post">
+							<form th:action="@{/order}" name="order" method="post">
 								<input type="hidden" th:value="${idto.getItemNum()}" name="num">
 								<div class="right-box-contain">
 									<h6 class="offer-top"
@@ -313,7 +313,7 @@
 										</div>
 
 
-										<button onclick="location.href = '/cart';"
+										<button type="button" onclick="cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40">장바구니
 										</button>
 										<button onclick="location.href = '/order';"
@@ -322,7 +322,7 @@
 
 
 									</div>
-							</form>
+
 
 
 									<!--<input type="hidden" id="itemQty" name="itemQty" th:value="${itemQty}">-->
@@ -359,7 +359,7 @@
 									</div>
 
 								</div>
-
+							</form>
 							</div>
 						</div>
 
@@ -1520,7 +1520,7 @@
 
 	<!-- script js -->
 	<script src="/assets/js/script.js"></script>
-
+	<script src="/assets/js/itemRoute.js"></script>
 
 </body>
 

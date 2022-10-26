@@ -34,8 +34,11 @@ public class OrderController {
     @Resource
     private CartService cartService;
     @Resource
+    private OrderDetailService orderDetailService;
+    @Resource
     private ObjectMapper objectMapper = new ObjectMapper();
-    @GetMapping("/order")//order 가면 일단 리스트도 다 떠야함...
+
+    @RequestMapping("/order")//order 가면 일단 리스트도 다 떠야함...
     public ModelAndView order(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
                               @ModelAttribute OrderDto odto)  throws Exception {
         /*상세페이지 완성되면 이거 풀기*/
@@ -47,7 +50,7 @@ public class OrderController {
         //바로결제 진행시 수량
        int itemQty = Integer.parseInt((request.getParameter("itemQty")));
      //   int itemQty = 2;
-        String customerEmail="eunji";
+        String customerEmail="eunjis";
 
 
         CustomerDto cdto = customerService.getReadData(customerEmail);
@@ -98,20 +101,22 @@ public class OrderController {
         deliveryService.insertDeliver(ddto);
 
 
+
+
         mav.setViewName("redirect:order?"+param);
 
         return mav;
     }
     @PostMapping(value = "/order_ok")
     @ResponseBody
-    public ModelAndView order_ok(
-            HttpSession session, @ModelAttribute DeliverDto ddto,
+    public ModelAndView order_ok(HttpSession session, @ModelAttribute DeliverDto ddto,
             HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
 //제이슨으로 받은 데이터 바꾸기
         ServletInputStream inputStream = request.getInputStream();
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
+        OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
         // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
         String customerEmail = "eunjis";
        /* response.setContentType("text/html; charset=UTF-8");*/
@@ -122,7 +127,9 @@ public class OrderController {
         odto.setDeliverNum(0);
         orderService.insertOrder(odto);
 
-
+        orderDetailService.insertOd(oddto);
+        int odMaxNum = orderDetailService.odMaxNum();
+        oddto.setOdNum(odMaxNum+1);
         mav.setViewName("redirect:success_order");
 
         return mav;

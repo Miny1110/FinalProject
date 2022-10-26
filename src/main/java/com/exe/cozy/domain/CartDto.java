@@ -17,11 +17,11 @@ private int itemNum;
 private String customerEmail;
 //item
 private int itemPrice;
+private String itemImage1;
 private String itemName;
 private String itemSize;
 private String itemColor;
 private int itemDiscount;
-private int itemImage1;
 private int itemQty;//수량
 
 

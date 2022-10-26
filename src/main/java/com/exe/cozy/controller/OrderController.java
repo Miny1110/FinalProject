@@ -135,46 +135,51 @@ public class OrderController {
 
 
 
-    @RequestMapping("/cartOrder")//order 가면 일단 리스트도 다 떠야함...
-    public ModelAndView cartOrder(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
-                                  @ModelAttribute OrderDto odto)  throws Exception {
+    @GetMapping("/cartOrder")//카트주문
+    public ModelAndView cartOrder(HttpServletRequest request, @ModelAttribute CartDto cartDto,@ModelAttribute DeliverDto ddto,@ModelAttribute ItemDetailDto itemDetailDto
+                                 , @ModelAttribute OrderDto odto)  throws Exception {
         /*상세페이지 완성되면 이거 풀기*/
-//        int itemNum = Integer.parseInt(request.getParameter("itemNum"));
-        int itemNum =3;
-        ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
+   /*    int itemNum = Integer.parseInt(request.getParameter("itemNum"));*/
+/*        int itemNum = 3;*/
+
+      /* ItemDetailController idto = itemDetailService.getReadItemData(itemNum);*/
 
 
-        //바로결제 진행시 수량
-        //int itemQty = Integer.parseInt((request.getParameter("itemQty")));
-        int itemQty = 100;
+
+     /*   int itemQty = Integer.parseInt((request.getParameter("itemQty")));*/
+
+
 
 
 
 
         String customerEmail="eunjis";
 
+        CustomerDto customerDto = customerService.getReadData(customerEmail);
+        List<DeliverDto> dlist =deliveryService.listDeliver(customerEmail); // customerEmail 기반 List 보기
+        List<CartDto> clist = cartService.listCart(customerEmail); //customerEmail 기반 카트보기
 
-        CustomerDto cdto = customerService.getReadData(customerEmail);
-        List<DeliverDto> dlist =deliveryService.listDeliver(customerEmail);
 
-        int saleTotalPrice =idto.getItemPrice() - idto.getItemDiscount();
-        int preTotalPrice = idto.getItemPrice() *itemQty;
-        int salePrice = idto.getItemDiscount() *itemQty;
-        int totalPrice = preTotalPrice - saleTotalPrice;
+       /* int saleTotalPrice =idto.getItemPrice() - idto.getItemDiscount(); //아이템 1개 가격
+        int preTotalPrice = idto.getItemPrice() *itemQty; // 아이템 세일전 총 가격
+        int salePrice = idto.getItemDiscount() *itemQty; //총 아이쳄 세일가겨
+        int totalPrice = saleTotalPrice * itemQty ; //총 아이쳄 세일된 가격*/
 
 
 
 
         ModelAndView mav = new ModelAndView();
+
         mav.addObject("dlist",dlist);
+        mav.addObject("clist",clist);
         mav.addObject("ddto",ddto);
-        mav.addObject("idto",idto);
-        mav.addObject("saleTotalPrice",saleTotalPrice);
+        mav.addObject("customerDto",customerDto);
+   /*     mav.addObject("saleTotalPrice",saleTotalPrice);
         mav.addObject("preTotalPrice", preTotalPrice);
         mav.addObject("salePrice", salePrice);
         mav.addObject("totalPrice",totalPrice);
-        mav.addObject("itemQty",itemQty);
-        mav.addObject("cdto",cdto);
+        mav.addObject("itemQty",itemQty);*/
+        mav.addObject("cartDto",cartDto);
 
         mav.setViewName("cartOrder");
         return mav;}

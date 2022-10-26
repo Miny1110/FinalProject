@@ -24,7 +24,10 @@
 <!--    <select id="readDateOrder" resultType="int" parameterType="Order">
         select o.orderNum,c.customerName,i.itemName,d.deliver,
     </select>-->
-
+	<update id="updateState">
+		update cozyorder set orderState=#{orderState}
+		where orderNum=#{orderNum} 
+	</update>
 
 
 </mapper>

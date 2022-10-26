@@ -254,6 +254,20 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지에서 주문취소
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("cancle")
+    public ModelAndView orderCancle(Principal principal, HttpServletRequest req) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	
+    	
+    	mav.setViewName("redirect:order");
+    	
+    	return mav;
+    }
+    
     //마이페이지 주문상세조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/detail")

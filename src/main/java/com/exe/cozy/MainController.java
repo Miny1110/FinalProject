@@ -32,11 +32,6 @@ public class MainController {
 		return mav;
 	}
 	
-	@RequestMapping("/category")
-	public String category() {
-		return "shopCategory";
-	}
-	
 	@RequestMapping("/login")
 	public String login() {
 		return "log-in";

@@ -160,8 +160,7 @@ deliverTel VARCHAR2(45),
 deliverMessage VARCHAR2(100),
 orderDate date default sysdate,
 usePoint number(10),
-FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
-FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
 
 //주문상세(주문상품정보)
 create table orderdetail

@@ -290,9 +290,14 @@ public class CustomerController {
     	int pageNum = Integer.parseInt(pageNumStr);
     	
     	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
     	String searchValue = req.getParameter("searchValue");
-    	System.out.println(searchKey);
-    	System.out.println(searchValue);
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
     	
     	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), searchKey, searchValue, pageNum);
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
@@ -329,7 +334,6 @@ public class CustomerController {
     	
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
-    	System.out.println(lists);
     	mav.addObject("page", page);
     	
     	mav.setViewName("mypage-review");

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.exe.cozy.domain.*;
+import com.exe.cozy.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.exe.cozy.domain.ItemDetailDto;
-import com.exe.cozy.domain.ItemDetailInsertDto;
-import com.exe.cozy.domain.ItemQuestionDto;
-import com.exe.cozy.domain.ItemAnswerDto;
-import com.exe.cozy.domain.ReplyDto;
-import com.exe.cozy.service.ItemDetailService;
-import com.exe.cozy.service.ItemQuestionService;
-import com.exe.cozy.service.ItemAnswerService;
-import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.MyPage;
 
 @Controller
@@ -41,6 +34,9 @@ public class ItemDetailController {
 	
 	@Resource
 	private ItemAnswerService itemAnswerService;
+
+	@Resource
+	private CartService cartService;
 	
 
 	@Autowired
@@ -153,7 +149,9 @@ public class ItemDetailController {
 	@RequestMapping("itemDetail") /** item 상세페에지 view */
 	public ModelAndView detail(HttpServletRequest request) throws Exception {
 		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
-		
+
+		//test 종료시 한번에 시큐리티 예정
+		String customerEmail="eunjis";
 		/*
 		 * detail 페이지 완성되면 이거 풀기 String pageNum = request.getParameter("pageNum");
 		 */
@@ -174,7 +172,8 @@ public class ItemDetailController {
 		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
 		List<ItemQuestionDto> qdtoList = itemQuestionService.getReadQnaList(itemNum);
 		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
-	
+		List<CartDto> clist = cartService.listCart(customerEmail);
+
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
 			// 일단은 index 로 리다이렉트 시키기
@@ -215,6 +214,7 @@ public class ItemDetailController {
 		mav.addObject("itemSizes",itemSizes);
 		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
+		mav.addObject("clist", clist);
 
 		// mav.addObject("params",param);
 		// mav.addObject("pageNum", pageNum);

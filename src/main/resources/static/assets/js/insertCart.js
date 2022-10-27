@@ -4,7 +4,12 @@ let token = $("meta[name='_csrf']").attr("content");
 function cart(){
             let iNum = $("#num").val();
             let itemNumChk = $("#itemNumChk").val();
-            if(iNum==itemNumChk){
+            let size =$("#size").val();
+            let sizeChk =$("#sizeChk").val();
+            let color =$("#color").val();
+            let colorChk =$("#colorChk").val();
+
+            if(iNum===itemNumChk&&size===sizeChk&&color===colorChk){
                 let msg ="이미 장바구니에 들어있는 상품입니다.";
                 msg += "장바구니에 추가하시겠습니까?";
                 let result=confirm(msg);

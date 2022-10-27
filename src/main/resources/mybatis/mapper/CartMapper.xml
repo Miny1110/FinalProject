@@ -22,7 +22,8 @@
 
 	<!-- 카트 수량수정-->
 	<update id="updateCart" parameterType="CartDto">
-		update cart set itemQty=itemQty+#{itemQty} where customerEmail = #{customerEmail} and itemNum=#{itemNum}
+		update cart set itemQty=itemQty+#{itemQty} where customerEmail = #{customerEmail} and itemNum=#{itemNum} and
+		                                                 itemSize=#{itemSize} and  itemColor=#{itemColor}
 	</update>
 	<!-- 카트목록 -->
 	<select id="listCart" resultType="CartDto" parameterType="String">

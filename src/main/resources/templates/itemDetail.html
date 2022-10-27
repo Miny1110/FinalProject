@@ -180,6 +180,8 @@
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
 							<form th:action="@{/order}" name="order">
 								<input th:each="clist:${clist}" type="text" id="itemNumChk" name="itemNumChk" th:value="${clist.getItemNum()}" hidden>
+								<input th:each="clist:${clist}" type="text" id="sizeChk" name="sizeChk" th:value="${clist.getItemSize()}" hidden>
+								<input th:each="clist:${clist}" type="text" id="colorChk" name="colorChk" th:value="${clist.getItemColor()}" hidden>
 								<input type="text" th:value="${idto.getItemNum()}" id="num" name="num" hidden>
 								<div class="right-box-contain">
 									<h6 class="offer-top"

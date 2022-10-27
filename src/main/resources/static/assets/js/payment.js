@@ -15,30 +15,36 @@ function requestPay() {
         return
     }
 
-    if(payment==="card"){
-        pgName="html5_inicis";
-        payMethod="card";
-        payName="신용카드";
-    }else if(payment==="bank"){
+    if(payment==="bank"){
         pgName="html5_inicis";
         payMethod="vbank";
         payName="가상계좌";
+        payState="결제대기"
+    }else if(payment==="card"){
+        pgName="html5_inicis";
+        payMethod="card";
+        payName="신용카드";
+        payState="주문완료"
     }else if(payment==="bank"){
         pgName="kcp";
         payMethod="phone";
         payName="휴대폰 결제";
+        payState="주문완료"
     }else if(payment==="kakao"){
         pgName="kakaopay.TC0ONETIME";
         payMethod="card";
         payName="카카오페이";
+        payState="주문완료"
     }else if(payment==="toss"){
         pgName="tosspay";
         payMethod="card";
         payName="토스";
+        payState="주문완료"
     }else if(payment==="payco"){
         pgName="payco";
         payMethod="card";
         payName="페이코";
+        payState="주문완료"
     }
 
     payOrder();
@@ -47,6 +53,7 @@ function requestPay() {
 let pgName="";
 let payMethod="";
 let payName="";
+let payState="";
 
 function payOrder(){
 
@@ -108,6 +115,7 @@ function payOrder(){
                     deliverName:$('#deliverName').val(),
                     deliverRAddr:$('#deliverRAddr').val(),
                     deliverJAddr:$('#deliverJAddr').val(),
+                    orderState:payState,
                     payment:payName,
                     deliverDAddr:$('#deliverDAddr').val(),
                     deliverZipCode:$('#deliverZipCode').val(),
@@ -160,3 +168,5 @@ function payOrder(){
      }
  });
 }
+
+

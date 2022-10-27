@@ -100,49 +100,61 @@
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50"  style="width: 70%;">
                     <section class="order-table-section section-b-space">
                         <div class="row" style="width: 100%;">
+                        	<form th:action="@{listSvcQuestion}" method="get">
                                     
-                                        <div class="table-responsive">
-                                            <table class="table order-tab-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 3%;">번호</th>
-                                                        <th style="width: 72%;">제목</th>
-                                                        <th style="width: 10%;">작성자</th>
-                                                        <th style="width: 15%;">작성일</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td></td>
-                                                        <td>이은지</td>
-                                                        <td>26 Sep 2021</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td></td>
-                                                        <td>류창주</td>
-                                                        <td>03 Oct 2021</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td></td>
-                                                        <td>정민정</td>
-                                                        <td>03 Oct 2021</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td></td>
-                                                        <td>윤서혜</td>
-                                                        <td>10 Nav 2021</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    
+	                            <div class="table-responsive">
+	                                <table class="table order-tab-table">
+	                                    <thead>
+	                                        <tr>
+	                                            <th style="width: 3%;">번호</th>
+	                                            <th style="width: 72%;">제목</th>
+	                                            <th style="width: 10%;">작성자</th>
+	                                            <th style="width: 15%;">작성일</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody th:each="sqdto : ${sqlists}">
+	                                        <tr>
+	                                            <td th:text="${sqdto.serviceQueNum}"></td>
+	                                            <td><a th:href="'qnaArticle?' + 'serviceQueNum=' + @{${sqdto.serviceQueNum}}">[[*{sqdto.serviceQueTitle}]]</a></td>
+	                                            <td th:text="${sqdto.customerEmail}"></td>
+	                                            <td th:text="${sqdto.serviceQueDate}"></td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                                
+	                                <nav class="custome-pagination">
+	                                    <ul class="pagination justify-content-center">
+	                                    	
+											<li class="page-item" th:if="${page.navigateFirstPage>1}">
+	                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateFirstPage-1})}">
+	                                                <i class="fa-solid fa-angles-left"></i>
+	                                            </a>
+	                                        </li>
+											<li class="page-item" th:unless="${page.navigateFirstPage>1}">
+	                                        </li>
+	                                        
+	                                        
+	                                        <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
+	                                        	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
+	                                        </li> -->
+	                                        <li class="page-item" th:if="${page.startRow!=0}"
+	                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+	                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+	                                        	<a class="page-link" th:text="${pages}" th:href="@{/listSvcQue/(pageNum=${pages})}"></a>
+	                                        </li>
+	                                        
+	                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+	                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateLastPage+1})}">
+	                                                <i class="fa-solid fa-angles-right"></i>
+	                                            </a>
+	                                        </li>
+	                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+	                                        </li>
+	                                        
+	                                    </ul>
+                                	</nav>
+	                            </div>
+                        	</form>
                         </div>
                     </section>
                         

@@ -99,6 +99,8 @@
                 
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50" style="width: 70%;">
                     <div style="margin-top: -30%" class="blog-detail-image rounded-3 mb-4">
+                    
+                    
                         <img  class="bg-img blur-up lazyload" alt="">
                         <div class="blog-image-contain1">
                             <ul class="contain-list">
@@ -107,37 +109,45 @@
                                 <li>1대1</li>
                             </ul>
                             <br/>
-                            <h2>탈퇴 안하고 아이디 변경 가능한가요?</h2>
+                            <h2 th:text="${sqdto.serviceQueTitle}"></h2>
+                            
                             <br/>
                             <ul class="contain-comment-list">
                                 <li>
                                     <div class="user-list">
                                         <i data-feather="user"></i>
-                                        <span>Caroline</span>
+                                        <span th:text="${sqdto.CustomerEmail}"></span>
                                     </div>
                                 </li>
 
                                 <li>
                                     <div class="user-list">
                                         <i data-feather="calendar"></i>
-                                        <span>April 19, 2022</span>
+                                        <span th:text="${sqdto.serviceQueDate}"></span>
                                     </div>
                                 </li>
 
                             </ul>
                         </div>
+                       
                     </div>
                     <div class="leave-box1">
-                    <div class="blog-detail-contain" style="align-content: center">
-                        <p>
-                            제가 카카오로 가입을 했는데 아이디 변경을 하고싶어서요. 할 수 있는 방법 있을까요?오른쪽 홈패드 앞 여유공간을 어떻게 채워야할지 모르겠네요.
-                            거실장을 놓자니 필요가 없고 큰 식탁을 놓자니 협소하고..
-                            뭘로 인테리어하면 비어보이지 않으면서 예쁠까요?
-                            크기는 대략 80x150정도입니다.
-                        </p>
-                    </div>
+	                    <div class="blog-detail-contain" style="align-content: center">
+	                        <p th:text="${sqdto.serviceQueContent}"></p>
+	                    </div>
                     </div>
                     
+                    <div style="text-align: center">
+	                    <div style="display: inline-block">
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                    		type="button" th:onclick="'location.href=\'qnaUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
+	                    </div>
+	                    
+	                    <div style="display: inline-block">
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold">삭제</button>
+	                    </div>
+	                </div>
+                   
                     <hr/>
                     
                     <div class="leave-box">

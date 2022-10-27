@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.NoticeDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.service.ServiceQuestionService;
 import com.github.pagehelper.Page;
@@ -38,6 +39,7 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 등록
+	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/qnaCreate_ok")
 	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto, HttpServletRequest request) throws Exception{
 		
@@ -45,7 +47,7 @@ public class ServiceQnacontroller {
 		int serviceQueMaxNum = svcQueService.serviceQueMaxNum();
 		sqdto.setServiceQueNum(serviceQueMaxNum + 1);
 		
-		//sqdto.setCustomerEmail("lej3999@naver.com");
+		sqdto.setCustomerEmail("lej3999@naver.com");
 		
 		svcQueService.insertServiceQue(sqdto);;
 		mav.setViewName("redirect:/service/qnaList");
@@ -121,7 +123,19 @@ public class ServiceQnacontroller {
 		return mav;
 	}
 		
+	//질문 삭제
+	@GetMapping("deleteQuestion")
+	public ModelAndView deleteSvcQuestion(ServiceQuestionDto sqdto, HttpServletRequest request) throws Exception {
+		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 
+		ModelAndView mav = new ModelAndView();
+		svcQueService.deleteServiceQue(serviceQueNum);
+		mav.setViewName("redirect:/service/qnaList");
+		return mav;
+	}
+	
+	
+	
 	/*
 	
 	//질문 답변창으로 이동

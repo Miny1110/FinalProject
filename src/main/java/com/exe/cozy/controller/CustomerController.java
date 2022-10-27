@@ -29,13 +29,17 @@ import com.exe.cozy.domain.OrderDetailDto;
 import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceAnswerDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mail.MailService;
+import com.exe.cozy.mapper.ServiceQuestionMapper;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
 import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
+import com.exe.cozy.service.ServiceAnswerService;
+import com.exe.cozy.service.ServiceQuestionService;
 import com.exe.cozy.util.AddDate;
 import com.exe.cozy.util.AlertRedirect;
 import com.exe.cozy.util.CreatePoint;
@@ -54,6 +58,8 @@ public class CustomerController {
 	@Resource private DeliveryService deliveryService;
 	@Resource private ReplyService replyService;
 	@Resource private OrderService orderService;
+	@Resource private ServiceQuestionService serviceQuestionService;
+	@Resource private ServiceAnswerService serviceAnswerService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -367,6 +373,47 @@ public class CustomerController {
     	return mav;
     }
     
+    //마이페이지 문의글 
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("qna/question")
+    public ModelAndView qnaQuestion(Principal principal, HttpServletRequest req) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int serviceQueNum = Integer.parseInt(req.getParameter("serviceQueNum"));
+    	ServiceQuestionDto dto = serviceQuestionService.findServiceQue(serviceQueNum);
+    	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	
+    	mav.addObject("dto", dto);
+    	mav.addObject("customerDto", customerDto);
+    	mav.setViewName("mypage-qna-question");
+    	
+    	return mav;
+    	
+    }
+    
+    //마이페이지 답변글
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("qna/answer")
+    public ModelAndView qnaAnswer(Principal principal, HttpServletRequest req) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int serviceAnsNum = Integer.parseInt(req.getParameter("serviceAnsNum"));
+    	ServiceAnswerDto dto = serviceAnswerService.findServiceAns(serviceAnsNum);
+    	
+    	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	
+    	mav.addObject("dto", dto);
+    	mav.addObject("customerDto", customerDto);
+    	mav.setViewName("mypage-qna-answer");
+    	
+    	return mav;
+    	
+    }
+    
+//--------------------------------------------------------------------------------    
     //마이페이지 마이리뷰
     @PreAuthorize("isAuthenticated")
     @GetMapping("review")

@@ -1,11 +1,9 @@
-package com.exe.cozy.mapper;
-
-import org.apache.ibatis.annotations.Mapper;
+package com.exe.cozy.service;
 
 import com.exe.cozy.domain.ServiceAnswerDto;
 
-@Mapper
-public interface ServiceAnswerMapper {
+public interface ServiceAnswerService {
 
 	public ServiceAnswerDto findServiceAns(int serviceAnsNum) throws Exception;
+	
 }

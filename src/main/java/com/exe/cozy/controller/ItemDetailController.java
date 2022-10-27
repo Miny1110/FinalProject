@@ -17,6 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ItemDetailInsertDto;
+import com.exe.cozy.domain.ItemQuestionDto;
+import com.exe.cozy.domain.ItemAnswerDto;
+import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.service.ItemDetailService;
+import com.exe.cozy.service.ItemQuestionService;
+import com.exe.cozy.service.ItemAnswerService;
+import com.exe.cozy.service.ReplyService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 

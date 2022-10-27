@@ -48,7 +48,7 @@
 	</resultMap>
 	
 
-	<select id="getReadServiceQuePaging" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">
+	<select id="getServiceQuePaging" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">
 		select 
 			a.serviceQueNum,
 			a.customerEmail, 
@@ -69,7 +69,7 @@
 
 	<!-- 문의수정 -->
 	<update id="updateServiceQue" parameterType="ServiceQuestionDto">
-		update serviceQuestion set serviceQueTitle=#{serviceQueTitle},serviceQueContent=#{serviceQueContent},serviceQueDate= sysdate 
+		update serviceQuestion set serviceQueTitle=#{serviceQueTitle},serviceQueContent=#{serviceQueContent},serviceQueDate=sysdate 
 		where serviceQueNum = #{serviceQueNum}
 	</update>
 

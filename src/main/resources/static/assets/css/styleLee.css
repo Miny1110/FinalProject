@@ -594,7 +594,7 @@
     -webkit-box-pack:center;
     -ms-flex-pack:center;
     justify-content:center;
-    color:#222;
+    color:#00264b;
     padding:calc(7px + (14 - 7) * ((100vw - 320px) / (1920 - 320))) calc(14px + (32 - 14) * ((100vw - 320px) / (1920 - 320)));
     font-weight:500;
     background:transparent;
@@ -653,9 +653,9 @@
     -webkit-transition:all 0.3s ease;
     transition:all 0.3s ease;
     position:relative;
-    background:#ff6b6b;
-    background:-webkit-gradient(linear, left top, right top, from(#ff6b6b), to(#ff4f4f));
-    background:linear-gradient(90deg, #ff6b6b 0%, #ff4f4f 100%);
+    background:#00264b;
+    background:-webkit-gradient(linear, left top, right top, from(#00264b), to(#021a31));
+    background:linear-gradient(90deg, #00264b 0%, #021a31 100%);
     border:none;
     z-index:0
 }
@@ -672,9 +672,9 @@
     left:0;
     z-index:-1;
     border-radius:5px;
-    background:#ff4f4f;
-    background:-webkit-gradient(linear, left top, right top, from(#ff4f4f), to(#ff6b6b));
-    background:linear-gradient(90deg, #ff4f4f 0%, #ff6b6b 100%);
+    background:#00264e;
+    background:-webkit-gradient(linear, left top, right top, from(#8c8e90), to(#8c8e90));
+    background:linear-gradient(90deg, #8c8e90 0%, #8c8e90 100%);
     -webkit-transition:all 0.3s ease;
     transition:all 0.3s ease
 }
@@ -17879,6 +17879,18 @@ header .offcanvas-backdrop{
 .blog-section .blog-detail-image{
     position:relative
 }
+.blog-section .blog-detail-image .blog-image-contain1{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:30px 15px 10px;
+    text-align:center;
+    background:#fff;
+    background:-webkit-gradient(linear, left bottom, left top, from(#fff), to(rgba(246,246,246,0)));
+    background:linear-gradient(0deg, #fff 0%, rgba(246,246,246,0) 100%);
+    color:#222
+}
+
 .blog-section .blog-detail-image .blog-image-contain{
     position:absolute;
     bottom:0;
@@ -17890,6 +17902,13 @@ header .offcanvas-backdrop{
     background:linear-gradient(0deg, #fff 0%, rgba(246,246,246,0) 100%);
     color:#222
 }
+
+@media (max-width: 480px){
+    .blog-section .blog-detail-image .blog-image-contain1{
+        position:relative
+    }
+}
+
 @media (max-width: 480px){
     .blog-section .blog-detail-image .blog-image-contain{
         position:relative
@@ -18003,6 +18022,10 @@ header .offcanvas-backdrop{
 .blog-section .leave-title{
     margin:40px 0 9px
 }
+
+.blog-section .leave-title1{
+    margin:0px 10px 10px
+}
 .blog-section .leave-title h3{
     position:relative;
     font-weight:700;
@@ -18011,8 +18034,13 @@ header .offcanvas-backdrop{
     font-size:22px
 }
 .blog-section .user-comment-box{
-    margin-top:24px
+    margin:24px 22px 9px
 }
+
+.blog-section .user-comment-box1{
+    margin:24px 22px 9px
+}
+
 .blog-section .user-comment-box ul{
     display:-webkit-box;
     display:-ms-flexbox;
@@ -18140,6 +18168,12 @@ header .offcanvas-backdrop{
         margin:0 0 35px
     }
 }
+.blog-section .leave-box1{
+    padding:calc(18px + (30 - 18) * ((100vw - 320px) / (1920 - 320)));
+    background-color:#f8f8f8;
+    border-radius:6px
+}
+
 .blog-section .leave-box{
     padding:calc(18px + (30 - 18) * ((100vw - 320px) / (1920 - 320)));
     background-color:#f8f8f8;
@@ -20003,7 +20037,7 @@ header .offcanvas-backdrop{
     text-align:center;
     background-color:#e7e7e7;
     color:#222;
-    padding:calc(10px + (14 - 10) * ((100vw - 320px) / (1920 - 320))) calc(12px + (20 - 12) * ((100vw - 320px) / (1920 - 320)));
+    padding:calc(10px + (14 - 10) * ((100vw - 320px) / (1920 - 320))) calc(12px + (20 - 12) * ((10vw - 320px) / (1920 - 320)));
     font-size:calc(17px + (20 - 17) * ((100vw - 320px) / (1920 - 320)));
     font-weight:400
 }
@@ -20013,8 +20047,8 @@ header .offcanvas-backdrop{
 .order-tab-table tbody tr td{
     font-weight:300;
     text-align:center;
-    padding:calc(10px + (14 - 10) * ((100vw - 320px) / (1920 - 320))) calc(12px + (20 - 12) * ((100vw - 320px) / (1920 - 320)));
-    font-size:calc(15px + (17 - 15) * ((100vw - 320px) / (1920 - 320)));
+    padding:calc(10px + (14 - 10) * ((100vw - 320px) / (1920 - 320))) calc(12px + (20 - 12) * ((10vw - 320px) / (1920 - 320)));
+    font-size:calc(16px + (17 - 15) * ((100vw - 320px) / (1920 - 320)));
     min-width:160px;
     color:#777
 }
@@ -21841,5 +21875,12 @@ header .offcanvas-backdrop{
 [dir="rtl"] .slick-slide{
     float:left
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map
+
+
+.buttonCenter{
+    text-align: center;
+    display :inline-block;}
+
+ */
  

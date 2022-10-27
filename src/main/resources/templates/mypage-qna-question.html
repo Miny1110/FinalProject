@@ -185,11 +185,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <br/>
+									<div id="resultDiv">
+										<div class="profile-about dashboard-bg-box row col-xxl-12" style="height: 150px;" th:if="${content}!=null" th:text="${content}"></div>
+									</div>
                                     <table width="100%">
                                     <tbody>
                                         <tr>
                                         	<td align="left">
-                                        		<button class="btn theme-bg-color btn-sm mt-4 text-white">답변보기</button>
+                                        		<input id="input" type="text" th:value="${dto.serviceQueNum}">
+                                        		<button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" onclick="openAns();">답변보기</button>
                                         	</td>
                                             <td align="right">
                                                 <button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" onclick="javascript:location.href='/customer/qna';">목록으로</button>
@@ -263,6 +268,26 @@
     <!-- script js -->
     <script src="/assets/js/script.js"></script>
 
+	<script type="text/javascript">
+	
+	function openAns(){
+		var queNum = $("#input").val();
+
+		$.ajax({
+			url:"dataSend",
+			type:"GET",
+			data:{queNum:queNum},
+            success:function(content){
+            	$("#resultDiv").replaceWith(content);
+            },
+            error:function(){
+            	$("#resultDiv").replaceWith('답변이 없습니다.');
+            }
+		
+		})
+	}
+	
+	</script>
 
 
 

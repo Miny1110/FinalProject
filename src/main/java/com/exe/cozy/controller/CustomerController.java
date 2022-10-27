@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -392,6 +393,18 @@ public class CustomerController {
     	return mav;
     	
     }
+    
+    //마이페이지 답변보이게 하는 ajax
+    @RequestMapping(value = "qna/dataSend", method = RequestMethod.GET )
+    @ResponseBody
+    public String dataSend(@RequestParam("queNum")int queNum) throws Exception {
+
+    	System.out.println(queNum);
+    	ServiceAnswerDto dto = serviceAnswerService.getReadServiceAnsData(queNum);
+    	String content = dto.getServiceAnsContent();
+    	
+		return content;
+	}
     
     //마이페이지 답변글
     @PreAuthorize("isAuthenticated")

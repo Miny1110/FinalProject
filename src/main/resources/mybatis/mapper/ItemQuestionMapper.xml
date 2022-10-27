@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.ItemQuestionMapper"><!-- ItemQuestion -->
+
+	<!--새 문의 번호 -->
+	<select id="itemQnaMaxNum" resultType="int">		
+		select nvl(max(itemQueNum),0)
+		from ItemQuestion	
+	</select>
+
+	<!-- 문의등록 -->
+	<insert id="insertItemQna" parameterType="ItemQuestionDto">		
+		insert into ItemQuestion(itemQueNum, itemNum, itemQueTitle, itemQueCreate ,itemQueContent,customerEmail)
+		values(#{itemQueNum}, #{itemNum}, #{itemQueTitle},sysdate, #{itemQueContent}, #{customerEmail})	
+	</insert>
+
+	<!-- 문의확인 -->
+	<select id="findItemQna" parameterType="int" resultType="ItemQuestionDto">	
+		select * from ItemQuestion
+		where itemQueNum = #{itemQueNum}
+	</select>
+
+	<!--ItemNum 으로 읽기 -->
+	<select id="getReadItemQnaData" parameterType="int" resultType="ItemQuestionDto">
+		select itemQueNum, itemNum, itemQueTitle, itemQueCreate, itemQueContent from ItemQuestion
+		where itemNum = #{itemNum}
+	</select>
+	
+	<!-- itemQuestionDto -->
+	<resultMap type="ItemQuestionDto" id="ItemQuestionDto">
+		<result column="itemQueNum" property="itemQueNum" />
+		<result column="itemNum" property="itemNum" />
+		<result column="itemQueTitle" property="itemQueTitle" />
+		<result column="customerEmail" property="customerEmail" />
+		<result column="itemQueCreate" property="itemQueCreate" />
+		<result column="itemQueContent" property="itemQueContent" />
+		
+		<collection property="answer" resultMap="ItemAnswerDto"></collection>
+	</resultMap>
+	
+	<!-- itemAnswerDto -->
+	<resultMap type="ItemAnswerDto" id="ItemAnswerDto">
+		<result column="itemAnsNum" property="itemAnsNum" />
+		<result column="itemQueNum" property="itemQueNum" />
+		<result column="itemAnsCreate" property="itemAnsCreate" />
+		<result column="itemAnsContent" property="itemAnsContent" />
+	</resultMap>
+	
+
+	
+	<select id="getReadQnaList" parameterType="ItemQuestionDto" resultMap="ItemQuestionDto">
+	select 
+	a.itemQueNum ,
+	a.itemNum, 
+	a.itemQueTitle,
+	a.customerEmail,
+	a.itemQueCreate,
+	a.itemQueContent, 
+	 b.itemAnsNum, 
+	 b.itemAnsCreate, 
+	 b.itemAnsContent
+	FROM ItemQuestion a left join ItemAnswer b 
+	on a.itemQueNum =b.itemQueNum 
+	WHERE a.itemNum =#{itemNum}     
+	order by itemQueNum desc
+	</select>
+
+
+	<!-- 문의수정 -->
+	<update id="updateItemQna" parameterType="ItemQuestionDto">
+		update ItemQuestion set itemQueContent=#{itemQueContent},itemQueCreate= sysdate where
+		itemQueNum=#{itemQueNum}
+	</update>
+
+	<!-- 문의삭제 -->
+	<delete id="deleteItemQna" parameterType="int">
+		delete ItemQuestion where
+		itemQueNum=#{itemQueNum}
+	</delete>
+
+</mapper>

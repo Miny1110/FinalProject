@@ -34,8 +34,6 @@ private CartService cartService;
 @Resource
     private ObjectMapper objectMapper = new ObjectMapper();
 
-@Autowired
-    CartChk cartChk;
 
 @GetMapping("/cart")
 public ModelAndView cart(HttpServletRequest request,@ModelAttribute CartDto cdto,ItemDetailDto idto){
@@ -71,24 +69,39 @@ ModelAndView mav = new ModelAndView();
 //세션 진행할때 풀기
     // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
     String customerEmail="eunjis";
-    int cup = cartChk.CtChk(cdto);
-    if(cup==0){
     int cartNum = cartService.cartMaxNum();
 
     cdto.setCartNum(cartNum+1);
     cdto.setCustomerEmail(customerEmail);
     cartService.insertCart(cdto);
 
-
-    }else {
-        AlertRedirect.warningMessage(response, "이미 아이템이 담겨있습니다.");
-
-        cartService.updateCart(cdto);
-    }
     mav.setViewName("redirect:cart");
     return mav;
 
 }
+//카드에 동일 아이템 있을시 수량 업
+@PostMapping("cartUpdate")
+@ResponseBody
+public ModelAndView  updateCart(HttpSession session,
+                             @ModelAttribute ItemDetailDto idto, HttpServletRequest request,HttpServletResponse response) throws IOException {
+    ModelAndView mav = new ModelAndView();
+//제이슨으로 받은 데이터 바꾸기
+    ServletInputStream inputStream = request.getInputStream();
+    String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+    CartDto cdto = objectMapper.readValue(messageBody, CartDto.class);
+//세션 진행할때 풀기
+    // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
+    String customerEmail="eunjis";
+    List<CartDto> clist = cartService.listCart(customerEmail);
+
+    cdto.setCustomerEmail(customerEmail);
+    cartService.updateCart(cdto);
+
+    mav.setViewName("redirect:cart");
+    return mav;
+
+}
+
 
 @GetMapping("/delete_ok")
     public ModelAndView delete_ok(HttpServletResponse resp, HttpServletRequest req) {

@@ -21,12 +21,16 @@
 
 	<!-- 카트 수량수정-->
 	<update id="updateCart" parameterType="CartDto">
-		update cart set itemQty=#{itemQty} where customerEmail = #{customerEmail}
+		update cart set itemQty=itemQty+#{itemQty} where customerEmail = #{customerEmail} and itemNum=#{itemNum}
 	</update>
 	<!-- 카트목록 -->
 	<select id="listCart" resultType="CartDto" parameterType="String">
 		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,
-		       b.itemName, b.itemPrice, b.itemDiscount,b.itemSize,b.itemColor
+		       b.itemName, b.itemPrice, b.itemDiscount,b.itemSize,b.itemColor,
+			   (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+				from file_store fs
+				where fs.no = b.itemImage1
+			   ) as itemImage1
 		       from cart a join item b on a.itemNum = b.itemNum
 		where customerEmail = #{customerEmail}
 	</select>

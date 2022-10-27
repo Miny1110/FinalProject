@@ -1,5 +1,7 @@
 package com.exe.cozy.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public ItemDetailDto selectCategory(String itemMainType, String itemSubType) {
+	public List<ItemDetailDto> selectCategory(String itemMainType, String itemSubType) {
 		return CategoryMapper.selectCategory(itemMainType, itemSubType);
 	}
 

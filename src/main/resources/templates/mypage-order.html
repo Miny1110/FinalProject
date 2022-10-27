@@ -212,6 +212,15 @@
                         <!-- 개별주문상품 끝 -->
                                         </div>
                 <!-- 주문번호 끝 -->
+                
+                		<!-- 주문 내역 없으면 출력 -->
+                                    <div class="profile-about dashboard-bg-box" th:unless="${#lists.size(orderList)>0}">
+	                                   <div class="row" style="display: table-cell; vertical-align: middle; height: 100px;">
+	                                   		<h4 style="color: gray;">구매내역이 없습니다.</h4>
+	                                   </div>
+                                   	</div>
+                        <!-- 주문 내역 없으면 출력 -->
+                        
                                     </div>
                                 </div>
                                 

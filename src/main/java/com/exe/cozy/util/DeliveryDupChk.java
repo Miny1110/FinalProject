@@ -57,7 +57,7 @@ public class DeliveryDupChk {
 		
 		DeliverDto ddto = new DeliverDto();
 		
-		int deliverNum = deliveryService.selectDeliverType("기본");
+		int deliverNum = deliveryService.selectDeliverType("기본",dto.getCustomerEmail());
 			
 		ddto.setDeliverNum(deliverNum);
 		ddto.setDeliverName(dto.getCustomerName());

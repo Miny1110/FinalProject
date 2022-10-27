@@ -163,7 +163,7 @@
                                                 <div class="order-detail">
                                                     <h4>주문번호:&nbsp;<a th:text="${orderDto.orderNum}"></a>
                                                     <span class="review"><a th:href="@{/customer/order/cancle/detail(orderNum=${orderDto.orderNum})}">상세보기</a></span></h4>
-                                                    <h6 class="text-content" th:text="|주문날짜:&nbsp;${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}|">주문날짜: yyyy-mm-dd | 취소날짜: yyyy-mm-dd</h6>
+                                                    <h6 class="text-content" th:text="|취소날짜:&nbsp;${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}|"></h6>
                                                 </div>
                                             </div>
                                             
@@ -201,6 +201,15 @@
                         <!-- 개별주문상품 끝 -->
                                         </div>
                 <!-- 주문번호 끝 -->
+                
+                		<!-- 주문 내역 없으면 출력 -->
+                                    <div class="profile-about dashboard-bg-box" th:unless="${#lists.size(orderList)>0}">
+	                                   <div class="row" style="display: table-cell; vertical-align: middle; height: 100px;">
+	                                   		<h4 style="color: gray;">취소내역이 없습니다.</h4>
+	                                   </div>
+                                   	</div>
+                        <!-- 주문 내역 없으면 출력 -->
+                
                                     </div>
                                 </div>
                                 

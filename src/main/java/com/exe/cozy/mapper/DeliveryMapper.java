@@ -2,6 +2,7 @@ package com.exe.cozy.mapper;
 
 import com.exe.cozy.domain.DeliverDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface DeliveryMapper {
     public void deleteDeliver(int deliverNum);
     
     public void updateDeliver(DeliverDto ddto);
-    public int selectDeliverType(String deliverType);
+    public int selectDeliverType(@Param("deliverType")String deliverType, @Param("customerEmail")String customerEmail);
 }

@@ -8,5 +8,5 @@ public interface OrderService {
     public int orderMaxNum();
     public void insertOrder(OrderDto odto);
     
-    public void updateState(String orderState, String orderNum);
+    public void updateCancleState(String orderNum);
 }

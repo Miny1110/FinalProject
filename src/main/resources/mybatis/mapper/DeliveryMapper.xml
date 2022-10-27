@@ -18,7 +18,7 @@
     
     <select id="listDeliver" parameterType="String" resultType="DeliverDto">
         select deliverNum,deliverName,deliverRAddr,deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverType
-        from deliver where customerEmail=#{customerEmail}
+        from deliver where customerEmail=#{customerEmail} order by deliverNum desc
     </select>
 
 	<delete id="deleteDeliver" parameterType="int">
@@ -33,7 +33,7 @@
 	</update>
 	
 	<!-- 기본배송지 deliverNum 읽어오기 -->
-	<select id="selectDeliverType" parameterType="String" resultType="int">
-		select deliverNum from deliver where deliverType=#{deliverType}
+	<select id="selectDeliverType" resultType="int">
+		select deliverNum from deliver where deliverType=#{deliverType} and customerEmail=#{customerEmail}
 	</select>
 </mapper>

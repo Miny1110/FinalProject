@@ -13,5 +13,5 @@ public interface DeliveryService {
     public void deleteDeliver(int deliverNum);
     
     public void updateDeliver(DeliverDto ddto);
-    public int selectDeliverType(String deliverType);
+    public int selectDeliverType(String deliverType,String customerEmail);
 }

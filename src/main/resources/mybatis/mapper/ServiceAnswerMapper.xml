@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.ServiceAnswerMapper">
+
+	<!--AnswerNum 으로 읽기 (join)-->
+	<resultMap type="ServiceAnswerDto" id="ServiceAnswerDto">
+		<result column="serviceAnsNum" property="serviceAnsNum" />
+		<result column="serviceAnsContent" property="serviceAnsContent" />
+		<result column="serviceAnsDate" property="serviceAnsDate" />
+		<collection property="serviceQueDto" resultMap="ServiceQuestionDto"></collection>
+	</resultMap>
+	
+	<resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">
+		<result column="serviceQueTitle" property="serviceQueTitle" />
+	</resultMap>
+	
+	<select id="findServiceAns" parameterType="ServiceAnswerDto" resultMap="ServiceAnswerDto">
+		select
+			a.serviceAnsNum,
+			a.serviceAnsContent,
+			a.serviceAnsDate,
+			b.serviceQueTitle
+		from serviceAnswer a join serviceQuestion B
+		on a.serviceQueNum=b.serviceQueNum
+		where a.serviceAnsNum=#{serviceAnsNum}
+	</select>
+	
+</mapper>

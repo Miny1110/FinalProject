@@ -116,9 +116,10 @@
                                         </td>
                                         
                                         <td class="review">
-                                            <span class="review" th:if="${#strings.equals(orderDetailDto.orderDto.orderState,'배송완료')}">리뷰쓰기</span>
+                                            <span class="review" th:if="${#strings.equals(orderDetailDto.orderDto.orderState,'배송완료')}">
+                                            <a th:href="@{/reviewWrite(itemNum=${orderDetailDto.itemDto.itemNum})}" style="color: #fff">리뷰쓰기</a></span>
                                             <br th:if="${#strings.equals(orderDetailDto.orderDto.orderState,'배송완료')}"/>
-                                            <span class="review">문의하기</span>
+                                            <span class="review"><a th:href="@{/itemDetail(itemNum=${orderDetailDto.itemDto.itemNum})}" style="color: #fff">문의하기</a></span>
                                         </td>
                                     </tr>
 								<!-- 개별상품 끝 -->

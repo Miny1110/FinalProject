@@ -14,4 +14,5 @@ public class ServiceAnswerDto {
 	private String serviceAnsContent;
 	private Date serviceAnsDate;
 
+	private ServiceQuestionDto serviceQueDto;
 }

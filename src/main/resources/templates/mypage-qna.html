@@ -186,25 +186,41 @@
                                           <table class="table table-bordered">
                                             <thead>
                                               <tr>
-                                                <th class="state">답변상태</th>
+                                                <th class="state">문의번호</th>
+                                               <!--  <th class="state">답변상태</th> -->
                                                 <th class="title">제목</th>
                                                 <th class="date">작성일</th>
                                               </tr>
                                             </thead>
                                             <tbody>
-                                            
-                                              <tr th:if="${#lists.size(lists)>0}" th:each="queDto:${lists}">
-                                                <td class="state" th:if="${queDto.serviceAnswer==null}">
+                                            <div th:if="${#lists.size(lists)>0}" th:each="queDto:${lists}">
+                                            	<!-- 문의내역 출력 -->
+                                              <tr>
+                                              	<td th:text="${queDto.serviceQueNum}"></td>
+                                                <!-- <td class="state" th:if="${queDto.serviceAnswer==null}">
                                                 <span style="color: #fff; background: #ff7272; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">미답변</span></td>
                                                 <td class="state" th:if="${queDto.serviceAnswer!=null}">
-                                                <span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">답변완료</span></td>
-                                                <td class="title"><a th:text="${queDto.serviceQueTitle}" th:href="@{/}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
+                                                <span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">답변완료</span></td> -->
+                                                
+                                                <td class="title" style="text-align: left;"><a th:text="${queDto.serviceQueTitle}" th:href="@{/service/qnaArticle(serviceQueNum=${queDto.serviceQueNum})}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
+                                                
                                                 <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}"></td>
                                               </tr>
+                                              
+                                              <!-- 답변 있으면 출력 -->
+                                              <tr th:if="${queDto.serviceAnswer!=null}">
+                                              	<td></td>
+                                              	<td style="text-align: left;"><a>└ &nbsp;</a>
+                                              	<span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">
+                                              	답변</span><a th:href="@{/service/qnaArticle(serviceQueNum=${queDto.serviceQueNum})}" th:text="|&nbsp;${queDto.serviceQueTitle}|"></a></td>
+                                              	<td th:text="${#dates.format(queDto.serviceAnswer.serviceAnsDate,'yyyy-MM-dd')}"></td>
+                                              </tr>
+                                              
+                                              <!-- 문의내역 없으면 출력 -->
                                               <tr th:unless="${#lists.size(lists)>0}">
                                               	<td colspan="3">문의내역이 없습니다.</td>
                                               </tr>
-                                              
+                                              </div>
                                             </tbody>
                                           </table>
                                     	</form>

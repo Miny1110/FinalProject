@@ -15,6 +15,7 @@
 	
 	<resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">
 		<result column="serviceQueTitle" property="serviceQueTitle" />
+		<result column="serviceQueNum" property="serviceQueNum" />
 	</resultMap>
 	
 	<select id="findServiceAns" parameterType="ServiceAnswerDto" resultMap="ServiceAnswerDto">
@@ -22,7 +23,8 @@
 			a.serviceAnsNum,
 			a.serviceAnsContent,
 			a.serviceAnsDate,
-			b.serviceQueTitle
+			b.serviceQueTitle,
+			b.serviceQueNum
 		from serviceAnswer a join serviceQuestion B
 		on a.serviceQueNum=b.serviceQueNum
 		where a.serviceAnsNum=#{serviceAnsNum}

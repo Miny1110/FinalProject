@@ -395,11 +395,10 @@ public class CustomerController {
     }
     
     //마이페이지 답변보이게 하는 ajax
-    @RequestMapping(value = "qna/dataSend", method = RequestMethod.GET )
+    @RequestMapping(value = "qna/getAnswer", method = RequestMethod.GET )
     @ResponseBody
-    public String dataSend(@RequestParam("queNum")int queNum) throws Exception {
+    public String getAnswer(@RequestParam("queNum")int queNum) throws Exception {
 
-    	System.out.println(queNum);
     	ServiceAnswerDto dto = serviceAnswerService.getReadServiceAnsData(queNum);
     	String content = dto.getServiceAnsContent();
     	
@@ -425,6 +424,17 @@ public class CustomerController {
     	return mav;
     	
     }
+    
+    //마이페이지 질문보이게 하는 ajax
+    @RequestMapping(value = "qna/getQuestion", method = RequestMethod.GET )
+    @ResponseBody
+    public String getQuestion(@RequestParam("queNum")int queNum) throws Exception {
+
+    	ServiceQuestionDto dto = serviceQuestionService.findServiceQue(queNum);
+    	String content = dto.getServiceQueContent();
+    	
+		return content;
+	}
     
 //--------------------------------------------------------------------------------    
     //마이페이지 마이리뷰

@@ -47,14 +47,15 @@ public class CreatePoint {
     	return pointDto;
 	}
 	
+
 	//리뷰작성 지급 포인트
 	public PointDto reviewPoint(String customerEmail) {
+  
+      PointDto pointDto = new PointDto();
 		
-		PointDto pointDto = new PointDto();
-		
-		int pointNum = pointService.maxNum();
-		pointDto.setPointNum(pointNum+1);
-    	pointDto.setPointTitle("리뷰작성");
+      int pointNum = pointService.maxNum();
+      pointDto.setPointNum(pointNum+1);
+      pointDto.setPointTitle("리뷰작성");
     	pointDto.setPointContent("제품리뷰작성 포인트");
     	pointDto.setPointAmount(500);
     	pointDto.setPointState("지급");
@@ -63,6 +64,22 @@ public class CreatePoint {
 		
 			
 		return pointDto;
+		}
+
+	//마이리뷰 삭제 회수 포인트
+public PointDto orderCanclePoint(String customerEmail) {
+			
+		  PointDto pointDto = new PointDto();
+		
+		  int pointNum = pointService.maxNum();
+	  	pointDto.setPointNum(pointNum+1);
+	    pointDto.setPointTitle("주문취소");
+	    pointDto.setPointContent("주문취소");
+	    pointDto.setPointAmount(-1500);
+	    pointDto.setPointState("소멸");
+	    pointDto.setCustomerEmail(customerEmail);
+	    
+	    return pointDto;
 	}
 	
 }

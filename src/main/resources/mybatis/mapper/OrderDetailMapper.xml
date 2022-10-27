@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.OrderDetailMapper">
+
+    <select id="odMaxNum" resultType="int">
+        select nvl(max(odNum),0) from orderDetail
+    </select>
+
+    <insert id="insertOd" parameterType="OrderDetailDto">
+        insert into orderDetail (odNum,orderNum,itemNum,itemQty,itemColor,itemSize)
+        values (#{odNum},#{orderNum},#{itemNum},#{itemQty},#{itemColor},#{itemSize})
+    </insert>
+</mapper>

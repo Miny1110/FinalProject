@@ -1,7 +1,10 @@
-
+let header = $("meta[name='_csrf_header']").attr("content");
+let token = $("meta[name='_csrf']").attr("content");
 
 function requestPay() {
 
+
+/*   let f = document.orderForm*/
    //let payment = $("#payment").val();
    let payment = $(':radio[name="credit"]:checked').val();
    if(payment===""){
@@ -11,22 +14,6 @@ function requestPay() {
         alert("간편결제 선택후 이용가능합니다.")
         return
     }
-/*    $(document).ready(function () {
-        $('#payCheck').val("card");
-
-     /*   $('input[type="radio"]').on('click', (function () {
-
-            if ($("input[name='credit']:checked").val() === 'card') {
-                $("#payCheck").val("card");
-            } else if ($("input[name='credit']:checked").val() === 'bank') {
-                $("#payCheck").val("bank");
-            } else if ($("input[name='credit']:checked").val() === 'phone') {
-                $("#payCheck").val("phone");
-            } else {
-                $("#payCheck").val("kakao");
-            }
-        }));
-    });*/
 
     if(payment==="card"){
         pgName="html5_inicis";
@@ -55,12 +42,15 @@ function requestPay() {
     }
 
     payOrder();
+
 }
 let pgName="";
 let payMethod="";
 let payName="";
 
 function payOrder(){
+
+
 
     //아임포트 결제연동
     var IMP = window.IMP;
@@ -76,11 +66,10 @@ function payOrder(){
         pay_method:payMethod,
         merchant_uid: 'cozy'+new Date().getTime(), //고유 order
         name: $('#itemName').html() , //item 이름
-        amount: $('#pointTotalPrice').html(), //총 가격
+        amount: $('#pointTotalPrice').val(), //총 가격
         buyer_email: $('#customerEmail').val() ,//구매자 메일
         buyer_name: $('#customerName').val(), //구매자 이름
         buyer_tel: $('#customerTel').html() ,
-        payName: payName,
         //form 안쓰기에 저장 필요
 
 
@@ -99,21 +88,53 @@ function payOrder(){
 
             let msg='결제가 완료되었습니다.';
             msg += '구매자:' +name;
-            msg += "\n상점거래ID : " + merchant_uid;
+            msg += "\n주문번호 : " + merchant_uid;
             msg += "\n결제금액 : " + paid_amount;
-            msg += "\itemQty : " + qty;
+
+
 
             alert(msg)
-            location.href="/order_ok";
+           
 
+            $.ajax({
+                method:"POST",
+                url: "/order_ok",
+                contentType:'application/json',
+             /*   traditional :true, 배열*/
+                data:JSON.stringify({
+                    orderNum:merchant_uid,
+                    itemNum:parseInt($('#itemNum').val()),
+                    itemQty:parseInt($('#itemQty').val()),
+                    deliverName:$('#deliverName').val(),
+                    deliverRAddr:$('#deliverRAddr').val(),
+                    deliverJAddr:$('#deliverJAddr').val(),
+                    payment:payName,
+                    deliverDAddr:$('#deliverDAddr').val(),
+                    deliverZipCode:$('#deliverZipCode').val(),
+                    deliverTel:$('#deliverTel').val(),
+                    usePoint:$('#use').val(),
+                    itemSize:$('#itemSize').val(),
+                    itemColor:$('#itemColor').val()
+                }), beforeSend: function (jqXHR) {
+                    jqXHR.setRequestHeader(header, token);
+                },
+                success: function(data){
 
-            /*
-                    $.ajax({
+                    let msg = "결제가 완료되었습니다.\n";
+                    alert(msg);
+
+                    location.href="/success_order";
+                },error: function (){
+                    alert("결제가 정상적으로 진행되지 않았습니다.")
+                }
+
+            })
+
+                 /*   $.ajax({
                         url: "order_ok",
                         type:"POST",
                         data:{
-                            itemNum:$('#itemNum').val(),
-                            itemQty:$('#itemQty').val(),
+
 
                         },
                       success: function(data){

@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class OrderDto {
 //db에 저장해야하는거
-    private int orderNum;
+    private String orderNum;
     private String customerEmail;
     private int itemNum;
     private int deliverNum; //배송지

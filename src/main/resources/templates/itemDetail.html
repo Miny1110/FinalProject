@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 <div th:replace="head.html :: headFragment"></div>
@@ -178,8 +178,8 @@
 						</div>
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
-							<form th:action="@{/order}" name="order" type="post">
-								<input type="hidden" th:value="${idto.getItemNum()}" name="num">
+							<form th:action="@{/order}" name="order">
+								<input type="text" th:value="${idto.getItemNum()}" id="num" name="num" hidden>
 								<div class="right-box-contain">
 									<h6 class="offer-top"
 										th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
@@ -305,7 +305,7 @@
 													<i class="fa fa-minus ms-0" aria-hidden="true"></i>
 												</button>
 												<input class="form-control input-number qty-input"
-													   type="text" name="itemQty" value="1">
+													   type="text" id="itemQty" name="itemQty" value="1">
 												<button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
 													<i class="fa fa-plus ms-0" aria-hidden="true"></i>
 												</button>
@@ -313,7 +313,7 @@
 										</div>
 
 
-										<button onclick="location.href = '/cart';"
+										<button type="button" onclick="cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40">장바구니
 										</button>
 										<button onclick="location.href = '/order';"
@@ -322,7 +322,7 @@
 
 
 									</div>
-							</form>
+
 
 
 									<!--<input type="hidden" id="itemQty" name="itemQty" th:value="${itemQty}">-->
@@ -359,7 +359,7 @@
 									</div>
 
 								</div>
-
+							</form>
 							</div>
 						</div>
 
@@ -1503,9 +1503,9 @@
 	<script src="/assets/js/filter-sidebar.js"></script>
 
 	<!-- Quantity js -->
-	<script src="/assets/js/quantity-1.js"></script>
-	<script src="/assets/js/quantity-2.js"></script>
-	<script src="/assets/js/quantity-3.js"></script>
+	<script src="/assets/js/quantity.js"></script>
+<!-- 	<script src="/assets/js/quantity-2.js"></script>
+	<script src="/assets/js/quantity-3.js"></script> -->
 
 	<!-- Zoom Js -->
 	<script src="/assets/js/jquery.elevatezoom.js"></script>
@@ -1520,7 +1520,7 @@
 
 	<!-- script js -->
 	<script src="/assets/js/script.js"></script>
-
+	<script src="/assets/js/itemRoute.js"></script>
 
 </body>
 

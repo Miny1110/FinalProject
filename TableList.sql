@@ -35,7 +35,7 @@ itemSize varchar2(100));
 CREATE TABLE CART
 (CARTNUM NUMBER(8) PRIMARY KEY,
 ITEMNUM NUMBER(8),
-CUSTOMEREMAIL VARCHAR2(20),
+CUSTOMEREMAIL VARCHAR2(100),
 ITEMQTY NUMBER(20),
 FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL),
 FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
@@ -123,3 +123,54 @@ itemQnaTitle varchar2(500),
 itemQnaCreate date,
 itemQnaContent varchar2(4000),
 customerEmail varchar2(4000));
+
+//고객센터질문
+CREATE TABLE serviceQuestion
+(serviceQueNum NUMBER(8) PRIMARY KEY,
+CUSTOMEREMAIL VARCHAR2(100),
+serviceQueTitle varchar2(500),
+serviceQueContent varchar2(4000),
+serviceQueDate date,
+FOREIGN KEY (CUSTOMEREMAIL) REFERENCES customer(CUSTOMEREMAIL)
+ON DELETE CASCADE);
+
+//고객센터답변
+CREATE TABLE serviceAnswer
+(serviceAnsNum NUMBER(8) PRIMARY KEY,
+serviceQueNum NUMBER(8),
+serviceAnsContent varchar2(4000),
+serviceAnsDate date,
+FOREIGN KEY (serviceQueNum) REFERENCES serviceQuestion(serviceQueNum)
+ON DELETE CASCADE);
+
+//---------------------------------------------------------------------------------------------------------------
+//주문(공통정보)
+CREATE TABLE COZYORDER
+(orderNum VARCHAR2(100) PRIMARY KEY,
+customerEmail VARCHAR2(100),
+payment VARCHAR2(20), 
+orderState VARCHAR2(20),
+deliverCost number(10),
+deliverName VARCHAR2(20),
+deliverRAddr VARCHAR2(100),
+deliverJAddr VARCHAR2(100),
+deliverDAddr VARCHAR2(100),
+deliverZipCode VARCHAR2(10),
+deliverTel VARCHAR2(45),
+deliverMessage VARCHAR2(100),
+orderDate date default sysdate,
+usePoint number(10),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
+
+//주문상세(주문상품정보)
+create table orderdetail
+(odnum NUMBER(8) primary Key,
+orderNum VARCHAR2(100),
+itemNum number(8),
+itemQty NUMBER(8),
+itemColor VARCHAR2(40),
+itemSize VARCHAR2(40),
+FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
+FOREIGN KEY (itemNum) REFERENCES item(itemNum));
+
+

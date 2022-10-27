@@ -25,11 +25,15 @@ import com.exe.cozy.DataNotFoundException;
 import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.DeliverDto;
 import com.exe.cozy.domain.MailDto;
+import com.exe.cozy.domain.OrderDetailDto;
+import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mail.MailService;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
+import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.AddDate;
@@ -49,6 +53,7 @@ public class CustomerController {
 	@Resource private MailService mailService;
 	@Resource private DeliveryService deliveryService;
 	@Resource private ReplyService replyService;
+	@Resource private OrderService orderService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -226,14 +231,42 @@ public class CustomerController {
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order")
-    public ModelAndView order(Principal principal) {
+    public ModelAndView order(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
 
+    	Page<OrderDto> orderList = customerService.getOrderList(principal.getName(), pageNum);
+    	PageInfo<OrderDto> page = new PageInfo<>(orderList,3);
+    	List<OrderDto> orderDetailList = customerService.getOrderDetailList(principal.getName());
+    	
+    	mav.addObject("page", page);
     	mav.addObject("customerDto", customerDto);
+    	mav.addObject("orderList", orderList);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("mypage-order");
+    	
+    	return mav;
+    }
+    
+    //마이페이지에서 주문취소
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("cancle")
+    public ModelAndView orderCancle(Principal principal, HttpServletRequest req) {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName()));
+    	orderService.updateCancleState(req.getParameter("orderNum"));
+    	
+    	mav.setViewName("redirect:order");
     	
     	return mav;
     }
@@ -241,9 +274,15 @@ public class CustomerController {
     //마이페이지 주문상세조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/detail")
-    public ModelAndView orderDetail() {
+    public ModelAndView orderDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String orderNum = req.getParameter("orderNum");
+    	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
+    	
+    	mav.addObject("odto", odto);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice");
     	
     	return mav;
@@ -252,12 +291,24 @@ public class CustomerController {
     //마이페이지 주문취소조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/cancle")
-    public ModelAndView orderCancle(Principal principal) {
+    public ModelAndView orderCancleList(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
+    	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
 
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
+    	Page<OrderDto> orderList = customerService.getOrderCancleList(principal.getName(), pageNum);
+    	PageInfo<OrderDto> page = new PageInfo<>(orderList,3);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderCancleDetailList(principal.getName());
 
+    	mav.addObject("orderList", orderList);
+    	mav.addObject("page", page);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-order-cancle");
     	
@@ -267,9 +318,15 @@ public class CustomerController {
     //마이페이지 주문취소상세조회
     @PreAuthorize("isAuthenticated")
     @GetMapping("order/cancle/detail")
-    public ModelAndView orderCancleDetail() {
+    public ModelAndView orderCancleDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String orderNum = req.getParameter("orderNum");
+    	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
+    	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
+    	
+    	mav.addObject("odto", odto);
+    	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice-cancle");
     	
     	return mav;
@@ -278,13 +335,33 @@ public class CustomerController {
     //마이페이지 문의답변
     @PreAuthorize("isAuthenticated")
     @GetMapping("qna")
-    public ModelAndView qna(Principal principal) {
+    public ModelAndView qna(Principal principal, HttpServletRequest req) {
     	
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
+    	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
+    	String searchValue = req.getParameter("searchValue");
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
+    	
+    	Page<ServiceQuestionDto> lists = customerService.getQnaList(principal.getName(), searchKey, searchValue, pageNum);
+    	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
     	mav.addObject("customerDto", customerDto);
+    	mav.addObject("lists", lists);
+    	mav.addObject("page", page);
     	mav.setViewName("mypage-qna");
     	
     	return mav;
@@ -312,7 +389,6 @@ public class CustomerController {
     	
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
-    	System.out.println(lists);
     	mav.addObject("page", page);
     	
     	mav.setViewName("mypage-review");

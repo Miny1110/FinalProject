@@ -22347,7 +22347,19 @@ header .offcanvas-backdrop {
     font-weight: 600;
 }
 
-.user-dashboard-section .dashboard-right-sidebar .dashboard-bg-box .row .col-xxl-12 .table td span.get{
+.user-dashboard-section .dashboard-right-sidebar .dashboard-bg-box .table table-bordered tr .state span.finish{
+    font-size: 10px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#ff7272), to(#ff7272));
+    background: linear-gradient(-90deg, #ff7272 0%, #ff7272 100%);
+    padding:2px 4px;
+    border-radius: 4px;
+    margin-right: calc(1px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 600;
+}
+
+.user-dashboard-section .dashboard-bg-box .row .col-xxl-12 .table td span.get{
     font-size: 10px;
     font-weight: 400;
     color: #fff;

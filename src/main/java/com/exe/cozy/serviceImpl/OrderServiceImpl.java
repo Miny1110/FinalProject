@@ -22,4 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.insertOrder(odto);
     }
+
+	@Override
+	public void updateCancleState(String orderNum) {
+		orderMapper.updateCancleState(orderNum);
+	}
 }

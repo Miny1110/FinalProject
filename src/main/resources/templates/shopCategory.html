@@ -2,7 +2,7 @@
     <div th:replace="head.html :: headFragment"></div>
     <title>상품 카테고리</title>
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style_sh.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/style_sh.css">
 </head>
 
 <body>
@@ -21,47 +21,6 @@
     <!-- Header Start -->
     <header th:replace="header.html :: headerFragment"></header>
     <!-- Header End -->
-
-    <!-- mobile fix menu start -->
-    <div class="mobile-menu d-md-none d-block mobile-cart">
-        <ul>
-            <li class="active">
-                <a href="index.html">
-                    <i class="iconly-Home icli"></i>
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li class="mobile-category">
-                <a href="javascript:void(0)">
-                    <i class="iconly-Category icli js-link"></i>
-                    <span>Category</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="search.html" class="search-box">
-                    <i class="iconly-Search icli"></i>
-                    <span>Search</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="wishlist.html" class="notifi-wishlist">
-                    <i class="iconly-Heart icli"></i>
-                    <span>My Wish</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="cart.html">
-                    <i class="iconly-Bag-2 icli fly-cate"></i>
-                    <span>Cart</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- mobile fix menu end -->
 
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
@@ -94,47 +53,389 @@
                 <div class="col-xxl-3 col-lg-4">
                     <div class="left-box wow fadeInUp">
                         <div class="shop-left-sidebar">
-                            <ul class="nav nav-pills mb-3 custom-nav-tab" id="pills-tab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pills-vegetables" data-bs-toggle="pill"
-                                        data-bs-target="#pills-vegetable" type="button" role="tab"
-                                        aria-selected="true">가전상품 <img src="../assets/svg/1/vegetable.svg"
-                                            class="blur-up lazyload" alt=""></button>
-                                </li>
+                            <div class="back-button">
+                                <h3><i class="fa-solid fa-arrow-left"></i> Back</h3>
+                            </div>
 
+                            <div class="accordion custome-accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            <span>가전용품</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <ul class="category-list custom-padding custom-height">
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="fridge" name="itemSubType">냉장고</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="tv" name="itemSubType">TV</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="airConditioner" name="itemSubType">에어컨 & 공기청정기</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                            <a href="javascript:void(0)" value="washer" name="itemSubType">세탁기</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                            <a href="javascript:void(0)" value="cleaner" name="itemSubType">청소기</a>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            <span>가구</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <ul class="category-list custom-padding custom-height">
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="bed" name="itemSubType">침대</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="sofa" name="itemSubType">쇼파</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="chair" name="itemSubType">테이블 & 의자</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="closet" name="itemSubType">옷장</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="hanger" name="itemSubType">행거</a>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            <span>주방용품</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <ul class="category-list custom-padding custom-height">
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="pot" name="itemSubType">냄비 & 프라이팬 & 솥</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="tableware" name="itemSubType">홈세트(식기류)</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="knife" name="itemSubType">칼</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="spoon" name="itemSubType">수저</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="choppingBoard" name="itemSubType">도마</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="false" aria-controls="collapseFour">
+                                            <span>수납 & 정리</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <ul class="category-list custom-padding custom-height">
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="shelf" name="itemSubType">선반</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="trolley" name="itemSubType">수납장 & 트롤리</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="shoeCloset" name="itemSubType">신발장</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="livingBox" name="itemSubType">리빙박스 & 바구니</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingFour">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                            aria-expanded="false" aria-controls="collapseFive">
+                                            <span>생필품</span>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFive" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne">
+                                        <div class="accordion-body">
+                                            <ul class="category-list custom-padding custom-height">
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="wastePaper" name="itemSubType">휴지</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="kitchenDetergent" name="itemSubType">주방세제</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="laundryDetergent" name="itemSubType">세탁세제</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="bodyCare" name="itemSubType">바디케어</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-check ps-0 m-0 category-list-box">
+                                                        <a href="javascript:void(0)" value="cleaningSupplies" name="itemSubType">청소용품</a>
+                                                    </div>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+    						</div>
+                    	</div>
+                    </div>
+                </div>	
+    
+    <!-- 
+    <section class="section-b-space shop-section">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-xxl-3 col-lg-4">
+                    <div class="left-box wow fadeInUp">
+                        <div class="shop-left-sidebar">
+                            <ul class="nav nav-pills mb-3 custom-nav-tab" id="pills-tab" role="tablist">
+                                
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-beverages" data-bs-toggle="pill"
+                                    <button class="nav-link active accordian" id="pills-vegetables" data-bs-toggle="pill"
+                                        data-bs-target="#pills-vegetable" type="button" role="tab"
+                                        aria-selected="true">가전상품 <img src="/assets/svg/1/vegetable.svg"
+                                            class="blur-up lazyload" alt=""></button>     
+                                </li>
+								
+									<li class="list-1">                                              
+                                        <ul>
+                                           <li>  &nbsp;&nbsp;                                                     
+                                              <a href="javascript:void(0)">냉장고</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                           </li>
+                                                    
+                                           <li>
+                                              <a href="javascript:void(0)">에어컨</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                           </li>
+                                                     
+                                           <li>
+                                              <a href="javascript:void(0)">공기청정기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                           </li>
+              
+                                           <li>
+                                              <a href="javascript:void(0)">세탁기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                           </li>
+            
+                                           <li>
+                                              <a href="javascript:void(0)">청소기</a>
+                                           </li>
+                                        </ul>
+    	                             </li>
+                                 
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link accordian" id="pills-beverages" data-bs-toggle="pill"
                                         data-bs-target="#pills-beverages" type="button" role="tab"
                                         aria-controls="pills-beverages" aria-selected="false">가구 <img
-                                            src="../assets/svg/1/cup.svg" class="blur-up lazyload" alt=""></button>
+                                            src="/assets/svg/1/cup.svg" class="blur-up lazyload" alt=""></button>
                                 </li>
+                                
+									<li class="list-1" >                                              
+                                      	<ul>
+                                         	<li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                  
+                                               <a href="javascript:void(0)">침대</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                               <a href="javascript:void(0)">쇼파</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                               <a href="javascript:void(0)">테이블 & 의자</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </li>
+                      
+                                            <li>
+                                               <a href="javascript:void(0)">옷장</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            </li>
+                      
+                                            <li>
+                                               <a href="javascript:void(0)">행거</a>
+                                            </li>
+                                        </ul>
+                                 	</li>
+                                
                                 
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-grocery" data-bs-toggle="pill"
                                         data-bs-target="#pills-grocery" type="button" role="tab"
                                         aria-controls="pills-grocery" aria-selected="true">주방용품 <img
-                                            src="../assets/svg/1/grocery.svg" class="blur-up lazyload" alt=""></button>
+                                            src="/assets/svg/1/grocery.svg" class="blur-up lazyload" alt=""></button>
                                 </li>
+                                
+									<li class="list-1" >                                              
+                                        <ul>
+                                            <li>                                                 
+                                                <a href="javascript:void(0)">냄비 & 프라이팬 & 솥</a>&nbsp;|&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                                <a href="javascript:void(0)">홈세트(식기류)</a>&nbsp;|&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                                <a href="javascript:void(0)">칼</a>&nbsp;|&nbsp;
+                                            </li>
+                            
+                                            <li>
+                                                <a href="javascript:void(0)">수저</a>&nbsp;|&nbsp;
+                                            </li>
+                                  
+                                            <li>
+                                                <a href="javascript:void(0)">도마</a>
+                                            </li>
+                                        </ul>
+                                   </li>
 
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-meat" data-bs-toggle="pill"
                                         data-bs-target="#pills-meat" type="button" role="tab" aria-controls="pills-meat"
-                                        aria-selected="false">수납 & 정리 <img src="../assets/svg/1/meats.svg"
+                                        aria-selected="false">수납 & 정리 <img src="/assets/svg/1/meats.svg"
                                             alt="" class="blur-up lazyload"></button>
                                 </li>
+                                
+									<li class="list-1" >                                              
+                                        <ul>
+                                            <li>  &nbsp;&nbsp;                                               
+                                                <a href="javascript:void(0)">선반</a>&nbsp;|&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                                <a href="javascript:void(0)">수납장 & 트롤리</a>&nbsp;|&nbsp;
+                                            </li>
+                                                    
+                                            <li>
+                                                <a href="javascript:void(0)">신발장</a>&nbsp;|&nbsp;
+                                            </li>
+                                            
+                                            <li>
+                                                <a href="javascript:void(0)">리빙박스 & 바구니</a>
+                                            </li>
+                                         </ul>
+                               	  	</li>
 
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-dairy" data-bs-toggle="pill"
                                         data-bs-target="#pills-dairy" type="button" role="tab"
                                         aria-controls="pills-dairy" aria-selected="true">생필품 <img
-                                            src="../assets/svg/1/breakfast.svg" class="blur-up lazyload"
+                                            src="/assets/svg/1/breakfast.svg" class="blur-up lazyload"
                                             alt=""></button>
                                 </li>
 
+									<li class="list-1" >                                              
+                                         <ul>
+                                            <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                 
+                                                 <a href="javascript:void(0)">휴지</a>&nbsp;|&nbsp;
+                                         	</li>
+                                                    
+                                         	<li>
+                                             	<a href="javascript:void(0)">주방세제</a>&nbsp;|&nbsp;
+                                         	</li>
+                                                    
+                                         	<li>
+                                            	<a href="javascript:void(0)">세탁세제</a>&nbsp;|&nbsp;
+                                         	</li>
+                                         
+                                         	<li>
+                                            	<a href="javascript:void(0)">바디케어</a>&nbsp;|&nbsp;
+                                         	</li>
+                                         
+                                        	<li>
+                                            	<a href="javascript:void(0)">청소용품</a>
+                                         	</li>
+                                         </ul>
+                                 	</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+ -->
 
                 <div class="col-xxl-9 col-lg-8">
                     <div class="show-button">
@@ -177,20 +478,15 @@
                                 <ul>
                                     <li class="three-grid d-xxl-inline-block d-none">
                                         <a href="javascript:void(0)">
-                                            <img src="../assets/svg/grid-3.svg" class="blur-up lazyload" alt="">
+                                            <img src="/assets/svg/grid-3.svg" class="blur-up lazyload" alt="">
                                         </a>
                                     </li>
                                     <li class="grid-btn active">
                                         <a href="javascript:void(0)">
-                                            <img src="../assets/svg/grid-4.svg"
+                                            <img src="/assets/svg/grid-4.svg"
                                                 class="blur-up lazyload d-lg-inline-block d-none" alt="">
-                                            <img src="../assets/svg/grid.svg"
+                                            <img src="/assets/svg/grid.svg"
                                                 class="blur-up lazyload img-fluid d-lg-none d-inline-block" alt="">
-                                        </a>
-                                    </li>
-                                    <li class="list-btn">
-                                        <a href="javascript:void(0)">
-                                            <img src="../assets/svg/list.svg" class="blur-up lazyload" alt="">
                                         </a>
                                     </li>
                                 </ul>
@@ -205,7 +501,7 @@
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="product-left.html">
-                                            <img src="../assets/images/cake/product/2.png"
+                                            <img src="/assets/images/cake/product/2.png"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
 
@@ -266,20 +562,18 @@
                                         <div class="add-to-cart-box bg-white">
                                             <button class="btn btn-add-cart addcart_button addcart-button">Add
                                                 <i class="fa-solid fa-plus bg-gray"></i></button>
-                                            <div class="cart_qty qty-box">
-                                                <div class="input-group">
-                                                    <button type="button" class="qty-left-minus" data-type="minus"
-                                                        data-field="">
-                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                    </button>
-                                                    <input class="form-control input-number qty-input" type="text"
-                                                        name="quantity" value="0">
-                                                    <button type="button" class="qty-right-plus" data-type="plus"
-                                                        data-field="">
-                                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            <div class="cart_qty qty-box product-qty">
+											<div class="input-group">
+												<button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
+													<i class="fa fa-minus ms-0" aria-hidden="true"></i>
+												</button>
+												<input class="form-control input-number qty-input"
+													   type="text" id="itemQty" name="itemQty" value="1">
+												<button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
+													<i class="fa fa-plus ms-0" aria-hidden="true"></i>
+												</button>
+											</div>
+										</div>
                                         </div>
                                     </div>
                                 </div>
@@ -292,7 +586,7 @@
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="product-left.html">
-                                            <img src="../assets/images/cake/product/7.png"
+                                            <img src="/assets/images/cake/product/7.png"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
 
@@ -381,7 +675,7 @@
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="product-left.html">
-                                            <img src="../assets/images/cake/product/2.png"
+                                            <img src="/assets/images/cake/product/2.png"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
 
@@ -467,7 +761,7 @@
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="product-left.html">
-                                            <img src="../assets/images/cake/product/3.png"
+                                            <img src="/assets/images/cake/product/3.png"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
 
@@ -552,31 +846,7 @@
                     </div>
                     <!-- 삭제해야 할 예시이미지 end -->
 
-					<!-- 페이징 start -->
-                    <nav class="custome-pagination">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
-                                    <i class="fa-solid fa-angles-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="javascript:void(0)">1</a>
-                            </li>
-                            <li class="page-item" aria-current="page">
-                                <a class="page-link" href="javascript:void(0)">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0)">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0)">
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- 페이징 end -->
+					
                 </div>
             </div>
         </div>
@@ -587,357 +857,55 @@
     <footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
 
-    <!-- Quick View Modal Box Start -->
-    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header p-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-sm-4 g-2">
-                        <div class="col-lg-6">
-                            <div class="slider-image">
-                                <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
-                                    alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="right-sidebar-modal">
-                                <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
-                                <h4 class="price">$36.99</h4>
-                                <div class="product-rating">
-                                    <ul class="rating">
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star"></i>
-                                        </li>
-                                    </ul>
-                                    <span class="ms-2">8 Reviews</span>
-                                    <span class="ms-2 text-danger">6 sold in last 16 hours</span>
-                                </div>
-
-                                <div class="product-detail">
-                                    <h4>Product Details :</h4>
-                                    <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
-                                        Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
-                                        Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
-                                        muffin I love carrot cake sugar plum dessert bonbon.</p>
-                                </div>
-
-                                <ul class="brand-list">
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Brand Name:</h5>
-                                            <h6>Black Forest</h6>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Product Code:</h5>
-                                            <h6>W0690034</h6>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <div class="brand-box">
-                                            <h5>Product Type:</h5>
-                                            <h6>White Cream Cake</h6>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <div class="select-size">
-                                    <h4>Cake Size :</h4>
-                                    <select class="form-select select-form-size">
-                                        <option selected>Select Size</option>
-                                        <option value="1.2">1/2 KG</option>
-                                        <option value="0">1 KG</option>
-                                        <option value="1.5">1/5 KG</option>
-                                        <option value="red">Red Roses</option>
-                                        <option value="pink">With Pink Roses</option>
-                                    </select>
-                                </div>
-
-                                <div class="modal-button">
-                                    <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md add-cart-button icon">Add
-                                        To Cart</button>
-                                    <button onclick="location.href = 'product-left.html';"
-                                        class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
-                                        View More Details</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick View Modal Box End -->
-
-    <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Location Modal End -->
-
-
-    <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                        <p class="mt-1 text-content">Recommended deals for you.</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Deal Box Modal End -->
-
-    <!-- Add to cart Modal Start -->
-    <div class="add-cart-box">
-        <div class="add-iamge">
-            <img src="../assets/images/cake/pro/1.jpg" class="img-fluid blur-up lazyload" alt="">
-        </div>
-
-        <div class="add-contain">
-            <h6>Added to Cart</h6>
-        </div>
-    </div>
-    <!-- Add to cart Modal End -->
-
-    <!-- Tap to top start -->
-    <div class="theme-option">
-        <div class="back-to-top">
-            <a id="back-to-top" href="#">
-                <i class="fas fa-chevron-up"></i>
-            </a>
-        </div>
-    </div>
-    <!-- Tap to top end -->
+    
 
     <!-- Bg overlay Start -->
     <div class="bg-overlay"></div>
     <!-- Bg overlay End -->
 
+	<!-- accordian script -->
+	<script type="text/javascript">
+	
+	
+	</script>
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- jquery ui-->
-    <script src="../assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
 
     <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="/assets/js/bootstrap/popper.min.js"></script>
 
     <!-- feather icon js-->
-    <script src="../assets/js/feather/feather.min.js"></script>
-    <script src="../assets/js/feather/feather-icon.js"></script>
+    <script src="/assets/js/feather/feather.min.js"></script>
+    <script src="/assets/js/feather/feather-icon.js"></script>
 
     <!-- Lazyload Js -->
-    <script src="../assets/js/lazysizes.min.js"></script>
+    <script src="/assets/js/lazysizes.min.js"></script>
 
     <!-- Slick js-->
-    <script src="../assets/js/slick/slick.js"></script>
-    <script src="../assets/js/slick/slick-animation.min.js"></script>
-    <script src="../assets/js/slick/custom_slick.js"></script>
+    <script src="/assets/js/slick/slick.js"></script>
+    <script src="/assets/js/slick/slick-animation.min.js"></script>
+    <script src="/assets/js/slick/custom_slick.js"></script>
 
     <!-- Price Range Js -->
-    <script src="../assets/js/ion.rangeSlider.min.js"></script>
+    <script src="/assets/js/ion.rangeSlider.min.js"></script>
 
     <!-- Quantity js -->
-    <script src="../assets/js/quantity-3.js"></script>
+    <script src="/assets/js/quantity-3.js"></script>
 
     <!-- sidebar open js -->
-    <script src="../assets/js/filter-sidebar.js"></script>
+    <script src="/assets/js/filter-sidebar.js"></script>
 
     <!-- WOW js -->
-    <script src="../assets/js/wow.min.js"></script>
-    <script src="../assets/js/custom-wow.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/custom-wow.js"></script>
 
     <!-- script js -->
-    <script src="../assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 
 </body>
 

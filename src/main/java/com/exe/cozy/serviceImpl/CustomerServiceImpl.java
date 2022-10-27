@@ -7,7 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.OrderDetailDto;
+import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mapper.CustomerMapper;
 import com.exe.cozy.service.CustomerService;
 import com.github.pagehelper.Page;
@@ -74,15 +77,50 @@ public class CustomerServiceImpl implements CustomerService {
 		customerMapper.updatePoint(dto);
 	}
 
-//	@Override
-//	public List<ReplyDto> getReviewList(String customerEmail) {
-//		
-//		return customerMapper.getReviewList(customerEmail);
-//	}
-
 	@Override
 	public Page<ReplyDto> getReviewPaging(String customerEmail, int pageNum){
 		PageHelper.startPage(pageNum, 5);
 		return customerMapper.getReviewPaging(customerEmail, pageNum);
 	}
+
+	@Override
+	public Page<ServiceQuestionDto> getQnaList(String customerEmail, String searchKey, String searchValue,
+			int pageNum) {
+		PageHelper.startPage(pageNum, 2);
+		return customerMapper.getQnaList(customerEmail, searchKey, searchValue, pageNum);
+	}
+
+	@Override
+	public Page<OrderDto> getOrderList(String customerEmail, int pageNum) {
+		PageHelper.startPage(pageNum, 2);
+		return customerMapper.getOrderList(customerEmail, pageNum);
+	}
+
+	@Override
+	public List<OrderDto> getOrderDetailList(String customerEmail) {
+		return customerMapper.getOrderDetailList(customerEmail);
+	}
+
+	@Override
+	public OrderDto getOrderDetail(String customerEmail, String orderNum) {
+		return customerMapper.getOrderDetail(customerEmail, orderNum);
+	}
+
+	@Override
+	public List<OrderDetailDto> getOrderDetailOne(String customerEmail, String orderNum) {
+		return customerMapper.getOrderDetailOne(customerEmail, orderNum);
+	}
+
+	@Override
+	public Page<OrderDto> getOrderCancleList(String customerEmail, int pageNum) {
+		PageHelper.startPage(pageNum, 2);
+		return customerMapper.getOrderCancleList(customerEmail, pageNum);
+	}
+
+	@Override
+	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail) {
+		return customerMapper.getOrderCancleDetailList(customerEmail);
+	}
+
+
 }

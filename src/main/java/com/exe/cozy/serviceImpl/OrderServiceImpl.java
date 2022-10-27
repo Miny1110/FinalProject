@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 	@Override
-	public void updateState(String orderState, String orderNum) {
-		orderMapper.updateState(orderState, orderNum);
+	public void updateCancleState(String orderNum) {
+		orderMapper.updateCancleState(orderNum);
 	}
 }

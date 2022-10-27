@@ -45,7 +45,7 @@
                             <div>
                                 
                                 <h5><span class="cancle" th:text="${odto.orderState}"></span></h5>
-                                <h5 class="state" th:text="|주문번호: ${odto.orderNum} [취소날짜 나와야함]|"></h5>
+                                <h5 class="state" th:text="|주문번호: ${odto.orderNum} [취소날짜:&nbsp;${#dates.format(odto.orderDate,'yyyy-MM-dd')}]|"></h5>
                             </div>
                             <div>
                                 

@@ -40,8 +40,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 	}
 
 	@Override
-	public int selectDeliverType(String deliverType) {
-		return deliveryMapper.selectDeliverType(deliverType);
+	public int selectDeliverType(String deliverType,String customerEmail) {
+		return deliveryMapper.selectDeliverType(deliverType,customerEmail);
 	}
 
 }

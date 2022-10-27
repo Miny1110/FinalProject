@@ -24,8 +24,8 @@
 <!--    <select id="readDateOrder" resultType="int" parameterType="Order">
         select o.orderNum,c.customerName,i.itemName,d.deliver,
     </select>-->
-	<update id="updateState">
-		update cozyorder set orderState=#{orderState}
+	<update id="updateCancleState">
+		update cozyorder set orderState='주문취소',orderDate=sysdate
 		where orderNum=#{orderNum} 
 	</update>
 

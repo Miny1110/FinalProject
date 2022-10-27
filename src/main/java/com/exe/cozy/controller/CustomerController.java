@@ -263,7 +263,8 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	orderService.updateState("주문취소", req.getParameter("orderNum"));
+    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName()));
+    	orderService.updateCancleState(req.getParameter("orderNum"));
     	
     	mav.setViewName("redirect:order");
     	

@@ -9,5 +9,5 @@ public interface OrderMapper {
     public int orderMaxNum();
     public void insertOrder(OrderDto odto) ;
     
-    public void updateState(@Param("orderState")String orderState, @Param("orderNum")String orderNum);
+    public void updateCancleState(String orderNum);
 }

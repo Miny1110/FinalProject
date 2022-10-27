@@ -8,4 +8,5 @@ import com.exe.cozy.domain.ServiceAnswerDto;
 public interface ServiceAnswerMapper {
 
 	public ServiceAnswerDto findServiceAns(int serviceAnsNum) throws Exception;
+	public ServiceAnswerDto getReadServiceAnsData(int serviceAnsNum) throws Exception;
 }

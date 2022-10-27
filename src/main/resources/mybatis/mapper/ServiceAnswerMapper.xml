@@ -28,4 +28,11 @@
 		where a.serviceAnsNum=#{serviceAnsNum}
 	</select>
 	
+	<!--QuestionNum 으로 읽기 -->
+	<select id="getReadServiceAnsData" parameterType="int" resultType="ServiceAnswerDto">
+		select * from serviceAnswer
+		where serviceQueNum=#{serviceQueNum}
+	</select>
+	
+	
 </mapper>

@@ -17,4 +17,9 @@ public class ServiceAnswerServiceImpl implements ServiceAnswerService {
 		return serviceAnswerMapper.findServiceAns(serviceAnsNum);
 	}
 
+	@Override
+	public ServiceAnswerDto getReadServiceAnsData(int serviceAnsNum) throws Exception {
+		return serviceAnswerMapper.getReadServiceAnsData(serviceAnsNum);
+	}
+
 }

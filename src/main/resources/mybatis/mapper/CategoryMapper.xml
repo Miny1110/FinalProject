@@ -3,7 +3,7 @@
         PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
-<mapper namespace="com.exe.cozy.mapper.ItemMapper">
+<mapper namespace="com.exe.cozy.mapper.CategoryMapper">
 	
 	<!-- 카테고리 번호 생성 -->
 	<select id="CategoryMaxNum" resultType="int">
@@ -12,8 +12,19 @@
 	
 	<!-- 상품 불러오기 -->
 	<select id="selectCategory" resultType="itemDetailDto">
-		select * from item
-		where itemMainType =#{itemMainType} and itemSubType like '%'\\#{itemSubType}\\'%'  
+	select 
+		itemNum,
+        itemName,
+        itemMainType,
+        itemSubType,
+        itemPrice,
+        itemDiscount,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage1
+        ) as itemImage1
+		from item
+		where itemMainType = #{itemMainType} and itemSubType like '%'||#{itemSubType}||'%'  
 	</select>
 	     
 </mapper>	

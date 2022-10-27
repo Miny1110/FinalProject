@@ -1,5 +1,7 @@
 package com.exe.cozy.service;
 
+import java.util.List;
+
 import com.exe.cozy.domain.ItemDetailDto;
 
 public interface CategoryService {
@@ -8,6 +10,6 @@ public interface CategoryService {
 	 public int CategoryMaxNum() throws Exception;
 	 
 	 /*카테고리 화면 보여주기*/
-	 public ItemDetailDto selectCategory(String itemMainType, String itemSubType);
+	 public List<ItemDetailDto> selectCategory(String itemMainType, String itemSubType);
 	 
 }

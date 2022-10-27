@@ -106,23 +106,26 @@ reg_dt DATE,
 FILE_EXTENSION VARCHAR2(50)
 );
 
-//상품답변
-CREATE TABLE qnaAnswer
-(qnaAnswerNum NUMBER(38) PRIMARY KEY,
-itemQnaNum NUMBER(38),
-answerCreate date,
-qnaContent VARCHAR2(4000),
-FOREIGN KEY (itemQnaNum) REFERENCES ITEMQNA(itemQnaNum)
+/*상품답변 qnaAnswer -> itemAnswer 명칭변경 (10/27일 수정)*/
+CREATE TABLE itemAnswer 
+(itemAnsNum NUMBER PRIMARY KEY,
+itemQueNum NUMBER, 
+itemAnsCreate date, 
+itemAnsContent VARCHAR2(4000), 
+FOREIGN KEY (itemQueNum) REFERENCES itemQuestion(itemQueNum)
 ON DELETE CASCADE);
 
-//상품질문
-CREATE TABLE ITEMQNA
-(itemQnaNum NUMBER(38) PRIMARY KEY,
-itemNum NUMBER(38),
-itemQnaTitle varchar2(500),
-itemQnaCreate date,
-itemQnaContent varchar2(4000),
-customerEmail varchar2(4000));
+
+/*상품질문 ITEMQNA -> itemQuestion 명칭변경 (10/27일 수정)*/
+CREATE TABLE itemQuestion 
+(itemQueNum NUMBER PRIMARY KEY, 
+itemNum NUMBER, 
+itemQueTitle varchar2(500), 
+itemQueCreate date, 
+itemQueContent varchar2(4000), 
+customerEmail varchar2(4000), 
+FOREIGN KEY (itemNum) REFERENCES item(itemNum)
+ON DELETE CASCADE);
 
 //고객센터질문
 CREATE TABLE serviceQuestion

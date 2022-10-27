@@ -106,7 +106,7 @@
                         </div>
                         
                     
-						<form th:action="@{/service/qnaCreate_ok}" method="post" name="myForm">
+						<form th:action="@{/service/qnaCreate_ok}" method="post" th:object="${ServiceQuestionDto}">
                         <div class="leave-comment">
                         
                             <input type="hidden" value="customerEmail" name="customerEmail">

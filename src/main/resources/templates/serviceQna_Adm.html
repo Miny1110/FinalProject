@@ -144,7 +144,8 @@
 	                    </div>
 	                    
 	                    <div style="display: inline-block">
-	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold">삭제</button>
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
 	                    </div>
 	                </div>
                    

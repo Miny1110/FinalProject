@@ -122,37 +122,50 @@
 	                                    </tbody>
 	                                </table>
 	                                
-	                                <nav class="custome-pagination">
-	                                    <ul class="pagination justify-content-center">
-	                                    	
-											<li class="page-item" th:if="${page.navigateFirstPage>1}">
-	                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateFirstPage-1})}">
-	                                                <i class="fa-solid fa-angles-left"></i>
-	                                            </a>
-	                                        </li>
-											<li class="page-item" th:unless="${page.navigateFirstPage>1}">
-	                                        </li>
-	                                        
-	                                        
-	                                        <!-- <li class="page-item" th:each="page : ${page.navigatepageNums}">
-	                                        	<a class="page-link" th:text="${page}" th:href="@{/customer/review(pageNum=${page})}"></a>
-	                                        </li> -->
-	                                        <li class="page-item" th:if="${page.startRow!=0}"
-	                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
-	                                        th:classappend="(${pages}==${page.pageNum})?'active'">
-	                                        	<a class="page-link" th:text="${pages}" th:href="@{/listSvcQue/(pageNum=${pages})}"></a>
-	                                        </li>
-	                                        
-	                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
-	                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateLastPage+1})}">
-	                                                <i class="fa-solid fa-angles-right"></i>
-	                                            </a>
-	                                        </li>
-	                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
-	                                        </li>
-	                                        
-	                                    </ul>
-                                	</nav>
+	                         
+	                         		<div style="display: display:inline; width: 100%; ">
+		                                
+		                                <div style="text-align: right">
+			                                <div style="display: inline-block">
+			                                    <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold"
+			                                    	type="button" th:onclick="@{|location.href='/service/qnaCreate'|}">문의하기</button>
+			                                </div>
+			                            </div>
+			                            
+		                                <nav class="custome-pagination">
+		                                    <ul class="pagination justify-content-center">
+		                                    	
+												<li class="page-item" th:if="${page.navigateFirstPage>1}">
+		                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateFirstPage-1})}">
+		                                                <i class="fa-solid fa-angles-left"></i>
+		                                            </a>
+		                                        </li>
+												<li class="page-item" th:unless="${page.navigateFirstPage>1}">
+		                                        </li>
+		                                        
+		                                        
+		                                        
+		                                        <li class="page-item" th:if="${page.startRow!=0}"
+		                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+		                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+		                                        	<a class="page-link" th:text="${pages}" th:href="@{/listSvcQue/(pageNum=${pages})}"></a>
+		                                        </li>
+		                                        
+		                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+		                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateLastPage+1})}">
+		                                                <i class="fa-solid fa-angles-right"></i>
+		                                            </a>
+		                                        </li>
+		                                        <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+		                                        </li>
+		                                        
+		                                    </ul>
+	                                	</nav>
+	                                	
+	                                	
+			                        </div>
+		                            
+	                                
 	                            </div>
                         	</form>
                         </div>

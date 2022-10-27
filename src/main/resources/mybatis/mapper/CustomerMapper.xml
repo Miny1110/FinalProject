@@ -267,6 +267,7 @@
 	
 	<resultMap type="ServiceAnswerDto" id="ServiceAnswerDto">
 		<result column="serviceAnsContent" property="serviceAnsContent"/>
+		<result column="serviceAnsDate" property="serviceAnsDate"/>
 	</resultMap>
 	 
  	 <select id="getQnaList" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">
@@ -275,7 +276,8 @@
 	 		a.serviceQueTitle,
 	 		a.serviceQueDate,
 	 		a.serviceQueContent,
-	 		b.serviceAnsContent
+	 		b.serviceAnsContent,
+	 		b.serviceAnsDate
 	 	from
 	 		serviceQuestion a left join serviceAnswer b
 	 	on

@@ -15,30 +15,36 @@ function requestPay() {
         return
     }
 
-    if(payment==="card"){
-        pgName="html5_inicis";
-        payMethod="card";
-        payName="신용카드";
-    }else if(payment==="bank"){
+    if(payment==="bank"){
         pgName="html5_inicis";
         payMethod="vbank";
         payName="가상계좌";
+        payState="결제대기"
+    }else if(payment==="card"){
+        pgName="html5_inicis";
+        payMethod="card";
+        payName="신용카드";
+        payState="주문완료"
     }else if(payment==="bank"){
         pgName="kcp";
         payMethod="phone";
         payName="휴대폰 결제";
+        payState="주문완료"
     }else if(payment==="kakao"){
         pgName="kakaopay.TC0ONETIME";
         payMethod="card";
         payName="카카오페이";
+        payState="주문완료"
     }else if(payment==="toss"){
         pgName="tosspay";
         payMethod="card";
         payName="토스";
+        payState="주문완료"
     }else if(payment==="payco"){
         pgName="payco";
         payMethod="card";
         payName="페이코";
+        payState="주문완료"
     }
 
     payOrder();
@@ -47,6 +53,7 @@ function requestPay() {
 let pgName="";
 let payMethod="";
 let payName="";
+let payState="";
 
 function payOrder(){
 
@@ -66,7 +73,7 @@ function payOrder(){
         pay_method:payMethod,
         merchant_uid: 'cozy'+new Date().getTime(), //고유 order
         name: $('#itemName').html() , //item 이름
-        amount: $('#pointTotalPrice').html(), //총 가격
+        amount: $('#pointTotalPrice').val(), //총 가격
         buyer_email: $('#customerEmail').val() ,//구매자 메일
         buyer_name: $('#customerName').val(), //구매자 이름
         buyer_tel: $('#customerTel').html() ,
@@ -94,11 +101,13 @@ function payOrder(){
 
 
             alert(msg)
+           
 
             $.ajax({
                 method:"POST",
                 url: "/order_ok",
                 contentType:'application/json',
+             /*   traditional :true, 배열*/
                 data:JSON.stringify({
                     orderNum:merchant_uid,
                     itemNum:parseInt($('#itemNum').val()),
@@ -106,6 +115,7 @@ function payOrder(){
                     deliverName:$('#deliverName').val(),
                     deliverRAddr:$('#deliverRAddr').val(),
                     deliverJAddr:$('#deliverJAddr').val(),
+                    orderState:payState,
                     payment:payName,
                     deliverDAddr:$('#deliverDAddr').val(),
                     deliverZipCode:$('#deliverZipCode').val(),
@@ -117,13 +127,13 @@ function payOrder(){
                     jqXHR.setRequestHeader(header, token);
                 },
                 success: function(data){
-                    let msg = "결제가 완료되었습니다.\n";
 
+                    let msg = "결제가 완료되었습니다.\n";
                     alert(msg);
 
-                    location.href="/success-order";
+                    location.href="/success_order";
                 },error: function (){
-                    alert("에러발생")
+                    alert("결제가 정상적으로 진행되지 않았습니다.")
                 }
 
             })
@@ -158,3 +168,5 @@ function payOrder(){
      }
  });
 }
+
+

@@ -72,7 +72,9 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 		String fileExtension = StringUtils.substringAfter(originFileNmae, ".");
 
 		String filePath = "E:\\GIt\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
-							
+		
+		//String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
+		
 //		String filePath = "D:\\test";
 		
 

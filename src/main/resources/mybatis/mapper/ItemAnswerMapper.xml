@@ -3,24 +3,24 @@
         PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.exe.cozy.mapper.QnaAnswerMapper">
+<mapper namespace="com.exe.cozy.mapper.ItemAnswerMapper">
 
 	<!--새 답변 번호 -->
 	<select id="qnaAnswerMaxNum" resultType="int">		
-		select nvl(max(qnaAnswerNum),0)
-		from qnaAnswer	
+		select nvl(max(itemAnsNum),0)
+		from ItemAnswer	
 	</select>
 
 	<!-- 답변등록 -->
-	<insert id="insertQnaAnswer" parameterType="QnaAnswerDto">		
-		insert into qnaAnswer(qnaAnswerNum,itemQnaNum, answerCreate ,qnaContent)
-		values(#{qnaAnswerNum},#{itemQnaNum},sysdate, #{qnaContent})	
+	<insert id="insertQnaAnswer" parameterType="ItemAnswerDto">		
+		insert into ItemAnswer(itemAnsNum,itemQueNum, itemAnsCreate ,itemAnsContent)
+		values(#{itemAnsNum},#{itemQueNum},sysdate, #{itemAnsContent})	
 	</insert>
 
 	<!-- 답변확인 -->
-	<select id="findQnaAnswer" parameterType="int" resultType="QnaAnswerDto">	
-		select * from qnaAnswer
-		where qnaAnswerNum = #{qnaAnswerNum}
+	<select id="findQnaAnswer" parameterType="int" resultType="ItemAnswerDto">	
+		select * from ItemAnswer
+		where itemAnsNum = #{itemAnsNum}
 	</select>
 
 	<!--itemQnaNum 으로 읽기 -->
@@ -31,15 +31,15 @@
  -->
 
 	<!-- 답변수정 -->
-	<update id="updateQnaAnswer" parameterType="QnaAnswerDto">
-		update itemQna set itemQnaContent=#{itemQnaContent},ItemQnaCreate= sysdate where
-		itemQnaNum=#{itemQnaNum}
+	<update id="updateQnaAnswer" parameterType="ItemAnswerDto">
+		update ItemAnswer set itemAnsContent=#{itemAnsContent},itemAnsCreate= sysdate where
+		itemAnsNum=#{itemAnsNum}
 	</update> 
 
 	<!-- 답변삭제 -->
 	<delete id="deleteQnaAnswer" parameterType="int">
-		delete qnaAnswer where
-		qnaAnswerNum=#{qnaAnswerNum}
+		delete ItemAnswer where
+		itemAnsNum=#{itemAnsNum}
 	</delete>
 
 </mapper>

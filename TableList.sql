@@ -106,23 +106,26 @@ reg_dt DATE,
 FILE_EXTENSION VARCHAR2(50)
 );
 
-//상품답변
-CREATE TABLE qnaAnswer
-(qnaAnswerNum NUMBER(38) PRIMARY KEY,
-itemQnaNum NUMBER(38),
-answerCreate date,
-qnaContent VARCHAR2(4000),
-FOREIGN KEY (itemQnaNum) REFERENCES ITEMQNA(itemQnaNum)
+/*상품답변 qnaAnswer -> itemAnswer 명칭변경 (10/27일 수정)*/
+CREATE TABLE itemAnswer 
+(itemAnsNum NUMBER PRIMARY KEY,
+itemQueNum NUMBER, 
+itemAnsCreate date, 
+itemAnsContent VARCHAR2(4000), 
+FOREIGN KEY (itemQueNum) REFERENCES itemQuestion(itemQueNum)
 ON DELETE CASCADE);
 
-//상품질문
-CREATE TABLE ITEMQNA
-(itemQnaNum NUMBER(38) PRIMARY KEY,
-itemNum NUMBER(38),
-itemQnaTitle varchar2(500),
-itemQnaCreate date,
-itemQnaContent varchar2(4000),
-customerEmail varchar2(4000));
+
+/*상품질문 ITEMQNA -> itemQuestion 명칭변경 (10/27일 수정)*/
+CREATE TABLE itemQuestion 
+(itemQueNum NUMBER PRIMARY KEY, 
+itemNum NUMBER, 
+itemQueTitle varchar2(500), 
+itemQueCreate date, 
+itemQueContent varchar2(4000), 
+customerEmail varchar2(4000), 
+FOREIGN KEY (itemNum) REFERENCES item(itemNum)
+ON DELETE CASCADE);
 
 //고객센터질문
 CREATE TABLE serviceQuestion
@@ -143,12 +146,11 @@ serviceAnsDate date,
 FOREIGN KEY (serviceQueNum) REFERENCES serviceQuestion(serviceQueNum)
 ON DELETE CASCADE);
 
-//주문
+//---------------------------------------------------------------------------------------------------------------
+//주문(공통정보)
 CREATE TABLE COZYORDER
 (orderNum VARCHAR2(100) PRIMARY KEY,
-itemNum NUMBER(8),
 customerEmail VARCHAR2(100),
-itemQty NUMBER(8),
 payment VARCHAR2(20), 
 orderState VARCHAR2(20),
 deliverCost number(10),
@@ -161,7 +163,17 @@ deliverTel VARCHAR2(45),
 deliverMessage VARCHAR2(100),
 orderDate date default sysdate,
 usePoint number(10),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
+
+//주문상세(주문상품정보)
+create table orderdetail
+(odnum NUMBER(8) primary Key,
+orderNum VARCHAR2(100),
+itemNum number(8),
+itemQty NUMBER(8),
 itemColor VARCHAR2(40),
 itemSize VARCHAR2(40),
-FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
-FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
+FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
+FOREIGN KEY (itemNum) REFERENCES item(itemNum));
+
+

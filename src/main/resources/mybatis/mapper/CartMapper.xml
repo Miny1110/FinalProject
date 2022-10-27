@@ -6,14 +6,14 @@
 <mapper namespace="com.exe.cozy.mapper.CartMapper">
 	<!--새장바구니 번호-->
 	<select id="cartMaxNum" resultType="int">
-		select nvl(max(cartNum),0) from cart;
+		select nvl(max(cartNum),0) from cart
 	</select>
 
-<insert id="insertCart" parameterType="CartDto">
-	insert into cart (cartNum,itemNum,customerEmail,itemQty)
-	values (#{cartNum},#{itemNum},#{customerEmail},#{itemQty})
-</insert>
-	
+	<insert id="insertCart" parameterType="CartDto">
+		insert into cart(cartNum,itemNum,customerEmail,itemQty)
+		values (#{cartNum},#{itemNum},#{customerEmail, jdbcType=VARCHAR},#{itemQty})
+	</insert>
+
 	<!--카트삭제-->
 	<delete id="deleteCart" parameterType="int">
 		delete cart where cartNum=#{cartNum}

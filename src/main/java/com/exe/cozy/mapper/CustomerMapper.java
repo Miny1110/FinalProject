@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.exe.cozy.domain.CustomerDto;
+import com.exe.cozy.domain.OrderDetailDto;
+import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.github.pagehelper.Page;
@@ -29,4 +31,13 @@ public interface CustomerMapper {
 	public Page<ReplyDto> getReviewPaging(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum); //리뷰 페이징처리 목록
 	
 	public Page<ServiceQuestionDto> getQnaList(@Param("customerEmail")String customerEmail,@Param("searchKey")String searchKey,@Param("searchValue")String searchValue, @Param("pageNum")int pageNum);
+
+	public Page<OrderDto> getOrderList(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum);
+	public List<OrderDto> getOrderDetailList(String customerEmail);
+
+	public OrderDto getOrderDetail(@Param("customerEmail")String customerEmail, @Param("orderNum")String orderNum);
+	public List<OrderDetailDto> getOrderDetailOne(@Param("customerEmail")String customerEmail, @Param("orderNum")String orderNum);
+	
+	public Page<OrderDto> getOrderCancleList(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum);
+	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail);
 }

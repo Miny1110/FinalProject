@@ -183,6 +183,9 @@
                                                 <div>
                                                     <div class="table-responsive address-table">
                                                     	<form th:action="addressDel" name="deliverForm" method="post" id="deliverForm">
+															<div class="label" th:if="${#strings.equals(deliverDto.deliverType,'기본')}">
+																<label>기본배송지</label>
+															</div>
                                                         	<table class="table">
 	                                                            <tbody id="lists">
 	                                                                <tr>

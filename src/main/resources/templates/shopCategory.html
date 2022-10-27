@@ -340,37 +340,18 @@
                             <div class="product-box-3 h-100 wow fadeInUp">
                                 <div class="product-header">
                                     <div class="product-image">
-                                        <a th:href="@{/itemDetail(itemNum=${itemDetailDto.itemDto.itemNum})}">
-                                            
+                                        <a th:href="@{/itemDetail(itemNum=${dto.itemNum})}">
+                                            <img th:src="@{|/assets/img/${dto.itemImage1}|}"
+                                                class="img-fluid blur-up lazyload" alt="">
                                         </a>
 
-                                        <ul class="#">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                    data-bs-target="#view">
-                                                    <i data-feather="eye"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                <a href="#">
-                                                    <i data-feather="refresh-cw"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                <a href="#" class="notifi-wishlist">
-                                                    <i data-feather="heart"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                                 <div class="product-footer">
                                     <div class="product-detail">
                                         <span class="span-name" th:text="${dto.itemSubType}"></span>
                                         <a href="product-left.html">
-                                            <h5 class="name" th:text="${dto.itemName}">Fresh Bread and Pastry Flour 200g</h5>
+                                            <h5 class="name" th:text="${dto.itemName}"></h5>
                                         </a>
                                         <div class="product-rating mt-2">
                                             <ul class="rating">
@@ -379,9 +360,10 @@
                                                 </li>
                                                 
                                             </ul>
-                                            <span>(4.0)</span>
+                                            <a ></a><span>(4.0)</span>
                                         </div>
-                                        <h5 class="price"><span class="theme-color">$08.02</span><del>$15.15</del></h5>
+                                        <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(dto.itemPrice-dto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
+                                        <del th:text="${#numbers.formatInteger(dto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
                                         <br>
                                         <div class="add-to-cart-box bg-white">
                                             <button class="btn btn-add-cart addcart_button addcart-button">Add

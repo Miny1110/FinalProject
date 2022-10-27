@@ -41,15 +41,16 @@ public class OrderController {
     @RequestMapping("/order")//order 가면 일단 리스트도 다 떠야함...
     public ModelAndView order(HttpServletRequest request, @ModelAttribute DeliverDto ddto,
                               @ModelAttribute OrderDto odto)  throws Exception {
-        /*상세페이지 완성되면 이거 풀기*/
+
        int itemNum = Integer.parseInt(request.getParameter("num"));
-      //  int itemNum =3;
+
         ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
-
-
         //바로결제 진행시 수량
        int itemQty = Integer.parseInt((request.getParameter("itemQty")));
-     //   int itemQty = 2;
+       //바로결제 옵션
+        String itemSize = request.getParameter("itemSize");
+        String itemColor = request.getParameter("itemColor");
+
         String customerEmail="eunjis";
 
 
@@ -76,6 +77,8 @@ public class OrderController {
         mav.addObject("totalPrice",totalPrice);
         mav.addObject("itemQty",itemQty);
         mav.addObject("cdto",cdto);
+        mav.addObject("itemColor",itemColor);
+        mav.addObject("itemSize",itemSize);
 
         mav.setViewName("checkout");
         return mav;}

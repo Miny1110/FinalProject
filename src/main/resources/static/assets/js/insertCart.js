@@ -1,5 +1,6 @@
 let header = $("meta[name='_csrf_header']").attr("content");
 let token = $("meta[name='_csrf']").attr("content");
+
 function cart(){
             let iNum = $("#num").val();
             let itemNumChk = $("#itemNumChk").val();
@@ -26,6 +27,8 @@ function cart(){
              data:JSON.stringify({
                  itemNum:parseInt($('#num').val()),
                  itemQty:parseInt($('#itemQty').val()),
+                 itemSize:$('#size').val(),
+                 itemColor:$('#color').val(),
              }),beforeSend: function (jqXHR) {
                  jqXHR.setRequestHeader(header, token);
              },success: function() {
@@ -55,6 +58,8 @@ function cart(){
             data:JSON.stringify({
                 itemNum:parseInt($('#num').val()),
                 itemQty:parseInt($('#itemQty').val()),
+                itemSize:$('#size').val(),
+                itemColor:$('#color').val(),
             }),beforeSend: function (jqXHR) {
                 jqXHR.setRequestHeader(header, token);
             },success: function() {

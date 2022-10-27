@@ -103,7 +103,8 @@
                                 <td class="product-detail" >
                                     <div class="product border-0">
                                         <a href="product-left.html" class="product-image">
-                                            <img src="../assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyloaded" alt="">
+                                            <img th:src="@{|/assets/img/${clist.itemImage1}|}"
+                                                 class="img-fluid blur-up lazyloaded" alt="">
                                         </a>
                                         <div class="product-detail">
                                             <ul>

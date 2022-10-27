@@ -53,34 +53,7 @@
 	<!-- Header End -->
 
 	<!-- mobile fix menu start -->
-	<div class="mobile-menu d-md-none d-block mobile-cart">
-		<ul>
-			<li class="active"><a
-				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/index.html">
-					<i class="iconly-Home icli"></i> <span>Home</span>
-			</a></li>
-
-			<li class="mobile-category"><a href="javascript:void(0)"> <i
-					class="iconly-Category icli js-link"></i> <span>Category</span>
-			</a></li>
-
-			<li><a
-				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/search.html"
-				class="search-box"> <i class="iconly-Search icli"></i> <span>Search</span>
-			</a></li>
-
-			<li><a
-				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/wishlist.html"
-				class="notifi-wishlist"> <i class="iconly-Heart icli"></i> <span>My
-						Wish</span>
-			</a></li>
-
-			<li><a
-				href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/cart.html">
-					<i class="iconly-Bag-2 icli fly-cate"></i> <span>Cart</span>
-			</a></li>
-		</ul>
-	</div>
+	
 	<!-- mobile fix menu end -->
 
 	<!-- Breadcrumb Section Start -->
@@ -107,8 +80,7 @@
 			<div class="row g-sm-5 g-3">
 				<div class="col-xxl-9">
 					<div class="cart-table">
-						<form th:action="@{itemQnaAnswer_ok}" method="post"
-							th:object="${itemQnaDto}">
+						<form th:action="@{itemQnaAnswer_ok}" method="post" th:object="${ItemQuestionDto}">
 
 							
 
@@ -117,9 +89,9 @@
 								<div class="col-12">
 									<div class="form-floating theme-form-floating">
 										<input type="text" th:field="*{itemNum}" readonly="readonly"> 
-										<input type="text" th:field="*{itemQnaNum}" readonly="readonly"> 
+										<input type="text" th:field="*{itemQueNum}" readonly="readonly"> 
 										<input type="text" th:field="*{customerEmail}" readonly="readonly">
-										<input type="text" th:field="*{itemQnaTitle}" readonly="readonly">
+										<input type="text" th:field="*{itemQueTitle}" readonly="readonly">
 
 									</div>
 									<br>
@@ -130,7 +102,7 @@
 									<div class="form-floating theme-form-floating">
 										<textarea class="form-control"
 											placeholder="Leave a comment here" id="floatingTextarea2"
-											style="height: 150px" th:field="*{itemQnaContent}" readonly="readonly">[[*{itemQnaContent}]]</textarea>
+											style="height: 150px" th:field="*{itemQueContent}" readonly="readonly">[[*{itemQueContent}]]</textarea>
 										<label for="floatingTextarea2">문의내용</label>
 									</div>
 									<br>
@@ -140,7 +112,7 @@
 									<div class="form-floating theme-form-floating">
 										<textarea class="form-control"
 											placeholder="Leave a comment here" id="floatingTextarea2"
-											style="height: 150px" name="qnaContent"></textarea>
+											style="height: 150px" name="ItemAnsContent"></textarea>
 										<label for="floatingTextarea2">답변내용</label>
 									</div>
 									<br>

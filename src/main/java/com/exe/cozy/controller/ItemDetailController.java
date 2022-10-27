@@ -20,12 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.domain.ItemDetailInsertDto;
-import com.exe.cozy.domain.ItemQnaDto;
-import com.exe.cozy.domain.QnaAnswerDto;
+import com.exe.cozy.domain.ItemQuestionDto;
+import com.exe.cozy.domain.ItemAnswerDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.service.ItemDetailService;
-import com.exe.cozy.service.ItemQnaService;
-import com.exe.cozy.service.QnaAnswerService;
+import com.exe.cozy.service.ItemQuestionService;
+import com.exe.cozy.service.ItemAnswerService;
 import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.MyPage;
 
@@ -37,9 +37,10 @@ public class ItemDetailController {
 	@Resource
 	private ReplyService replyService;
 	@Resource
-	private ItemQnaService itemQnaService;
+	private ItemQuestionService itemQuestionService;
+	
 	@Resource
-	private QnaAnswerService qnaAnswerService;
+	private ItemAnswerService itemAnswerService;
 	
 
 	@Autowired
@@ -171,7 +172,7 @@ public class ItemDetailController {
 		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 		List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);
 		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
-		List<ItemQnaDto> qdtoList = itemQnaService.getReadQnaList(itemNum);
+		List<ItemQuestionDto> qdtoList = itemQuestionService.getReadQnaList(itemNum);
 		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
 	
 		if (idto == null) {
@@ -222,43 +223,46 @@ public class ItemDetailController {
 		return mav;
 
 	}
+	//questionWrite_ok
 	@PostMapping("/qnaWrite_ok")
-    public ModelAndView reviewWrite_ok(ItemQnaDto qdto, HttpServletRequest request) throws Exception{
+    public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request) throws Exception{
 
         ModelAndView mav = new ModelAndView();
         
-        int itemQnaMaxNum = itemQnaService.itemQnaMaxNum();
-        qdto.setItemQnaNum(itemQnaMaxNum +1);
+        int itemQnaMaxNum = itemQuestionService.itemQnaMaxNum();
+        qdto.setItemQueNum(itemQnaMaxNum +1);
        
-    
-        itemQnaService.insertItemQna(qdto);
+        //itemQuestionService
+        itemQuestionService.insertItemQna(qdto);
         mav.setViewName("redirect:/");
         return mav;
     }
-	// 문의답변창으로 이동
+	// 문의답변창으로 이동 itemAnswer로 변경
 		@GetMapping("itemQnaAnswer") /** itemQna update view */
-		public ModelAndView reviewUpdate(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
-			int itemQnaNum = Integer.parseInt(request.getParameter("itemQnaNum"));
+		public ModelAndView reviewUpdate(ItemQuestionDto qdto, HttpServletRequest request) throws Exception {
+			int itemQueNum = Integer.parseInt(request.getParameter("itemQueNum"));
 
-			qdto = itemQnaService.findItemQna(itemQnaNum);
+			
+			
+			qdto = itemQuestionService.findItemQna(itemQueNum);
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("itemQnaAnswer");
-			mav.addObject("itemQnaDto", qdto);
+			mav.addObject("ItemQuestionDto", qdto);
 
 
 			return mav;
 		}
 
-		// 문의답변
+		// 문의답변 itemAnswer로변경
 		@PostMapping("itemQnaAnswer_ok")
-		public ModelAndView itemQnaAnswer_ok(QnaAnswerDto adto, HttpServletRequest request) throws Exception {
+		public ModelAndView itemQnaAnswer_ok(ItemAnswerDto adto, HttpServletRequest request) throws Exception {
 
 			ModelAndView mav = new ModelAndView();
 			
-			int qnaAnswerMaxNum = qnaAnswerService.qnaAnswerMaxNum();
-			adto.setQnaAnswerNum(qnaAnswerMaxNum + 1);
+			int qnaAnswerMaxNum = itemAnswerService.qnaAnswerMaxNum();
+			adto.setItemAnsNum(qnaAnswerMaxNum + 1);
 			
-			qnaAnswerService.insertQnaAnswer(adto);
+			itemAnswerService.insertQnaAnswer(adto);
 			
 
 			
@@ -270,13 +274,13 @@ public class ItemDetailController {
 		
 		
 		
-		// 문의삭제
+		// 문의삭제 deleteQuestion
 		@GetMapping("deleteQna")
-		public ModelAndView deleteItemQna(ItemQnaDto qdto, HttpServletRequest request) throws Exception {
-			int itemQnaNum = Integer.parseInt(request.getParameter("itemQnaNum"));
+		public ModelAndView deleteItemQna(ItemQuestionDto qdto, HttpServletRequest request) throws Exception {
+			int itemQueNum = Integer.parseInt(request.getParameter("itemQueNum"));
 
 			ModelAndView mav = new ModelAndView();
-			itemQnaService.deleteItemQna(itemQnaNum);
+			itemQuestionService.deleteItemQna(itemQueNum);
 			mav.setViewName("redirect:/");
 			return mav;
 		}

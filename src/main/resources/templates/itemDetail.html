@@ -479,16 +479,16 @@
 												
 												
 													<input
-														type="text" class="form-control" id="itemQnaTitle"
-														placeholder="Name" name="itemQnaTitle"> <label
-														for="itemQnaTitle">문의 제목 (30자 이내)</label>
+														type="text" class="form-control" id="itemQueTitle"
+														placeholder="Name" name="itemQueTitle"> <label
+														for="itemQueTitle">문의 제목 (30자 이내)</label>
 												</div>
 												<br>
 												<div class="col-12">
 													<div class="form-floating theme-form-floating">
 														<textarea class="form-control"
-															placeholder="Leave a comment here" id="itemQnaContent"
-															style="height: 150px" name="itemQnaContent"></textarea>
+															placeholder="Leave a comment here" id="itemQueContent"
+															style="height: 150px" name="itemQueContent"></textarea>
 														<label for="floatingTextarea2">문의 내용을 입력해주세요(300자
 															이내)</label>
 													</div>
@@ -506,59 +506,90 @@
 										</div>
 										<hr>
 										<div class="profile-about dashboard-bg-box">
-											<div class="row">
-												<div class="dashboard-title mb-3">
-													<h3 style="display: inline;">상품문의</h3>
-													
-													<hr>
+									<div class="row">
+										<div class="dashboard-title mb-3">
+											<h3 style="display: inline;">상품문의</h3>
+
+											
+										</div>
+									</div>
+											<!-- 문의 목록시작 -->
+<div class="row" th:each="qdto : ${qdtoList}">
+
+										<div style="width: 70px; margin-right: 30px;">
+											<img src="/assets/svg/product.svg"
+												style="width: 70px; height: 70px;">
+										</div>
+
+
+										<div class="col-xxl-9" style="text-align: left;">
+											<div class="dashboard-title mb-2">
+												<h3>질문</h3>
+													<input type="hidden" th:value="${qdto.itemQueNum}">
+											
+												<div style="float: left ;">
+													<a style="margin-top: 1px;">작성자:</a> 
+													<a style="display: inline; font-size: 12px; color: gray;"
+														th:text="${qdto.customerEmail}"></a>
 												</div>
-											</div>
-											<div class="row" th:each="qdto : ${qdtoList}">
-
-												<div style="width: 70px; margin-right: 30px;">
-													<img src="/assets/svg/product.svg"
-														style="width: 70px; height: 70px;">
-												</div>
-
-
-												<div class="col-xxl-9" style="text-align: left;">
-													<div class="dashboard-title mb-2">
-														<a style="display: inline; font-size: 12px; color: gray;"
-															th:text="${qdto.customerEmail}">님</a> <a
-															style="display: inline; font-size: 12px; color: gray;"
-															th:text="${#dates.format(qdto.itemQnaCreate, 'yyyy-MM-dd')}">문의날짜</a>
-															<input type="text" th:value="${qdto.itemQnaNum}">
-													</div>
-													<div>
-														<a style="display: inline; font-size: 12px; color: gray;"><b
-															th:text="${qdto.itemQnaTitle}"></b></a><br> <br> <a
-															style="display: inline; font-size: 12px; color: gray;"
-															th:text="${qdto.itemQnaContent}">내용</a>
+											
 												
-											<div class="col-xxl-9" style="text-align: left;" th:if="${not #strings.isEmpty(qdto.answer.qnaContent)}">
-											</div>
-											<div class="col-xxl-9" style="text-align: left;" th:unless="${#strings.isEmpty(qdto.answer.qnaContent)}">
-													<div class="dashboard-title mb-2">
-													<h6>답변</h6>
-														<a style="display: inline; font-size: 12px; color: gray;" th:text="${qdto.answer.qnaContent}" ></a> 
-														
-													</div>
-												</div> 
-															
-												
-													<hr>
-												</div>
-												<div style="width: auto;">
-													<button class="btn-anii" type="button"
-															th:onclick="|location.href = '@{|itemQnaAnswer?itemQnaNum=${qdto.itemQnaNum}|}';|">답변하기</button>
-													<input type="button" value=" 삭제 " th:onclick="@{|location.href='/deleteQna?itemQnaNum=${qdto.itemQnaNum}'|}"/>
-												</div>
-											</div>
+												<div style="float: right;">
+													<a>등록일:</a> 
+													<a style="display: inline; font-size: 12px; color: gray; float: right;"
+														th:text="${#dates.format(qdto.itemQueCreate, 'yyyy-MM-dd')}"></a>
+												</div><br>
+											
 										
+											
+											</div>
+											<div>
+												<a style="display: inline; font-size: 12px; color: gray;"><b
+													th:text="${qdto.itemQueTitle}"></b></a><br> <br> <a
+													style="display: inline; font-size: 12px; color: gray;"
+													th:text="${qdto.itemQueContent}">내용</a><br>
+													
+												<div  style="float: right;">
+												<div style="display: inline-block;">
+													<button class="btn-mini"
+														th:onclick="|location.href = '@{|itemQnaAnswer?itemQueNum=${qdto.itemQueNum}|}';|">답변하기</button>
+												</div>
+												<div style="display: inline-block;">
+													<button class="btn-cancel-mini"
+														th:onclick="@{|location.href='/deleteQna?itemQueNum=${qdto.itemQueNum}'|}" />삭제하기</button>
+												</div>
+												</div>	
+											
+												<div class="col-xxl-9" style="text-align: left;"
+													th:if="${not #strings.isEmpty(qdto.answer.ItemAnsContent)}">
+												</div>
+												<div class="col-xxl-9" style="text-align: left;"
+													th:unless="${#strings.isEmpty(qdto.answer.ItemAnsContent)}">
+													<div class="dashboard-title mb-2">
+														<h3>답변</h3>
+														<a style="display: inline; font-size: 12px; color: gray; margin-top: 10%;"
+															th:text="${qdto.answer.ItemAnsContent}"></a>
+
+													</div>
+												</div>
+
+
+
+											</div>
+											
+											<hr>
+										</div>
+
 
 
 									</div>
 
+								</div>
+
+
+
+							</div>
+									<!-- 문의 목록끝 -->
 
 									<div class="tab-pane fade" id="review" role="tabpanel"
 										aria-labelledby="review-tab">

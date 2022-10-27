@@ -193,7 +193,7 @@
                                     <tbody>
                                         <tr>
                                         	<td align="left">
-                                        		<input id="input" type="text" th:value="${dto.serviceQueNum}">
+                                        		<input id="input" type="hidden" th:value="${dto.serviceQueNum}">
                                         		<button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" onclick="openAns();">답변보기</button>
                                         	</td>
                                             <td align="right">
@@ -274,7 +274,7 @@
 		var queNum = $("#input").val();
 
 		$.ajax({
-			url:"dataSend",
+			url:"getAnswer",
 			type:"GET",
 			data:{queNum:queNum},
             success:function(content){

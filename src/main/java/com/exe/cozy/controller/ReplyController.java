@@ -1,5 +1,7 @@
 package com.exe.cozy.controller;
 
+import java.security.Principal;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,7 +54,7 @@ public class ReplyController {
 	}
 	//리뷰쓰기
 	@PostMapping("/reviewWrite_ok")
-    public ModelAndView reviewWrite_ok(@ModelAttribute CustomerDto dto,ReplyDto rdto, HttpServletRequest request) throws Exception{
+    public ModelAndView reviewWrite_ok(@ModelAttribute CustomerDto dto,ReplyDto rdto, HttpServletRequest request,Principal principal) throws Exception{
 
         ModelAndView mav = new ModelAndView();
         int replyMaxNum =replyService.replyMaxNum();
@@ -62,7 +64,7 @@ public class ReplyController {
 
         
         //리뷰쓰기 테스트용 아이디
-        rdto.setCustomerEmail("rcm2008@naver.com");
+        rdto.setCustomerEmail(principal.getName());
        
       
         

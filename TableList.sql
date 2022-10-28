@@ -176,4 +176,14 @@ itemSize VARCHAR2(40),
 FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
 FOREIGN KEY (itemNum) REFERENCES item(itemNum));
 
+//상품리뷰
+CREATE TABLE Reply
+(replyId NUMBER(38) PRIMARY KEY,
+itemNum NUMBER(38),
+customerEmail varchar2(100),
+regDate date,
+content varchar2(2000),
+rating varchar2(10),
+FOREIGN KEY (CUSTOMEREMAIL) REFERENCES CUSTOMER(CUSTOMEREMAIL)
+ON DELETE CASCADE);
 

@@ -38,7 +38,7 @@ public class ServiceQnacontroller {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("serviceQnaCreate");
-		mav.addObject("principal",principal);
+		mav.addObject("customerEmail",principal.getName());
 		
 		return mav;
 	}

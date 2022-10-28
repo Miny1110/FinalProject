@@ -197,13 +197,8 @@
                                             	<!-- 문의내역 출력 -->
                                               <tr>
                                               	<td th:text="${queDto.serviceQueNum}"></td>
-                                                <!-- <td class="state" th:if="${queDto.serviceAnswer==null}">
-                                                <span style="color: #fff; background: #ff7272; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">미답변</span></td>
-                                                <td class="state" th:if="${queDto.serviceAnswer!=null}">
-                                                <span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">답변완료</span></td> -->
                                                 
-                                                <td class="title" style="text-align: left;"><a th:text="${queDto.serviceQueTitle}" th:href="@{/customer/qna/question(serviceQueNum=${queDto.serviceQueNum})}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
-                                                
+                                                <td class="title" style="text-align: left;"><a th:text="${queDto.serviceQueTitle}" th:href="@{/customer/qna/question(serviceQueNum=${queDto.serviceQueNum},pageNum=${page.pageNum})}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
                                                 <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}"></td>
                                               </tr>
                                               
@@ -212,7 +207,7 @@
                                               	<td></td>
                                               	<td style="text-align: left;"><a>└ &nbsp;</a>
                                               	<span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">
-                                              	답변</span><a th:href="@{/customer/qna/answer(serviceAnsNum=${queDto.serviceAnswer.serviceAnsNum})}" th:text="|&nbsp;${queDto.serviceQueTitle}|"></a></td>
+                                              	답변</span><a th:href="@{/customer/qna/answer(serviceAnsNum=${queDto.serviceAnswer.serviceAnsNum},pageNum=${page.pageNum})}" th:text="|&nbsp;${queDto.serviceQueTitle}|"></a></td>
                                               	<td th:text="${#dates.format(queDto.serviceAnswer.serviceAnsDate,'yyyy-MM-dd')}"></td>
                                               </tr>
                                               

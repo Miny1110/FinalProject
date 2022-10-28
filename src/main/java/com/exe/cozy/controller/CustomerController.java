@@ -384,8 +384,15 @@ public class CustomerController {
     	int serviceQueNum = Integer.parseInt(req.getParameter("serviceQueNum"));
     	ServiceQuestionDto dto = serviceQuestionService.findServiceQue(serviceQueNum);
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-qna-question");
@@ -415,8 +422,15 @@ public class CustomerController {
     	int serviceAnsNum = Integer.parseInt(req.getParameter("serviceAnsNum"));
     	ServiceAnswerDto dto = serviceAnswerService.findServiceAns(serviceAnsNum);
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-qna-answer");

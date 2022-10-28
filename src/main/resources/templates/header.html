@@ -10,7 +10,7 @@
                             <i class="iconly-Location icli text-white"></i>
                             <span class="text-white">
                             <a sec:authorize="isAnonymous()" >로그인 후 구매 가능합니다</a>
-                            <a sec:authorize="isAuthenticated()" th:text="|${customerName}님 반갑습니다.|"></a>
+                            <a sec:authorize="isAuthenticated()">즐거운 쇼핑 COZY HOUSE</a>
                             </span>
                         </div>
                     </div>
@@ -245,17 +245,17 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/login}">로그인</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
                                                     <a sec:authorize="isAuthenticated()" th:href="@{/customer/info}">마이페이지</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/signUp}">회원가입</a>
-                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/logout}">로그아웃</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/signUp}">회원가입</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/forgot}">비밀번호 찾기</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/forgot}">비밀번호 찾기</a>
                                                     <a sec:authorize="isAuthenticated()"></a>
                                                 </li>
                                             </ul>

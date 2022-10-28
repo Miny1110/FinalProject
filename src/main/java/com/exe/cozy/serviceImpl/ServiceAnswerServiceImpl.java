@@ -12,6 +12,13 @@ public class ServiceAnswerServiceImpl implements ServiceAnswerService {
 
 	@Autowired private ServiceAnswerMapper serviceAnswerMapper;
 	
+	
+	@Override
+	public int serviceAnsMaxNum() throws Exception {
+		
+		return serviceAnswerMapper.serviceAnsMaxNum();
+	}
+
 	@Override
 	public ServiceAnswerDto findServiceAns(int serviceAnsNum) throws Exception{
 		return serviceAnswerMapper.findServiceAns(serviceAnsNum);
@@ -22,4 +29,23 @@ public class ServiceAnswerServiceImpl implements ServiceAnswerService {
 		return serviceAnswerMapper.getReadServiceAnsData(serviceAnsNum);
 	}
 
+	@Override
+	public void insertServiceAns(ServiceAnswerDto sadto) throws Exception {
+		
+		serviceAnswerMapper.insertServiceAns(sadto);
+	}
+
+	@Override
+	public void updateServiceAns(ServiceAnswerDto sadto) throws Exception {
+		
+		serviceAnswerMapper.updateServiceAns(sadto);
+	}
+
+	@Override
+	public void deleteServiceAns(int serviceAnsNum) throws Exception {
+		
+		serviceAnswerMapper.deleteServiceAns(serviceAnsNum);
+	}
+
+	
 }

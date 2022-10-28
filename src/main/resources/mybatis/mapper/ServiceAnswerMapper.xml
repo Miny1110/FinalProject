@@ -4,7 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.exe.cozy.mapper.ServiceAnswerMapper">
-
+	
+	<!-- 새 답변 번호 -->
+	<select id="serviceAnsMaxNum" resultType="int">
+		select nvl(max(itemAnsNum),0)
+		from serviceAnswer	
+	</select>
+	
+	<!-- 답변 등록 -->
+	<insert id="insertServiceAns" parameterType="ServiceAnswerDto">
+		insert into serviceAnswer (serviceAnsNum,serviceQueNum,serviceAnsContent,serviceAnsDate)
+		values (#{serviceAnsNum}, #{serviceQueNum}, #{serviceAnsContent}, sysdate)
+	</insert>
+	
+	
 	<!--AnswerNum 으로 읽기 (join)-->
 	<resultMap type="ServiceAnswerDto" id="ServiceAnswerDto">
 		<result column="serviceAnsNum" property="serviceAnsNum" />
@@ -18,6 +31,7 @@
 		<result column="serviceQueNum" property="serviceQueNum" />
 	</resultMap>
 	
+	<!-- 답변 확인 -->
 	<select id="findServiceAns" parameterType="ServiceAnswerDto" resultMap="ServiceAnswerDto">
 		select
 			a.serviceAnsNum,
@@ -30,11 +44,16 @@
 		where a.serviceAnsNum=#{serviceAnsNum}
 	</select>
 	
-	<!--QuestionNum 으로 읽기 -->
-	<select id="getReadServiceAnsData" parameterType="int" resultType="ServiceAnswerDto">
-		select * from serviceAnswer
-		where serviceQueNum=#{serviceQueNum}
-	</select>
+	<!-- 답변 수정 -->
+	<update id="updateServiceAns" parameterType="ServiceAnswerDto">
+		update serviceAnswer set serviceAnsContent=#{serviceAnsContent},serviceAnsDate = sysdate
+		where serviceAnsNum = #{serviceAnsNum}
+	</update>
 	
+	<!-- 답변 삭제 -->
+	<update id="deleteServiceAns" parameterType="ServiceAnswerDto">
+		update serviceAnswer set serviceAnsContent=#{serviceAnsContent},serviceAnsDate = sysdate
+		where serviceAnsNum = #{serviceAnsNum}
+	</update>
 	
 </mapper>

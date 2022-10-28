@@ -1,5 +1,6 @@
 package com.exe.cozy.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -157,11 +158,11 @@ public class ItemDetailController {
 	}
 
 	@RequestMapping("itemDetail") /** item 상세페에지 view */
-	public ModelAndView detail(HttpServletRequest request) throws Exception {
+	public ModelAndView detail(HttpServletRequest request, Principal principal) throws Exception {
 		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
 
 		//test 종료시 한번에 시큐리티 예정
-		String customerEmail="eunjis";
+
 		/*
 		 * detail 페이지 완성되면 이거 풀기 String pageNum = request.getParameter("pageNum");
 		 */
@@ -180,7 +181,7 @@ public class ItemDetailController {
 		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
 		List<ItemQuestionDto> qdtoList = itemQuestionService.getReadQnaList(itemNum);
 		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
-		List<CartDto> clist = cartService.listCart(customerEmail);
+		List<CartDto> clist = cartService.listCart(principal.getName());
 
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();

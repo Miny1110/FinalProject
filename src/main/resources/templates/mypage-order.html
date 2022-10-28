@@ -176,7 +176,7 @@
                                                     <h4>배송정보
                                                     <span class="shipcomplete" th:if="${not #strings.equals(orderDto.orderState,'결제대기')}"><a th:text="${orderDto.orderState}">배송중</a></span>
                                                     <span class="cancle" th:if="${#strings.equals(orderDto.orderState,'결제대기')}"><a th:text="${orderDto.orderState}">배송중</a></span>
-                                                    <span class="review"><a th:href="@{/customer/order/detail(orderNum=${orderDto.orderNum})}">상세보기</a></span></h4>
+                                                    <span class="review"><a th:href="@{/customer/order/detail(orderNum=${orderDto.orderNum},pageNum=${page.pageNum})}">상세보기</a></span></h4>
                                                     <h6 class="text-content" th:text="|주문번호: ${orderDto.orderNum} &nbsp; [주문날짜: ${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}]|"></h6>
                                                 </div>
                                             </div>

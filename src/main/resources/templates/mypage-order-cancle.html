@@ -162,7 +162,7 @@
 
                                                 <div class="order-detail">
                                                     <h4>주문번호:&nbsp;<a th:text="${orderDto.orderNum}"></a>
-                                                    <span class="review"><a th:href="@{/customer/order/cancle/detail(orderNum=${orderDto.orderNum})}">상세보기</a></span></h4>
+                                                    <span class="review"><a th:href="@{/customer/order/cancle/detail(orderNum=${orderDto.orderNum},pageNum=${page.pageNum})}">상세보기</a></span></h4>
                                                     <h6 class="text-content" th:text="|취소날짜:&nbsp;${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}|"></h6>
                                                 </div>
                                             </div>

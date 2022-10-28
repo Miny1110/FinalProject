@@ -347,9 +347,10 @@
 
                                     </div>
                                 </div>
-                                <div class="product-footer">
+                                <div class="product-footer" style="padding: 20px;">
                                     <div class="product-detail">
                                         <span class="span-name" th:text="${dto.itemSubType}"></span>
+                                        <span class="span-name" th:text="|  조회수: ${dto.itemHitcount}|"></span>
                                         <a href="product-left.html">
                                             <h5 class="name" th:text="${dto.itemName}"></h5>
                                         </a>
@@ -360,13 +361,13 @@
                                                 </li>
                                                 
                                             </ul>
-                                            <a ></a><span>(4.0)</span>
+                                            <a th:text="|상품후기: ${dto.itemHitcount}|"></a><span></span>
                                         </div>
                                         <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(dto.itemPrice-dto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
                                         <del th:text="${#numbers.formatInteger(dto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
                                         <br>
                                         <div class="add-to-cart-box bg-white">
-                                            <button class="btn btn-add-cart addcart_button addcart-button">장바구니 추가
+                                            <button class="btn btn-add-cart addcart_button addcart-button">Add
                                                 <i class="fa-solid fa-plus bg-gray"></i></button>
                                             <div class="cart_qty qty-box product-qty">
 											<div class="input-group">
@@ -380,7 +381,7 @@
 												</button>
 											</div>
 										</div>
-                                        </div>
+                                       </div>
                                     </div>
                                 </div>
                             </div>

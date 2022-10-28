@@ -125,9 +125,9 @@ public class OrderController {
        /* response.setContentType("text/html; charset=UTF-8");*/
 
 
-        odto.setCustomerEmail(principal.getName());
+        odto.setCustomerEmail(principal.getName());/*
         int odMaxNum = orderDetailService.odMaxNum();
-        oddto.setOdNum(odMaxNum+1);
+        oddto.setOdNum(odMaxNum+1);*/
 
         orderService.insertOrder(odto);
         orderDetailService.insertOd(oddto);
@@ -179,8 +179,8 @@ public class OrderController {
         odto.setCustomerEmail(principal.getName());
         int odMaxNum = orderDetailService.odMaxNum();
 
-
         orderService.insertOrder(odto);
+        //주문했으면 삭제하기
 
         mav.setViewName("redirect:success_order");
 
@@ -190,7 +190,7 @@ public class OrderController {
 
     @PostMapping("/cartItemOrder_ok")
     @ResponseBody
-    public ModelAndView cartItemOrder_ok(HttpSession session, @ModelAttribute DeliverDto ddto,
+    public ModelAndView cartItemOrder_ok(HttpSession session,Principal principal, @ModelAttribute DeliverDto ddto,
                                      HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
 
@@ -198,19 +198,31 @@ public class OrderController {
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
        OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
         // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
-        String customerEmail = "eunjis";
         /* response.setContentType("text/html; charset=UTF-8");*/
 
 
-        int odMaxNum = orderDetailService.odMaxNum();
-        oddto.setOdNum(odMaxNum+1);
+        /*int odMaxNum = orderDetailService.odMaxNum();
+        oddto.setOdNum(odMaxNum+1);*/
 
         orderDetailService.insertOd(oddto);
+        /*int cartNum = Integer.parseInt(request.getParameter("cartNum"));*/
+        /*cartService.deleteCart(cartNum);*/
         mav.setViewName("redirect:success_order");
 
         return mav;
 
     }
+
+    @GetMapping("/deleteCart")
+    public ModelAndView deleteCart(HttpServletResponse resp, HttpServletRequest req,Principal principal) {
+
+
+        ModelAndView mav = new ModelAndView();
+        cartService.deleteOrderCart(principal.getName());
+        mav.setViewName("redirect:success_order");
+        return mav;
+    }
+
 
 
 

@@ -45,5 +45,10 @@ public class CartServiceImpl implements CartService{
 	public int checkCart(CartDto cdto){
 		return cartMapper.checkCart(cdto);
 	}
+
+	@Override
+	public void deleteOrderCart(String customerEmail) {
+		 cartMapper.deleteOrderCart(customerEmail);
+	}
 }
 

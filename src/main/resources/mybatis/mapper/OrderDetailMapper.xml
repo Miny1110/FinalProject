@@ -11,6 +11,6 @@
 
     <insert id="insertOd" parameterType="OrderDetailDto">
         insert into orderDetail (odNum,orderNum,itemNum,itemQty,itemColor,itemSize)
-        values (#{odNum},#{orderNum},#{itemNum},#{itemQty},#{itemColor},#{itemSize})
+        values (#{odNum},#{orderNum,jdbcType=VARCHAR},#{itemNum},#{itemQty},#{itemColor,jdbcType=VARCHAR},#{itemSize,jdbcType=VARCHAR})
     </insert>
 </mapper>

@@ -17,4 +17,6 @@ public interface CartService {
 	/**카트확인*/
 	public int checkCart(CartDto cdto);
 
+	public void deleteOrderCart(String customerEmail);
+
 }

@@ -15,7 +15,7 @@
 		        #{itemSize, jdbcType=VARCHAR},#{itemColor, jdbcType=VARCHAR})
 	</insert>
 
-	<!--카트삭제-->
+	<!--카트삭제 하나씩-->
 	<delete id="deleteCart" parameterType="int">
 		delete cart where cartNum=#{cartNum}
 	</delete>
@@ -42,5 +42,10 @@
 		select * from cart
 		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
 	</select>
+
+	<!--주문완료시 카트 삭제-->
+	<delete id="deleteOrderCart" parameterType="String">
+		delete cart where customerEmail=#{customerEmail}
+	</delete>
 
 </mapper>

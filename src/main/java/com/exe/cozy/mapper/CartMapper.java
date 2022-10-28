@@ -18,6 +18,7 @@ public interface CartMapper {
 	public List<CartDto> listCart(String customerEmail);
 	/**카트확인*/
 	public int checkCart(CartDto cdto) ;
+	public void deleteOrderCart(String customerEmail);
 
 
 }

@@ -164,10 +164,8 @@ public class ItemDetailController {
 		 * if(searchValue!=null && !searchValue.equals("")) { searchValue =
 		 * URLDecoder.decode(searchValue,"UTF-8");}
 		 */
-		
-	
 
-		// itemDetailService.updateItemHitCount(itemNum);
+		itemDetailService.updateItemHitCount(itemNum);
 
 		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 		List<ReplyDto> rdtoList = replyService.getReadReplyData(itemNum);

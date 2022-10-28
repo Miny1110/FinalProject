@@ -15,8 +15,9 @@ function cart(){
                 let result=confirm(msg);
                 if(result){
                     updateCart()
+                    return false;
                 }else{
-                return;
+                return false;
                 }
             }else{
                 addCart()

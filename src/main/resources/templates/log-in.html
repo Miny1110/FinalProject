@@ -59,7 +59,7 @@
                         <div class="input-box">
                         
                         	<!-- 로그인 form 시작 -->
-                            <form class="row g-4" name="loginForm" method="post" th:object="${CustomerDto}" th:action="@{/customer/login}">
+                            <form class="row g-4" name="loginForm" method="post" th:object="${CustomerDto}" th:action="@{/login}">
                             	<div th:if="${param.error}">
                             		<div class="alert alert-danger">
 										이메일 또는 비밀번호가 일치하지 않습니다.
@@ -91,7 +91,7 @@
                                              name="rememberEmail" >
                                             <label class="form-check-label" for="flexCheckDefault">이메일 기억하기</label>
                                         </div>
-                                        <a th:href="@{/customer/forgot}" class="forgot-password">비밀번호 찾기</a>
+                                        <a th:href="@{/forgot}" class="forgot-password">비밀번호 찾기</a>
                                     </div>
                                 </div>
 
@@ -126,7 +126,7 @@
 
                         <div class="sign-up-box">
                             <h4>아직 계정이 없으신가요?</h4>
-                            <a th:href="@{/customer/signUp}">회원가입</a>
+                            <a th:href="@{signUp}">회원가입</a>
                         </div>
                     </div>
                 </div>

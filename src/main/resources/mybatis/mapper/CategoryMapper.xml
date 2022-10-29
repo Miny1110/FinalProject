@@ -18,6 +18,7 @@
         itemMainType,
         itemSubType,
         itemPrice,
+        itemHitcount,
         itemDiscount,
         (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
            from file_store fs

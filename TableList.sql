@@ -333,14 +333,14 @@ orderDate date default sysdate,
 usePoint number(10),
 FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
 
-//주문상세(주문상품정보)
+//주문상세(주문상품정보) 10/30수정
 create table orderdetail
-(odnum NUMBER(8) primary Key,
+(odnum VARCHAR2(100) primary Key,
 orderNum VARCHAR2(100),
 itemNum number(8),
-itemQty NUMBER(8),
-itemColor VARCHAR2(40),
-itemSize VARCHAR2(40),
+itemQty NUMBER(20),
+itemColor VARCHAR2(100),
+itemSize VARCHAR2(100),
 FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
 FOREIGN KEY (itemNum) REFERENCES item(itemNum));
 

@@ -279,6 +279,7 @@
     
 
 <!-- 카테고리 상품 조회 시작 -->
+			
                 <div class="col-xxl-9 col-lg-8">
                     <div class="show-button">
                         <div class="filter-button d-inline-block d-lg-none">
@@ -295,7 +296,7 @@
                                     </button>
                                 </div>
                             </div>
-
+						
                             <div class="grid-option">
                                 <ul>
                                     <li class="three-grid d-xxl-inline-block d-none">
@@ -315,6 +316,8 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div>
 
                     <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
                         <div th:if="${#lists.size(lists)>0}" th:each="dto:${lists}">
@@ -350,8 +353,41 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+                     </div>
+                    </div>  
+<!-- 페이징처리 -->                  
+					<div>  
+                        <nav class="custome-pagination">
+	                          <ul class="pagination justify-content-center">
+	                                    	
+									<li class="page-item" th:if="${page.navigateFirstPage>1}">
+										
+
+										 <a class="page-link" th:href="@{/category(itemMainType=${itemMainType},itemSubType=${itemSubType},pageNum=${page.navigateFirstPage-1})}">                                         
+                                            <i class="fa-solid fa-angles-left"></i>
+                                         </a>
+	                                     
+	                                     </li>
+									     <li class="page-item" th:unless="${page.navigateFirstPage>1}">
+	                                     </li>
+	                                       
+	                                     <li class="page-item" th:if="${page.startRow!=0}"
+	                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
+	                                        th:classappend="(${pages}==${page.pageNum})?'active'">
+	                                       <a class="page-link" th:text="${pages}" th:href="@{/category(itemMainType=${itemMainType},itemSubType=${itemSubType},pageNum=${pages})}"></a>
+	                                     </li>
+	                                        
+	                                     <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
+	                                        <a class="page-link" th:href="@{/category(itemMainType=${itemMainType},itemSubType=${itemSubType},pageNum=${page.navigateLastPage+1})}">
+	                                          <i class="fa-solid fa-angles-right"></i>
+	                                        </a>
+	                                     </li>
+	                                     <li class="page-item" th:unless="${page.navigateLastPage<page.pages}">
+	                                     </li>
+	                                        
+	                                    </ul>
+                                	</nav>                 
+                        		</div>    
 <!-- 카테고리 상품 등록 끝 -->
 					
                 </div>

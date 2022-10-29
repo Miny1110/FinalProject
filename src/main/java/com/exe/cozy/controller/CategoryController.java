@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.service.CategoryService;
 import com.exe.cozy.service.ItemDetailService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 
 @Controller
@@ -37,12 +40,23 @@ public class CategoryController {
 			itemSubType="";
 		}
 		
-		System.out.println(itemMainType);
-		System.out.println(itemSubType);
+		String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr = "1";
+    	}
+    	
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
+    	Page<ItemDetailDto> lists = CategoryService.selectCategory(itemMainType,itemSubType, pageNum);
+
+    	PageInfo<ItemDetailDto> page = new PageInfo<>(lists,3);
+    	
+    	
+    	mav.addObject("lists", lists);
+    	mav.addObject("page", page);
+    	mav.addObject("itemMainType",itemMainType);
+    	mav.addObject("itemSubType",itemSubType);
 		
-		List<ItemDetailDto> lists = CategoryService.selectCategory(itemMainType,itemSubType);
-		
-		mav.addObject("lists",lists);	
 		mav.setViewName("shopCategory");
 		
 		return mav;

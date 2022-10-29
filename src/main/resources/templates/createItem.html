@@ -8,6 +8,13 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/styleej.css">
     <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/stylecj.css">
+    <style type="text/css">
+    	.select_img img1 {margin-top: 15px;}
+    	.select_img img2 {margin-top: 15px;}
+    	.select_img img3 {margin-top: 15px;}
+    	.select_img img4 {margin-top: 15px;}
+    	.select_img img5 {margin-top: 15px;}
+    </style>
 
 </head>
 
@@ -154,32 +161,36 @@
                                     <h4><b>메인이미지 업로드 1</b></h4>
                                     사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file" name="itemImage1">
+                                        <input type="file" id="gdsImg1" name="itemImage1">
                                     </div>
+                                     <div class="select_img1"><img src="" /></div>
                                 </div>
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 2</b></h4>
                                     사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file" name="itemImage2">
+                                        <input type="file" id="gdsImg2" name="itemImage2">
                                     </div>
+                                    <div class="select_img2"><img src="" /></div>
                                 </div>
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 3</b></h4>
 									사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file" name="itemImage3">
+                                        <input type="file" id="gdsImg3" name="itemImage3">
                                     </div>
+                                    <div class="select_img3"><img src="" /></div>
                                 </div>
                                 <hr>
                                 <div class="col-12">
                                     <h4><b>메인이미지 업로드 4</b></h4>
                                     사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file" name="itemImage4">
+                                        <input type="file" id="gdsImg4" name="itemImage4">
                                     </div>
+                                    <div class="select_img4"><img src="" /></div>
                                 </div>
                                 <hr>
 
@@ -187,8 +198,9 @@
                                     <h4><b>상세페이지 이미지 업로드</b></h4>
                                     사진사이즈:750x750<br>
                                     <div class="form-floating theme-form-floating">
-                                        <input type="file" name="detailImage">
+                                        <input type="file" id="gdsImg5" name="detailImage">
                                     </div>
+                                    <div class="select_img5"><img src="" /></div>
                                 </div>
                                 <hr>
                                 
@@ -562,6 +574,60 @@
 
     <!-- script js -->
     <script src="/assets/js/script.js"></script>
+    
+    <!-- 이미지 보여주기 js -->
+    <script>
+  $("#gdsImg1").change(function(){
+   if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+     $(".select_img1 img").attr("src", data.target.result).width(200);        
+    }
+    reader.readAsDataURL(this.files[0]);
+   }
+  });
+  
+  $("#gdsImg2").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img2 img").attr("src", data.target.result).width(200);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+  
+  $("#gdsImg3").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img3 img").attr("src", data.target.result).width(200);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+  
+  $("#gdsImg4").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img4 img").attr("src", data.target.result).width(200);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+  
+  $("#gdsImg5").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img5 img").attr("src", data.target.result).width(200);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+ </script>
+    
     
     <!-- 유효성 검사(대분류, 중분류 카테고리 구분) -->
     <script type="text/javascript">

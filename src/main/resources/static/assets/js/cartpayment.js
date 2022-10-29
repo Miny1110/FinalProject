@@ -78,8 +78,10 @@ function payOrder(){
     $('input[name="itemColor"]').each(function (y){
         itemColorArray.push($(this).val());
     });
-
-
+    let cartNumArray=[];
+    $('input[name="cartNum"]').each(function (e){
+        cartNumArray.push($(this).val());
+    });
 
 
 
@@ -138,35 +140,32 @@ function payOrder(){
                 },
                 success: function (data) {
                     //성공하면 여기도 들어가야하니까
-                    for (let z=0; z<=index; z++) {
+                    for (let z=0; z<index; z++) {
                         $.ajax({
                             method: "POST",
                             url: "cartItemOrder_ok",
                             contentType: 'application/json',
-                            traditional :true,
+                          /*  traditional :true,*/
                             data: JSON.stringify({
                                 orderNum: merchant_uid,
-                                itemSize: itemSizeArray.eq(1),
-                                itemColor: itemColorArray.eq(1),
-                                itemNum: itemNumArray.eq(1).map(value => Number(value)),
-                                itemQty:  itemQtyArray.eq(1).map(value => Number(value)),
+                                odNum: new Date().getTime()+z,
+                                itemNum: parseInt(itemNumArray[z]),
+                                itemQty: parseInt(itemQtyArray[z]),
+                                itemSize: itemSizeArray[z],
+                                itemColor: itemColorArray[z],
                             })
                             , beforeSend: function (jqXHR) {
                                 jqXHR.setRequestHeader(header, token);
-                            },
-                            success: function (data) {
-
-                            alert("이것두 성공")
-
-                            }, error: function () {
-                                alert("결제가 정상적으로 진행되지 않았습니다.")
+                            }
+                            ,error: function () {
+                                alert("리스트가 정상적으로 진행되지 않았습니다.")
                             }
                         })
                     }
                     let msg = "결제가 완료되었습니다.\n";
                     alert(msg);
 
-                    location.href = "/success_order";
+                    location.href = "/deleteCart";
                 }, error: function () {
                     alert("결제가 정상적으로 진행되지 않았습니다.")
                 }

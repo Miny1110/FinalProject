@@ -107,20 +107,20 @@
                                 <li>1대1</li>
                             </ul>
                             <br/>
-                            <h2>탈퇴 안하고 아이디 변경 가능한가요?</h2>
+                            <h2 th:text="${sqdto.serviceQueTitle}"></h2>
                             <br/>
                             <ul class="contain-comment-list">
                                 <li  style="margin-right: 4%">
                                     <div class="user-list">
                                         <i data-feather="user"></i>
-                                        <span>Caroline</span>
+                                        <span th:text="${sqdto.CustomerEmail}"></span>
                                     </div>
                                 </li>
 
                                 <li>
                                     <div class="user-list">
                                         <i data-feather="calendar"></i>
-                                        <span>April 19, 2022</span>
+                                        <span th:text="${sqdto.serviceQueDate}"></span>
                                     </div>
                                 </li>
 
@@ -137,16 +137,28 @@
                             </div>
                         </div>
                         
-                    <div class="blog-detail-contain" style="align-content: center">
-                        <br/>
-                        <p style="margin-left: 2%">
-                            제가 카카오로 가입을 했는데 아이디 변경을 하고싶어서요. 할 수 있는 방법 있을까요?오른쪽 홈패드 앞 여유공간을 어떻게 채워야할지 모르겠네요.
-                            거실장을 놓자니 필요가 없고 큰 식탁을 놓자니 협소하고..
-                            뭘로 인테리어하면 비어보이지 않으면서 예쁠까요?
-                            크기는 대략 80x150정도입니다.
-                        </p>
+	                    <div class="blog-detail-contain" style="align-content: center"
+	                    	>
+	                        <br/>
+	                        <p style="margin-left: 2%" th:text="${sqdto.serviceQueContent}">
+	                            
+	                        </p>
+	                    </div>
                     </div>
-                    </div>
+                    
+                    
+                    <div style="text-align: center">
+	                    <div style="display: inline-block">
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                    		type="button" th:onclick="'location.href=\'qnaUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
+	                    </div>
+	                    
+	                    <div style="display: inline-block">
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
+	                    </div>
+	                </div>
+                    
                     
                     <hr/> 
                     
@@ -159,15 +171,26 @@
                             <div class="user-comment-box1">
                                 <ul>
                                     <li>
-                                        <div class="user-contain">
-                                            <p>죄송합니다만 따로 변경이 어렵습니다. 앞으로 좋은 서비스를 제공하기 위해 더욱 노력하겠습니다</p>
-                                        </div>
+                                   
+                                    	 <div class="user-contain" th:if="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
+                                    	 	<p>아직 답변이 없습니다. 조금만 기다려주세요.</p>
+                                    	 </div>
+                                    	 <div class="user-contain" th:unless="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
+                                    	 	 <p th:text="${sqdto.serviceAnswer.serviceAnsContent}"></p>
+                                    	 </div>
                                     </li>
                                 </ul>
                             </div>
-
                         </div>
                     </div>
+                    
+                   <div style="text-align: center">
+                       <div style="display: inline-block">
+	                       <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                       	type="submit" th:onclick="@{'location.href=\'qnaArticle?serviceQueNum' + @{${sadto.serviceQueNum}}+ '\''">등록</button>
+	                       	<!-- @{'location.href=\'anaArticle?serviceAnsNum' + @{${sadto.serviceAnsNum}}+ '\'' -->
+                       </div>
+                   </div>
                     
                 </div>
             </div>
@@ -179,187 +202,7 @@
     <footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
 
-    <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Location Modal End -->
-
-
-    <!-- Deal Box Modal Start -->
-    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                        <p class="mt-1 text-content">Recommended deals for you.</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="deal-offer-box">
-                        <ul class="deal-offer-list">
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-2">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-3">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="list-1">
-                                <div class="deal-offer-contain">
-                                    <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
-                                            alt="">
-                                    </a>
-
-                                    <a href="shop-left-sidebar.html" class="deal-contain">
-                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Deal Box Modal End -->
+    
 
     <!-- Tap to top start -->
     <div class="theme-option">

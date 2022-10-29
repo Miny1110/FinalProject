@@ -87,7 +87,8 @@ public class ServiceQnacontroller {
 		return mav;
 	}
 	
-	//질문 내용 보이기 (관리자 답변창 보이기)
+	
+	//질문 내용 보이기
 	@GetMapping("/service/qnaArticle")
 	public ModelAndView articleSvcQuestion(ServiceQuestionDto sqdto,HttpServletRequest request) throws Exception {
 		
@@ -95,13 +96,28 @@ public class ServiceQnacontroller {
 		
 		ModelAndView mav = new ModelAndView();
 		sqdto = svcQueService.findServiceQue(serviceQueNum);
+		System.out.println(sqdto);
 		mav.addObject("sqdto",sqdto);
-		mav.setViewName("serviceQna_Cus");
+		mav.setViewName("serviceQnaView");
 		
 		return mav;
 	}
 	
-
+	
+	//관리자 답변 내용 보이기
+	@GetMapping("/service/anqArticle")
+	public ModelAndView articleSvcAnswer(ServiceQuestionDto sqdto,ServiceAnswerDto sadto,HttpServletRequest request) throws Exception {
+		
+		int serviceAnsNum = Integer.parseInt(request.getParameter("serviceAnsNum"));
+		
+		ModelAndView mav = new ModelAndView();
+		sadto = svcAnsService.findServiceAns(serviceAnsNum);
+		mav.addObject("sadto",sadto);
+		mav.setViewName("serviceQnaView");
+		
+		return mav;
+	}
+	
 	
 	//질문 수정창
 	@GetMapping("/service/qnaUpdate")
@@ -144,60 +160,30 @@ public class ServiceQnacontroller {
 	
 	//--------------------------------
 	
-	//질문 리스트 띄우기
-		//@PreAuthorize("isAuthenticated")
-		@RequestMapping("/service/anqList")
-		public ModelAndView listSvcAnswer(NoticeDto ndto, HttpServletRequest request) throws Exception{
+	/*
+	//(관리자)질문 내용 보이기
+		@GetMapping("/service/qnaArticle")
+		public ModelAndView articleSvcQuestion(ServiceQuestionDto sqdto,HttpServletRequest request) throws Exception {
+			
+			int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 			
 			ModelAndView mav = new ModelAndView();
-					
-			String quePageNumStr = request.getParameter("pageNum");
-			
-			if(quePageNumStr==null) {
-				quePageNumStr = "1";
-	    	}
-			
-			int pageNum = Integer.parseInt(quePageNumStr);
-			
-			Page<ServiceQuestionDto> sqlists = svcQueService.getServiceQuePaging(pageNum);
-			
-			PageInfo<ServiceQuestionDto> page = new PageInfo<>(sqlists,3);
-			
-			mav.addObject("sqlists",sqlists);
-			mav.addObject("page",page);
-			mav.setViewName("serviceAnqList");
+			sqdto = svcQueService.findServiceQue(serviceQueNum);
+			System.out.println(sqdto);
+			mav.addObject("sqdto",sqdto);
+			mav.setViewName("serviceQnaView");
 			
 			return mav;
 		}
-	
-	
-	
-	
-	//관리자 질문 답변창으로 이동
-	@GetMapping("/service/anqUpdate")
-	public ModelAndView updateSvcAnswer(ServiceAnswerDto sadto, HttpServletRequest request)throws Exception {
-		
-		int serviceAnsNum = Integer.parseInt(request.getParameter("serviceAnsNum"));
-		
-		ModelAndView mav = new ModelAndView();
-		sadto = svcAnsService.findServiceAns(serviceAnsNum);
-		mav.addObject("sadto", sadto);
-		mav.setViewName("serviceQna_Adm");
-		
-		return mav;
-	}
-	
-	
+		*/
 	
 	//답변 등록
-	@PostMapping("/service/anqCreate_ok")
-	public ModelAndView anqCreate_ok(@ModelAttribute ServiceAnswerDto sadto, HttpServletRequest request) throws Exception{
-		
+	@PostMapping("/service/anqArticle_ok")
+	public ModelAndView createSvcAnswer_ok(@ModelAttribute ServiceAnswerDto sadto, HttpServletRequest request) throws Exception{
+		System.out.println("aa");
 		ModelAndView mav = new ModelAndView();
 		int serviceAnsMaxNum = svcAnsService.serviceAnsMaxNum();
 		sadto.setServiceAnsNum(serviceAnsMaxNum + 1);
-		System.out.println(sadto.getServiceAnsContent());
-		
 		
 		svcAnsService.insertServiceAns(sadto);
 		System.out.println(sadto.getServiceAnsNum());
@@ -207,21 +193,28 @@ public class ServiceQnacontroller {
 		return mav;
 		
 	}
+	/*
 	
-	
-	
-	//답변 내용 보이기
-	@GetMapping("/service/anqArticle")
-	public ModelAndView articleSvcAnswer(ServiceQuestionDto sqdto,ServiceAnswerDto sadto,HttpServletRequest request) throws Exception {
-		int serviceAnsNum = Integer.parseInt(request.getParameter("serviceAnsNum"));
+	@PostMapping("/service/qnaCreate_ok")
+	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto,Principal principal, HttpServletRequest request) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
-		sadto = svcAnsService.findServiceAns(serviceAnsNum);
-		mav.addObject("sadto",sadto);
-		mav.setViewName("serviceQnaView_Adm");
+		int serviceQueMaxNum = svcQueService.serviceQueMaxNum();
+		sqdto.setServiceQueNum(serviceQueMaxNum + 1);
 		
+		sqdto.setCustomerEmail(principal.getName());
+		
+		svcQueService.insertServiceQue(sqdto);;
+		mav.setViewName("redirect:/service/qnaList");
 		return mav;
+		
 	}
+	
+	*/
+	
+	
+	
+	
 	
 	//답변 수정
 	@PostMapping("/service/anqUpdate_ok")

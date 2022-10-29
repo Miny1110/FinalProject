@@ -3,6 +3,7 @@
     <title>상품 카테고리</title>
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/style_sh.css">
+
 </head>
 
 <body>
@@ -350,8 +351,8 @@
                                 <div class="product-footer" style="padding: 20px;">
                                     <div class="product-detail">
                                         <span class="span-name" th:text="${dto.itemSubType}"></span>
-                                        <span class="span-name" th:text="|  조회수: ${dto.itemHitcount}|"></span>
-                                        <a href="product-left.html">
+                                        <span class="span-name" th:text="|조회수: ${dto.itemHitcount}|"></span>
+                                        <a th:href="@{/itemDetail(itemNum=${dto.itemNum})}">
                                             <h5 class="name" th:text="${dto.itemName}"></h5>
                                         </a>
                                         <div class="product-rating mt-2">
@@ -365,23 +366,7 @@
                                         </div>
                                         <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(dto.itemPrice-dto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
                                         <del th:text="${#numbers.formatInteger(dto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
-                                        <br>
-                                        <div class="add-to-cart-box bg-white">
-                                            <button class="btn btn-add-cart addcart_button addcart-button">Add
-                                                <i class="fa-solid fa-plus bg-gray"></i></button>
-                                            <div class="cart_qty qty-box product-qty">
-											<div class="input-group">
-												<button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
-													<i class="fa fa-minus ms-0" aria-hidden="true"></i>
-												</button>
-												<input class="form-control input-number qty-input"
-													   type="text" id="itemQty" name="itemQty" value="1">
-												<button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
-													<i class="fa fa-plus ms-0" aria-hidden="true"></i>
-												</button>
-											</div>
-										</div>
-                                       </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -434,9 +419,6 @@
 
     <!-- Price Range Js -->
     <script src="/assets/js/ion.rangeSlider.min.js"></script>
-
-    <!-- Quantity js -->
-    <script src="/assets/js/quantity-3.js"></script>
 
     <!-- sidebar open js -->
     <script src="/assets/js/filter-sidebar.js"></script>

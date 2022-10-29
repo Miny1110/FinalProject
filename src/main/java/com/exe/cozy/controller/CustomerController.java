@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,7 @@ import com.exe.cozy.mail.MailService;
 import com.exe.cozy.mapper.ServiceQuestionMapper;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
+import com.exe.cozy.service.ItemDetailService;
 import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
@@ -60,6 +62,7 @@ public class CustomerController {
 	@Resource private OrderService orderService;
 	@Resource private ServiceQuestionService serviceQuestionService;
 	@Resource private ServiceAnswerService serviceAnswerService;
+	@Resource private ItemDetailService itemDetailService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -95,9 +98,13 @@ public class CustomerController {
     //마이페이지 회원정보수정
     @PreAuthorize("isAuthenticated")
     @PostMapping("info")
-    public ModelAndView info(@ModelAttribute CustomerDto dto) {
+    public ModelAndView info(@ModelAttribute CustomerDto dto) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
+    	
+    	int rstKey = itemDetailService.fileWrite(dto.getCustomerProfileFile());
+
+    	dto.setCustomerProfile(String.valueOf(rstKey));
     	
     	customerService.updateData(dto);
     	
@@ -269,6 +276,8 @@ public class CustomerController {
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	mav.addObject("page", page);

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,7 @@ import com.exe.cozy.mail.MailService;
 import com.exe.cozy.mapper.ServiceQuestionMapper;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
+import com.exe.cozy.service.ItemDetailService;
 import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
@@ -60,6 +62,7 @@ public class CustomerController {
 	@Resource private OrderService orderService;
 	@Resource private ServiceQuestionService serviceQuestionService;
 	@Resource private ServiceAnswerService serviceAnswerService;
+	@Resource private ItemDetailService itemDetailService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
@@ -82,10 +85,6 @@ public class CustomerController {
     		throw new DataNotFoundException("사용자가 없습니다.");
     	}
     	
-    	//비밀번호 *로 변환
-    	String changePwd = customerChk.changePwd(customerDto.getCustomerPwd());
-    	customerDto.setCustomerPwd(changePwd);
-    	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
     	
@@ -95,7 +94,7 @@ public class CustomerController {
     //마이페이지 회원정보수정
     @PreAuthorize("isAuthenticated")
     @PostMapping("info")
-    public ModelAndView info(@ModelAttribute CustomerDto dto) {
+    public ModelAndView info(@ModelAttribute CustomerDto dto,HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
@@ -123,6 +122,25 @@ public class CustomerController {
     	return mav;
     	
     }
+    
+    //마이페이지 프로필수정
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("profile")
+    public ModelAndView info(CustomerDto dto,Principal principal) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int rstKey = itemDetailService.fileWrite(dto.getCustomerProfileFile());
+    	dto.setCustomerProfile(String.valueOf(rstKey));
+    	dto.setCustomerEmail(principal.getName());
+    	customerService.updateProfile(dto);
+    	
+    	mav.setViewName("redirect:info");
+    	
+    	return mav;
+    	
+    }
+    
     
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")
@@ -159,7 +177,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName()));
+//    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName())); //주문취소하면 포인트 회수하는 코드
     	orderService.updateCancleState(req.getParameter("orderNum"));
     	
     	mav.setViewName("redirect:order");
@@ -269,6 +287,8 @@ public class CustomerController {
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	mav.addObject("page", page);

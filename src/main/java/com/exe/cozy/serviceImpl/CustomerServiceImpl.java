@@ -122,5 +122,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getOrderCancleDetailList(customerEmail);
 	}
 
+	@Override
+	public void updateProfile(CustomerDto dto) {
+		customerMapper.updateProfile(dto);
+	}
+
 
 }

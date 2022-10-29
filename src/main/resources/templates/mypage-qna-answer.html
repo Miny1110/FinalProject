@@ -178,13 +178,13 @@
                                     <div class="profile-about dashboard-bg-box">
                                         <div class="row">
                                             <div class="col-xxl-12">
-                                                <div style="height: 250px;" th:text="${dto.serviceAnsContent}">질문내용인데이러쿵저러쿵그래서이거해결되나요해결해주세요문의끝</div>
+                                                <div style="height: 250px; white-space:pre" th:text="${dto.serviceAnsContent}">질문내용인데이러쿵저러쿵그래서이거해결되나요해결해주세요문의끝</div>
                                             </div>
                                         </div>
                                     </div>
                                     <br/>
 									<div class="profile-about dashboard-bg-box row col-xxl-12" style="height: 150px; display: none; margin: 0;" id="resultDiv" >
-										<div th:if="${content}!=null" th:text="${content}"></div>
+										<div th:if="${content}!=null" th:text="${content}" style="white-space:pre"></div>
 									</div>
                                     
                                     <table width="100%">

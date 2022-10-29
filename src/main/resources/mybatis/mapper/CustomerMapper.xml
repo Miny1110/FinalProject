@@ -53,7 +53,13 @@
 	<update id="updateData" parameterType="CustomerDto">
 		update customer set customerPwd=#{customerPwd},customerTel=#{customerTel},
 		customerZipCode=#{customerZipCode},customerRAddr=#{customerRAddr},
-		customerJAddr=#{customerJAddr},customerDAddr=#{customerDAddr},customerProfile=#{customerProfile}
+		customerJAddr=#{customerJAddr},customerDAddr=#{customerDAddr}
+		where customerEmail=#{customerEmail}
+	</update>
+	
+	<!-- 프로필 수정 -->
+	<update id="updateProfile" parameterType="CustomerDto">
+		update customer set customerProfile=#{customerProfile}
 		where customerEmail=#{customerEmail}
 	</update>
 	

@@ -85,10 +85,6 @@ public class CustomerController {
     		throw new DataNotFoundException("사용자가 없습니다.");
     	}
     	
-    	//비밀번호 *로 변환
-    	String changePwd = customerChk.changePwd(customerDto.getCustomerPwd());
-    	customerDto.setCustomerPwd(changePwd);
-    	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
     	
@@ -98,13 +94,9 @@ public class CustomerController {
     //마이페이지 회원정보수정
     @PreAuthorize("isAuthenticated")
     @PostMapping("info")
-    public ModelAndView info(@ModelAttribute CustomerDto dto) throws Exception {
+    public ModelAndView info(@ModelAttribute CustomerDto dto,HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
-    	
-    	int rstKey = itemDetailService.fileWrite(dto.getCustomerProfileFile());
-
-    	dto.setCustomerProfile(String.valueOf(rstKey));
     	
     	customerService.updateData(dto);
     	
@@ -130,6 +122,25 @@ public class CustomerController {
     	return mav;
     	
     }
+    
+    //마이페이지 프로필수정
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("profile")
+    public ModelAndView info(CustomerDto dto,Principal principal) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int rstKey = itemDetailService.fileWrite(dto.getCustomerProfileFile());
+    	dto.setCustomerProfile(String.valueOf(rstKey));
+    	dto.setCustomerEmail(principal.getName());
+    	customerService.updateProfile(dto);
+    	
+    	mav.setViewName("redirect:info");
+    	
+    	return mav;
+    	
+    }
+    
     
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")

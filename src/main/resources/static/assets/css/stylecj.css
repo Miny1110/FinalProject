@@ -25804,5 +25804,9 @@ header .offcanvas-backdrop {
 [dir="rtl"] .slick-slide {
     float: left
 }
-
+.questionlist {
+    position: absolute;
+    color: #00264B;
+    font-weight: 700;
+}
 /*# sourceMappingURL=style.css.map */

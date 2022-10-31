@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.exe.cozy.mapper.SearchMapper">
+
+<!--ItemNum 으로 검색 -->
+	<select id="searchData" parameterType="String" resultType="ItemDetailDto">
+		select * from item where itemName like '%'||#{searchValue}||'%'
+	</select>
+	
+</mapper>	

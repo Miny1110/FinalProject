@@ -66,12 +66,7 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
-                                        <div class="cover-icon">
-                                            <i class="fa-solid fa-pen">
-                                                <input type="file" onchange="readURL(this,0)">
-                                            </i>
-                                        </div>
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="">
                                     </div>
                                 </div>
 
@@ -162,7 +157,7 @@
 
                                                 <div class="order-detail">
                                                     <h4>주문번호:&nbsp;<a th:text="${orderDto.orderNum}"></a>
-                                                    <span class="review"><a th:href="@{/customer/order/cancle/detail(orderNum=${orderDto.orderNum})}">상세보기</a></span></h4>
+                                                    <span class="review"><a th:href="@{/customer/order/cancle/detail(orderNum=${orderDto.orderNum},pageNum=${page.pageNum})}">상세보기</a></span></h4>
                                                     <h6 class="text-content" th:text="|취소날짜:&nbsp;${#dates.format(orderDto.orderDate,'yyyy-MM-dd')}|"></h6>
                                                 </div>
                                             </div>

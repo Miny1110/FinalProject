@@ -10,7 +10,7 @@
                             <i class="iconly-Location icli text-white"></i>
                             <span class="text-white">
                             <a sec:authorize="isAnonymous()" >로그인 후 구매 가능합니다</a>
-                            <a sec:authorize="isAuthenticated()" th:text="|${customerName}님 반갑습니다.|"></a>
+                            <a sec:authorize="isAuthenticated()">즐거운 쇼핑 COZY HOUSE</a>
                             </span>
                         </div>
                     </div>
@@ -20,19 +20,15 @@
                             <div class="notification-slider">
                                 <div>
                                     <div class="timer-notification">
-                                        <h6><strong class="me-1">환영합니당</strong>Wrap new offers/gift
-                                            every signle day on Weekends.<strong class="ms-1">New Coupon Code: Fast024
-                                            </strong>
-
+                                        <h6><strong class="me-1">환영합니당</strong>사람과 공간이 함께하는 Cozy House입니다
                                         </h6>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div class="timer-notification">
-                                        <h6>Something you love is now on sale!
-                                            <a href="shop-left-sidebar.html" class="text-white">Buy Now
-                                                !</a>
+                                        <h6>매일 매일 진행되는 오늘의 딜을 확인하세요
+                                            <a th:href="@{/}" class="text-white">Buy Now</a>
                                         </h6>
                                     </div>
                                 </div>
@@ -157,7 +153,7 @@
                                             </div>
                                             <div class="delivery-detail">
                                                 <h6>24/7 Delivery</h6>
-                                                <h5>+91 888 104 2340</h5>
+                                                <h5>+02) 123 - 4567</h5>
                                             </div>
                                         </a>
                                     </li>
@@ -245,17 +241,17 @@
                                             <ul class="user-box-name">
                                                 <li class="product-box-contain">
                                                     <i></i>
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/login}">로그인</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
                                                     <a sec:authorize="isAuthenticated()" th:href="@{/customer/info}">마이페이지</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/signUp}">회원가입</a>
-                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/logout}">로그아웃</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/signUp}">회원가입</a>
+                                                    <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
                                                 </li>
 
                                                 <li class="product-box-contain">
-                                                    <a sec:authorize="isAnonymous()" th:href="@{/customer/forgot}">비밀번호 찾기</a>
+                                                    <a sec:authorize="isAnonymous()" th:href="@{/forgot}">비밀번호 찾기</a>
                                                     <a sec:authorize="isAuthenticated()"></a>
                                                 </li>
                                             </ul>
@@ -289,7 +285,7 @@
 
                                 <ul class="category-list">
                                     <li class="onhover-category-list">
-                                        <a href="category?itemMainType=1" class="category-name">
+                                        <a href="/category?itemMainType=1" class="category-name">
                                             <img src="/assets/svg/1/vegetable.svg" alt="">
                                             <h6>가전용품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
@@ -299,19 +295,21 @@
                                             <div class="list-1">                                              
                                                 <ul>
                                                     <li>                                                       
-                                                        <a href="category?itemMainType=1&itemSubType=fridge">냉장고</a>
+
+                                                        <a href="/category?itemMainType=1&itemSubType=냉장고">냉장고</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=1&itemSubType=tv">TV</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=TV">TV</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=1&itemSubType=airConditioner">에어컨 & 공기청정기</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=에어컨&공기청정기">에어컨 & 공기청정기</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=1&itemSubType=washer">세탁기</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=세탁기">세탁기</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=1&itemSubType=cleaner">청소기</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=청소기">청소기</a>
+
                                                     </li>
                                                 </ul>
                                             </div>
@@ -319,7 +317,7 @@
                                     </li>
 
                                     <li class="onhover-category-list">
-                                        <a href="category?itemMainType=2" class="category-name">
+                                        <a href="/category?itemMainType=2" class="category-name">
                                             <img src="/assets/svg/1/cup.svg" alt="">
                                             <h6>가구</h6>
                                             <i class="fa-solid fa-angle-right"></i>
@@ -330,19 +328,21 @@
                                                 
                                                 <ul>
                                                     <li>
-                                                        <a href="category?itemMainType=2&itemSubType=bed">침대</a>
+
+                                                        <a href="/category?itemMainType=2&itemSubType=침대">침대</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=2&itemSubType=sofa">쇼파</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=쇼파">쇼파</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=2&itemSubType=chair">테이블 & 의자</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=테이블&의자">테이블 & 의자</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=2&itemSubType=closet">옷장</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=옷장">옷장</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=2&itemSubType=hanger">행거</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=행거">행거</a>
+
                                                     </li>
                                                                                             
                                                     
@@ -352,7 +352,7 @@
                                     </li>
                                     
                                     <li class="onhover-category-list">
-                                        <a href="category?itemMainType=3" class="category-name">
+                                        <a href="/category?itemMainType=3" class="category-name">
                                             <img src="/assets/svg/1/pet.svg" alt="">
                                             <h6>주방용품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
@@ -363,19 +363,21 @@
                                                 
                                                 <ul>
                                                     <li>
-                                                        <a href="category?itemMainType=3&itemSubType=pot">냄비 & 프라이팬 & 솥</a>
+
+                                                        <a href="/category?itemMainType=3&itemSubType=냄비&프라이팬&솥">냄비 & 프라이팬 & 솥</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=3&itemSubType=tableware">홈세트(식기류)</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=홈세트(식기류)">홈세트(식기류)</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=3&itemSubType=knife">칼</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=칼">칼</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=3&itemSubType=spoon">수저</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=수저">수저</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=3&itemSubType=choppingBoard">도마</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=도마">도마</a>
+
                                                     </li>
                                                                                             
                                                     
@@ -385,7 +387,7 @@
                                     </li>
 
                                     <li class="onhover-category-list">
-                                        <a href="category?itemMainType=4" class="category-name">
+                                        <a href="/category?itemMainType=4" class="category-name">
                                             <img src="/assets/svg/1/meats.svg" alt="">
                                             <h6>수납 & 정리</h6>
                                             <i class="fa-solid fa-angle-right"></i>
@@ -396,16 +398,18 @@
                                                 
                                                 <ul>
                                                     <li>
-                                                        <a href="category?itemMainType=4&itemSubType=shelf">선반</a>
+
+                                                        <a href="/category?itemMainType=4&itemSubType=선반">선반</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=4&itemSubType=trolley">수납장 & 트롤리</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=수납장&트롤리">수납장 & 트롤리</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=4&itemSubType=shoeCloset">신발장</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=신발장">신발장</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=4&itemSubType=livingBox">리빙박스 & 바구니</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=리빙박스&바구니">리빙박스 & 바구니</a>
+
                                                     </li>
                                                 </ul>
                                             </div>                                
@@ -413,7 +417,7 @@
                                     </li>
 
                                     <li class="onhover-category-list">
-                                        <a href="category?itemMainType=5" class="category-name">
+                                        <a href="/category?itemMainType=5" class="category-name">
                                             <img src="/assets/svg/1/breakfast.svg" alt="">
                                             <h6>생필품</h6>
                                             <i class="fa-solid fa-angle-right"></i>
@@ -423,19 +427,21 @@
                                             <div class="list-1">                                              
                                                 <ul>
                                                     <li>
-                                                        <a href="category?itemMainType=5&itemSubType=wastePaper">휴지</a>
+
+                                                        <a href="/category?itemMainType=5&itemSubType=휴지">휴지</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=5&itemSubType=kitchenDetergent">주방세제</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=주방세제">주방세제</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=5&itemSubType=laundryDetergent">세탁세제</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=세탁세제">세탁세제</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=5&itemSubType=bodyCare">바디케어</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=바디케어">바디케어</a>
                                                     </li>
                                                     <li>
-                                                        <a href="category?itemMainType=5&itemSubType=cleaningSupplies">청소용품</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=청소용품">청소용품</a>
+
                                                     </li>
                                                     
                                                 </ul>

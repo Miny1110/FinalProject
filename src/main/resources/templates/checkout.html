@@ -189,10 +189,10 @@
                                                         </li>
 
 
-                                                        <li class="text-content"><span class="text-title" th:text="|사이즈 : ${idto.itemSize}|"></span></li>
+                                                        <li class="text-content"><span class="text-title" th:text="|사이즈 : ${itemSize}|"></span></li>
 
                                                         <li class="text-content"><span
-                                                                class="text-title" th:text="|색상 : ${idto.itemColor}|"></span></li>
+                                                                class="text-title" th:text="|색상 : ${itemColor}|"></span></li>
 
                                                         <li>
                                                             <h5 class="text-content d-inline-block">가격 :</h5>
@@ -292,7 +292,11 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0" data-bs-toggle="modal" id="insertDeliver">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                나의 배송지 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
                                 <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
                                 <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
@@ -309,22 +313,25 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="deliverCheck"
                                                    id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()">
-                                            <input id="deliverNum" name="deliverNum" type="hidden" th:value="${ddto.getDeliverNum()}">
-                                        </div>
 
-                                     <!--   <div class="label"> &lt;!&ndash; label1 하면 기본배송지로 나오게 설정해둠 &ndash;&gt;
-                                            <label th:text="${ddto.getDeliverType()}"></label>
-                                        </div>-->
+                                        </div>
+                                       <!--<input id="deliverNum" name="deliverNum" type="text" th:value="${ddto.getDeliverNum()}">
+                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
+                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
+                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
+                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
+                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>-->
 
                                         <ul class="delivery-address-detail">
                                             <li>
                                                 <h4 class="fw-500" th:text="${ddto.getDeliverName()}"></h4>
-                                                <input type="text" th:value="${ddto.getDeliverName()}" id="deliverName" name="deliverName" hidden>
+                                                <input type="text" th:value="${ddto.getDeliverName()}" id="dName" name="deliverName" hidden>
                                             </li>
 
                                             <li>
                                                 <p class="text-content"><span class="text-title"
                                                 th:text="'주소 : ' + |${ddto.getDeliverRAddr()}, ${ddto.getDeliverDAddr()}|"></span></p>
+
                                             </li>
 
 
@@ -341,12 +348,12 @@
                             </div>
                             <!--배송지 추가-->
 
-                                                <form name="deliverForm" method="post" th:object="${DeliverDto}">
+
                                                     <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">배송지 추가</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">새로운 배송지</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                                                         <i class="fa-solid fa-xmark"></i>
                                                                     </button>
@@ -406,11 +413,7 @@
                                                                 <div class="modal-footer">
                                                                     <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
                                                                      <h6>이번만 배송 받기</h6>-->
-                                                                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
-                                                                    <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
-                                                                        <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                                        <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
-                                                                    </button>
+                                                                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">확인</button>
                                                                     <input type="text" name="itemNum" th:value="${itemNum}" hidden>
                                                                     <input type="text" name="itemQty" th:value="${itemQty}" hidden>
 
@@ -419,12 +422,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
+
 
 
                             <!-- 배송지 추가 끝 -->
                         </div>
-
+<br/>
                         <div class="form-floating mb-4 theme-form-floating">
                         <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
                         <label for="deliverMsg">배송 메세지</label>
@@ -631,8 +634,8 @@
                                       <!--  <input type="text" name="deliverCost" th:value="${ddto.getDeliverNum()}" hidden>-->
                                          <!--<input type="hidden" id="itemNum" th:value="${itemNum}">
                                           <input type="hidden" id="itemQty" th:value="${itemQty}">-->
-                                        <input type="text" id="itemColor" name="itemColor" th:value="${idto.itemColor}" hidden>
-                                        <input type="text" id="itemSize" name="itemSize" th:value="${idto.itemSize}" hidden>
+                                        <input type="text" id="itemColor" name="itemColor" th:value="${itemColor}" hidden>
+                                        <input type="text" id="itemSize" name="itemSize" th:value="${itemSize}" hidden>
 
 
 

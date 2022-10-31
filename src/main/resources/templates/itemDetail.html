@@ -180,6 +180,8 @@
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
 							<form th:action="@{/order}" name="order">
 								<input th:each="clist:${clist}" type="text" id="itemNumChk" name="itemNumChk" th:value="${clist.getItemNum()}" hidden>
+								<input th:each="clist:${clist}" type="text" id="sizeChk" name="sizeChk" th:value="${clist.getItemSize()}" hidden>
+								<input th:each="clist:${clist}" type="text" id="colorChk" name="colorChk" th:value="${clist.getItemColor()}" hidden>
 								<input type="text" th:value="${idto.getItemNum()}" id="num" name="num" hidden>
 								<div class="right-box-contain">
 									<h6 class="offer-top"
@@ -217,15 +219,17 @@
 											<h4>사이즈 옵션</h4>
 										</div>
 										<div class="dropdown">
+											<input type="hidden" id="size" name="itemSize" value="">
 											<button class="dropdown-toggle" type="button"
 													id="dropdownMenuButton1" data-bs-toggle="dropdown">
 												<span>사이즈를 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
 											</button>
-											<ul class="dropdown-menu"
+
+											<ul id="optionSize" class="dropdown-menu"
 												aria-labelledby="dropdownMenuButton1">
 												<th:block th:each="size : ${itemSizes}">
 											<li><a class="dropdown-item" id="pop1"
-												href="javascript:void(0)" th:text="${size }"></a></li>
+												href="javascript:void(0)" th:text="${size }" th:value="${size }"></a></li>
 											<br />
 											</th:block>
 
@@ -233,8 +237,10 @@
 
 											</ul>
 										</div>
+
 									</div>
 									<div class="product-packege">
+										<input type="hidden" id="color" name="itemColor" value="">
 										<div class="product-title">
 											<h4>색상 옵션</h4>
 										</div>
@@ -243,11 +249,11 @@
 													id="dropdownMenuButton" data-bs-toggle="dropdown">
 												<span>색상을 선택하세요</span> <i class="fa-solid fa-angle-down"></i>
 											</button>
-											<ul class="dropdown-menu"
+											<ul id="optionColor" class="dropdown-menu"
 												aria-labelledby="dropdownMenuButton1">
 												<th:block th:each="color : ${itemColors}">
 											<li><a class="dropdown-item" id="pop"
-												href="javascript:void(0)" th:text="${color}"></a></li>
+												href="javascript:void(0)" th:text="${color}" th:value="${color }"></a></li>
 											<br/>
 											</th:block>
 
@@ -1389,7 +1395,9 @@
 
 	<!-- script js -->
 	<script src="/assets/js/script.js"></script>
-	<script src="/assets/js/itemRoute.js"></script>
+	<script src="/assets/js/insertCart.js"></script><!--cart에 insert관련-->
+	<script src="/assets/js/option.js"></script> <!--optionSize선택 insert관련-->
+	<script src="/assets/js/optionColor.js"></script> <!--optionSize선택 insert관련-->
 
 </body>
 

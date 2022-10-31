@@ -78,12 +78,7 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
-                                        <div class="cover-icon">
-                                            <i class="fa-solid fa-pen">
-                                                <input type="file" onchange="readURL(this,0)">
-                                            </i>
-                                        </div>
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="">
                                     </div>
                                 </div>
 
@@ -181,23 +176,24 @@
                                     <div class="profile-about dashboard-bg-box">
                                         <div class="row">
                                             <div class="col-xxl-12">
-                                                <div style="height: 250px;" th:text="${dto.serviceQueContent}">질문내용인데이러쿵저러쿵그래서이거해결되나요해결해주세요문의끝</div>
+                                                <div style="height: 250px; white-space:pre" th:text="${dto.serviceQueContent}">질문내용인데이러쿵저러쿵그래서이거해결되나요해결해주세요문의끝</div>
                                             </div>
                                         </div>
                                     </div>
                                     <br/>
-									<div id="resultDiv">
-										<div class="profile-about dashboard-bg-box row col-xxl-12" style="height: 150px;" th:if="${content}!=null" th:text="${content}"></div>
+									<div class="profile-about dashboard-bg-box row col-xxl-12" style="height: 150px; display: none; margin: 0;" id="resultDiv" >
+										<div th:if="${content}!=null" th:text="${content}" style="white-space:pre"></div>
 									</div>
                                     <table width="100%">
                                     <tbody>
                                         <tr>
                                         	<td align="left">
                                         		<input id="input" type="hidden" th:value="${dto.serviceQueNum}">
-                                        		<button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" onclick="openAns();">답변보기</button>
+                                        		<input id="button" type="button" value="답변보기" class="btn theme-bg-color btn-sm mt-4 text-white" onclick="openAns();"></button>
                                         	</td>
                                             <td align="right">
-                                                <button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" onclick="javascript:location.href='/customer/qna';">목록으로</button>
+                                                <button class="btn theme-bg-color btn-sm mt-4 text-white" type="button" 
+                                                th:onclick="|location.href='@{/customer/qna(pageNum=${pageNum})}'|">목록으로</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -278,10 +274,22 @@
 			type:"GET",
 			data:{queNum:queNum},
             success:function(content){
-            	$("#resultDiv").replaceWith(content);
+            	$("#resultDiv").html(content);
+            	$("#resultDiv").toggle();
+            	if($("#button").val()=='답변보기'){
+	            	$("#button").val('답변닫기');
+            	}else{
+	            	$("#button").val('답변보기');
+            	}
             },
             error:function(){
-            	$("#resultDiv").replaceWith('답변이 없습니다.');
+            	$("#resultDiv").html('아직 답변이 없습니다. 조금만 기다려주세요.🥺')
+            	$("#resultDiv").toggle();
+            	if($("#button").val()=='답변보기'){
+	            	$("#button").val('답변닫기');
+            	}else{
+	            	$("#button").val('답변보기');
+            	}
             }
 		
 		})

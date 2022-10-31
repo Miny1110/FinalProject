@@ -133,7 +133,7 @@
                     </div>
                     
                     <div>
-                       <button onclick="location.href = '/customer/order';" class="btn theme-bg-color btn-sm mt-4 text-white">
+                       <button th:onclick="|location.href = '@{/customer/order(pageNum=${pageNum})}'|" class="btn theme-bg-color btn-sm mt-4 text-white">
 						<i class="fa-solid fa-arrow-left-long"></i>&nbsp;&nbsp;돌아가기</button>
                     </div>
                     

@@ -1,16 +1,23 @@
 let header = $("meta[name='_csrf_header']").attr("content");
 let token = $("meta[name='_csrf']").attr("content");
+
 function cart(){
             let iNum = $("#num").val();
             let itemNumChk = $("#itemNumChk").val();
-            if(iNum==itemNumChk){
+            let size =$("#size").val();
+            let sizeChk =$("#sizeChk").val();
+            let color =$("#color").val();
+            let colorChk =$("#colorChk").val();
+
+            if(iNum===itemNumChk&&size===sizeChk&&color===colorChk){
                 let msg ="이미 장바구니에 들어있는 상품입니다.";
                 msg += "장바구니에 추가하시겠습니까?";
                 let result=confirm(msg);
                 if(result){
                     updateCart()
+                    return false;
                 }else{
-                return;
+                return false;
                 }
             }else{
                 addCart()
@@ -26,6 +33,8 @@ function cart(){
              data:JSON.stringify({
                  itemNum:parseInt($('#num').val()),
                  itemQty:parseInt($('#itemQty').val()),
+                 itemSize:$('#size').val(),
+                 itemColor:$('#color').val(),
              }),beforeSend: function (jqXHR) {
                  jqXHR.setRequestHeader(header, token);
              },success: function() {
@@ -55,6 +64,8 @@ function cart(){
             data:JSON.stringify({
                 itemNum:parseInt($('#num').val()),
                 itemQty:parseInt($('#itemQty').val()),
+                itemSize:$('#size').val(),
+                itemColor:$('#color').val(),
             }),beforeSend: function (jqXHR) {
                 jqXHR.setRequestHeader(header, token);
             },success: function() {

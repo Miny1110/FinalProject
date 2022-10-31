@@ -203,6 +203,7 @@
                                                         <li>
                                                             <h5 class="saving theme-color"  th:text="'할인금액 : ' + ${#numbers.formatInteger(clist.getItemDiscount(), 0, 'COMMA')+' 원'}"></h5>
                                                         </li>
+                                                        <input type="text" name="cartNum" th:value="${clist.getCartNum()}" hidden>
 
                                                         <li class="quantity-price-box">
                                                             <div class="cart_qty">
@@ -262,7 +263,10 @@
                                         <input type="hidden" name="iprice" th:value="${clist.getItemPrice()*clist.getItemQty()}">
                                         <input type="hidden" name="sprice" th:value="${clist.getItemDiscount()*clist.getItemQty()}">
                                         <input type="hidden" name="price" th:value="${(clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty()}">
-
+                                        <input type="text" name="itemNum" th:value="${clist.getItemNum()}" hidden>
+                                        <input type="text" name="itemQty" th:value="${clist.getItemQty()}" hidden>
+                                        <input type="text" id="itemColor" name="itemColor" th:value="${clist.itemColor}" hidden>
+                                        <input type="text" id="itemSize" name="itemSize" th:value="${clist.itemSize}" hidden>
                                     </tr>
 
 
@@ -410,8 +414,7 @@
                                                     <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
                                                     <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
                                                 </button>
-                <!--                                <input type="text" name="itemNum" th:value="${itemNum}" hidden>
-                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>-->
+
 
 
                                             </div>
@@ -475,6 +478,9 @@
                                         <li>
                                             <h4>가용 포인트</h4>
                                             <input type="hidden" id="checkPoint" th:value="${customerDto.getCustomerPoint()}">
+                                            <input type="text" id="customerName" th:value="${customerDto.getCustomerName()}" hidden>
+                                            <input type="text" id="customerEmail" th:value="${customerDto.getCustomerEmail()}" hidden>
+
 
                                             <h4 class="price" th:text="${customerDto.getCustomerPoint()}">
 
@@ -517,7 +523,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            <input type="hidden" class="form-control" id="customerName">
+
+
 
                             <div class="col-xxl-8 col-lg-12 col-md-7 order-xxl-1 order-lg-2 order-md-1">
                                 <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
@@ -895,7 +902,7 @@
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
-<script src="../assets/js/cartpayment.js"></script>
+<script src="/assets/js/cartpayment.js"></script>
 <script>
     function addComma(num) {
         var regexp = /\B(?=(\d{3})+(?!\d))/g;

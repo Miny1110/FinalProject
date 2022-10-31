@@ -79,12 +79,7 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
-                                        <div class="cover-icon">
-                                            <i class="fa-solid fa-pen">
-                                                <input type="file" onchange="readURL(this,0)">
-                                            </i>
-                                        </div>
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="">
                                     </div>
                                 </div>
 

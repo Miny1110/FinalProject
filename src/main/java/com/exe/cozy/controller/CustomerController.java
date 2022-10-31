@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,7 @@ import com.exe.cozy.mail.MailService;
 import com.exe.cozy.mapper.ServiceQuestionMapper;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.DeliveryService;
+import com.exe.cozy.service.ItemDetailService;
 import com.exe.cozy.service.OrderService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
@@ -55,129 +57,19 @@ public class CustomerController {
 	
 	@Resource private CustomerService customerService;
 	@Resource private PointService pointService;
-	@Resource private MailService mailService;
 	@Resource private DeliveryService deliveryService;
 	@Resource private ReplyService replyService;
 	@Resource private OrderService orderService;
 	@Resource private ServiceQuestionService serviceQuestionService;
 	@Resource private ServiceAnswerService serviceAnswerService;
+	@Resource private ItemDetailService itemDetailService;
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;
 	@Autowired DeliveryDupChk deliveryDupChk;
 	@Autowired CreatePoint createPoint;
     
-	//이메일 중복확인
-    @RequestMapping(value = "/emailChk", method = RequestMethod.POST )
-    @ResponseBody
-    public int nameCheck(@RequestParam("email") String email) {
-    	int cnt = customerService.emailChk(email);
-		return cnt;
-	}
-    
-    //회원가입 화면
-    @GetMapping("signUp")
-    public ModelAndView signUp() {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("sign-up");
-    	
-    	return mav;
-    }
-    
-    //회원가입
-    @PostMapping("signUp")
-    public ModelAndView signUp(@ModelAttribute CustomerDto dto, BindingResult bindingResult, HttpServletRequest req) {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	if(bindingResult.hasErrors()) {
-    		mav.setViewName("sign-up");
-    		return mav;
-    	}
-    	
-    	//customer 테이블에 데이터 넣기
-    	customerService.insertData(dto);
-    	
-    	//point 테이블에 데이터 넣기
-    	pointService.insertData(createPoint.signUpPoint(dto.getCustomerEmail()));
-    	
-    	//로그인 화면으로 이동
-    	mav.setViewName("redirect:login");
-    	return mav;
-    	
-    }
-    
-    //로그인 화면
-    @GetMapping("login")
-    public ModelAndView login() {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("log-in");
-    	
-    	return mav;
-    	
-    }
-    
-    //비밀번호찾기 화면
-    @GetMapping("forgot")
-    public ModelAndView forgot() {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("forgot");
-    	
-    	return mav;
-    }
-    
-    //비밀번호찾기
-    @PostMapping("forgot")
-    public ModelAndView forgot(String customerEmail, String customerTel, HttpServletRequest req, RedirectAttributes rattr) {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	boolean check = customerChk.forgotCheck(customerEmail, customerTel);
-    	
-    	if(!check) {
-    		rattr.addFlashAttribute("msg", "회원정보가 없습니다.");
-    		
-    		mav.setViewName("redirect:forgot");
-    		
-    		return mav;
-    	}
-
-    	//임시비밀번호 발급
-    	String customerPwd = customerChk.getTmpPwd();
-    	
-    	//이메일발송
-    	MailDto mailDto = mailService.createMail(customerPwd, customerEmail);
-    	mailService.sendMail(mailDto);
-    	
-    	//임시비밀번호 저장
-    	CustomerDto dto = new CustomerDto();
-    	dto.setCustomerEmail(customerEmail);
-    	dto.setCustomerPwd(customerPwd);
-    	
-    	customerService.updatePwd(dto);
-    	
-    	mav.setViewName("redirect:sendEmail");
-    	
-    	return mav;
-    }
-    
-    
-    //비밀번호찾기 이메일전송 화면
-    @GetMapping("sendEmail")
-    public ModelAndView sendEmail() {
-    	
-    	ModelAndView mav = new ModelAndView();
-    	
-    	mav.setViewName("sendEmail");
-    	
-    	return mav;
-    }    
+	
     
     
     //마이페이지 회원정보
@@ -193,10 +85,6 @@ public class CustomerController {
     		throw new DataNotFoundException("사용자가 없습니다.");
     	}
     	
-    	//비밀번호 *로 변환
-    	String changePwd = customerChk.changePwd(customerDto.getCustomerPwd());
-    	customerDto.setCustomerPwd(changePwd);
-    	
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-info");
     	
@@ -206,7 +94,7 @@ public class CustomerController {
     //마이페이지 회원정보수정
     @PreAuthorize("isAuthenticated")
     @PostMapping("info")
-    public ModelAndView info(@ModelAttribute CustomerDto dto) {
+    public ModelAndView info(@ModelAttribute CustomerDto dto,HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
@@ -234,6 +122,25 @@ public class CustomerController {
     	return mav;
     	
     }
+    
+    //마이페이지 프로필수정
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("profile")
+    public ModelAndView info(CustomerDto dto,Principal principal) throws Exception {
+    	
+    	ModelAndView mav = new ModelAndView();
+    	
+    	int rstKey = itemDetailService.fileWrite(dto.getCustomerProfileFile());
+    	dto.setCustomerProfile(String.valueOf(rstKey));
+    	dto.setCustomerEmail(principal.getName());
+    	customerService.updateProfile(dto);
+    	
+    	mav.setViewName("redirect:info");
+    	
+    	return mav;
+    	
+    }
+    
     
     //마이페이지 주문조회
     @PreAuthorize("isAuthenticated")
@@ -270,7 +177,7 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName()));
+//    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName())); //주문취소하면 포인트 회수하는 코드
     	orderService.updateCancleState(req.getParameter("orderNum"));
     	
     	mav.setViewName("redirect:order");
@@ -284,10 +191,17 @@ public class CustomerController {
     public ModelAndView orderDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	String orderNum = req.getParameter("orderNum");
     	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
     	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("odto", odto);
     	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice");
@@ -328,10 +242,17 @@ public class CustomerController {
     public ModelAndView orderCancleDetail(Principal principal, HttpServletRequest req) {
     	ModelAndView mav = new ModelAndView();
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	String orderNum = req.getParameter("orderNum");
     	OrderDto odto = customerService.getOrderDetail(principal.getName(), orderNum);
     	List<OrderDetailDto> orderDetailList = customerService.getOrderDetailOne(principal.getName(), orderNum);
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("odto", odto);
     	mav.addObject("orderDetailList", orderDetailList);
     	mav.setViewName("invoice-cancle");
@@ -366,6 +287,8 @@ public class CustomerController {
     	PageInfo<ServiceQuestionDto> page = new PageInfo<>(lists,3);
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);
     	mav.addObject("page", page);
@@ -384,8 +307,15 @@ public class CustomerController {
     	int serviceQueNum = Integer.parseInt(req.getParameter("serviceQueNum"));
     	ServiceQuestionDto dto = serviceQuestionService.findServiceQue(serviceQueNum);
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-qna-question");
@@ -415,8 +345,15 @@ public class CustomerController {
     	int serviceAnsNum = Integer.parseInt(req.getParameter("serviceAnsNum"));
     	ServiceAnswerDto dto = serviceAnswerService.findServiceAns(serviceAnsNum);
     	
+    	String pageNumStr = req.getParameter("pageNum");
+    	if(pageNumStr==null) {
+    		pageNumStr="1";
+    	}
+    	int pageNum = Integer.parseInt(pageNumStr);
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
     	mav.setViewName("mypage-qna-answer");

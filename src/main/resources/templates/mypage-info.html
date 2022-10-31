@@ -80,17 +80,13 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="">
-                                        <div class="cover-icon">
-                                            <i class="fa-solid fa-pen">
-                                                <input type="file" onchange="readURL(this,0)">
-                                            </i>
-                                        </div>
+                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="" th:if="${#strings.isEmpty(customerDto.customerProfile)}">
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="" th:unless="${#strings.isEmpty(customerDto.customerProfile)}">
                                     </div>
                                 </div>
 
                                 <div class="profile-name">
-                                    <h3 th:text="${customerDto.customerName}"></h3>
+                                    <h3 style="display: inline;" th:text="${customerDto.customerName}"></h3><h4 style="display: inline;">&nbsp;회원님</h4>
                                     <h6 class="text-content" th:text="${customerDto.customerGrade}"></h6>
                                 </div>
                             </div>
@@ -226,7 +222,11 @@
                                                     <tr>
                                                         <td>
                                                             <a href="javascript:void(0)">
-                                                                <span data-bs-toggle="modal" data-bs-target="#editProfile">수정하기</span>
+                                                                <span data-bs-toggle="modal" data-bs-target="#editProfile">회원정보수정</span>
+                                                            </a>
+                                                            <br/>
+                                                            <a href="javascript:void(0)">
+                                                                <span data-bs-toggle="modal" data-bs-target="#editProfileImage">프로필사진수정</span>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -273,7 +273,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <form name="editForm" method="post" th:object="${CustomerDto}" th:action="info">
+                <form name="editForm" method="post" th:object="${CustomerDto}" th:action="@{info}">
                 <div class="modal-body">
                     <div class="row g-4">
                         <div class="col-xxl-12">
@@ -362,6 +362,13 @@
                                 <label for="address2">상세주소</label>
                             </div>
                         </div>
+                       <!--  <div class="col-xxl-12">
+                            <div class="form-floating theme-form-floating">
+                                <input type="file" class="form-control" id="customerProfileFile" name="customerProfileFile">
+                                <label for="address3">프로필사진</label>
+                                <div class="profileImage" style="margin-top: 10px;"><img src=""></div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -372,6 +379,35 @@
         </div>
     </div>
     <!-- 회원정보수정 모달 End -->
+    
+    <div class="modal fade theme-modal" id="editProfileImage" tabindex="-1" aria-labelledby="exampleModalLabel2" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down" style="display: flex; justify-content: center">
+            <div class="modal-content" style="width: 75%;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">프로필사진 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <form name="editProfile" method="post" th:object="${CustomerDto}" th:action="@{profile}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-xxl-12">
+                            <div class="form-floating theme-form-floating">
+                                <input type="file" class="form-control" id="customerProfileFile" name="customerProfileFile">
+                                <label for="address3">프로필사진</label>
+                                <div class="profileImage" style="margin-top: 10px;"><img src=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light" onclick="editProfileImage();">수정하기</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
 
     <!-- latest jquery-->
@@ -408,6 +444,16 @@
     
     <script type="text/javascript" src="/assets/js/util.js"></script>
     <script type="text/javascript">
+    
+    $("#customerProfileFile").change(function(){
+		if(this.files && this.files[0]) {
+			var reader = new FileReader;
+			reader.onload = function(data) {
+				$(".profileImage img").attr("src", data.target.result).width(200);        
+			}
+			reader.readAsDataURL(this.files[0]);
+		}
+	});
 	
 	/* 비밀번호 유효성 검사 */
 	function pwdChk(){
@@ -528,6 +574,9 @@
 	</script>
     
     <script type="text/javascript">
+
+    
+    
 	$('#editProfile').on('hidden.bs.modal', function (e) {
 		$(this).find('form')[0].reset();
 		
@@ -573,6 +622,20 @@
 		}
 		alert('정보가 수정되었습니다.');
 
+		f.submit();
+	}
+		
+	function editProfileImage(){
+		var f = document.editProfile;
+		
+		var customerProfile = $("#customerProfileFile").val();
+		
+		if(!customerProfile){
+			alert('사진을 첨부해주세요.');
+			event.preventDefault();
+			return;
+		}
+		alert('프로필사진이 수정되었습니다.');
 		f.submit();
 	}
     </script>

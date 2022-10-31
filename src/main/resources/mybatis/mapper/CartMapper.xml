@@ -10,23 +10,25 @@
 	</select>
 
 	<insert id="insertCart" parameterType="CartDto">
-		insert into cart(cartNum,itemNum,customerEmail,itemQty)
-		values (#{cartNum},#{itemNum},#{customerEmail, jdbcType=VARCHAR},#{itemQty})
+		insert into cart(cartNum,itemNum,customerEmail,itemQty,itemSize,itemColor)
+		values (#{cartNum},#{itemNum},#{customerEmail, jdbcType=VARCHAR},#{itemQty},
+		        #{itemSize, jdbcType=VARCHAR},#{itemColor, jdbcType=VARCHAR})
 	</insert>
 
-	<!--카트삭제-->
+	<!--카트삭제 하나씩-->
 	<delete id="deleteCart" parameterType="int">
 		delete cart where cartNum=#{cartNum}
 	</delete>
 
 	<!-- 카트 수량수정-->
 	<update id="updateCart" parameterType="CartDto">
-		update cart set itemQty=itemQty+#{itemQty} where customerEmail = #{customerEmail} and itemNum=#{itemNum}
+		update cart set itemQty=itemQty+#{itemQty} where customerEmail = #{customerEmail} and itemNum=#{itemNum} and
+		                                                 itemSize=#{itemSize} and  itemColor=#{itemColor}
 	</update>
 	<!-- 카트목록 -->
 	<select id="listCart" resultType="CartDto" parameterType="String">
-		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,
-		       b.itemName, b.itemPrice, b.itemDiscount,b.itemSize,b.itemColor,
+		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,a.itemSize,a.itemColor,
+		       b.itemName, b.itemPrice, b.itemDiscount,
 			   (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
 				from file_store fs
 				where fs.no = b.itemImage1
@@ -40,5 +42,10 @@
 		select * from cart
 		where customerEmail =#{customerEmail} and itemNum = #{itemNum}
 	</select>
+
+	<!--주문완료시 카트 삭제-->
+	<delete id="deleteOrderCart" parameterType="String">
+		delete cart where customerEmail=#{customerEmail}
+	</delete>
 
 </mapper>

@@ -2,7 +2,8 @@ package com.exe.cozy.domain;
 
 import java.util.Date;
 
-import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +24,6 @@ public class CustomerDto {
 	private String customerGrade;
 	private int customerType;
 	private int customerPoint;
+
+	private MultipartFile customerProfileFile;
 }

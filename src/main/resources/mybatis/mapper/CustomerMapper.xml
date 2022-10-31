@@ -40,7 +40,12 @@
 	<!-- 데이터 한개 읽기 -->
 	<select id="getReadData" parameterType="String" resultType="CustomerDto">
 		select customerEmail,customerPwd,customerName,customerTel,customerZipCode,
-		customerRAddr,customerJAddr,customerDAddr,customerGrade,customerPoint
+		customerRAddr,customerJAddr,customerDAddr,
+		(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+			from file_store fs
+			where fs.no = customer.customerProfile
+		) as customerProfile,
+		customerGrade,customerPoint
 		from customer where customerEmail=#{customerEmail}
 	</select>
 	
@@ -49,6 +54,12 @@
 		update customer set customerPwd=#{customerPwd},customerTel=#{customerTel},
 		customerZipCode=#{customerZipCode},customerRAddr=#{customerRAddr},
 		customerJAddr=#{customerJAddr},customerDAddr=#{customerDAddr}
+		where customerEmail=#{customerEmail}
+	</update>
+	
+	<!-- 프로필 수정 -->
+	<update id="updateProfile" parameterType="CustomerDto">
+		update customer set customerProfile=#{customerProfile}
 		where customerEmail=#{customerEmail}
 	</update>
 	

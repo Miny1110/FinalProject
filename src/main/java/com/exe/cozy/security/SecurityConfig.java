@@ -29,13 +29,21 @@ public class SecurityConfig {
 		//http.csrf().disable();
 		//인증되지 않은 모든 요청을 허락
 		http
-		.authorizeRequests().antMatchers("/**").permitAll() //모든 주소 허가
+		.authorizeRequests()
+			.antMatchers("/customer/**").hasRole("USER") //customer주소는 user권한만 접근 가능
+			.antMatchers("/admin/**").hasRole("ADMIN") //admin주소는 admin권한만 접근 가능
+			.anyRequest().permitAll() //나머지 주소는 인증없이 접근가능
 		.and()
-		.formLogin().usernameParameter("customerEmail").passwordParameter("customerPwd").loginPage("/customer/login").defaultSuccessUrl("/") //로그인이 성공하면 이 주소로 가라
+			.formLogin()
+				.usernameParameter("customerEmail")
+				.passwordParameter("customerPwd")
+				.loginPage("/login")
+				.defaultSuccessUrl("/") //로그인이 성공하면 이 주소로 가라
 		.and()
-		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout")) //이 주소와 일치하면 로그아웃
-		.logoutSuccessUrl("/") //로그아웃 성공하면 여기로 이동
-		.invalidateHttpSession(true) //세션을 삭제
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //이 주소와 일치하면 로그아웃
+				.logoutSuccessUrl("/") //로그아웃 성공하면 여기로 이동
+				.invalidateHttpSession(true) //세션을 삭제
 		;
 		
 		return http.build();

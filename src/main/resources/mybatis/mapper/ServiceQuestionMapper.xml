@@ -18,10 +18,32 @@
 	</insert>
 
 	<!-- 문의확인 -->
-	<select id="findServiceQue" parameterType="int" resultType="ServiceQuestionDto">	
+	<select id="findServiceQue1" parameterType="int" resultType="ServiceQuestionDto">	
 		select * from serviceQuestion
 		where serviceQueNum = #{serviceQueNum}
 	</select>
+	
+	
+	<!-- 문의확인 -->
+	<select id="findServiceQue" parameterType="ServiceQuestionDto" resultMap="ServiceQuestionDto">	
+		select 
+			a.serviceQueNum,
+			a.customerEmail, 
+			a.serviceQueTitle,
+			a.serviceQueContent,
+			a.serviceQueDate,
+			 b.serviceAnsNum, 
+			 b.serviceAnsContent, 
+			 b.serviceAnsDate
+		from 
+			serviceQuestion a left join serviceAnswer B
+		on
+			a.serviceQueNum=b.serviceQueNum
+		where 
+			a.serviceQueNum = #{serviceQueNum}
+	</select>
+	
+	
 
 	<!--QuestionNum 으로 읽기 -->
 	<select id="getReadServiceQueData" parameterType="int" resultType="ServiceQuestionDto">

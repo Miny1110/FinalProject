@@ -180,3 +180,5 @@ src/main/resources/static/assets/img/70a7f286-7d31-4dc3-ab4e-78c625b85d71.jfif
 src/main/resources/static/assets/img/912b558e-b455-496d-9c8a-9713be8fdd58.jfif
 src/main/resources/static/assets/img/bf2381de-88cc-4546-81bc-363e11a94300.jfif
 src/main/resources/static/assets/img/f1e38b89-31d8-4007-8e4b-8846272aa06f.jfif
+*.jfif
+src/main/java/com/exe/cozy/controller/ItemDetailController.java

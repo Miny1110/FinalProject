@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -36,12 +37,10 @@ private CartService cartService;
 
 
 @GetMapping("/cart")
-public ModelAndView cart(HttpServletRequest request,@ModelAttribute CartDto cdto,ItemDetailDto idto){
+public ModelAndView cart(HttpServletRequest request,Principal principal,@ModelAttribute CartDto cdto,ItemDetailDto idto){
 
-    String customerEmail = "eunjis";
-
-    CustomerDto customerDto = customerService.getReadData(customerEmail);
-    List<CartDto> clist = cartService.listCart(customerEmail);
+    CustomerDto customerDto = customerService.getReadData(principal.getName());
+    List<CartDto> clist = cartService.listCart(principal.getName());
 
 
     ModelAndView mav = new ModelAndView();
@@ -60,7 +59,7 @@ public ModelAndView cart(HttpServletRequest request,@ModelAttribute CartDto cdto
 @PostMapping("/cart_ok")
 @ResponseBody
 public ModelAndView  cart_ok(HttpSession session,
-@ModelAttribute ItemDetailDto idto, HttpServletRequest request,HttpServletResponse response) throws IOException {
+@ModelAttribute ItemDetailDto idto,Principal principal, HttpServletRequest request,HttpServletResponse response) throws IOException {
 ModelAndView mav = new ModelAndView();
 //제이슨으로 받은 데이터 바꾸기
     ServletInputStream inputStream = request.getInputStream();
@@ -68,11 +67,11 @@ ModelAndView mav = new ModelAndView();
     CartDto cdto = objectMapper.readValue(messageBody, CartDto.class);
 //세션 진행할때 풀기
     // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
-    String customerEmail="eunjis";
+
     int cartNum = cartService.cartMaxNum();
 
     cdto.setCartNum(cartNum+1);
-    cdto.setCustomerEmail(customerEmail);
+    cdto.setCustomerEmail(principal.getName());
     cartService.insertCart(cdto);
 
     mav.setViewName("redirect:cart");
@@ -82,8 +81,8 @@ ModelAndView mav = new ModelAndView();
 //카드에 동일 아이템 있을시 수량 업
 @PostMapping("cartUpdate")
 @ResponseBody
-public ModelAndView  updateCart(HttpSession session,
-                             @ModelAttribute ItemDetailDto idto, HttpServletRequest request,HttpServletResponse response) throws IOException {
+public ModelAndView  updateCart(HttpSession session, Principal principal,
+                             @ModelAttribute ItemDetailDto idto, HttpServletRequest request, HttpServletResponse response) throws IOException {
     ModelAndView mav = new ModelAndView();
 //제이슨으로 받은 데이터 바꾸기
     ServletInputStream inputStream = request.getInputStream();
@@ -91,10 +90,9 @@ public ModelAndView  updateCart(HttpSession session,
     CartDto cdto = objectMapper.readValue(messageBody, CartDto.class);
 //세션 진행할때 풀기
     // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
-    String customerEmail="eunjis";
-    List<CartDto> clist = cartService.listCart(customerEmail);
+    List<CartDto> clist = cartService.listCart(principal.getName());
 
-    cdto.setCustomerEmail(customerEmail);
+    cdto.setCustomerEmail(principal.getName());
     cartService.updateCart(cdto);
 
     mav.setViewName("redirect:cart");

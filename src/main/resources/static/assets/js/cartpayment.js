@@ -1,8 +1,8 @@
 let header = $("meta[name='_csrf_header']").attr("content");
 let token = $("meta[name='_csrf']").attr("content");
+let index =$('input[name="cartNum"]').length;
 
 function requestPay() {
-
 
 /*   let f = document.orderForm*/
    //let payment = $("#payment").val();
@@ -14,7 +14,6 @@ function requestPay() {
         alert("간편결제 선택후 이용가능합니다.")
         return
     }
-
     if(payment==="bank"){
         pgName="html5_inicis";
         payMethod="vbank";
@@ -62,8 +61,27 @@ function payOrder(){
     //아임포트 결제연동
     var IMP = window.IMP;
     IMP.init("imp73716258");
-    let itemNum=$('#itemNum').val();
-    let itemQty=$('#itemQty').val();
+    let itemNumArray=[];
+    $('input[name="itemNum"]').each(function (i){
+        itemNumArray.push($(this).val());
+    });
+    let itemQtyArray =[];
+    $('input[name="itemQty"]').each(function (j){
+       itemQtyArray.push($(this).val());
+    });
+
+    let itemSizeArray =[];
+    $('input[name="itemSize"]').each(function (k){
+        itemSizeArray.push($(this).val());
+    });
+    let itemColorArray =[];
+    $('input[name="itemColor"]').each(function (y){
+        itemColorArray.push($(this).val());
+    });
+    let cartNumArray=[];
+    $('input[name="cartNum"]').each(function (e){
+        cartNumArray.push($(this).val());
+    });
 
 
 
@@ -83,8 +101,6 @@ function payOrder(){
     },  function (rsp) { // 결제완료시
         if (rsp.success) {  // 결제 성공 시 로직,
             //form 안써서 한번에 넘기며 저장할거
-            let itemNum =$('#itemNum').val();
-            let qty=$('#itemQty').val();
             let name =rsp.buyer_name;
 
             let merchant_uid = rsp.merchant_uid;
@@ -104,58 +120,58 @@ function payOrder(){
            
 
             $.ajax({
-                method:"POST",
-                url: "/order_ok",
-                contentType:'application/json',
-             /*   traditional :true, 배열*/
-                data:JSON.stringify({
-                    orderNum:merchant_uid,
-                    itemNum:parseInt($('#itemNum').val()),
-                    itemQty:parseInt($('#itemQty').val()),
-                    deliverName:$('#deliverName').val(),
-                    deliverRAddr:$('#deliverRAddr').val(),
-                    deliverJAddr:$('#deliverJAddr').val(),
-                    orderState:payState,
-                    payment:payName,
-                    deliverDAddr:$('#deliverDAddr').val(),
-                    deliverZipCode:$('#deliverZipCode').val(),
-                    deliverTel:$('#deliverTel').val(),
-                    usePoint:$('#use').val(),
-                    itemSize:$('#itemSize').val(),
-                    itemColor:$('#itemColor').val()
+                method: "POST",
+                url: "cartOrder_ok",
+                contentType: 'application/json',
+                /*   traditional :true, 배열*/
+                data: JSON.stringify({
+                    orderNum: merchant_uid,
+                    deliverName: $('#deliverName').val(),
+                    deliverRAddr: $('#deliverRAddr').val(),
+                    deliverJAddr: $('#deliverJAddr').val(),
+                    orderState: payState,
+                    payment: payName,
+                    deliverDAddr: $('#deliverDAddr').val(),
+                    deliverZipCode: $('#deliverZipCode').val(),
+                    deliverTel: $('#deliverTel').val(),
+                    usePoint: $('#use').val(),
                 }), beforeSend: function (jqXHR) {
                     jqXHR.setRequestHeader(header, token);
                 },
-                success: function(data){
-
+                success: function (data) {
+                    //성공하면 여기도 들어가야하니까
+                    for (let z=0; z<index; z++) {
+                        $.ajax({
+                            method: "POST",
+                            url: "cartItemOrder_ok",
+                            contentType: 'application/json',
+                          /*  traditional :true,*/
+                            data: JSON.stringify({
+                                orderNum: merchant_uid,
+                                odNum: new Date().getTime()+z,
+                                itemNum: parseInt(itemNumArray[z]),
+                                itemQty: parseInt(itemQtyArray[z]),
+                                itemSize: itemSizeArray[z],
+                                itemColor: itemColorArray[z],
+                            })
+                            , beforeSend: function (jqXHR) {
+                                jqXHR.setRequestHeader(header, token);
+                            }
+                            ,error: function () {
+                                alert("리스트가 정상적으로 진행되지 않았습니다.")
+                            }
+                        })
+                    }
                     let msg = "결제가 완료되었습니다.\n";
                     alert(msg);
 
-                    location.href="/success_order";
-                },error: function (){
+                    location.href = "/deleteCart";
+                }, error: function () {
                     alert("결제가 정상적으로 진행되지 않았습니다.")
                 }
 
+
             })
-
-                 /*   $.ajax({
-                        url: "order_ok",
-                        type:"POST",
-                        data:{
-
-
-                        },
-                      success: function(data){
-                            let msg = "결제가 완료되었습니다.\n";
-                            msg += "구매자 : " + name;
-                            msg += "\n결제금액 : " + paid_amount;
-                            msg += "itemNum: " + itemNum;
-                            alert(msg);
-
-                            location.href=url;
-                        },
-         })*/
-
 
 
 

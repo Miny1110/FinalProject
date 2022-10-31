@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.mapper.CategoryMapper;
 import com.exe.cozy.service.CategoryService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Service("CategoryService")
 public class CategoryServiceImpl implements CategoryService{
@@ -21,8 +23,9 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public List<ItemDetailDto> selectCategory(String itemMainType, String itemSubType) {
-		return CategoryMapper.selectCategory(itemMainType, itemSubType);
+	public Page<ItemDetailDto> selectCategory(String itemMainType, String itemSubType, int pageNum) {
+		PageHelper.startPage(pageNum, 5);
+		return CategoryMapper.selectCategory(itemMainType, itemSubType, pageNum);
 	}
 
 	

@@ -83,13 +83,10 @@ public class OrderController {
         mav.setViewName("checkout");
         return mav;}
 
-    @PostMapping("/deliver")
+  @PostMapping("/deliver")
     public ModelAndView deliver(HttpSession session, @ModelAttribute OrderDto odto, @ModelAttribute DeliverDto ddto, Principal principal,HttpServletRequest request, HttpServletResponse response){
         ModelAndView mav = new ModelAndView();
-        /*   int orderMaxNum = orderService.OrderMaxNum();*/
-        //String customerEmail = (String)session.getAttribute("customerEmail");
-        /*   odto.setOrderNum(orderMaxNum +1);
-        orderService.insertOrder(odto);*/
+
         String itemNum = request.getParameter("itemNum");
         String itemQty = request.getParameter("itemQty");
 
@@ -120,14 +117,9 @@ public class OrderController {
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
         OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
-        // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
-        String customerEmail = "eunjis";
-       /* response.setContentType("text/html; charset=UTF-8");*/
 
 
-        odto.setCustomerEmail(principal.getName());/*
-        int odMaxNum = orderDetailService.odMaxNum();
-        oddto.setOdNum(odMaxNum+1);*/
+        odto.setCustomerEmail(principal.getName());
 
         orderService.insertOrder(odto);
         orderDetailService.insertOd(oddto);
@@ -226,8 +218,29 @@ public class OrderController {
 
 
 
-    @RequestMapping("/success_order")
-    public String order_success(){ return "order-success";}
+    @RequestMapping(value = "/success_order")
+    @ResponseBody
+    public ModelAndView order_success(Principal principal,HttpServletRequest request) throws IOException {
+        ModelAndView mav = new ModelAndView();
+
+
+        CustomerDto customerDto = customerService.getReadData(principal.getName());
+        OrderDto orderNum = orderService.getOrderDetail(principal.getName());
+
+
+   /*     List<OrderDto> orderDetailList = orderService.getOrderDetailList(principal.getName());*/
+        List<OrderDetailDto> odto = orderService.getOrderDetailOne(principal.getName());
+
+/*        mav.addObject("orderDetailList", orderDetailList);*/
+        mav.addObject("orderNum", orderNum);
+
+
+        mav.addObject("odto", odto);
+
+
+        mav.setViewName("order-success");
+        return mav;
+    }
 
 
 }

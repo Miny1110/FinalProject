@@ -56,6 +56,4 @@ public class OrderDto {
         this.totalPrice = this.itemPrice*this.itemQty;
     }
 
-
-
 }

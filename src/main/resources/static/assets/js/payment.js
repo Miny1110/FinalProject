@@ -139,27 +139,6 @@ function payOrder(){
 
             })
 
-                 /*   $.ajax({
-                        url: "order_ok",
-                        type:"POST",
-                        data:{
-
-
-                        },
-                      success: function(data){
-                            let msg = "결제가 완료되었습니다.\n";
-                            msg += "구매자 : " + name;
-                            msg += "\n결제금액 : " + paid_amount;
-                            msg += "itemNum: " + itemNum;
-                            alert(msg);
-
-                            location.href=url;
-                        },
-         })*/
-
-
-
-
      } else {
          // 결제 실패 시 로직,
          let msg = "결제에 실패하였습니다./n"

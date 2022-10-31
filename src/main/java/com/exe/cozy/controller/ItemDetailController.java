@@ -186,7 +186,7 @@ public class ItemDetailController {
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
 			// 일단은 index 로 리다이렉트 시키기
-			mav.setViewName("redirect:index");
+			mav.setViewName("redirect:/");
 			/*
 			 * 상품 리스트 페이지 완성되면 주석 지우기 mav.setViewName("redirect:/index?pageNum="+pageNum);
 			 */

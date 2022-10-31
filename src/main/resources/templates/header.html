@@ -172,64 +172,47 @@
                                         <div class="onhover-dropdown header-badge">
                                             <button type="button" class="btn p-0 position-relative header-wishlist">
                                                 <i data-feather="shopping-cart"></i>
-                                                <span class="position-absolute top-0 start-100 translate-middle badge">2
-                                                    <span class="visually-hidden">unread messages</span>
+                                                <a sec:authorize="isAnonymous()">
+                                                </a>
+                                                <a sec:authorize="isAuthenticated()">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge" th:text="${session.cartsize}">
                                                 </span>
+                                                </a>
                                             </button>
 
-                                            <div class="onhover-div">
+                                            <div class="onhover-div" sec:authorize="isAuthenticated()">
                                                 <ul class="cart-list">
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
+
+                                                    <li class="product-box-contain" >
+                                                        <div class="drop-cart" th:each="cartlist: ${session.cartList}">
                                                             <a href="product-left.html" class="drop-image">
-                                                                <img src="/assets/images/vegetable/product/1.png"
+                                                                <img th:src="@{|/assets/img/${cartlist.itemImage1}|}"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
                                                             <div class="drop-contain">
                                                                 <a href="product-left.html">
-                                                                    <h5>Fantasy Crunchy Choco Chip Cookies</h5>
+                                                                    <h5 th:text="${cartlist.itemName}"></h5>
                                                                 </a>
-                                                                <h6><span>1 x</span> $80.58</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
+                                                                <h6><span th:text="|${cartlist.itemQty} X ${cartlist.itemPrice-cartlist.itemDiscount}|" ></span></h6>
+                                                                <input type="hidden" name="itemPrice" th:value="${cartlist.itemPrice*cartlist.itemQty}">
+                                                                <input type="hidden" name="disPrice" th:value="${cartlist.itemDiscount*cartlist.itemQty}">
                                                             </div>
+                                                            <hr/>
                                                         </div>
+
                                                     </li>
 
-                                                    <li class="product-box-contain">
-                                                        <div class="drop-cart">
-                                                            <a href="product-left.html" class="drop-image">
-                                                                <img src="/assets/images/vegetable/product/2.png"
-                                                                    class="blur-up lazyload" alt="">
-                                                            </a>
 
-                                                            <div class="drop-contain">
-                                                                <a href="product-left.html">
-                                                                    <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                                    </h5>
-                                                                </a>
-                                                                <h6><span>1 x</span> $25.68</h6>
-                                                                <button class="close-button close_button">
-                                                                    <i class="fa-solid fa-xmark"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </li>
                                                 </ul>
 
-                                                <div class="price-box">
-                                                    <h5>Total :</h5>
-                                                    <h4 class="theme-color fw-bold">$106.58</h4>
-                                                </div>
-
                                                 <div class="button-group">
-                                                    <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                                    <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
+                                                    <a href="/cart" class="btn btn-sm cart-button">장바구니로 가기</a>
+                                                    <a href="/cartOrder" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">주문하기</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </li>
                                     <li class="right-side onhover-dropdown">
@@ -722,12 +705,13 @@
             </div>
         </div>
         
-        <script type="text/javascript">
+     <script type="text/javascript">
 		function sendIt(){
 			var f = document.searchForm;
 			f.submit();
 		}
 	</script>
-    </header>
 
+    </header>
+<script src="/assets/js/total.js"></script>
 </html>

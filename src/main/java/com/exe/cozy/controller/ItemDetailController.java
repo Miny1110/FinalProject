@@ -181,7 +181,7 @@ public class ItemDetailController {
 		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
 		List<ItemQuestionDto> qdtoList = itemQuestionService.getReadQnaList(itemNum);
 		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
-		List<CartDto> clist = cartService.listCart(principal.getName());
+
 
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
@@ -223,7 +223,6 @@ public class ItemDetailController {
 		mav.addObject("itemSizes",itemSizes);
 		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
-		mav.addObject("clist", clist);
 
 		// mav.addObject("params",param);
 		// mav.addObject("pageNum", pageNum);

@@ -313,8 +313,20 @@ public class CustomerController {
     	}
     	int pageNum = Integer.parseInt(pageNumStr);
     	
+    	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
+    	String searchValue = req.getParameter("searchValue");
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
@@ -351,8 +363,20 @@ public class CustomerController {
     	}
     	int pageNum = Integer.parseInt(pageNumStr);
     	
+    	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
+    	String searchValue = req.getParameter("searchValue");
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);

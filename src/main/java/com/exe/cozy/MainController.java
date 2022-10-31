@@ -28,10 +28,18 @@ public class MainController {
 
 		ModelAndView mav = new ModelAndView();
 
+		//오늘의 딜
 		List<ItemDetailDto> tlists = mainHomeService.selectTodaydeal();
+		
+		//best 상품
+		List<ItemDetailDto> hlists = mainHomeService.selectHitcount();
 
+		//신상품
+		List<ItemDetailDto> nlists = mainHomeService.selectNewItem();
 
 		mav.addObject("tlists", tlists);
+		mav.addObject("hlists", hlists);
+		mav.addObject("nlists",nlists);
 		mav.setViewName("index");
 
 

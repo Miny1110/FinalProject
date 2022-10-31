@@ -177,8 +177,14 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-//    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName())); //주문취소하면 포인트 회수하는 코드
-    	orderService.updateCancleState(req.getParameter("orderNum"));
+    	String orderNum = req.getParameter("orderNum");
+    	int usePoint = orderService.selectUsePoint(orderNum);
+    	orderService.updateCancleState(orderNum);
+    	
+    	if(usePoint!=0) {
+    		PointDto dto = createPoint.orderCanclePoint(principal.getName(), usePoint, orderNum);
+    		pointService.insertData(dto);
+    	}
     	
     	mav.setViewName("redirect:order");
     	

@@ -183,8 +183,9 @@
                                                 <div>
                                                     <table class="table">
                                                         <tbody id="lists">
-                                        <!-- 포인트 한줄 시작 -->                   
-                                                            <tr th:if="${#lists.size(lists)>0 and pointDto.pointAmount<0}" th:each="pointDto:${lists}">
+                                        <!-- 포인트 한줄 시작 -->        
+                                        				<div th:each="pointDto:${lists}">       
+                                                            <tr th:if="${#lists.size(lists)>0 and pointDto.pointAmount<0}">
                                                                 <td class="date" th:text="${#dates.format(pointDto.pointDate,'yyyy-MM-dd')}"></td>
                                                                 <td class="title">
                                                                     <span class="finish">소멸</span> <a th:text="${pointDto.pointTitle}"></a>
@@ -193,7 +194,7 @@
                                                                 <td class="minus" th:text="|${pointDto.pointAmount}p|"></td>
                                                              </tr>
                                                               
-                                                             <tr th:unless="${#lists.size(lists)>0 and pointDto.pointAmount<0}" th:each="pointDto:${lists}">  
+                                                             <tr th:unless="${#lists.size(lists)>0 and pointDto.pointAmount<0}">  
                                                              	<td class="date" th:text="${#dates.format(pointDto.pointDate,'yyyy-MM-dd')}"></td>
                                                                 <td class="title">
                                                                     <span class="get">적립</span> <a th:text="${pointDto.pointTitle}"></a>
@@ -202,6 +203,7 @@
                                                                 </td>
                                                                 <td class="plus" th:text="|+${pointDto.pointAmount}p|"></td>
                                                             </tr>
+                                                            </div>    
                                         <!-- 포인트 한줄 끝 -->                      
                                                                                                    
                                                         </tbody>

@@ -164,7 +164,7 @@
                                     <li>
                                         <h4>포인트 할인</h4>
                                         <h4 class="price text-danger" th:text="${#numbers.formatInteger(odto.usePoint, 0, 'COMMA') + ' 원'}" id="usePoint"></h4>
-                                        <input type="hidden" th:value="${odto.usePoint}" id="usePointData">
+                                        <input name="usePoint" type="hidden" th:value="${odto.usePoint}" id="usePointData">
                                     </li>
                                 </ul>
 

@@ -22,6 +22,16 @@ public class MainHomeServiceImpl implements MainHomeService{
 		return mainHomemapper.selectTodaydeal();
 	}
 
+	@Override
+	public List<ItemDetailDto> selectHitcount() throws Exception {
+		return mainHomemapper.selectHitcount();
+	}
+
+	@Override
+	public List<ItemDetailDto> selectNewItem() throws Exception {
+		return mainHomemapper.selectNewItem();
+	}
+
 	
 
 	

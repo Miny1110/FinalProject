@@ -153,5 +153,9 @@
         order by a.odNum desc
     </select>
 
+	<select id="selectUsePoint" resultType="int">
+		select usePoint from cozyOrder where orderNum=#{orderNum}
+	</select>
+
 
 </mapper>

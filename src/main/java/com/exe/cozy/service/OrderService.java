@@ -17,4 +17,6 @@ public interface OrderService {
     public List<OrderDetailDto> getOrderDetailOne(String customerEmail);
 
     public OrderDto getOrderDetail(String customerEmail);
+    
+    public int selectUsePoint(String orderNum);
 }

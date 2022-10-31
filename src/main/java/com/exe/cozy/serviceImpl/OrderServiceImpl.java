@@ -46,5 +46,8 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.getOrderDetail(customerEmail);
     }
 
-
+    @Override
+	public int selectUsePoint(String orderNum) {
+		return orderMapper.selectUsePoint(orderNum);
+	}
 }

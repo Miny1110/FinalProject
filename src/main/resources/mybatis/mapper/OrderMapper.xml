@@ -29,5 +29,129 @@
 		where orderNum=#{orderNum} 
 	</update>
 
+    <resultMap type="ItemDetailDto" id="ItemDetailDto">
+        <result column="itemName" property="itemName"/>
+        <result column="itemMainType" property="itemMainType"/>
+        <result column="itemSubType" property="itemSubType"/>
+        <result column="itemImage1" property="itemImage1"/>
+        <result column="itemPrice" property="itemPrice"/>
+        <result column="itemDiscount" property="itemDiscount"/>
+        <result column="itemNum" property="itemNum"/>
+        <result column="itemColor" property="itemColor"/>
+        <result column="itemSize" property="itemSize"/>
+    </resultMap>
+
+   <resultMap type="OrderDto" id="OrderDto">
+        <result column="orderNum" property="orderNum"/>
+        <result column="orderState" property="orderState"/>
+        <result column="deliverCost" property="deliverCost"/>
+        <result column="deliverName" property="deliverName"/>
+        <result column="deliverRAddr" property="deliverRAddr"/>
+        <result column="deliverJAddr" property="deliverJAddr"/>
+        <result column="deliverDAddr" property="deliverDAddr"/>
+        <result column="deliverZipCode" property="deliverZipCode"/>
+        <result column="deliverTel" property="deliverTel"/>
+        <result column="deliverMessage" property="deliverMessage"/>
+        <result column="usePoint" property="usePoint"/>
+        <result column="orderDate" property="orderDate"/>
+    </resultMap>
+
+    <resultMap type="OrderDetailDto" id="OrderDetailDto">
+        <result column="odNum" property="odNum"/>
+        <result column="itemQty" property="itemQty"/>
+        <result column="itemColor" property="itemColor"/>
+        <result column="itemSize" property="itemSize"/>
+        <collection property="orderDto" resultMap="OrderDto"></collection>
+        <collection property="itemDto" resultMap="ItemDetailDto"></collection>
+    </resultMap>
+    <!--성공시 -->
+
+    <select id="getOrderDetail" resultType="OrderDto">
+        select * from
+        (select ordernum, customeremail, payment, orderstate, delivercost, delivername, deliverraddr, deliverjaddr, deliverdaddr, deliverzipcode, delivertel, delivermessage, orderdate, usepoint from CozyOrder
+        where customerEmail=#{customerEmail}
+          order by ORDERDATE desc)
+    <![CDATA[
+        where rowNum <=1
+        ]]>
+
+    </select>
+
+
+
+    <select id="getOrderDetailList" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
+        SELECT * from
+        (select ROWNUM rnum, data.* from(
+            select
+            a.odNum,
+            a.itemQty,
+            a.itemColor,
+            a.itemSize,
+            b.orderNum,
+            b.orderState,
+            b.deliverCost,
+            b.deliverName,
+            b.deliverRAddr,
+            b.deliverJAddr,
+            b.deliverDAddr,
+            b.deliverZipCode,
+            b.deliverTel,
+            b.deliverMessage,
+            b.orderDate,
+            b.usePoint,
+            c.itemName,
+            c.itemPrice,
+            c.itemDiscount,
+            c.itemNum,
+            (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+             from file_store fs
+             where fs.no = c.itemImage1
+            ) as itemImage1
+        from orderDetail a join COZYORDER b
+        on a.orderNum=b.orderNum
+        join item c
+        on a.itemNum=c.itemNum
+        where customerEmail=#{customerEmail}
+        order by b.orderDate DESC) data)
+        <![CDATA[
+            where rnum <=1
+        ]]>
+
+    </select>
+
+    <select id="getOrderDetailOne" parameterType="OrderDetailDto" resultMap="OrderDetailDto">
+        SELECT
+            a.odNum,
+            a.itemQty,
+            a.itemColor,
+            a.itemSize,
+            b.orderNum,
+            b.orderState,
+            b.deliverCost,
+            b.deliverName,
+            b.deliverRAddr,
+            b.deliverJAddr,
+            b.deliverDAddr,
+            b.deliverZipCode,
+            b.deliverTel,
+            b.deliverMessage,
+            b.orderDate,
+            b.usePoint,
+            c.itemName,
+            c.itemPrice,
+            c.itemDiscount,
+            c.itemNum,
+            (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+             from file_store fs
+             where fs.no = c.itemImage1
+            ) as itemImage1
+        from orderDetail a join COZYORDER b
+                                on a.orderNum=b.orderNum
+                           join item c
+                                on a.itemNum=c.itemNum
+        where customerEmail=#{customerEmail}
+        order by a.odNum desc
+    </select>
+
 
 </mapper>

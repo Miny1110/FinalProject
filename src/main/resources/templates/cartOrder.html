@@ -293,16 +293,20 @@
                     </div>
 
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
-                        <div class="d-flex align-items-center mb-3">
-                            <h2 class="tab-title mb-0">등록된 배송지</h2>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
-                                <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
-                                <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
-                            </button>
+                    <div class="d-flex align-items-center mb-3">
+                        <h2 class="tab-title mb-0">등록된 배송지</h2>
+                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0" data-bs-toggle="modal" id="insertDeliver">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            나의 배송지 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                        </div>
-                        <br/>
+                        <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
+                            <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
+                            <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
+                        </button>
+
+                    </div>
+                    <br/>
                         <!--세션등록되면 수정 -->
 
                         <div class="row g-4">
@@ -409,11 +413,9 @@
                                             <div class="modal-footer">
                                                 <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
                                                  <h6>이번만 배송 받기</h6>-->
-                                                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
-                                                <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
-                                                    <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                    <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
-                                                </button>
+                                                <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">확인</button>
+                                                <input type="text" name="itemNum" th:value="${itemNum}" hidden>
+                                                <input type="text" name="itemQty" th:value="${itemQty}" hidden>
 
 
 
@@ -1015,7 +1017,7 @@
             if (use !== null) {
                 pointTotalPrice = pointTotalPrice - usePoint
             }
-            $('#pointTotalPrice').val(totalPrice)
+            $('#pointTotalPrice').val(pointTotalPrice)
             $('#pointTotalPrice').html(addComma(pointTotalPrice)+" 원")
 
         })

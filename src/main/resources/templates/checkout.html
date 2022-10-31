@@ -312,20 +312,22 @@
                                     <div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="deliverCheck"
-                                                   id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()">
+                                                  id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()" >
+                                            <input type="text" th:value="${ddto.deliverName}" id="dname" hidden>
+                                            <input type="text" th:value="${ddto.deliverRAddr}" id="raddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverDAddr}" id="daddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverJAddr}" id="jaddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverZipCode}" id="zipCode" hidden>
+                                            <input type="text" th:value="${ddto.deliverTel}" id="tel" hidden>
 
-                                        </div>
-                                       <!--<input id="deliverNum" name="deliverNum" type="text" th:value="${ddto.getDeliverNum()}">
-                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
-                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
-                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
-                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>
-                                        <input type="text" th:value="${ddto.getDeliverRAddr()}" id="dRddr" name="deliverName" hidden>-->
+
+
+
 
                                         <ul class="delivery-address-detail">
                                             <li>
                                                 <h6 class="fw-500" th:text="${ddto.getDeliverName()}"></h6>
-                                                <input type="text" th:value="${ddto.getDeliverName()}" id="dName" name="deliverName" hidden>
+
                                             </li>
 
                                             <li>
@@ -349,6 +351,7 @@
                                                             </span> </h6>
                                             </li>
                                         </ul>
+                                    </div>
                                     </div>
                                 </div>
 
@@ -903,6 +906,7 @@
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/payment.js"></script>
+<script src="/assets/js/deliver.js"></script>
         <script>
             function addComma(num) {
                 var regexp = /\B(?=(\d{3})+(?!\d))/g;

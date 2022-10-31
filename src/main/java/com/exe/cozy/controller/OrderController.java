@@ -169,7 +169,6 @@ public class OrderController {
 
 
         odto.setCustomerEmail(principal.getName());
-        int odMaxNum = orderDetailService.odMaxNum();
 
         orderService.insertOrder(odto);
         //주문했으면 삭제하기

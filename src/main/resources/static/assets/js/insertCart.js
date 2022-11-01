@@ -9,15 +9,21 @@ function cart(){
             let color =$("#color").val();
             let colorChk =$("#colorChk").val();
 
+            if(!size || !color){
+                alert("옵션 선택후 이용 가능합니다.")
+                return ;
+            }
+
             if(iNum===itemNumChk&&size===sizeChk&&color===colorChk){
                 let msg ="이미 장바구니에 들어있는 상품입니다.";
                 msg += "장바구니에 추가하시겠습니까?";
                 let result=confirm(msg);
+
                 if(result){
                     updateCart()
-                    return false;
+                    return ;
                 }else{
-                return false;
+                return ;
                 }
             }else{
                 addCart()

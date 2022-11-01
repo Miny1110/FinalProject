@@ -69,7 +69,7 @@ public class ReplyController {
       
         
        //point 테이블에 데이터 넣기
-       pointService.insertData(createPoint.reviewPoint(dto.getCustomerEmail()));
+       pointService.insertData(createPoint.reviewPoint(principal.getName()));
        replyService.insertReply(rdto);
 
         mav.setViewName("redirect:/");

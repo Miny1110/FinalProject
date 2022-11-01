@@ -82,5 +82,21 @@ public class CreatePoint {
 	    
 	    return pointDto;
 	}
-	
+
+	public PointDto orderPoint(String customerEmail,int usePoint){
+
+		PointDto pointDto= new PointDto();
+
+		int pointNum = pointService.maxNum();
+
+		pointDto.setPointNum(pointNum+1);
+		pointDto.setPointTitle("포인트 사용");
+		pointDto.setPointContent("포인트 사용");
+		pointDto.setPointAmount(usePoint);
+		pointDto.setPointState("소멸");
+
+		pointDto.setCustomerEmail(customerEmail);
+
+		return pointDto;
+	}
 }

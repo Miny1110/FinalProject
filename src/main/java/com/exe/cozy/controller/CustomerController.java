@@ -63,6 +63,7 @@ public class CustomerController {
 	@Resource private ServiceQuestionService serviceQuestionService;
 	@Resource private ServiceAnswerService serviceAnswerService;
 	@Resource private ItemDetailService itemDetailService;
+
 	
 	@Autowired AddDate addDate;
 	@Autowired CustomerChk customerChk;

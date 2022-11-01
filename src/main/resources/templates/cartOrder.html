@@ -482,12 +482,12 @@
                                         </li>
                                         <li>
                                             <h4>가용 포인트</h4>
-                                            <input type="hidden" id="checkPoint" th:value="${customerDto.getCustomerPoint()}">
+                                            <input type="hidden" id="checkPoint" th:value="${totalPoint}">
                                             <input type="text" id="customerName" th:value="${customerDto.getCustomerName()}" hidden>
                                             <input type="text" id="customerEmail" th:value="${customerDto.getCustomerEmail()}" hidden>
 
 
-                                            <h4 class="price" th:text="${customerDto.getCustomerPoint()}">
+                                            <h4 class="price" th:text="${totalPoint}">
 
                                             </h4>
                                         </li>

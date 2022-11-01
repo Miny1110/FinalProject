@@ -187,15 +187,15 @@
 
                                 <ul class="summery-contain border-bottom-0">
                                    <li class="list-total border-top-0 pt-2">
-                                        <h4 class="fw-bold" th:text="|${odto.deliverName}&nbsp;(${odto.deliverTel})|"></h4>
+                                        <h4 class="fw-bold" th:text="|${odto.deliverName}&nbsp;(${odto.deliverTel})|">수령자(연락처)</h4>
                                     </li>
                                     <li class="d-block">
-                                        <h4 th:text="${odto.deliverRAddr}"></h4>
-                                        <h4 class="mt-2" th:text="${odto.deliverDAddr}"></h4>
-                                        <h4 class="mt-2" th:text="|(${odto.deliverZipCode})|"></h4>
+                                        <h4 th:text="${odto.deliverRAddr}">도로명주소</h4>
+                                        <h4 class="mt-2" th:text="${odto.deliverDAddr}">상세주소</h4>
+                                        <h4 class="mt-2" th:text="|(${odto.deliverZipCode})|">우편번호</h4>
                                     </li>
                                     <li>
-                                        <h6 th:text="|[${odto.deliverMessage}]|"></h6>
+                                        <h6 th:if="${not #strings.isEmpty(odto.deliverMessage)}" th:text="|[${odto.deliverMessage}]|">배송메세지</h6>
                                     </li>
                                 </ul>
                             </div>

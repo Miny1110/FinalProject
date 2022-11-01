@@ -41,7 +41,7 @@ public class PointServiceImpl implements PointService{
 	}
 
 	@Override
-	public int getTotal(String customerEmail) {
+	public Integer getTotal(String customerEmail) {
 		return pointMapper.getTotal(customerEmail);
 	}
 

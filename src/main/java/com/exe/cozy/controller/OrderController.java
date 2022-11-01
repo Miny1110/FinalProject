@@ -3,7 +3,10 @@ package com.exe.cozy.controller;
 import com.exe.cozy.domain.*;
 
 import com.exe.cozy.service.*;
+import com.exe.cozy.util.CreatePoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +39,18 @@ public class OrderController {
     private CartService cartService;
     @Resource
     private OrderDetailService orderDetailService;
+
+    @Resource
+    private PointService pointService;
+
+
     @Resource
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    CreatePoint createPoint;
+
+    @PreAuthorize("isAuthenticated")
     @RequestMapping("/order")//order 가면 일단 리스트도 다 떠야함...
     public ModelAndView order(HttpServletRequest request, Principal principal,@ModelAttribute DeliverDto ddto,
                               @ModelAttribute OrderDto odto)  throws Exception {
@@ -51,7 +63,7 @@ public class OrderController {
        //바로결제 옵션
         String itemSize = request.getParameter("itemSize");
         String itemColor = request.getParameter("itemColor");
-
+        Integer totalPoint = pointService.getTotal(principal.getName());
 
 
         CustomerDto cdto = customerService.getReadData(principal.getName());
@@ -79,6 +91,7 @@ public class OrderController {
         mav.addObject("cdto",cdto);
         mav.addObject("itemColor",itemColor);
         mav.addObject("itemSize",itemSize);
+        mav.addObject("totalPoint",totalPoint);
 
         mav.setViewName("checkout");
         return mav;}
@@ -107,6 +120,7 @@ public class OrderController {
 
         return mav;
     }
+    @PreAuthorize("isAuthenticated")
     @PostMapping(value = "/order_ok")
     @ResponseBody
     public ModelAndView order_ok(HttpSession session, @ModelAttribute DeliverDto ddto,
@@ -117,19 +131,21 @@ public class OrderController {
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
         OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
+        PointDto pdto = objectMapper.readValue(messageBody, PointDto.class);
 
 
         odto.setCustomerEmail(principal.getName());
 
         orderService.insertOrder(odto);
         orderDetailService.insertOd(oddto);
+        pointService.insertData(createPoint.orderPoint(principal.getName(),odto.getUsePoint()));
         mav.setViewName("redirect:success_order");
 
         return mav;
     }
 
 
-
+    @PreAuthorize("isAuthenticated")
     @GetMapping("/cartOrder")//카트주문
     public ModelAndView cartOrder(HttpServletRequest request, Principal principal, @ModelAttribute CartDto cartDto, @ModelAttribute DeliverDto ddto, @ModelAttribute ItemDetailDto itemDetailDto
                                  , @ModelAttribute OrderDto odto)  throws Exception {
@@ -138,9 +154,7 @@ public class OrderController {
         CustomerDto customerDto = customerService.getReadData(principal.getName());
         List<DeliverDto> dlist =deliveryService.listDeliver(principal.getName()); // customerEmail 기반 List 보기
         List<CartDto> clist = cartService.listCart(principal.getName()); //customerEmail 기반 카트보기
-
-
-
+        Integer totalPoint = pointService.getTotal(principal.getName());
 
 
         ModelAndView mav = new ModelAndView();
@@ -150,10 +164,11 @@ public class OrderController {
         mav.addObject("ddto",ddto);
         mav.addObject("customerDto",customerDto);
         mav.addObject("cartDto",cartDto);
+        mav.addObject("totalPoint",totalPoint);
 
         mav.setViewName("cartOrder");
         return mav;}
-
+    @PreAuthorize("isAuthenticated")
     @PostMapping("/cartOrder_ok")
     @ResponseBody
     public ModelAndView cartOrder_ok(HttpSession session,Principal principal, @ModelAttribute DeliverDto ddto,
@@ -163,6 +178,7 @@ public class OrderController {
         ServletInputStream inputStream = request.getInputStream();
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
+
         // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
 
         /* response.setContentType("text/html; charset=UTF-8");*/
@@ -178,7 +194,7 @@ public class OrderController {
         return mav;
 
     }
-
+    @PreAuthorize("isAuthenticated")
     @PostMapping("/cartItemOrder_ok")
     @ResponseBody
     public ModelAndView cartItemOrder_ok(HttpSession session,Principal principal, @ModelAttribute DeliverDto ddto,
@@ -203,7 +219,7 @@ public class OrderController {
         return mav;
 
     }
-
+    @PreAuthorize("isAuthenticated")
     @GetMapping("/deleteCart")
     public ModelAndView deleteCart(HttpServletResponse resp, HttpServletRequest req,Principal principal) {
 
@@ -216,7 +232,7 @@ public class OrderController {
 
 
 
-
+    @PreAuthorize("isAuthenticated")
     @RequestMapping(value = "/success_order")
     @ResponseBody
     public ModelAndView order_success(Principal principal,HttpServletRequest request) throws IOException {

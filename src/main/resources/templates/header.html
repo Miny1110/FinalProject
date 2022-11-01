@@ -165,13 +165,13 @@
 
                                                     <li class="product-box-contain" >
                                                         <div class="drop-cart" th:each="cartlist: ${session.cartList}">
-                                                            <a href="product-left.html" class="drop-image">
+                                                            <a th:href="@{/itemDetail(itemNum=${cartlist.itemNum})}" class="drop-image">
                                                                 <img th:src="@{|/assets/img/${cartlist.itemImage1}|}"
                                                                     class="blur-up lazyload" alt="">
                                                             </a>
 
                                                             <div class="drop-contain">
-                                                                <a href="product-left.html">
+                                                                <a th:href="@{/itemDetail(itemNum=${cartlist.itemNum})}">
                                                                     <h5 th:text="${cartlist.itemName}"></h5>
                                                                 </a>
                                                                 <h6><span th:text="|${cartlist.itemQty} X ${cartlist.itemPrice-cartlist.itemDiscount}|" ></span></h6>

@@ -71,26 +71,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="right-nav-list">
-                                <div class="dropdown theme-form-select">
-                                    <button class="btn dropdown-toggle" type="button" id="select-dollar"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span>USD</span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu"
-                                        aria-labelledby="select-dollar">
-                                        <li>
-                                            <a class="dropdown-item" id="aud" href="javascript:void(0)">AUD</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" id="eur" href="javascript:void(0)">EUR</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" id="cny" href="javascript:void(0)">CNY</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -109,7 +90,7 @@
                                 </span>
                             </button>
                             <a th:href="@{/}" class="web-logo nav-logo">
-                                <img src="/assets/images/logo/logo_cozy.png" class="img-fluid blur-up lazyload" alt="">
+                                <img src="/assets/images/logo/logo_cozy2.png" class="img-fluid blur-up lazyload" alt="" >
                             </a>
 
                             <div class="middle-box">
@@ -118,11 +99,10 @@
                                     <div class="input-group">
                                     	<select  style="border: 0px; margin-right: 20px;">
 													<option value="itemName">상품명</option>
-													<option value="itemContent">상품내용</option>
 										</select>
                                         <input type="search" class="form-control" placeholder="제품명을 입력하세요."
                                             aria-label="Recipient's username" aria-describedby="button-addon2" name="searchValue">
-                                        <button class="btn" type="button" onclick="sendIt();" id="button-addon2">
+                                        <button class="btn" type="button" onclick="sendIt();" id="button-addon2" style="background-color: #00264B; border: 1px solid #00264B;">
                                             <i data-feather="search"></i>
                                         </button>
                                     </div>
@@ -275,7 +255,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="header-nav">
-                        <div class="header-nav-left">
+                        <div class="header-nav-left" >
                             <button class="dropdown-category">
                                 <i data-feather="align-left"></i>
                                 <span>카테고리</span>
@@ -722,11 +702,23 @@
             </div>
         </div>
         
-        <script type="text/javascript">
+   	<script type="text/javascript">
 		function sendIt(){
 			var f = document.searchForm;
+			
+			str = f.searchValue.value;
+			str = str.trim();
+			if(!str) {
+				alert("\n검색어를 입력하세요.");
+				f.searchValue.focus();
+				return;
+			}
+			f.searchValue.value = str;
+			
 			f.submit();
+			
 		}
+
 	</script>
     </header>
 

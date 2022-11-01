@@ -292,7 +292,11 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0" data-bs-toggle="modal" id="insertDeliver">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                나의 배송지 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;
+
                             <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#add-address">
                                 <i class="fa-solid fa-plus d-block d-sm-none m-0"></i>
                                 <span class="d-none d-sm-block">새로운 배송지로 받을래요</span>
@@ -308,45 +312,58 @@
                                     <div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="deliverCheck"
-                                                   id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()">
-                                            <input id="deliverNum" name="deliverNum" type="hidden" th:value="${ddto.getDeliverNum()}">
-                                        </div>
+                                                  id="deliverCheck" th:value="${ddto.getDeliverNum()}" onclick="getDeliver()" >
+                                            <input type="text" th:value="${ddto.deliverName}" id="dname" hidden>
+                                            <input type="text" th:value="${ddto.deliverRAddr}" id="raddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverDAddr}" id="daddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverJAddr}" id="jaddr" hidden>
+                                            <input type="text" th:value="${ddto.deliverZipCode}" id="zipCode" hidden>
+                                            <input type="text" th:value="${ddto.deliverTel}" id="tel" hidden>
 
-                                     <!--   <div class="label"> &lt;!&ndash; label1 하면 기본배송지로 나오게 설정해둠 &ndash;&gt;
-                                            <label th:text="${ddto.getDeliverType()}"></label>
-                                        </div>-->
+
+
+
 
                                         <ul class="delivery-address-detail">
                                             <li>
-                                                <h4 class="fw-500" th:text="${ddto.getDeliverName()}"></h4>
-                                                <input type="text" th:value="${ddto.getDeliverName()}" id="deliverName" name="deliverName" hidden>
+                                                <h6 class="fw-500" th:text="${ddto.getDeliverName()}"></h6>
+
                                             </li>
 
                                             <li>
-                                                <p class="text-content"><span class="text-title"
-                                                th:text="'주소 : ' + |${ddto.getDeliverRAddr()}, ${ddto.getDeliverDAddr()}|"></span></p>
+                                                <p class="text-content"><span class="text-title" th:text="| 주소 :&nbsp;&nbsp;${ddto.deliverRAddr}|"></span>
+                                                <p th:text="${ddto.deliverDAddr}"></p>
+                                                </p>
+
+                                            </li>
+
+                                            <li>
+                                                <h6 class="text-content mb-0"><span class="text-title"
+                                                                                    th:text="'우편번호 : ' + ${ddto.getDeliverZipCode()}">
+                                                            </span> </h6>
                                             </li>
 
 
 
                                             <li>
                                                 <h6 class="text-content mb-0"><span class="text-title"
-                                                                                    th:text="'전화번호 : ' + ${ddto.getDeliverTel()}">
+                                                                                    th:text="'연락처 : ' + ${ddto.getDeliverTel()}">
                                                             </span> </h6>
                                             </li>
                                         </ul>
+                                    </div>
                                     </div>
                                 </div>
 
                             </div>
                             <!--배송지 추가-->
 
-                                                <form name="deliverForm" method="post" th:object="${DeliverDto}">
+
                                                     <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">배송지 추가</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">새로운 배송지</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                                                         <i class="fa-solid fa-xmark"></i>
                                                                     </button>
@@ -406,11 +423,7 @@
                                                                 <div class="modal-footer">
                                                                     <!-- <input type="checkbox" name="saveDeliver" id="saveDeliver">
                                                                      <h6>이번만 배송 받기</h6>-->
-                                                                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">이번만 배송받기</button>
-                                                                    <button class="btn btn-animation btn-sm fw-bold ms-auto" type="button" data-bs-toggle="modal" onclick="addAddr()">
-                                                                        <i class="fa-solid fa-plus d-block d-sm-none m-0" ></i>
-                                                                        <span class="d-none d-sm-block">나의 배송지로 추가하기</span>
-                                                                    </button>
+                                                                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">확인</button>
                                                                     <input type="text" name="itemNum" th:value="${itemNum}" hidden>
                                                                     <input type="text" name="itemQty" th:value="${itemQty}" hidden>
 
@@ -419,12 +432,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
+
 
 
                             <!-- 배송지 추가 끝 -->
                         </div>
-
+<br/>
                         <div class="form-floating mb-4 theme-form-floating">
                         <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
                         <label for="deliverMsg">배송 메세지</label>
@@ -631,8 +644,8 @@
                                       <!--  <input type="text" name="deliverCost" th:value="${ddto.getDeliverNum()}" hidden>-->
                                          <!--<input type="hidden" id="itemNum" th:value="${itemNum}">
                                           <input type="hidden" id="itemQty" th:value="${itemQty}">-->
-                                        <input type="text" id="itemColor" name="itemColor" th:value="${idto.itemColor}" hidden>
-                                        <input type="text" id="itemSize" name="itemSize" th:value="${idto.itemSize}" hidden>
+                                        <input type="text" id="itemColor" name="itemColor" th:value="${itemColor}" hidden>
+                                        <input type="text" id="itemSize" name="itemSize" th:value="${itemSize}" hidden>
 
 
 
@@ -764,76 +777,6 @@
         </div>
     </div>
 </div>
-<!-- Location Modal End -->
-
-        <!--배송지 추가-->
-        <!--<form class="row g-4" name="deliverForm" method="post" th:object="${DeliverDto}">
-       <div class="modal fade theme-modal" id="add-address" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-           <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <h5 class="modal-title" id="exampleModalLabel1">신규배송지</h5>
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                           <i class="fa-solid fa-xmark"></i>
-                       </button>
-                   </div>
-                   <div class="modal-body">
-
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" class="form-control" id="deliverName" placeholder="이름을 입력하세요" name="deliverName" onblur="nameChk();" >
-                               <label for="deliverName">주문자</label>
-                               <p id="dnameMsg"></p>
-                           </div>
-
-
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" class="form-control" id="deliverTel" placeholder="전화번호를 입력하세요" name="deliverTel" onblur="telChk();">
-                               <label for="deliverTel">전화번호</label>
-                               <P id="telMsg"></P>
-                           </div>
-
-
-
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" class="form-control" id="sample4_postcode" placeholder="우편번호">
-                               <label for="sample4_postcode">우편번호</label>
-                           </div>
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="button" class="btn theme-bg-color btn-md text-white" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-                               <br>
-                           </div>
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" class="form-control" placeholder="도로명주소" id="deliverAddr1" name="deliverAddr1" onblur="addrChk();">
-                               <label for="deliverAddr1">도로명주소</label>
-                               <p id="addrMsg"></p>
-                           </div>
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" class="form-control" id="deliverAddr2" placeholder="지번주소" name="deliverAddr2">
-                               <label for="deliverAddr2">지번주소</label>
-                               <span id="guide" style="color:#999;display:none"></span>
-                           </div>
-                           <div class="form-floating mb-4 theme-form-floating">
-                               <input type="text" placeholder="상세주소" class="form-control" id="deliverAddrd" name="deliverAddrd" onblur="addrdChk();" >
-                               <label for="deliverAddrd">상세주소</label>
-                           </div>
-                           &lt;!&ndash;  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> &ndash;&gt;
-
-
-
-
-
-                   </div>
-                   <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">닫기</button>
-                       <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal" onclick="sendIt();">등록하기</button>
-                   </div>
-               </div>
-           </div>
-       </div>
-        </form>-->
-        <!-- 배송지 추가 끝 -->
-
 
 <!-- Deal Box Modal Start -->
 <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -963,6 +906,7 @@
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/payment.js"></script>
+<script src="/assets/js/deliver.js"></script>
         <script>
             function addComma(num) {
                 var regexp = /\B(?=(\d{3})+(?!\d))/g;

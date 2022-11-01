@@ -177,8 +177,14 @@ public class CustomerController {
     	
     	ModelAndView mav = new ModelAndView();
     	
-//    	pointService.insertDelData(createPoint.orderCanclePoint(principal.getName())); //주문취소하면 포인트 회수하는 코드
-    	orderService.updateCancleState(req.getParameter("orderNum"));
+    	String orderNum = req.getParameter("orderNum");
+    	int usePoint = orderService.selectUsePoint(orderNum);
+    	orderService.updateCancleState(orderNum);
+    	
+    	if(usePoint!=0) {
+    		PointDto dto = createPoint.orderCanclePoint(principal.getName(), usePoint, orderNum);
+    		pointService.insertData(dto);
+    	}
     	
     	mav.setViewName("redirect:order");
     	
@@ -313,8 +319,20 @@ public class CustomerController {
     	}
     	int pageNum = Integer.parseInt(pageNumStr);
     	
+    	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
+    	String searchValue = req.getParameter("searchValue");
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);
@@ -351,8 +369,20 @@ public class CustomerController {
     	}
     	int pageNum = Integer.parseInt(pageNumStr);
     	
+    	String searchKey = req.getParameter("searchKey");
+    	if(searchKey==null) {;
+    		searchKey="serviceQueTitle";
+    	}
+    	
+    	String searchValue = req.getParameter("searchValue");
+    	if(searchValue==null) {
+    		searchValue="";
+    	}
+    	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	
+    	mav.addObject("searchKey", searchKey);
+    	mav.addObject("searchValue", searchValue);
     	mav.addObject("pageNum", pageNum);
     	mav.addObject("dto", dto);
     	mav.addObject("customerDto", customerDto);

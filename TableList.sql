@@ -15,8 +15,8 @@ GRANT CONNECT,DBA TO cozy;
 CREATE TABLE ITEM
 (itemNum NUMBER(8) PRIMARY KEY,
 itemName varchar2(100),
-itemMainType varchar2(20),
-itemSubType varchar2(20),
+itemMainType varchar2(30),
+itemSubType varchar2(40),
 itemPrice NUMBER(10),
 itemDiscount NUMBER(10),
 itemContent varchar2(50),

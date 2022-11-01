@@ -5,39 +5,7 @@
    <div th:replace="head.html :: headFragment"></div>
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
-    
-<script type="text/javascript">
-	const sendIt = () => {
-		var t = documnet.myForm
-		
-		str = t.noticeTitle.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			t.noticeTitle.focus();
-			return;
-		}
-		
-		t.noticeTitle.value = str;
-		
-		str = t.noticeContent.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			t.noticeContent.focue();
-			return;
-		}
-		
-		t.noticeContent.value = str;
-		
-		t.action = "/noticeCreate";
-		t.submit();
-	}
-</script>
-    
-    
+   
 </head>
 
 <body>
@@ -66,7 +34,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>공지 등록</h2>
+                        <h2>공지사항</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -75,7 +43,7 @@
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item" aria-current="page">공지</li>
-                                <li class="breadcrumb-item active" aria-current="page">공지 등록</li>
+                                <li class="breadcrumb-item active" aria-current="page">공지 수정</li>
                             </ol>
                         </nav>
                     </div>
@@ -90,8 +58,8 @@
         <div class="container-fluid-lg">
             <div class="row g-4">
                 
-                   <div class="col-xxl-3 col-xl-4 col-lg-5">
-                    <section class="user-dashboard-section section-b-space">
+                   <div class="col-xxl-3 col-xl-4 col-lg-5" style="width: 30%;">
+                    <section class="user-dashboard-section section-b-space" style="width: 100%;">
                         
                     <div class="dashboard-left-sidebar">
                         <div class="profile-box">
@@ -103,11 +71,11 @@
                         </div>
 
                         <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
-                            <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-dashboard" type="button" role="tab"
-                                    aria-controls="pills-dashboard" aria-selected="true"><i data-feather="home"></i>
+                                    aria-controls="pills-dashboard" aria-selected="false"
+                                    th:onclick="'location.href=\''+ @{/notice/list} + '\''"><i data-feather="home"></i>
                                     공지사항</button>
                             </li>
 
@@ -117,42 +85,42 @@
                                     aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
                             </li>
 
-
-                            <li class="nav-item" role="presentation">
+							<li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false"><i data-feather="user"></i>
+                                    aria-controls="pills-profile" aria-selected="true"
+                                    th:onclick="'location.href=\''+ @{/service/qnaList} + '\''"><i data-feather="user"></i>
                                     1대1 문의</button>
                             </li>
-                            </ul>
-                        </ul>
+                         </ul>
                     </div>
                     </section>
                 </div>
                     
 
-                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30">
+                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30" style="width: 70%;">
                     
-                    <div class="leave-box">
+                    <div class="leave-box" style="width: 100%;">
                         <div class="leave-title mt-0">
                             <h3>공지 수정</h3>
                         </div>
 						
-						<form action="" method="post" name="myForm">
+						<form th:action="@{/notice/update_ok}" method="post">
+						
                         <div class="leave-comment">
                             
                             <div class="row g-3">
                                 <div class="col-xxl-4 col-lg-12 col-sm-6">
                                     <div class="blog-input">
-                                        <input type="text" class="form-control" name="noticeTitle"
-                                            th:value="${ndto.noticeTitle}">
+                                        <input type="text" class="form-control" 
+                                            th:field="*{ndto.noticeTitle}">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="blog-input">
-                                        <textarea class="form-control" rows="12" name="noticeContent"
-                                            th:text="${ndto.noticeContent}"></textarea>
+                                        <textarea class="form-control" rows="12"
+                                            th:field="*{ndto.noticeContent}"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -161,17 +129,19 @@
                     </div>
                     
                     <div>
-                    	<input type="hidden" name="noticeNum" th:value="${ndto.noticeNum}"/>
-						<input type="hidden" name="pageNum" th:value="${pageNum}"/>
+                    	<input type="hidden" th:field="${ndto.noticeNum}"/>
+						
 				
-						<input type="hidden" name="searchKey" th:value="${searchKey}"/>
-						<input type="hidden" name="searachValue" th:value="${searchValue}"/>
-                    
-                    
-                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">수정</button>
-
-                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" 
-                        	onclick="javascript:location.href='/noticeList';">취소</button>
+                    <div style="text-align: center">
+                    	<div style="display: inline-block">
+                        	<button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold"
+                        		type="submit">수정</button>
+						</div>
+						<div style="display: inline-block">
+                        	<button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" 
+                        		onclick="javascript:location.href='/notice/create';">취소</button>
+                        </div>
+                    </div>
                     </div>
                     </form>
                 </div>

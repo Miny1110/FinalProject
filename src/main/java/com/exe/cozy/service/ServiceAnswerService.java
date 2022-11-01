@@ -1,5 +1,7 @@
 package com.exe.cozy.service;
 
+import java.util.List;
+
 import com.exe.cozy.domain.ServiceAnswerDto;
 
 public interface ServiceAnswerService {
@@ -14,6 +16,9 @@ public interface ServiceAnswerService {
 	
 	/* 답변 불러오기*/
 	public ServiceAnswerDto getReadServiceAnsData(int serviceAnsNum) throws Exception;
+	
+	/* 리스트로 답변 불러오기*/
+	public List<ServiceAnswerDto> getReadServiceAnsDatas(int serviceAnsNum) throws Exception;
 	
 	/* 답변 수정*/
 	public void updateServiceAns(ServiceAnswerDto sadto) throws Exception;

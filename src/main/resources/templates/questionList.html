@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Blog Details Page</h2>
+                        <h2>Q&A</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -41,8 +41,8 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Blog</li>
-                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+                                <li class="breadcrumb-item" aria-current="page">Q&A</li>
+                                <li class="breadcrumb-item active" aria-current="page">목록</li>
                             </ol>
                         </nav>
                     </div>
@@ -68,30 +68,32 @@
                             </div>
                         </div>
 
-                        <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+                       
                             <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-dashboard" type="button" role="tab"
-                                    aria-controls="pills-dashboard" aria-selected="true"><i data-feather="home"></i>
-                                    공지사항</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
-                            </li>
-
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false"><i data-feather="user"></i>
-                                    1대1 문의</button>
-                            </li>
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-dashboard-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-dashboard" type="button" role="tab"
+	                                    aria-controls="pills-dashboard" aria-selected="false"
+	                                    th:onclick="'location.href=\''+ @{/notice/list} + '\''"><i data-feather="home"></i>
+	                                    공지사항</button>
+	                            </li>
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                            </li>
+	
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-profile" type="button" role="tab"
+	                                    aria-controls="pills-profile" aria-selected="true"
+	                                    th:onclick="'location.href=\''+ @{/service/qnaList} + '\''"><i data-feather="user"></i>
+	                                    1대1 문의</button>
+	                            </li>
                             </ul>
-                        </ul>
+                       
                     </div>
                     </section>
                 </div>
@@ -137,23 +139,21 @@
 		                                    <ul class="pagination justify-content-center">
 		                                    	
 												<li class="page-item" th:if="${page.navigateFirstPage>1}">
-		                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateFirstPage-1})}">
+		                                            <a class="page-link" th:href="@{/service/qnaList?(pageNum=${page.navigateFirstPage-1})}">
 		                                                <i class="fa-solid fa-angles-left"></i>
 		                                            </a>
 		                                        </li>
 												<li class="page-item" th:unless="${page.navigateFirstPage>1}">
 		                                        </li>
 		                                        
-		                                        
-		                                        
 		                                        <li class="page-item" th:if="${page.startRow!=0}"
 		                                        th:each="pages : ${#numbers.sequence(page.navigateFirstPage,page.navigateLastPage)}"
 		                                        th:classappend="(${pages}==${page.pageNum})?'active'">
-		                                        	<a class="page-link" th:text="${pages}" th:href="@{/listSvcQue/(pageNum=${pages})}"></a>
+		                                        	<a class="page-link" th:text="${pages}" th:href="@{/service/qnaList?(pageNum=${pages})}"></a>
 		                                        </li>
 		                                        
 		                                        <li class="page-item" th:if="${page.navigateLastPage<page.pages}">
-		                                            <a class="page-link" th:href="@{/listSvcQue/(pageNum=${page.navigateLastPage+1})}">
+		                                            <a class="page-link" th:href="@{/service/qnaList?(pageNum=${page.navigateLastPage+1})}">
 		                                                <i class="fa-solid fa-angles-right"></i>
 		                                            </a>
 		                                        </li>

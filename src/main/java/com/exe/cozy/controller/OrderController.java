@@ -222,11 +222,15 @@ public class OrderController {
     }
     @PreAuthorize("isAuthenticated")
     @GetMapping("/deleteCart")
-    public ModelAndView deleteCart(HttpServletResponse resp, HttpServletRequest req,Principal principal) {
+    public ModelAndView deleteCart(HttpSession session,HttpServletResponse resp, HttpServletRequest req,Principal principal) {
 
 
         ModelAndView mav = new ModelAndView();
         cartService.deleteOrderCart(principal.getName());
+        List<CartDto> cartList = cartService.listCart(principal.getName());
+
+        session.setAttribute("cartsize",cartList.size());
+        session.setAttribute("cartList",cartList);
         mav.setViewName("redirect:success_order");
         return mav;
     }
@@ -249,7 +253,6 @@ public class OrderController {
 
 /*        mav.addObject("orderDetailList", orderDetailList);*/
         mav.addObject("orderNum", orderNum);
-
 
         mav.addObject("odto", odto);
 

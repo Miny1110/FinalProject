@@ -179,9 +179,7 @@
 
 						<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
 							<form th:action="@{/order}" name="order">
-								<input th:each="clist:${clist}" type="text" id="itemNumChk" name="itemNumChk" th:value="${clist.getItemNum()}" hidden>
-								<input th:each="clist:${clist}" type="text" id="sizeChk" name="sizeChk" th:value="${clist.getItemSize()}" hidden>
-								<input th:each="clist:${clist}" type="text" id="colorChk" name="colorChk" th:value="${clist.getItemColor()}" hidden>
+
 								<input type="text" th:value="${idto.getItemNum()}" id="num" name="num" hidden>
 								<div class="right-box-contain">
 									<h6 class="offer-top"
@@ -264,6 +262,9 @@
 										</div>
 									</div>
 
+									<input th:each="cartList: ${session.cartList}" type="text" id="itemNumChk" name="itemNumChk" th:value="${cartList.itemNum}" hidden>
+									<input th:each="cartList: ${session.cartList}" type="text" id="sizeChk" name="sizeChk" th:value="${cartList.itemSize}" hidden>
+									<input th:each="cartList: ${session.cartList}" type="text" id="colorChk" name="colorChk" th:value="${cartList.itemColor}" hidden>
 									<div class="time deal-timer product-deal-timer mx-md-0 mx-auto">
 										<div class="product-title">
 											<h4>오늘의 딜 남은시간!!</h4>
@@ -320,9 +321,10 @@
 										</div>
 
 
-										<button type="button" onclick="cart();"
+										<button sec:authorize="isAuthenticated()" type="button" onclick="cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40">장바구니
 										</button>
+
 										<button onclick="location.href = '/order';"
 												class="btn btn-md bg-dark cart-button text-white w-40">바로결제
 										</button>

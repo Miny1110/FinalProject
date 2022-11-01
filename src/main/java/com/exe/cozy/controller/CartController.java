@@ -81,6 +81,12 @@ ModelAndView mav = new ModelAndView();
     cdto.setCustomerEmail(principal.getName());
     cartService.insertCart(cdto);
 
+
+    List<CartDto> cartList = cartService.listCart(principal.getName());
+
+    session.setAttribute("cartsize",cartList.size());
+    session.setAttribute("cartList",cartList);
+
     mav.setViewName("redirect:cart");
     return mav;
 
@@ -110,12 +116,17 @@ public ModelAndView  updateCart(HttpSession session, Principal principal,
 
 @PreAuthorize("isAuthenticated")
 @GetMapping("/delete_ok")
-    public ModelAndView delete_ok(HttpServletResponse resp, HttpServletRequest req) {
+    public ModelAndView delete_ok(HttpSession session,Principal principal,HttpServletResponse resp, HttpServletRequest req) {
 
     int cartNum = Integer.parseInt(req.getParameter("cartNum"));
 
     ModelAndView mav = new ModelAndView();
     cartService.deleteCart(cartNum);
+
+    List<CartDto> cartList = cartService.listCart(principal.getName());
+
+    session.setAttribute("cartsize",cartList.size());
+    session.setAttribute("cartList",cartList);
     mav.setViewName("redirect:/cart");
     return mav;
 }

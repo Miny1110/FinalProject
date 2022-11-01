@@ -67,7 +67,7 @@
                                 th:each="odto : ${odto}" >
                                 <td class="product-detail" >
                                     <div class="product border-0">
-                                        <a href="product.left-sidebar.html" class="product-image">
+                                        <a th:href="@{/itemDetail(itemNum=${odto.itemDto.itemNum})}" class="product-image">
                                             <img th:src="@{|/assets/img/${odto.itemDto.itemImage1}|}"
                                                  class="img-fluid blur-up lazyload" alt="">
                                         </a>

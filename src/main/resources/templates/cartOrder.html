@@ -173,7 +173,7 @@
                                     <tr class="product-box-contain">
                                         <td class="product-detail">
                                             <div class="product border-0">
-                                                <a href="product-left.html" class="product-image">
+                                                <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}" class="product-image">
                                                     <img th:src="@{|/assets/img/${clist.itemImage1}|}"
                                                          class="img-fluid blur-up lazyload" alt="">
                                                     <!--
@@ -184,7 +184,7 @@
                                                 <div class="product-detail">
                                                     <ul>
                                                         <li class="name">
-                                                            <a href="product-left.html" class="text-title"
+                                                            <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}"class="text-title"
                                                                th:text="${clist.itemName}"></a>
                                                         </li>
 
@@ -403,13 +403,6 @@
                                                     <input type="text" placeholder="상세주소" class="form-control" id="deliverDAddr" name="deliverDAddr">
                                                     <label for="deliverDAddr">상세주소</label>
                                                 </div>
-                                                <!--<div class="form-floating mb-4 theme-form-floating">
-                                                    <textarea class="form-control" placeholder="배송 메세지" id="deliverMsg" name="deliverMsg" ></textarea>
-                                                    <label for="deliverMsg">배송 메세지</label>
-                                                </div>-->
-                                                <!--  <input type="hidden" class="form-control" id="sample4_extraAddress" placeholder="참고항목"> -->
-
-
 
 
 

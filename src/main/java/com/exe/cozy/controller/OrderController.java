@@ -138,7 +138,7 @@ public class OrderController {
 
         orderService.insertOrder(odto);
         orderDetailService.insertOd(oddto);
-        pointService.insertData(createPoint.orderPoint(principal.getName(),odto.getUsePoint()));
+        pointService.insertDelData(createPoint.orderPoint(principal.getName(),(odto.getUsePoint())*-1));
         mav.setViewName("redirect:success_order");
 
         return mav;
@@ -187,6 +187,7 @@ public class OrderController {
         odto.setCustomerEmail(principal.getName());
 
         orderService.insertOrder(odto);
+        pointService.insertDelData(createPoint.orderPoint(principal.getName(),(odto.getUsePoint())*-1));
         //주문했으면 삭제하기
 
         mav.setViewName("redirect:success_order");

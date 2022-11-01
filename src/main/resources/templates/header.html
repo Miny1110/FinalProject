@@ -138,8 +138,8 @@
                                                 <i data-feather="phone-call"></i>
                                             </div>
                                             <div class="delivery-detail">
-                                                <h6>24/7 Delivery</h6>
-                                                <h5>+02) 123 - 4567</h5>
+                                                <h6>365 고객센터</h6>
+                                                <h5>02) 123 - 4567</h5>
                                             </div>
                                         </a>
                                     </li>
@@ -199,10 +199,6 @@
                                         <div class="delivery-login-box" >
                                             <div class="delivery-icon">
                                                 <i data-feather="user"></i>
-                                            </div>
-                                            <div class="delivery-detail">
-                                                <h6>반갑습니다,</h6>
-                                                <h5>COZY</h5>
                                             </div>
                                         </div>
 
@@ -424,7 +420,7 @@
                         </div>
 
                         <div class="header-nav-middle">
-                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky">
+                            <div class="main-nav navbar navbar-expand-xl navbar-light navbar-sticky" >
                                 <div class="offcanvas offcanvas-collapse order-xl-2" id="primaryMenu">
                                     <div class="offcanvas-header navbar-shadow">
                                         <h5>Menu</h5>
@@ -435,7 +431,7 @@
                                         <ul class="navbar-nav">
                                             <li class="nav-item dropdown dropdown-mega">
                                                 <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                    href="javascript:void(0)" data-bs-toggle="dropdown">Home</a>
+                                                    href="javascript:void(0)" data-bs-toggle="dropdown">가전용품</a>
 
                                                 <div class="dropdown-menu dropdown-menu-2 dropdown-image">
                                                     <div class="dropdown-column">
@@ -474,7 +470,7 @@
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Shop</a>
+                                                    data-bs-toggle="dropdown">가구</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -508,7 +504,7 @@
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Product</a>
+                                                    data-bs-toggle="dropdown">주방용품</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -544,7 +540,7 @@
 
                                             <li class="nav-item dropdown dropdown-mega">
                                                 <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                    href="javascript:void(0)" data-bs-toggle="dropdown">Mega Menu</a>
+                                                    href="javascript:void(0)" data-bs-toggle="dropdown">수납정리</a>
 
                                                 <div class="dropdown-menu dropdown-menu-2">
                                                     <div class="row">
@@ -602,7 +598,7 @@
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Blog</a>
+                                                    data-bs-toggle="dropdown">생필품</a>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item" href="blog-detail.html">Blog Detail</a>
@@ -618,7 +614,7 @@
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">Pages</a>
+                                                    data-bs-toggle="dropdown">공지사항</a>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item" href="404.html">404</a>
@@ -665,19 +661,19 @@
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item">
+                                            <!-- <li class="nav-item">
                                                 <a class="nav-link nav-link-2" href="contact-us.html">Contact</a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="header-nav-right">
+                        <div class="header-nav-right" sec:authorize="hasRole('ADMIN')">
                             <button class="btn deal-button" data-bs-toggle="modal" data-bs-target="#deal-box">
                                 <i data-feather="zap"></i>
-                                <span>오늘의 딜</span>
+                                <span><a th:href="@{/createItem}">상품등록</a></span>
                             </button>
                         </div>
                     </div>

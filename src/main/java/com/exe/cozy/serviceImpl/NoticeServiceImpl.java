@@ -2,13 +2,14 @@ package com.exe.cozy.serviceImpl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exe.cozy.domain.NoticeDto;
 import com.exe.cozy.mapper.NoticeMapper;
 import com.exe.cozy.service.NoticeService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class NoticeServiceImpl implements NoticeService{
@@ -38,11 +39,19 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	@Override
+	public Page<NoticeDto> getNoticeLists(int pageNum) throws Exception {
+		
+		PageHelper.startPage(pageNum,10);
+		return noticeMapper.getNoticeLists(pageNum);
+	}
+	
+	/*
+	@Override
 	public List<NoticeDto> getNoticeLists(int start, int end, String searchNoticeKey, String searchNoticeValue) throws Exception{
 		
 		return noticeMapper.getNoticeLists(start, end, searchNoticeKey, searchNoticeValue);
 	}
-	
+	*/
 	
 	//article
 	@Override
@@ -62,6 +71,18 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		noticeMapper.deleteNoticeData(noticeNum);
 	}
+	/*
+	@Override
+	public Page<NoticeDto> getNoticePaging(int pageNum) throws Exception {
+		
+		PageHelper.startPage(pageNum,10);
+		return noticeMapper.getNoticePaging(pageNum);
+	}
+
+	*/
+
+	
+	
 	
 	
 	

@@ -66,7 +66,7 @@ public class ServiceQuestionServiceImpl  implements ServiceQuestionService{
 	@Override
 	public Page<ServiceQuestionDto> getServiceQuePaging(int pageNum) {
 		
-		PageHelper.startPage(pageNum, 5);
+		PageHelper.startPage(pageNum,10);
 		return svcQueMapper.getServiceQuePaging(pageNum);
 	}
 

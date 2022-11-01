@@ -65,7 +65,7 @@ public class ServiceQnacontroller {
 	//질문 리스트 띄우기
 	//@PreAuthorize("isAuthenticated")
 	@RequestMapping("/service/qnaList")
-	public ModelAndView listSvcQuestion(NoticeDto ndto, HttpServletRequest request) throws Exception{
+	public ModelAndView listSvcQuestion(HttpServletRequest request) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 				

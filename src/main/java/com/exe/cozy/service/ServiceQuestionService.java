@@ -2,7 +2,6 @@ package com.exe.cozy.service;
 
 import java.util.List;
 
-import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.github.pagehelper.Page;
 
@@ -21,14 +20,13 @@ public interface ServiceQuestionService {
 	public ServiceQuestionDto findServiceQue(int serviceQueNum) throws Exception;
 	
 	
-
 	/* 문의목록불러오기 */
 	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception;
 
 	public List<ServiceQuestionDto> getReadServiceQueList(int serviceQueNum) throws Exception;
 	
 	/* 페이징 */
-	public Page<ServiceQuestionDto> getServiceQuePaging(int pageNum);
+	public Page<ServiceQuestionDto> getServiceQuePaging(int pageNum) throws Exception;
 	
 	/* 문의수정 */
 	public void updateServiceQue(ServiceQuestionDto sqdto) throws Exception;

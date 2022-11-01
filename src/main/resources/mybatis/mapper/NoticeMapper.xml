@@ -4,11 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.exe.cozy.mapper.NoticeMapper">
-
+	
+	<!-- 공지 번호 -->
 	<select id="maxNoticeNum" resultType="int">
 		select nvl(max(noticeNum),0) from notice
 	</select>
 
+	<!-- 공지 등록 -->
 	<insert id="insertNoticeData" parameterType="NoticeDto">
 		insert into notice(noticeNum,noticeTitle,noticeContent,noticeDate)
 		values (#{noticeNum},#{noticeTitle},#{noticeContent},sysdate)
@@ -20,6 +22,7 @@
 
 	</select>
 
+<!-- 
 	<select id="getNoticeLists" parameterType="map"
 		resultType="NoticeDto">
 		select * from (
@@ -31,8 +34,16 @@
 		where rnum>=#{start} and rnum<=#{end}
 	]]>
 	</select>
+ -->
+
+	<!-- 공지 리스트로 가져오기 -->
+	<select id="getNoticeLists" resultType="NoticeDto">
+	 select * from notice
+	 order by noticeDate desc
+	</select>
 
 
+	<!--noticeNum 으로 읽기 -->
 	<select id="getReadNoticeData" parameterType="int"
 		resultType="NoticeDto">
 		select noticeNum,noticeTitle,noticeContent,noticeDate
@@ -40,16 +51,17 @@
 	</select>
 
 
+	<!-- 공지수정 -->
 	<update id="updateNoticeData" parameterType="NoticeDto">
 		update notice set
-		noticeNum=#{noticeNum},noticeTitle=#{noticeTitle},noticeContent=#{noticeContent}
+		noticeTitle=#{noticeTitle},noticeContent=#{noticeContent},noticeDate=sysdate
 		where noticeNum=#{noticeNum}
 	</update>
 
+	<!-- 공지삭제 -->
 	<delete id="deleteNoticeData" parameterType="int">
 		delete notice where noticeNum=#{noticeNum}
 	</delete>
 
-
-
+	
 </mapper>

@@ -557,7 +557,7 @@ public class CustomerController {
     	
     	CustomerDto customerDto = customerService.getReadData(principal.getName());
     	List<PointDto> lists = pointService.getList(principal.getName());
-    	int totalPoint = pointService.getTotal(principal.getName());
+    	int totalPoint = pointService.getTotal(principal.getName()).intValue();
     	
     	mav.addObject("customerDto", customerDto);
     	mav.addObject("lists", lists);

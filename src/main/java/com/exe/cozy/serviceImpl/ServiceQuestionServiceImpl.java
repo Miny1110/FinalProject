@@ -31,10 +31,18 @@ public class ServiceQuestionServiceImpl  implements ServiceQuestionService{
 	}
 
 	@Override
+	public ServiceQuestionDto findServiceQue1(int serviceQueNum) throws Exception {
+		
+		return svcQueMapper.findServiceQue1(serviceQueNum);
+	}
+	
+	@Override
 	public ServiceQuestionDto findServiceQue(int serviceQueNum) throws Exception {
 		
 		return svcQueMapper.findServiceQue(serviceQueNum);
 	}
+	
+	
 
 	@Override
 	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception {
@@ -73,6 +81,10 @@ public class ServiceQuestionServiceImpl  implements ServiceQuestionService{
 		
 		svcQueMapper.deleteServiceQue(serviceQueNum);
 	}
+
+	
+
+	
 
 	
 	

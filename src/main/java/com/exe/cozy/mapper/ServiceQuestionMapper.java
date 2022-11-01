@@ -16,8 +16,12 @@ public interface ServiceQuestionMapper {
 	public int serviceQueMaxNum() throws Exception;
 
 	public void insertServiceQue(ServiceQuestionDto sqdto) throws Exception;
+	
+	public  ServiceQuestionDto findServiceQue1 (int serviceQueNum);
 
 	public ServiceQuestionDto findServiceQue(int serviceQueNum);
+	
+	
 
 	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception;
 

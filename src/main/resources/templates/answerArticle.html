@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Blog Details Page</h2>
+                        <h2>Q&A</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -41,8 +41,8 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Blog</li>
-                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+                                <li class="breadcrumb-item" aria-current="page">Q&A</li>
+                                <li class="breadcrumb-item active" aria-current="page">답변 보기</li>
                             </ol>
                         </nav>
                     </div>
@@ -56,7 +56,7 @@
     <section class="blog-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-4">
-                <div class="col-xxl-3 col-xl-4 col-lg-5" style="width: 30%;">
+                <div class="col-xxl-3 col-xl-4 col-lg-5"  style="width: 30%;">
                     <section class="user-dashboard-section section-b-space" style="width: 100%;">
                         
                     <div class="dashboard-left-sidebar">
@@ -96,13 +96,9 @@
                     </section>
                 </div>
 
-            
-                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50" style="width: 70%;">
-
-<!-- 질문 게시판 보여줌 시작--> 
+                
+                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50"  style="width: 70%;">
                     <div style="margin-top: -30%" class="blog-detail-image rounded-3 mb-4">
-                    
-                    
                         <img  class="bg-img blur-up lazyload" alt="">
                         <div class="blog-image-contain1">
                             <ul class="contain-list">
@@ -112,10 +108,9 @@
                             </ul>
                             <br/>
                             <h2 th:text="${sqdto.serviceQueTitle}"></h2>
-                            
                             <br/>
                             <ul class="contain-comment-list">
-                                <li>
+                                <li  style="margin-right: 4%">
                                     <div class="user-list">
                                         <i data-feather="user"></i>
                                         <span th:text="${sqdto.CustomerEmail}"></span>
@@ -132,63 +127,70 @@
                             </ul>
                         </div>
                     </div>
-
-
-					<div class="leave-box1">
-	                    <div class="blog-detail-contain" style="align-content: center">
-	                        <p th:text="${sqdto.serviceQueContent}"></p>
+                    
+                    
+                    <div class="leave-box1">
+                        
+                        <div class="comment-box overflow-hidden">
+                            <div class="leave-title1">
+                                <h3>Question</h3>
+                            </div>
+                        </div>
+                        
+	                    <div class="blog-detail-contain" style="align-content: center"
+	                    	>
+	                        <br/>
+	                        <p style="margin-left: 2%" th:text="${sqdto.serviceQueContent}">
+	                            
+	                        </p>
 	                    </div>
                     </div>
                     
+                    
                     <div style="text-align: center">
-	                    <div style="display: inline-block">
-	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-	                    		type="button" th:onclick="'location.href=\'qnaUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
-	                    </div>
-	                    
 	                    <div style="display: inline-block">
 	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
 	                    </div>
 	                </div>
-<!-- 질문 게시판 보여줌 끝--> 
-                   
-                    <hr/>
                     
-                    <div class="leave-box">
-                        <div class="leave-title mt-0">
-                            <h3>답변 등록</h3>
-                        </div>
-                        
-                        <div class="leave-comment">
-                        	<form th:action="@{/service/anqCreate_ok}" method="post" th:object="${ServiceAnswerDto}">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <div class="blog-input">
-                                    
-                                    	<!-- <input type="hidden" value="serviceAnsNum" name="serviceAnsNum"/> -->
-                                    	<input type="hidden" value="serviceQueNum" name="serviceQueNum"/>
-                                    	<!-- <input type="hidden" value="serviceAnsDate" name="serviceAnsDate"/> -->
-                                    	
-                                    	
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
-                                            placeholder="Comments" name="serviceAnsContent"></textarea>
-                                    </div>
-                                </div>
+                    
+                    <hr/> 
+                    
+                    <div class="leave-box1">
+                        <div class="comment-box overflow-hidden">
+                            <div class="leave-title1">
+                                <h3>Comment</h3>
                             </div>
-                            
-                                <div style="text-align: center">
-                                    <div style="display: inline-block">
-                                    <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-                                    	type="submit">등록</button>
-                                    	<!-- @{'location.href=\'qnaArticle?serviceAnsNum' + @{${sadto.serviceAnsNum}}+ '\'' -->
-                                    </div>
-                                 </div>
-                                 
-                                 
-                            </form>     
+
+                            <div class="user-comment-box1">
+                                <ul>
+                                    <li>
+                                   
+                                    	 <div class="user-contain" th:if="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
+                                    	 	<p>아직 답변이 없습니다. 조금만 기다려주세요.</p>
+                                    	 </div>
+                                    	 <div class="user-contain" th:unless="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
+                                    	 	 <p th:text="${sqdto.serviceAnswer.serviceAnsContent}"></p>
+                                    	 </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                    
+                    
+                    <form th:action="@{/service/anqCreate}">
+	                    <div style="text-align: center">
+	                       <div style="display: inline-block">
+		                       <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+		                       	type="button" th:onclick="'location.href=\'anqCreate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">등록</button>
+		                       	
+		                       	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+		                       	type="button" th:onclick="'location.href=\'anqUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
+		                   </div>
+	                    </div>
+                    </form>
                     
                     
                 </div>
@@ -201,6 +203,7 @@
     <footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
 
+    
 
     <!-- Tap to top start -->
     <div class="theme-option">

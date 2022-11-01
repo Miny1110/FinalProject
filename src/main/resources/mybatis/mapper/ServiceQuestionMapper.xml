@@ -17,6 +17,7 @@
 		values (#{serviceQueNum}, #{customerEmail}, #{serviceQueTitle}, #{serviceQueContent}, sysdate)	
 	</insert>
 
+
 	<!-- 문의확인 -->
 	<select id="findServiceQue1" parameterType="int" resultType="ServiceQuestionDto">	
 		select * from serviceQuestion
@@ -43,8 +44,6 @@
 			a.serviceQueNum = #{serviceQueNum}
 	</select>
 	
-	
-
 	<!--QuestionNum 으로 읽기 -->
 	<select id="getReadServiceQueData" parameterType="int" resultType="ServiceQuestionDto">
 		select serviceQueNum, customerEmail, serviceQueTitle, serviceQueContent, serviceQueDate from serviceQuestion

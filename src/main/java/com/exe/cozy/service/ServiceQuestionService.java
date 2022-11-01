@@ -16,7 +16,11 @@ public interface ServiceQuestionService {
 	public void insertServiceQue(ServiceQuestionDto sqdto) throws Exception;
 	
 	/* 문의게시글번호로 불러오기 */
+	public ServiceQuestionDto findServiceQue1(int serviceQueNum) throws Exception;
+	
 	public ServiceQuestionDto findServiceQue(int serviceQueNum) throws Exception;
+	
+	
 
 	/* 문의목록불러오기 */
 	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception;

@@ -110,6 +110,7 @@ function payOrder(){
              /*   traditional :true, 배열*/
                 data:JSON.stringify({
                     orderNum:merchant_uid,
+                    odNum: new Date().getTime(),
                     itemNum:parseInt($('#itemNum').val()),
                     itemQty:parseInt($('#itemQty').val()),
                     deliverName:$('#deliverName').val(),

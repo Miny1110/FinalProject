@@ -78,7 +78,8 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="">
+                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="" th:if="${#strings.isEmpty(customerDto.customerProfile)}">
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="" th:unless="${#strings.isEmpty(customerDto.customerProfile)}">
                                     </div>
                                 </div>
 
@@ -284,10 +285,6 @@
     <div class="bg-overlay"></div>
     <!-- Bg overlay End -->
 
-    
-
-    <!-- Location Modal Start -->
-    <!-- Location Modal End -->
 
     <!-- Remove Profile Modal Start -->
     <div class="modal fade theme-modal" id="edit-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 

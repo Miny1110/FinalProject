@@ -187,12 +187,12 @@ public class ItemDetailController {
 		//List<ItemQnaDto> qdtoList = itemQnaService.getReadItemQnaData(itemNum);
 		List<ItemQuestionDto> qdtoList = itemQuestionService.getReadQnaList(itemNum);
 		//List<QnaAnswerDto> adtoList = qnaAnswerService.getReadQnaAnswerData(itemNum);
-//		List<CartDto> clist = cartService.listCart(principal.getName());
+
 
 		if (idto == null) {
 			ModelAndView mav = new ModelAndView();
 			// 일단은 index 로 리다이렉트 시키기
-			mav.setViewName("redirect:index");
+			mav.setViewName("redirect:/");
 			/*
 			 * 상품 리스트 페이지 완성되면 주석 지우기 mav.setViewName("redirect:/index?pageNum="+pageNum);
 			 */
@@ -229,7 +229,6 @@ public class ItemDetailController {
 		mav.addObject("itemSizes",itemSizes);
 		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
-//		mav.addObject("clist", clist);
 
 		// mav.addObject("params",param);
 		// mav.addObject("pageNum", pageNum);

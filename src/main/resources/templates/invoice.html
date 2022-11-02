@@ -101,8 +101,8 @@
                                             <del class="theme-color" th:if="${orderDetailDto.itemDto.itemDiscount!=0}"
                                             th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice, 0, 'COMMA') + ' 원'}"></del>
                                         	<h6 th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice-orderDetailDto.itemDto.itemDiscount, 0, 'COMMA') + ' 원'}"></h6>
-                                        	<input type="hidden" name="itemPrice" th:value="${orderDetailDto.itemDto.itemPrice*orderDetailDto.itemQty}">
-                                        	<input type="hidden" name="disPrice" th:value="${orderDetailDto.itemDto.itemDiscount*orderDetailDto.itemQty}">
+                                        	<input type="hidden" name="orderitemPrice" th:value="${orderDetailDto.itemDto.itemPrice*orderDetailDto.itemQty}">
+                                        	<input type="hidden" name="orderdisPrice" th:value="${orderDetailDto.itemDto.itemDiscount*orderDetailDto.itemQty}">
                                         </td>
 
                                         <td class="quantity">
@@ -153,25 +153,25 @@
                                 <ul class="summery-contain">
                                     <li>
                                         <h4>상품금액</h4>
-                                        <h4 class="price" id="itemPrice"></h4>
+                                        <h4 class="price" id="orderitemPrice"></h4>
                                     </li>
 
                                     <li>
                                         <h4>상품 할인</h4>
-                                        <h4 class="price theme-color" id="disPrice"></h4>
+                                        <h4 class="price theme-color" id="orderdisPrice"></h4>
                                     </li>
 
                                     <li>
                                         <h4>포인트 할인</h4>
-                                        <h4 class="price text-danger" th:text="${#numbers.formatInteger(odto.usePoint, 0, 'COMMA') + ' 원'}" id="usePoint"></h4>
-                                        <input type="hidden" th:value="${odto.usePoint}" id="usePointData">
+                                        <h4 class="price text-danger" th:text="${#numbers.formatInteger(odto.usePoint, 0, 'COMMA') + ' 원'}" id="orderusePoint"></h4>
+                                        <input name="usePoint" type="hidden" th:value="${odto.usePoint}" id="orderusePointData">
                                     </li>
                                 </ul>
 
                                 <ul class="summery-total">
                                     <li class="list-total">
                                         <h4>결제금액</h4>
-                                        <h4 class="price" id="totalPrice"></h4>
+                                        <h4 class="price" id="ordertotalPrice"></h4>
                                     </li>
                                 </ul>
                             </div>
@@ -187,15 +187,15 @@
 
                                 <ul class="summery-contain border-bottom-0">
                                    <li class="list-total border-top-0 pt-2">
-                                        <h4 class="fw-bold" th:text="|${odto.deliverName}&nbsp;(${odto.deliverTel})|"></h4>
+                                        <h4 class="fw-bold" th:text="|${odto.deliverName}&nbsp;(${odto.deliverTel})|">수령자(연락처)</h4>
                                     </li>
                                     <li class="d-block">
-                                        <h4 th:text="${odto.deliverRAddr}"></h4>
-                                        <h4 class="mt-2" th:text="${odto.deliverDAddr}"></h4>
-                                        <h4 class="mt-2" th:text="|(${odto.deliverZipCode})|"></h4>
+                                        <h4 th:text="${odto.deliverRAddr}">도로명주소</h4>
+                                        <h4 class="mt-2" th:text="${odto.deliverDAddr}">상세주소</h4>
+                                        <h4 class="mt-2" th:text="|(${odto.deliverZipCode})|">우편번호</h4>
                                     </li>
                                     <li>
-                                        <h6 th:text="|[${odto.deliverMessage}]|"></h6>
+                                        <h6 th:if="${not #strings.isEmpty(odto.deliverMessage)}" th:text="|[${odto.deliverMessage}]|">배송메세지</h6>
                                     </li>
                                 </ul>
                             </div>
@@ -258,29 +258,29 @@
     $(function(){
     	//상품금액
     	let itemPrice = 0;
-    	let iIndex = $('input[name="itemPrice"]').length;
+    	let iIndex = $('input[name="orderitemPrice"]').length;
     	
     	for(let i=0;i<iIndex;i++){
-    		itemPrice += parseInt($('input[name="itemPrice"]').eq(i).val())
+    		itemPrice += parseInt($('input[name="orderitemPrice"]').eq(i).val())
     	}
     	
     	let itemPriceFormat = itemPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    	$('#itemPrice').html(itemPriceFormat+'원');
+    	$('#orderitemPrice').html(itemPriceFormat+'원');
     	
     	//할인금액
     	let disPrice = 0;
-    	let dIndex = $('input[name="disPrice"]').length;
+    	let dIndex = $('input[name="orderdisPrice"]').length;
     	
     	for(let i=0;i<dIndex;i++){
-    		disPrice += parseInt($('input[name="disPrice"]').eq(i).val())
+    		disPrice += parseInt($('input[name="orderdisPrice"]').eq(i).val())
     	}
     	
     	let disPriceFormat = disPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    	$('#disPrice').html(disPriceFormat+'원');
+    	$('#orderdisPrice').html(disPriceFormat+'원');
     	
     	let totalPrice = 0;
-    	totalPrice = (itemPrice - disPrice - $('#usePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    	$('#totalPrice').html(totalPrice+'원');
+    	totalPrice = (itemPrice - disPrice - $('#orderusePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    	$('#ordertotalPrice').html(totalPrice+'원');
     })
     
     function cancle(){

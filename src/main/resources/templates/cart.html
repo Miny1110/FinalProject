@@ -102,7 +102,7 @@
                             <tr class="product-box-contain"  >
                                 <td class="product-detail" >
                                     <div class="product border-0">
-                                        <a href="product-left.html" class="product-image">
+                                        <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}" class="product-image">
                                             <img th:src="@{|/assets/img/${clist.itemImage1}|}"
                                                  class="img-fluid blur-up lazyloaded" alt="">
                                         </a>
@@ -110,7 +110,7 @@
                                             <ul>
                                                 <li class="name">
 
-                                                    <a href="product-left.html" th:text="${clist.itemName}"></a>
+                                                    <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}" th:text="${clist.itemName}"></a>
 
                                                 </li>
 
@@ -212,9 +212,9 @@
 
                             <li>
                                 <h4>가용 포인트</h4>
-                                <input type="hidden" id="checkPoint" th:value="${customerDto.getCustomerPoint()}">
+                                <input type="hidden" id="checkPoint" th:value="${totalPoint}">
 
-                                <h4 class="price" th:text="${customerDto.getCustomerPoint()}">
+                                <h4 class="price" th:text="${totalPoint}">
 
 
 

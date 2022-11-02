@@ -8,7 +8,7 @@
     
 <script type="text/javascript">
 	const sendIt = () => {
-		var t = documnet.myForm
+		var t = document.myForm
 		
 		str = t.noticeTitle.value;
 		str = str.trim();
@@ -32,7 +32,7 @@
 		
 		t.noticeContent.value = str;
 		
-		t.action = "/noticeCreate";
+		t.action = "/notice/create";
 		t.submit();
 	}
 </script>
@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>공지 등록</h2>
+                        <h2>공지사항</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -89,9 +89,8 @@
     <section class="blog-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-4">
-                
-                   <div class="col-xxl-3 col-xl-4 col-lg-5">
-                    <section class="user-dashboard-section section-b-space">
+                <div class="col-xxl-3 col-xl-4 col-lg-5"  style="width: 30%;">
+                    <section class="user-dashboard-section section-b-space" style="width: 100%;">
                         
                     <div class="dashboard-left-sidebar">
                         <div class="profile-box">
@@ -102,43 +101,44 @@
                             </div>
                         </div>
 
-                        <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+                        
                             <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-dashboard" type="button" role="tab"
-                                    aria-controls="pills-dashboard" aria-selected="true"><i data-feather="home"></i>
-                                    공지사항</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
-                            </li>
-
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false"><i data-feather="user"></i>
-                                    1대1 문의</button>
-                            </li>
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-dashboard" type="button" role="tab"
+	                                    aria-controls="pills-dashboard" aria-selected="false"
+	                                    th:onclick="'location.href=\''+ @{/notice/list} + '\''"><i data-feather="home"></i>
+	                                    공지사항</button>
+	                            </li>
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                            </li>
+	
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-profile" type="button" role="tab"
+	                                    aria-controls="pills-profile" aria-selected="true"
+	                                    th:onclick="'location.href=\''+ @{/service/qnaList} + '\''"><i data-feather="user"></i>
+	                                    1대1 문의</button>
+	                            </li>
                             </ul>
-                        </ul>
                     </div>
                     </section>
                 </div>
                     
 
-                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30">
+                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30" style="width: 70%;">
                     
-                    <div class="leave-box">
+                    <div class="leave-box" style="width: 100%;">
                         <div class="leave-title mt-0">
                             <h3>공지 등록</h3>
                         </div>
 						
-						<form th:action="@{noticeCreate}" method="post" name="myForm">
+						<form th:action="@{notice/create}" method="post" name="myForm">
                         <div class="leave-comment">
                             
                             <div class="row g-3">
@@ -160,11 +160,16 @@
                         
                     </div>
                     
-                    <div>
-                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
-
-                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
-                    </div>
+                    
+                    <div style="text-align: center">
+	                    <div style="display: inline-block">
+	                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
+						</div>
+						<div style="display: inline-block">
+	                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
+	                    </div>
+	                </div>
+	                
                     </form>
                 </div>
                 
@@ -176,111 +181,6 @@
     <!-- Footer Section Start -->
     <footer th:replace="footer.html :: footerFragment"></footer>
     <!-- Footer Section End -->
-
-    <!-- Location Modal Start -->
-    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="location-list">
-                        <div class="search-input">
-                            <input type="search" class="form-control" placeholder="Search Your Area">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-
-                        <div class="disabled-box">
-                            <h6>Select a Location</h6>
-                        </div>
-
-                        <ul class="location-select custom-height">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Alabama</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Arizona</h6>
-                                    <span>Min: $150</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>California</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Colorado</h6>
-                                    <span>Min: $140</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Florida</h6>
-                                    <span>Min: $160</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Georgia</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Kansas</h6>
-                                    <span>Min: $170</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Minnesota</h6>
-                                    <span>Min: $120</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>New York</h6>
-                                    <span>Min: $110</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <h6>Washington</h6>
-                                    <span>Min: $130</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Location Modal End -->
-
-
-    <!-- Deal Box Modal Start -->
-    <!-- Deal Box Modal End -->
 
     <!-- Tap to top start -->
     <div class="theme-option">

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<div th:replace="head.html :: headFragment"></div>
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <header th:replace="header.html :: headerFragment"></header>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>Blog Details Page</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">Blog</li>
+                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Blog Details Section Start -->
+    <section class="blog-section section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row g-4">
+                <div class="col-xxl-3 col-xl-4 col-lg-5" style="width: 30%;">
+                    <section class="user-dashboard-section section-b-space" style="width: 100%;">
+                        
+                    <div class="dashboard-left-sidebar">
+                        <div class="profile-box">
+                            <div class="profile-contain">
+                               <div class="profile-name">
+                                    <h2>고객센터</h2>
+                               </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+                            <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-dashboard-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-dashboard" type="button" role="tab"
+	                                    aria-controls="pills-dashboard" aria-selected="false"
+	                                    th:onclick="'location.href=\''+ @{/notice/list} + '\''"><i data-feather="home"></i>
+	                                    공지사항</button>
+	                            </li>
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                            </li>
+	
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-profile" type="button" role="tab"
+	                                    aria-controls="pills-profile" aria-selected="true"
+	                                    th:onclick="'location.href=\''+ @{/service/qnaList} + '\''"><i data-feather="user"></i>
+	                                    1대1 문의</button>
+	                            </li>
+                            </ul>
+                        </ul>
+                    </div>
+                    </section>
+                </div>
+
+            
+                <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50" style="width: 70%;">
+
+<!-- 질문 게시판 보여줌 시작--> 
+                    <div style="margin-top: -30%" class="blog-detail-image rounded-3 mb-4">
+                    
+                    
+                        <img  class="bg-img blur-up lazyload" alt="">
+                        <div class="blog-image-contain1">
+                            <ul class="contain-list">
+                                <li>일반 문의</li>
+                                <li> - </li>
+                                <li>1대1</li>
+                            </ul>
+                            <br/>
+                            <h2 th:text="${sqdto.serviceQueTitle}"></h2>
+                            
+                            <br/>
+                            <ul class="contain-comment-list">
+                                <li>
+                                    <div class="user-list">
+                                        <i data-feather="user"></i>
+                                        <span th:text="${sqdto.CustomerEmail}"></span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="user-list">
+                                        <i data-feather="calendar"></i>
+                                        <span th:text="${sqdto.serviceQueDate}"></span>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+					<div class="leave-box1">
+	                    <div class="blog-detail-contain" style="align-content: center">
+	                        <p th:text="${sqdto.serviceQueContent}"></p>
+	                    </div>
+                    </div>
+                    
+                    <div style="text-align: center">
+	                    <div style="display: inline-block">
+	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
+	                    </div>
+	                </div>
+<!-- 질문 게시판 보여줌 끝--> 
+                   
+                    <hr/>
+                    
+                    <div class="leave-box">
+                        <div class="leave-title mt-0">
+                            <h3>답변 수정</h3>
+                        </div>
+                        
+                        <div class="leave-comment">
+                        	<form method="post" th:object="${ServiceAnswerDto}" name="queForm" th:action="@{/service/anqCreate_ok}">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="blog-input">
+                                    
+                                    	<!-- <input type="hidden" name="serviceAnsNum"/> -->
+                                    	<input type="hidden" th:value="${sqdto.serviceQueNum}" name="serviceQueNum"/>
+                                    	
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
+                                            th:text="${sqdto.serviceAnswer.serviceAnsContent}" name="serviceAnsContent"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div style="text-align: center">
+                                    <div style="display: inline-block">
+	                                    <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+	                                    	type="button" onclick="sendIt();">수정</button>
+	                                 </div>
+	                                 <div style="display: inline-block">
+				                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+				                    		th:onclick="@{|location.href='/deleteAnswer?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
+				                    </div>
+                                </div>
+                                 
+                               
+                                  
+                            </form>     
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+    <!-- Footer Section Start -->
+    <footer th:replace="footer.html :: footerFragment"></footer>
+    <!-- Footer Section End -->
+
+
+    <!-- Tap to top start -->
+    <div class="theme-option">
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity.js"></script>
+
+    <!-- WOW js -->
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+    function sendIt(){
+    	var f = document.queForm;
+    	 f.submit();
+    }
+    
+    </script>
+</body>
+
+</html>

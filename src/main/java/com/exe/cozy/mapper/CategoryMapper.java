@@ -19,6 +19,4 @@ public interface CategoryMapper {
 	 //public List<ItemDetailDto> selectCategory(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType);
 	 public Page<ItemDetailDto> selectCategory(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType, @Param("pageNum")int pageNum);
 	 
-	 //public List<ReplyDto> getReviewList(String customerEmail); //리뷰 목록
-	 //public Page<ReplyDto> getReviewPaging(@Param("customerEmail")String customerEmail, @Param("pageNum")int pageNum); //리뷰 페이징처리 목록
 }

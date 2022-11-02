@@ -66,20 +66,37 @@ public class CreatePoint {
 		return pointDto;
 		}
 
-	//마이리뷰 삭제 회수 포인트
-public PointDto orderCanclePoint(String customerEmail) {
+	//주문취소 포인트 회수 포인트
+	public PointDto orderCanclePoint(String customerEmail,int usePoint, String orderNum) {
 			
-		  PointDto pointDto = new PointDto();
+		PointDto pointDto = new PointDto();
 		
-		  int pointNum = pointService.maxNum();
+		int pointNum = pointService.maxNum();
 	  	pointDto.setPointNum(pointNum+1);
 	    pointDto.setPointTitle("주문취소");
-	    pointDto.setPointContent("주문취소");
-	    pointDto.setPointAmount(-1500);
-	    pointDto.setPointState("소멸");
+	    pointDto.setPointContent("[" + orderNum + "] 주문취소 :: 사용 포인트 재지급");
+	    pointDto.setPointAmount(usePoint);
+	    pointDto.setPointState("지급");
+	    pointDto.setPointEndDate(addDate.addDate(30));
 	    pointDto.setCustomerEmail(customerEmail);
 	    
 	    return pointDto;
 	}
-	
+
+	public PointDto orderPoint(String customerEmail,int usePoint){
+
+		PointDto pointDto= new PointDto();
+
+		int pointNum = pointService.maxNum();
+
+		pointDto.setPointNum(pointNum+1);
+		pointDto.setPointTitle("포인트 사용");
+		pointDto.setPointContent("포인트 사용");
+		pointDto.setPointAmount(usePoint);
+		pointDto.setPointState("소멸");
+
+		pointDto.setCustomerEmail(customerEmail);
+
+		return pointDto;
+	}
 }

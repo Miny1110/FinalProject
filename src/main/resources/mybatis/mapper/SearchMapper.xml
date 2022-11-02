@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.exe.cozy.mapper.SearchMapper">
+
+<!--ItemNum 으로 검색 -->
+	<select id="searchData" parameterType="String" resultType="ItemDetailDto">
+		select itemNum,
+        itemName,
+        itemMainType,
+        itemSubType,
+        itemPrice,
+        itemDiscount,
+        itemContent,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage1
+        ) as itemImage1,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage2
+        ) as itemImage2,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage3
+        ) as itemImage3,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage4
+        ) as itemImage4,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.detailImage
+        ) as detailImage, 
+        itemHitcount,
+        itemStock, 
+        itemState, 
+        todaydeal,
+        itemColor,
+        itemSize
+   		from item
+		where itemName like '%'||#{searchValue}||'%'
+	</select>
+	
+</mapper>	

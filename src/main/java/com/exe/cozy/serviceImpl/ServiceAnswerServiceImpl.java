@@ -1,5 +1,7 @@
 package com.exe.cozy.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,21 @@ public class ServiceAnswerServiceImpl implements ServiceAnswerService {
 		return serviceAnswerMapper.findServiceAns(serviceAnsNum);
 	}
 
+	
 	@Override
 	public ServiceAnswerDto getReadServiceAnsData(int serviceAnsNum) throws Exception {
 		return serviceAnswerMapper.getReadServiceAnsData(serviceAnsNum);
 	}
-
+	
+	
+	//리스트로 데이터 블러오기
+	@Override
+	public List<ServiceAnswerDto> getReadServiceAnsDatas(int serviceAnsNum) throws Exception {
+		
+		return serviceAnswerMapper.getReadServiceAnsDatas(serviceAnsNum);
+	}
+	
+	
 	@Override
 	public void insertServiceAns(ServiceAnswerDto sadto) throws Exception {
 		
@@ -46,6 +58,8 @@ public class ServiceAnswerServiceImpl implements ServiceAnswerService {
 		
 		serviceAnswerMapper.deleteServiceAns(serviceAnsNum);
 	}
+
+	
 
 	
 }

@@ -78,7 +78,8 @@
                             <div class="profile-contain">
                                 <div class="profile-image">
                                     <div class="position-relative">
-                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="">
+                                        <img src="/assets/images/inner-page/user/1.jpg" class="blur-up update_img lazyloaded" alt="" th:if="${#strings.isEmpty(customerDto.customerProfile)}">
+                                        <img id="img" th:src="@{|/assets/img/${customerDto.customerProfile}|}" class="blur-up update_img lazyloaded" alt="" th:unless="${#strings.isEmpty(customerDto.customerProfile)}">
                                     </div>
                                 </div>
 
@@ -191,25 +192,33 @@
                                             <div th:if="${#lists.size(lists)>0}" th:each="queDto:${lists}">
                                             	<!-- 문의내역 출력 -->
                                               <tr>
-                                              	<td th:text="${queDto.serviceQueNum}"></td>
+                                              	<td th:text="${queDto.serviceQueNum}">문의번호</td>
                                                 
-                                                <td class="title" style="text-align: left;"><a th:text="${queDto.serviceQueTitle}" th:href="@{/customer/qna/question(serviceQueNum=${queDto.serviceQueNum},pageNum=${page.pageNum})}"></a><input type="hidden" th:value="${queDto.serviceQueNum}"></td>
-                                                <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}"></td>
+                                                <td class="title" style="text-align: left;">
+                                                	<a th:text="${queDto.serviceQueTitle}" th:href="@{/customer/qna/question(serviceQueNum=${queDto.serviceQueNum},searchKey=${searchKey},
+                                                	searchValue=${searchValue},pageNum=${page.pageNum})}">제목</a>
+                                                	<input type="hidden" th:value="${queDto.serviceQueNum}">
+                                                </td>
+                                                <td class="date" th:text="${#dates.format(queDto.serviceQueDate,'yyyy-MM-dd')}">작성일</td>
                                               </tr>
                                               
                                               <!-- 답변 있으면 출력 -->
                                               <tr th:if="${queDto.serviceAnswer!=null}">
                                               	<td></td>
                                               	<td style="text-align: left;"><a>└ &nbsp;</a>
-                                              	<span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">
-                                              	답변</span><a th:href="@{/customer/qna/answer(serviceAnsNum=${queDto.serviceAnswer.serviceAnsNum},pageNum=${page.pageNum})}" th:text="|&nbsp;${queDto.serviceQueTitle}|"></a></td>
-                                              	<td th:text="${#dates.format(queDto.serviceAnswer.serviceAnsDate,'yyyy-MM-dd')}"></td>
+                                              		<span style="color: #fff; background: #4597E8; border-radius: 4px; padding: 4px 6px; font-size: 12px; font-weight: 600;">답변</span>
+                                              		<a th:href="@{/customer/qna/answer(serviceAnsNum=${queDto.serviceAnswer.serviceAnsNum},searchKey=${searchKey},searchValue=${searchValue},pageNum=${page.pageNum})}" 
+                                              		th:text="|&nbsp;${queDto.serviceQueTitle}|">제목</a>
+                                              	</td>
+                                              	<td th:text="${#dates.format(queDto.serviceAnswer.serviceAnsDate,'yyyy-MM-dd')}">작성일</td>
                                               </tr>
                                               
+                                              </div>
                                               <!-- 문의내역 없으면 출력 -->
-                                              <tr th:unless="${#lists.size(lists)>0}">
-                                              	<td colspan="3">문의내역이 없습니다.</td>
-                                              </tr>
+                                              <div th:unless="${#lists.size(lists)>0}">
+	                                              <tr>
+	                                              	<td colspan="3">문의내역이 없습니다.</td>
+	                                              </tr>
                                               </div>
                                             </tbody>
                                           </table>

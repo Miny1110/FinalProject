@@ -18,5 +18,5 @@ public interface PointMapper {
 	
 	public void deleteData(String customerEmail);
 
-	public int getTotal(String customerEmail);
+	public Integer getTotal(String customerEmail);
 }

@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadscrumb-contain">
-                        <h2>Blog Details Page</h2>
+                        <h2>Q&A</h2>
                         <nav>
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item">
@@ -41,8 +41,8 @@
                                         <i class="fa-solid fa-house"></i>
                                     </a>
                                 </li>
-                                <li class="breadcrumb-item" aria-current="page">Blog</li>
-                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+                                <li class="breadcrumb-item" aria-current="page">Q&A</li>
+                                <li class="breadcrumb-item active" aria-current="page">질문 보기</li>
                             </ol>
                         </nav>
                     </div>
@@ -70,26 +70,28 @@
 
                         <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                             <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-dashboard" type="button" role="tab"
-                                    aria-controls="pills-dashboard" aria-selected="true"><i data-feather="home"></i>
-                                    공지사항</button>
-                            </li>
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
-                            </li>
-
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false"><i data-feather="user"></i>
-                                    1대1 문의</button>
-                            </li>
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-dashboard-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-dashboard" type="button" role="tab"
+	                                    aria-controls="pills-dashboard" aria-selected="false"
+	                                    th:onclick="'location.href=\''+ @{/notice/list} + '\''"><i data-feather="home"></i>
+	                                    공지사항</button>
+	                            </li>
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
+	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                            </li>
+	
+	
+	                            <li class="nav-item" role="presentation">
+	                                <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill"
+	                                    data-bs-target="#pills-profile" type="button" role="tab"
+	                                    aria-controls="pills-profile" aria-selected="true"
+	                                    th:onclick="'location.href=\''+ @{/service/qnaList} + '\''"><i data-feather="user"></i>
+	                                    1대1 문의</button>
+	                            </li>
                             </ul>
                         </ul>
                     </div>
@@ -184,13 +186,16 @@
                         </div>
                     </div>
                     
-                   <div style="text-align: center">
-                       <div style="display: inline-block">
-	                       <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-	                       	type="submit" th:onclick="@{'location.href=\'qnaArticle?serviceQueNum' + @{${sadto.serviceQueNum}}+ '\''">등록</button>
-	                       	<!-- @{'location.href=\'anaArticle?serviceAnsNum' + @{${sadto.serviceAnsNum}}+ '\'' -->
-                       </div>
-                   </div>
+                    <!-- 
+                    <form th:action="@{/service/anqCreate}">
+	                    <div style="text-align: center">
+	                       <div style="display: inline-block">
+		                       <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+		                       	type="button" th:onclick="'location.href=\'anqCreate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">등록</button>
+		                   </div>
+	                    </div>
+                    </form>
+                     -->
                     
                 </div>
             </div>

@@ -35,7 +35,7 @@
 	</select>
 	
 	<!-- 사용가능 포인트 출력 -->
-	<select id="getTotal" resultType="int">
+	<select id="getTotal" resultType="Integer">
 		select sum(pointAmount)
 		from point where customerEmail=#{customerEmail}
 	</select>

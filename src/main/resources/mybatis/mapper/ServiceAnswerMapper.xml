@@ -7,7 +7,7 @@
 	
 	<!-- 새 답변 번호 -->
 	<select id="serviceAnsMaxNum" resultType="int">
-		select nvl(max(itemAnsNum),0)
+		select nvl(max(serviceAnsNum),0)
 		from serviceAnswer	
 	</select>
 	
@@ -28,9 +28,11 @@
 	
 	<resultMap type="ServiceQuestionDto" id="ServiceQuestionDto">
 		<result column="serviceQueTitle" property="serviceQueTitle" />
+		<result column="serviceQueContent" property="serviceQueContent" />
 		<result column="serviceQueNum" property="serviceQueNum" />
 	</resultMap>
 	
+	 
 	<!-- 답변 확인 -->
 	<select id="findServiceAns" parameterType="ServiceAnswerDto" resultMap="ServiceAnswerDto">
 		select
@@ -38,11 +40,13 @@
 			a.serviceAnsContent,
 			a.serviceAnsDate,
 			b.serviceQueTitle,
+			b.serviceQueContent,
 			b.serviceQueNum
-		from serviceAnswer a join serviceQuestion B
+		from serviceAnswer a left join serviceQuestion B
 		on a.serviceQueNum=b.serviceQueNum
 		where a.serviceAnsNum=#{serviceAnsNum}
 	</select>
+	
 	
 	<!-- 답변 수정 -->
 	<update id="updateServiceAns" parameterType="ServiceAnswerDto">

@@ -3,6 +3,8 @@ package com.exe.cozy.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exe.cozy.domain.CartDto;
+import com.exe.cozy.mapper.CartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,12 +21,18 @@ import com.exe.cozy.service.CustomerService;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Service("securityService")
 public class SecurityService implements UserDetailsService {
 	
 	@Autowired CustomerMapper customerMapper;
-	
+	@Autowired
+	CartMapper cartMapper;
+
+	@Autowired
+	private HttpSession session;
 	//사용자명으로 비밀번호를 조회해서 리턴하는 메소드
 	@Override
 	public UserDetails loadUserByUsername(String customerEmail) throws UsernameNotFoundException {
@@ -43,6 +51,12 @@ public class SecurityService implements UserDetailsService {
 		}else {
 			authorities.add(new SimpleGrantedAuthority(CustomerRole.USER.getValue()));
 		}
+
+		List<CartDto> cartList = cartMapper.listCart(customerEmail);
+
+		session.setAttribute("cartsize",cartList.size());
+		session.setAttribute("cartList",cartList);
+
 				
 		//사용자명, 비밀번호, 권한을 입력해서 스프링 시큐리티의 user객체를 리턴
 		//내가 만든 유저가 아니라 스프링 자체에 있는 유저

@@ -6,7 +6,7 @@
      hour = minute * 60,
      day = hour * 24;
 
- var countDown = new Date("Aug 21, 2023 00:00:00").getTime(),
+ var countDown = new Date("Nov 15, 2022 00:00:00").getTime(),
      x = setInterval(function () {
          var now = new Date().getTime(),
              distance = countDown - now;

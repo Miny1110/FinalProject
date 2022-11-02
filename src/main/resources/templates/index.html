@@ -247,52 +247,38 @@
                     </div>
 				<!-- 오늘의 딜 시작 -->
                     <div class="product-box-slider-2 no-arrow" >
-                        <div th:each="tdto:${tlists}" style="height:370px;">
-                            <div class="product-box product-box-bg wow fadeInUp" >
-                                <div class="product-image">
-                                    <a th:href="@{/itemDetail(itemNum=${tdto.itemNum})}">
-                                        <img th:src="@{|/assets/img/${tdto.itemImage1}|}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                    </a>
-                                  
-                                </div>
-                                <div class="product-detail">
-                                    <a th:href="@{/itemDetail(itemNum=${tdto.itemNum})}">
-                                        <h6 class="name" th:text="${tdto.itemName}">
-                                            
-                                        </h6>
-                                    </a>
+                       <div th:if="${#lists.size(tlists)>0}" th:each="tdto:${tlists}">
+                            <div class="product-box-3 h-100 wow fadeInUp">
+                                <div class="product-header">
+                                    <div class="product-image">
+                                        <a th:href="@{/itemDetail(itemNum=${tdto.itemNum})}">
+                                            <img th:src="@{|/assets/img/${tdto.itemImage1}|}"
+                                                class="img-fluid blur-up lazyload" alt="">
+                                        </a>
 
-                                    <h5 class="sold text-content">
-                                        <span class="theme-color price" th:text="${#numbers.formatInteger(tdto.itemPrice-tdto.itemDiscount, 0, 'COMMA') + ' 원'}" ></span>
-                                        <del th:text="${#numbers.formatInteger(tdto.itemPrice, 0, 'COMMA') + ' 원'}"></del>
-                                    </h5>
-
-                                    <div class="product-rating mt-2">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-
-                                        <h6 class="theme-color">In Stock</h6>
                                     </div>
-
-                                    
                                 </div>
-                            </div>                           
+                                <div class="product-footer" style="padding: 20px;">
+                                    <div class="product-detail">
+                                        <span class="span-name" th:text="${tdto.itemSubType}"></span>
+                                        <a th:href="@{/itemDetail(itemNum=${tdto.itemNum})}">
+                                            <h5 class="name" th:text="${tdto.itemName}"></h5>
+                                        </a>
+                                        <div class="product-rating mt-2">
+                                            <ul class="rating">
+                                                <li>
+                                                    <i data-feather="external-link" class=""></i>
+                                                </li>
+                                                <span></span>
+                                            </ul>
+                                            <a th:text="|조회수: ${tdto.itemHitcount}|"></a><span></span>
+                                        </div>
+                                        <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(tdto.itemPrice-tdto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
+                                        <del th:text="${#numbers.formatInteger(tdto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 				<!-- 오늘의 딜 끝 -->
@@ -311,69 +297,36 @@
                     </div>
 
                    <div class="product-box-slider-2 no-arrow" >
-                        <div th:each="hdto:${hlists}" style="height:370px;">
-                            <div class="product-box product-box-bg wow fadeInUp" >
-                                <div class="product-image">
-                                    <a th:href="@{/itemDetail(itemNum=${hdto.itemNum})}">
-                                        <img th:src="@{|/assets/img/${hdto.itemImage1}|}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                    </a>
-                                    <ul class="product-option">
+                       <div th:if="${#lists.size(hlists)>0}" th:each="hdto:${hlists}">
+                            <div class="product-box-3 h-100 wow fadeInUp">
+                                <div class="product-header">
+                                    <div class="product-image">
+                                        <a th:href="@{/itemDetail(itemNum=${hdto.itemNum})}">
+                                            <img th:src="@{|/assets/img/${hdto.itemImage1}|}"
+                                                class="img-fluid blur-up lazyload" alt="">
+                                        </a>
 
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                            <a href="compare.html">
-                                                <i data-feather="refresh-cw"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                            <a href="wishlist.html" class="notifi-wishlist">
-                                                <i data-feather="heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-detail">
-                                    <a th:href="@{/itemDetail(itemNum=${hdto.itemNum})}">
-                                        <h6 class="name" th:text="${hdto.itemName}">
-                                            
-                                        </h6>
-                                    </a>
-
-                                    <h5 class="sold text-content">
-                                        <span class="theme-color price" th:text="${#numbers.formatInteger(hdto.itemPrice-hdto.itemDiscount, 0, 'COMMA') + ' 원'}" ></span>
-                                        <del th:text="${#numbers.formatInteger(hdto.itemPrice, 0, 'COMMA') + ' 원'}"></del>
-                                    </h5>
-
-                                    <div class="product-rating mt-2">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-
-                                        <h6 class="theme-color">In Stock</h6>
                                     </div>
-
-                                    
+                                </div>
+                                <div class="product-footer" style="padding: 20px;">
+                                    <div class="product-detail">
+                                        <span class="span-name" th:text="${hdto.itemSubType}"></span>
+                                        <a th:href="@{/itemDetail(itemNum=${hdto.itemNum})}">
+                                            <h5 class="name" th:text="${hdto.itemName}"></h5>
+                                        </a>
+                                        <div class="product-rating mt-2">
+                                            <ul class="rating">
+                                                <li>
+                                                    <i data-feather="external-link" class=""></i>
+                                                </li>
+                                                <span></span>
+                                            </ul>
+                                            <a th:text="|조회수: ${hdto.itemHitcount}|"></a><span></span>
+                                        </div>
+                                        <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(hdto.itemPrice-hdto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
+                                        <del th:text="${#numbers.formatInteger(hdto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -394,71 +347,36 @@
                     </div>
 
                     <div class="product-box-slider-2 no-arrow" >
-                        <div th:each="ndto:${nlists}" style="height:370px;">
-                        <!-- 여기가 하나 시작 -->
-                        
-                            <div class="product-box product-box-bg wow fadeInUp" >
-                                <div class="product-image">
-                                    <a th:href="@{/itemDetail(itemNum=${ndto.itemNum})}">
-                                        <img th:src="@{|/assets/img/${ndto.itemImage1}|}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                    </a>
-                                    <ul class="product-option">
+                       <div th:if="${#lists.size(nlists)>0}" th:each="ndto:${nlists}">
+                            <div class="product-box-3 h-100 wow fadeInUp">
+                                <div class="product-header">
+                                    <div class="product-image">
+                                        <a th:href="@{/itemDetail(itemNum=${ndto.itemNum})}">
+                                            <img th:src="@{|/assets/img/${ndto.itemImage1}|}"
+                                                class="img-fluid blur-up lazyload" alt="">
+                                        </a>
 
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                            <a href="compare.html">
-                                                <i data-feather="refresh-cw"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                            <a href="wishlist.html" class="notifi-wishlist">
-                                                <i data-feather="heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="product-detail">
-                                    <a th:href="@{/itemDetail(itemNum=${ndto.itemNum})}">
-                                        <h6 class="name" th:text="${ndto.itemName}">
-                                            
-                                        </h6>
-                                    </a>
-
-                                    <h5 class="sold text-content">
-                                        <span class="theme-color price" th:text="${#numbers.formatInteger(ndto.itemPrice-ndto.itemDiscount, 0, 'COMMA') + ' 원'}" ></span>
-                                        <del th:text="${#numbers.formatInteger(ndto.itemPrice, 0, 'COMMA') + ' 원'}"></del>
-                                    </h5>
-
-                                    <div class="product-rating mt-2">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-
-                                        <h6 class="theme-color">In Stock</h6>
                                     </div>
-
-                                    
+                                </div>
+                                <div class="product-footer" style="padding: 20px;">
+                                    <div class="product-detail">
+                                        <span class="span-name" th:text="${ndto.itemSubType}"></span>
+                                        <a th:href="@{/itemDetail(itemNum=${ndto.itemNum})}">
+                                            <h5 class="name" th:text="${ndto.itemName}"></h5>
+                                        </a>
+                                        <div class="product-rating mt-2">
+                                            <ul class="rating">
+                                                <li>
+                                                    <i data-feather="external-link" class=""></i>
+                                                </li>
+                                                <span></span>
+                                            </ul>
+                                            <a th:text="|조회수: ${ndto.itemHitcount}|"></a><span></span>
+                                        </div>
+                                        <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(ndto.itemPrice-ndto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
+                                        <del th:text="${#numbers.formatInteger(ndto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>

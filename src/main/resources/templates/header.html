@@ -42,14 +42,14 @@
                                 <div class="dropdown theme-form-select">
                                     <button class="btn dropdown-toggle" type="button" id="select-language"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="/assets/images/country/united-states.png"
+                                        <img src="/assets/images/country/korea.png"
                                             class="img-fluid blur-up lazyload" alt="">
-                                        <span>English</span>
+                                        <span>대한민국</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
                                         <li>
                                             <a class="dropdown-item" href="javascript:void(0)" id="english">
-                                                <img src="/assets/images/country/united-kingdom.png"
+                                                <img src="/assets/images/country/united-states.png"
                                                     class="img-fluid blur-up lazyload" alt="">
                                                 <span>English</span>
                                             </a>
@@ -90,7 +90,7 @@
                                 </span>
                             </button>
                             <a th:href="@{/}" class="web-logo nav-logo" >
-                                <img src="/assets/images/logo/logo_cozy3.png" class="img-fluid blur-up lazyload" alt="" style="width: 300px; height: 100px;">
+                                <img src="/assets/images/logo/logo_cozy8.png" class="img-fluid blur-up lazyload" alt="" style="width: 300px; height: 100px;">
                             </a>
 
                             <div class="middle-box">
@@ -235,9 +235,9 @@
                 <div class="col-12">
                     <div class="header-nav">
                         <div class="header-nav-left" >
-                            <button class="dropdown-category">
+                            <button class="dropdown-category" style="width: 300px;">
                                 <i data-feather="align-left"></i>
-                                <span>카테고리</span>
+                                <span>CATEGORY</span>
                             </button>
 
                             <div class="category-dropdown">
@@ -249,7 +249,7 @@
                                 </div>
 
                                 <ul class="category-list">
-                                    <li class="onhover-category-list">
+                                    <li class="onhover-category-list" >
                                         <a href="/category?itemMainType=1" class="category-name">
                                             <img src="/assets/svg/2/electronic_icon.png" alt="">
                                             <h6>가전제품</h6>
@@ -354,7 +354,7 @@
                                     <li class="onhover-category-list">
                                         <a href="/category?itemMainType=4" class="category-name">
                                             <img src="/assets/svg/2/cabinet_icon.png" alt="">
-                                            <h6>수납 & 정리</h6>
+                                            <h6>수납ㆍ정리</h6>
                                             <i class="fa-solid fa-angle-right"></i>
                                         </a>
 
@@ -428,235 +428,138 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="offcanvas-body">
-                                        <ul class="navbar-nav">
-                                            <li class="nav-item dropdown dropdown-mega">
-                                                <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                    href="javascript:void(0)" data-bs-toggle="dropdown">가전용품</a>
-
-                                                <div class="dropdown-menu dropdown-menu-2 dropdown-image">
-                                                    <div class="dropdown-column">
-                                                        <a class="dropdown-item" href="index.html">
-                                                            <img src="/assets/images/theme/1.jpg" class="img-fluid"
-                                                                alt="">
-                                                            <span>Kartshop</span>
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="index-2.html">
-                                                            <img src="/assets/images/theme/2.jpg" class="img-fluid"
-                                                                alt="">
-                                                            <span>Sweetshop</span>
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="index-3.html">
-                                                            <img src="/assets/images/theme/3.jpg" class="img-fluid"
-                                                                alt="">
-                                                            <span>Organic</span>
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="index-4.html">
-                                                            <img src="/assets/images/theme/4.jpg" class="img-fluid"
-                                                                alt="">
-                                                            <span>Supershop</span>
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="index-5.html">
-                                                            <img src="/assets/images/theme/5.jpg" class="img-fluid"
-                                                                alt="">
-                                                            <span>Slicktech</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <li class="nav-item dropdown">
+                                        <ul class="navbar-nav" style="padding-right: 370px;">
+                                            <li class="nav-item dropdown" >
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">가구</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">가전제품</a>
 
                                                 <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-category-slider.html">Shop
-                                                            Category Slider</a>
+                                                    <li>                                                       
+
+                                                        <a href="/category?itemMainType=1&itemSubType=냉장고">냉장고</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="shop-category.html">Shop
-                                                            Category Sidebar</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=TV">TV</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="shop-banner.html">Shop Banner</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=에어컨&공기청정기">에어컨 & 공기청정기</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="shop-left-sidebar.html">Shop Left
-                                                            Sidebar</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=세탁기">세탁기</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="shop-list.html">Shop List</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-right-sidebar.html">Shop
-                                                            Right Sidebar</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="shop-top-filter.html">Shop Top
-                                                            Filter</a>
+                                                        <a href="/category?itemMainType=1&itemSubType=청소기">청소기</a>
+
                                                     </li>
                                                 </ul>
                                             </li>
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">주방용품</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">가구</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="product-4-image.html">Product
-                                                            4 Image</a>
+
+                                                        <a href="/category?itemMainType=2&itemSubType=침대">침대</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-bottom-thumbnail.html"
-                                                            class="dropdown-item">Product Bottom Thumbnail</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=쇼파">쇼파</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-left-thumbnail.html"
-                                                            class="dropdown-item">Product Left Thumbnail</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=테이블&의자">테이블 & 의자</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-left.html" class="dropdown-item">Product
-                                                            Left</a>
+                                                        <a href="/category?itemMainType=2&itemSubType=옷장">옷장</a>
                                                     </li>
                                                     <li>
-                                                        <a href="product-right-thumbnail.html"
-                                                            class="dropdown-item">Product Right Thumbnail</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="product-slider.html" class="dropdown-item">Product
-                                                            Slider</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="product-sticky.html" class="dropdown-item">Product
-                                                            Sticky</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                                        <a href="/category?itemMainType=2&itemSubType=행거">행거</a>
 
-                                            <li class="nav-item dropdown dropdown-mega">
-                                                <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                                    href="javascript:void(0)" data-bs-toggle="dropdown">수납정리</a>
-
-                                                <div class="dropdown-menu dropdown-menu-2">
-                                                    <div class="row">
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Daily Vegetables</h5>
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Beans & Brinjals</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Broccoli & Cauliflower</a>
-
-                                                            <a href="shop-left-sidebar.html" class="dropdown-item">Chilies, Garlic</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Vegetables & Salads</a> 
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Gourd, Cucumber</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Herbs & Sprouts</a>
-
-                                                            <a href="demo-personal-portfolio.html" class="dropdown-item">Lettuce & Leafy</a>
-                                                        </div>
-
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Baby Tender</h5>
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Beans & Brinjals</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Broccoli & Cauliflower</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Chilies, Garlic</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Vegetables & Salads</a> 
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Gourd, Cucumber</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Potatoes & Tomatoes</a>
-
-                                                            <a href="shop-left-sidebar.html" class="dropdown-item">Peas & Corn</a>
-                                                        </div>
-
-                                                        <div class="dropdown-column col-xl-3">
-                                                            <h5 class="dropdown-header">Exotic Vegetables</h5>
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Asparagus & Artichokes</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Avocados & Peppers</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Broccoli & Zucchini</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Celery, Fennel & Leeks</a>
-
-                                                            <a class="dropdown-item" href="shop-left-sidebar.html">Chilies & Lime</a>
-                                                        </div>
-
-                                                        <div class="dropdown-column dropdown-column-img col-3"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">생필품</a>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="blog-detail.html">Blog Detail</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="blog-grid.html">Blog Grid</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="blog-list.html">Blog List</a>
                                                     </li>
                                                 </ul>
                                             </li>
 
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown">공지사항</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">주방용품</a>
+
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="404.html">404</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=냄비&프라이팬&솥">냄비 & 프라이팬 & 솥</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="about-us.html">About Us</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=홈세트(식기류)">홈세트(식기류)</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="cart.html">Cart</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=칼">칼</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="checkout.html">Checkout</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=수저">수저</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="coming-soon.html">Coming Soon</a>
+                                                        <a href="/category?itemMainType=3&itemSubType=도마">도마</a>
+
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">수납ㆍ정리</a>
+
+                                                <ul class="dropdown-menu">
+                                                    <li>
+
+                                                        <a href="/category?itemMainType=4&itemSubType=선반">선반</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="compare.html">Compare</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=수납장&트롤리">수납장 & 트롤리</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="faq.html">Faq</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=신발장">신발장</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="order-success.html">Order
-                                                            Success</a>
+                                                        <a href="/category?itemMainType=4&itemSubType=리빙박스&바구니">리빙박스 & 바구니</a>
+
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">생필품</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+
+                                                        <a href="/category?itemMainType=5&itemSubType=휴지">휴지</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="order-tracking.html">Order
-                                                            Tracking</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=주방세제">주방세제</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="otp.html">OTP</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=세탁세제">세탁세제</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="search.html">Search</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=바디케어">바디케어</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="user-dashboard.html">User
-                                                            Dashboard</a>
+                                                        <a href="/category?itemMainType=5&itemSubType=청소용품">청소용품</a>
+
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                                    data-bs-toggle="dropdown" style="font-size: 20px;">공지사항</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="404.html">공지사항</a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                                                        <a class="dropdown-item" href="about-us.html">자주묻는 질문</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="cart.html">1대1 문의</a>
                                                     </li>
                                                 </ul>
                                             </li>

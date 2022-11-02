@@ -136,7 +136,12 @@
                                     <h4>상품 할인</h4>
                                     <h4 class="price theme-color" id="orderdisPrice"></h4>
                                 </li>
+                                <li>
+                                    <h4> 배송비 </h4>
+                                    <input type="hidden" id="deliveryCosts" th:value="${orderNum.deliverCost}">
+                                    <h4 class="price theme-color" th:text="${#numbers.formatInteger(orderNum.deliverCost,0,'COMMA') +'원'}"></h4>
 
+                                </li>
                                 <li>
                                     <h4>포인트 할인</h4>
 
@@ -145,6 +150,7 @@
                                    <input type="hidden"
                                            th:value="${orderNum.usePoint}" id="orderusePointData" >
                                 </li>
+
                             </ul>
 
                             <ul class="summery-total">

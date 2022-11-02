@@ -49,6 +49,10 @@
         update item set itemHitcount=itemHitcount+1 where itemNum=#{itemNum}
     </update>
 
+    <update id="updateItemStock" parameterType="int">
+        update item set itemStock=#{itemStock} where itemNum=#{itemNum}
+    </update>
+
     <!--ItemNum 으로 item 읽기-->
     <select id="getReadItemData" parameterType="int" resultType="ItemDetailDto">
 select itemNum,

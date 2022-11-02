@@ -15,7 +15,7 @@
         insert into cozyOrder (
                                orderNum,customerEmail,orderState,payment,deliverCost,deliverName,deliverRAddr,
                                deliverJAddr,deliverDAddr,deliverZipCode,deliverTel,deliverMessage,orderDate,usePoint) values (#{orderNum,jdbcType=VARCHAR}, #{customerEmail, jdbcType=VARCHAR}, #{orderState, jdbcType=VARCHAR},
-                                                    #{payment, jdbcType=VARCHAR},2500, #{deliverName, jdbcType=VARCHAR}, #{deliverRAddr, jdbcType=VARCHAR}, #{deliverJAddr, jdbcType=VARCHAR},
+                                                    #{payment, jdbcType=VARCHAR},#{deliverCost}, #{deliverName, jdbcType=VARCHAR}, #{deliverRAddr, jdbcType=VARCHAR}, #{deliverJAddr, jdbcType=VARCHAR},
                                                       #{deliverDAddr, jdbcType=VARCHAR}, #{deliverZipCode, jdbcType=VARCHAR},
                                                       #{deliverTel, jdbcType=VARCHAR}, #{deliverMessage, jdbcType=VARCHAR},
                                                       sysdate, #{usePoint, jdbcType=VARCHAR})
@@ -68,7 +68,7 @@
 
     <select id="getOrderDetail" resultType="OrderDto">
         select * from
-        (select ordernum, customeremail, payment, orderstate, delivercost, delivername, deliverraddr, deliverjaddr, deliverdaddr, deliverzipcode, delivertel, delivermessage, orderdate, usepoint from CozyOrder
+        (select orderNum, customerEmail, payment, orderstate, deliverCost, delivername, deliverraddr, deliverjaddr, deliverdaddr, deliverzipcode, delivertel, delivermessage, orderdate, usepoint from CozyOrder
         where customerEmail=#{customerEmail}
           order by ORDERDATE desc)
     <![CDATA[

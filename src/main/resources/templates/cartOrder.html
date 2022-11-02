@@ -463,7 +463,10 @@
                                         <li th:each="clist:${clist}">
                                             <span id="itemName" th:text ="${clist.itemName}"></span>
                                             <span th:text="|   X   ${clist.itemQty}|"></span>
-                                            <h4 class="price" th:text="${#numbers.formatInteger((clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty(), 0, 'COMMA')+' 원'}"></h4>
+                                            <h4 class="price">
+                                                <del class="text-content" th:text="${#numbers.formatInteger(clist.getItemPrice()*clist.getItemQty(), 0, 'COMMA')+' 원'}"></del>
+                                                <th:block th:text="${#numbers.formatInteger((clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty(), 0, 'COMMA')+' 원'}"></th:block>
+                                            </h4>
                                         </li>
 
                                     </ul>
@@ -487,7 +490,8 @@
 
                                         <li>
                                             <h4>배송비</h4>
-                                            <h4 class="price">2,500 원</h4>
+                                            <input type="hidden" id="deliverCost">
+                                            <h4 class="price" id="deliveryCost"></h4>
                                         </li>
 
 
@@ -924,6 +928,7 @@
 
         let totalPrice = 0
         let index = $('input[name="price"]').length;
+        let deliver = $('#deliveryCost').val();
 
 
 
@@ -934,11 +939,16 @@
 
             totalPrice += parseInt($('input[name="price"]').eq(i).val())
         }
-//alert(use)
-        /*    if (use !== null) {
-             totalPrice = totalPrice - usePoint;
-             $('#totalPrice').html(totalPrice)
-         }*/
+
+        if(totalPrice<50000){
+            deliver = 2500
+        }else {
+            deliver=0
+        }
+        totalPrice =parseInt(totalPrice)+deliver
+
+        $('#deliveryCost').html(addComma(deliver)+" 원")
+        $('#deliverCost').val(deliver)
         $('#totalPrice').val(totalPrice)
         $('#pointTotalPrice').val(totalPrice)
         $('#pointTotalPrice').html(addComma(totalPrice)+" 원")

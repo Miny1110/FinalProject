@@ -234,8 +234,8 @@
 
                                         <td class="price">
                                             <h4 class="table-title text-content">상품금액</h4>
-                                            <h5 ><th:block th:text="|${#numbers.formatInteger(saleTotalPrice, 0, 'COMMA')} 원|"></th:block><del class="text-content"
-                                                                                                  th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del></h5>
+                                            <h5 ><th:block th:text="|${#numbers.formatInteger(saleTotalPrice, 0, 'COMMA')} 원|"></th:block>
+                                                <del class="text-content" th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del></h5>
                                             <h6 class="theme-color"
 
                                                 th:text="'할인금액 : ' + ${#numbers.formatInteger(idto.getItemDiscount(), 0, 'COMMA')+' 원'}"></h6>
@@ -475,7 +475,11 @@
                                         <li>
                                             <span id="itemName" th:text ="${idto.itemName}"></span>
                                                 <span th:text="| X ${itemQty}|"></span>
-                                            <h4 class="price" th:text="|${#numbers.formatInteger(preTotalPrice,0,'COMMA')} 원|"></h4>
+
+                                            <h4 class="price" >
+                                                <del class="text-content" th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del>
+                                                    <th:block th:text="|${#numbers.formatInteger(saleTotalPrice, 0, 'COMMA')} 원|"></th:block>
+                                                    </h4>
                                         </li>
 
                                     </ul>
@@ -510,7 +514,8 @@
 
                                         <li>
                                             <h4>배송비</h4>
-                                            <h4 class="price">2,500 원</h4>
+                                            <input type="hidden" id="deliverCost">
+                                            <h4 class="price" id="deliveryCost"></h4>
                                         </li>
 
 
@@ -922,8 +927,21 @@
             })
             function price(){
                 let totalPrice= $('#totalPrice').val();
+                let deliver=$('#deliveryCost').val();
+
+                if(totalPrice<50000){
+                    deliver =2500
+                }else {
+                   deliver =0
+                }
+
+                totalPrice = parseInt(totalPrice) +deliver
+
+                $('#deliveryCost').html(addComma(deliver)+" 원")
+                $('#deliverCost').val(deliver)
                 $('#pointTotalPrice').val(totalPrice)
                 $('#pointTotalPrice').html(addComma(totalPrice)+" 원")
+
 
             }
         </script>
@@ -955,6 +973,7 @@
                     }
                     $('#pointTotalPrice').val(pointTotalPrice)
                     $('#pointTotalPrice').html(addComma(pointTotalPrice)+" 원")
+
 
                 })
             }

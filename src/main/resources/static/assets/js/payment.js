@@ -121,6 +121,7 @@ function payOrder(){
                     deliverDAddr:$('#deliverDAddr').val(),
                     deliverZipCode:$('#deliverZipCode').val(),
                     deliverTel:$('#deliverTel').val(),
+                    deliverCost:$('#deliverCost').val(),
                     usePoint:$('#use').val(),
                     itemSize:$('#itemSize').val(),
                     itemColor:$('#itemColor').val()

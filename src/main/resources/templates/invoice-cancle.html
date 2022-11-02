@@ -151,6 +151,12 @@
                                         <h4 class="price text-danger" th:text="${#numbers.formatInteger(odto.usePoint, 0, 'COMMA') + ' 원'}" id="orderusePoint"></h4>
                                     	<input type="hidden" th:value="${odto.usePoint}" id="orderusePointData">
                                     </li>
+                                    
+                                    <li>
+                                        <h4>배송비</h4>
+                                        <h4 class="price" th:text="${#numbers.formatInteger(odto.deliverCost, 0, 'COMMA') + ' 원'}" id="orderdeliverCost"></h4>
+                                        <input name="deliverCost" type="hidden" th:value="${odto.deliverCost}" id="orderdeliverCostData">
+                                    </li>
                                 </ul>
 
                                 <ul class="summery-total">
@@ -270,8 +276,11 @@
     	let disPriceFormat = disPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     	$('#orderdisPrice').html(disPriceFormat+'원');
     	
+    	//배송비
+    	let deliverCost =  parseInt($('#orderdeliverCostData').val());
+    	
     	let totalPrice = 0;
-    	totalPrice = (itemPrice - disPrice - $('#orderusePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    	totalPrice = (itemPrice - disPrice - $('#orderusePointData').val()  + deliverCost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     	$('#ordertotalPrice').html(totalPrice+'원');
     	$('#orderrefundPrice').html(totalPrice+'원');
     })

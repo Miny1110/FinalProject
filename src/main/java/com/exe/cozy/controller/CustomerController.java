@@ -179,8 +179,16 @@ public class CustomerController {
     	ModelAndView mav = new ModelAndView();
     	
     	String orderNum = req.getParameter("orderNum");
+    	List<OrderDetailDto> list = customerService.getOrderDetailOne(principal.getName(), orderNum);
+    	
+    	for(OrderDetailDto odto : list) {
+    		System.out.println(odto.getItemDto().getItemNum());
+    		System.out.println(odto.getItemQty());
+    		//itemNum받아서 itemQty 수량 플러스하는 코드
+    	}
+    	
     	int usePoint = orderService.selectUsePoint(orderNum);
-    	orderService.updateCancleState(orderNum);
+//    	orderService.updateCancleState(orderNum);
     	
     	if(usePoint!=0) {
     		PointDto dto = createPoint.orderCanclePoint(principal.getName(), usePoint, orderNum);
@@ -188,6 +196,8 @@ public class CustomerController {
     	}
     	
     	mav.setViewName("redirect:order");
+    	
+    	
     	
     	return mav;
     }

@@ -15,23 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exe.cozy.domain.ItemDetailDto;
+import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.service.CustomerService;
 import com.exe.cozy.service.MainHomeService;
+import com.exe.cozy.service.ReplyService;
 
 @Controller
 public class MainController {
 
 	@Resource
 	private MainHomeService mainHomeService;
+	
+	
 
 	@Autowired CustomerService customerService;
 
 
 	@RequestMapping("/")
 	public ModelAndView home(Principal principal, HttpServletRequest req, HttpSession session) throws Exception {
-
+	
 		ModelAndView mav = new ModelAndView();
 
+	
+		
 		//오늘의 딜
 		List<ItemDetailDto> tlists = mainHomeService.selectTodaydeal();
 		
@@ -44,6 +50,7 @@ public class MainController {
 		mav.addObject("tlists", tlists);
 		mav.addObject("hlists", hlists);
 		mav.addObject("nlists",nlists);
+		
 
 		mav.setViewName("index");
 

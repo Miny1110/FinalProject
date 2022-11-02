@@ -239,12 +239,14 @@ public class ItemDetailController {
 	}
 	//questionWrite_ok
 	@PostMapping("/qnaWrite_ok")
-    public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request) throws Exception{
+    public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request,Principal principal) throws Exception{
 
         ModelAndView mav = new ModelAndView();
         
         int itemQnaMaxNum = itemQuestionService.itemQnaMaxNum();
         qdto.setItemQueNum(itemQnaMaxNum +1);
+        
+        qdto.setCustomerEmail(principal.getName());
        
         //itemQuestionService
         itemQuestionService.insertItemQna(qdto);

@@ -6,23 +6,78 @@
 <mapper namespace="com.exe.cozy.mapper.MainHomeMapper">
 	
 	<!-- 오늘의딜(todaydeal) 상품만 불러오기 -->
-	<select id="selectTodaydeal"  resultType="itemDetailDto">
+	 <!--  <select id="selectTodaydeal"  resultType="itemDetailDto">
 		select * from item
 		where TODAYDEAL='오늘의 딜 적용'
-	</select>
+	</select>  -->
+	 
+	  <select id="selectTodaydeal" resultType="itemDetailDto">
+		select 
+		itemNum,
+        itemName,
+        itemMainType,
+        itemSubType,
+        itemPrice,
+        itemHitcount,
+        itemDiscount,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage1
+        ) as itemImage1
+		from item
+		where TODAYDEAL='오늘의 딜 적용'
 	
+	 </select>
+	 
+	 
+	 
+	 
 	<!-- 신상품순(itemNum)으로 정렬하여 불러오기 -->
-	<select id="selectNewItem"  resultType="itemDetailDto">
+	<!-- <select id="selectNewItem"  resultType="itemDetailDto">
 		 SELECT * FROM ITEM
 		 ORDER BY itemNum desc
-	</select>
+	</select> -->
+	
+	<select id="selectNewItem" resultType="itemDetailDto">
+		select 
+		itemNum,
+        itemName,
+        itemMainType,
+        itemSubType,
+        itemPrice,
+        itemHitcount,
+        itemDiscount,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage1
+        ) as itemImage1
+		from item
+		ORDER BY itemNum desc
+	
+	 </select>
 	
 	<!-- 인기순(hitcount)순으로 정렬하여 불러오기 -->
-	<select id="selectHitcount"  resultType="itemDetailDto">
+	<!-- <select id="selectHitcount"  resultType="itemDetailDto">
 		SELECT * FROM ITEM
 		ORDER BY itemhitcount desc
-	</select>
+	</select> -->
+	<select id="selectHitcount" resultType="itemDetailDto">
+		select 
+		itemNum,
+        itemName,
+        itemMainType,
+        itemSubType,
+        itemPrice,
+        itemHitcount,
+        itemDiscount,
+        (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
+           from file_store fs
+          where fs.no = item.itemImage1
+        ) as itemImage1
+		from item
+		ORDER BY itemhitcount desc
 	
+	 </select>
 
 	
 	

@@ -70,9 +70,9 @@
 	<section class="product-section">
 		<div class="container-fluid-lg">
 			<div class="row">
-				<div class="col-xxl-9 col-xl-8 col-lg-7 wow fadeInUp">
+				<div class="col-xxl-9 col-xl-8 col-lg-7 wow fadeInUp" style="margin-left: 12%;">
 					<div class="row g-4">
-						<div class="col-xl-6 wow fadeInUp">
+						<div class="col-xl-6 wow fadeInUp" >
 							<div class="product-left-box">
 								<div class="row g-2">
 									<div class="col-12">
@@ -146,9 +146,6 @@
 												</div>
 											</div>
 
-
-
-
 										</div>
 									</div>
 								</div>
@@ -159,7 +156,7 @@
 							<form th:action="@{/order}" name="order">
 
 								<input type="text" th:value="${idto.getItemNum()}" id="num" name="num" hidden>
-								<div class="right-box-contain">
+								<div class="right-box-contain" style="position: static; margin-left: 10%">
 									<h6 class="offer-top"
 										th:text="|${#numbers.formatInteger(idto.ItemDiscount , 0, 'COMMA')} 원|">세일</h6>
 									<h2 class="name" th:text="${idto.itemName }"></h2>
@@ -177,13 +174,13 @@
 										<div class="product-rating custom-rate">
 											<ul class="rating">
 												<li><i data-feather="star" class="fill"></i></li>
-												<li><i data-feather="star" class="fill"></i></li>
-												<li><i data-feather="star" class="fill"></i></li>
-												<li><i data-feather="star" class="fill"></i></li>
-												<li><i data-feather="star"></i></li>
+												<!-- <span th:text="|Review ${#lists.size(rdtoList)}개|"></span> -->
+												<h5 th:text="|리뷰 : ${#lists.size(rdtoList)}개|"> </h5>
 											</ul>
-											<span class="review">23 개의 리뷰</span>
+											<!-- <span th:text="${idto.count}"></span> -->
+											
 										</div>
+										
 									</div>
 
 									<div class="procuct-contain">
@@ -243,6 +240,13 @@
 									<input th:each="cartList: ${session.cartList}" type="text" id="itemNumChk" name="itemNumChk" th:value="${cartList.itemNum}" hidden>
 									<input th:each="cartList: ${session.cartList}" type="text" id="sizeChk" name="sizeChk" th:value="${cartList.itemSize}" hidden>
 									<input th:each="cartList: ${session.cartList}" type="text" id="colorChk" name="colorChk" th:value="${cartList.itemColor}" hidden>
+									
+									<div class="time deal-timer product-deal-timer mx-md-0 mx-auto"
+													th:if="${#strings.contains(idto.todaydeal,'미적용')}">
+									</div>
+									
+									<div class="time deal-timer product-deal-timer mx-md-0 mx-auto"
+													th:unless="${#strings.contains(idto.todaydeal,'미적용')}">
 									<div class="time deal-timer product-deal-timer mx-md-0 mx-auto">
 										<div class="product-title">
 											<h4>오늘의 딜 남은시간!!</h4>
@@ -281,11 +285,11 @@
 												</div>
 											</li>
 										</ul>
-									</div>
-
+									 </div>
+								</div>
 
 									<div class="note-box product-packege">
-										<div class="cart_qty qty-box product-qty">
+										<div class="cart_qty qty-box product-qty" th:unless="${idto.itemStock==0}">
 											<div class="input-group">
 												<button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
 													<i class="fa fa-minus ms-0" aria-hidden="true"></i>
@@ -298,49 +302,50 @@
 											</div>
 										</div>
 
+										<button sec:authorize="isAuthenticated()" type="button" 
+												class="btn btn-md bg-dark cart-button text-white w-40"
+												th:if="${idto.itemStock==0}">일시품절
+										</button>
 
+								
+								
 										<button sec:authorize="isAuthenticated()" type="button" onclick="cart();"
-												class="btn btn-md bg-dark cart-button text-white w-40">장바구니
+												class="btn btn-md bg-dark cart-button text-white w-40"
+												th:unless="${idto.itemStock==0}">장바구니
 										</button>
 
-										<button onclick="location.href = '/order';"
-												class="btn btn-md bg-dark cart-button text-white w-40">바로결제
-										</button>
-
+										<button onclick="return orderPay()"
+                                   			 class="btn btn-md bg-dark cart-button text-white w-40"
+                                   			 th:unless="${idto.itemStock==0}">바로결제
+                              			</button>
+									
 
 									</div>
 
-
+									<!--  -->
 
 									<!--<input type="hidden" id="itemQty" name="itemQty" th:value="${itemQty}">-->
 
 
 								</div>
 
-								<div class="buy-box">
-									<a href="wishlist.html"> <i data-feather="heart"></i> <span>장바구니
-											추가</span>
-									</a>
+								
 
-
-								</div>
-
-								<div class="pickup-box">
+								<div class="pickup-box" style="margin-left: 10%;">
 									<div class="product-title">
-										<h4>혜택</h4>
+										<h4>남은수량</h4>
 									</div>
 
 									<div class="pickup-detail">
-										<h4 class="text-content">309P 적립 (WELCOME 0.1% 적립)</h4>
-										<h4 class="text-content">최대 7% 카드 즉시할인 (현대)</h4>
-										<h4 class="text-content">월 38,625원 (8개월) 무이자할부</h4>
+										<h4 class="text-content" th:text="|${idto.itemStock}개|"></h4>
+								
 									</div>
 									<div class="product-title">
 										<h4>배송</h4>
 									</div>
 
 									<div class="pickup-detail">
-										<h4 class="text-content">무료배송</h4>
+										<h4 class="text-content">무료배송(50,000원 이상 구매시)</h4><br>
 										<h4 class="text-content">제주도 / 산간지역 배송불가</h4>
 
 									</div>
@@ -361,7 +366,6 @@
 									</li>
 
 
-
 									<li class="nav-item" role="presentation">
 										<button class="nav-link" id="care-tab" data-bs-toggle="tab"
 											data-bs-target="#care" type="button" role="tab"
@@ -379,10 +383,6 @@
 									<div class="tab-pane fade show active" id="description"
 										role="tabpanel" aria-labelledby="description-tab">
 										<div class="product-description">
-
-
-
-
 											<div class="nav-desh">
 												<p th:src="@{${idto.detailImage}} " width=1198px,
 													height=297px>상품 상세내용</p>
@@ -541,12 +541,10 @@
 														<button class="btn-mini" 
 															th:onclick="|location.href = '@{|itemQnaAnswer?itemQueNum=${qdto.itemQueNum}&itemNum=${idto.itemNum}|}';|">답변하기</button>
 													</div>
-													<div style="display: inline-block;">
-													
+													<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==qdto.customerEmail}">
 														<button class="btn-cancel-mini"
-															th:onclick="@{|location.href='/deleteQna?itemQueNum=${qdto.itemQueNum}'|}" />
-															<!-- <a th:if="${#authentication.getPrincipal().getUsername()==qdto.customerEmail}"> -->삭제하기<!-- </a> --></button>
-													
+															th:onclick="@{|location.href='/deleteQna?itemQueNum=${qdto.itemQueNum}'|}" />삭제하기</button>
+
 													</div>
 												</div>	
 											

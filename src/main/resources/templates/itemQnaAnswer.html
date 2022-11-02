@@ -61,16 +61,26 @@
 		<div class="container-fluid-lg">
 			<div class="row">
 				<div class="col-12">
-					<div class="review-title">
-						<br>
-						<h2>답변하기
-						</h2>
+					<div class="breadscrumb-contain">
+						<h2> 문의글 답변하기</h2>
 
+						<nav>
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a href="index.html"> <i
+										class="fa-solid fa-house"></i>
+								</a></li>
 
+								<li class="breadcrumb-item active"
+									th:text="${idto.itemMainType }">다음페이지</li>
+								<li class="breadcrumb-item active" th:text="${idto.itemSubType}"></li>
+							</ol>
+						</nav>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</section>
 	<!-- Breadcrumb Section End -->
 
@@ -79,7 +89,7 @@
 		<div class="container-fluid-lg">
 			<div class="row g-sm-5 g-3">
 				<div class="col-xxl-9">
-					<div class="cart-table">
+					<div class="cart-table" style="width:1000px; height: 650px;">
 						<form th:action="@{itemQnaAnswer_ok}" method="post" th:object="${ItemQuestionDto}">
 
 							
@@ -87,11 +97,18 @@
 
 							<div class="table-responsive-xl">
 								<div class="col-12">
+								<h2 th:text="${idto.itemName}"></h2><br>
 									<div class="form-floating theme-form-floating">
-										<input type="text" th:field="*{itemNum}" readonly="readonly"> 
-										<input type="text" th:field="*{itemQueNum}" readonly="readonly"> 
-										<input type="text" th:field="*{customerEmail}" readonly="readonly">
-										<input type="text" th:field="*{itemQueTitle}" readonly="readonly">
+									
+									
+									
+										<input type="hidden" th:field="*{itemNum}" readonly="readonly"> 
+										<input type="hidden" th:field="*{itemQueNum}" readonly="readonly"> 
+										<input type="hidden" th:field="*{customerEmail}" readonly="readonly">
+										<input type="hidden" th:field="*{itemQueTitle}" readonly="readonly">
+
+										<input type="text" class="form-control" id="itemQueTitle" readonly="readonly" th:field="*{itemQueTitle}"> 
+										<label for="itemQueTitle" >문의 제목 (30자 이내)</label>
 
 									</div>
 									<br>
@@ -120,8 +137,13 @@
 								</div>
 							</div>
 							<br>
-							<div>
-								<button class="btn-anii" type="submit">답변하기</button>
+							<div style="float: right; margin-top: 15px;">
+								<div style="display: inline-block;">
+									<button class="btn-anii" type="submit">작성완료</button>
+								</div>
+								<div style="display: inline-block;">	
+									<button class="btn-cancel" type="button"  onclick="history.back();">작성취소</button>
+								</div>
 							</div>
 						</form>
 					</div>
@@ -138,186 +160,12 @@
 	<!-- Footer Section End -->
 
 	<!-- Location Modal Start -->
-	<div class="modal location-modal fade theme-modal" id="locationModal"
-		tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Choose your
-						Delivery Location</h5>
-					<p class="mt-1 text-content">Enter your address and we will
-						specify the offer for your area.</p>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i class="fa-solid fa-xmark"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="location-list">
-						<div class="search-input">
-							<input type="search" class="form-control"
-								placeholder="Search Your Area"> <i
-								class="fa-solid fa-magnifying-glass"></i>
-						</div>
-
-						<div class="disabled-box">
-							<h6>Select a Location</h6>
-						</div>
-
-						<ul class="location-select custom-height">
-							<li><a href="javascript:void(0)">
-									<h6>Alabama</h6> <span>Min: $130</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Arizona</h6> <span>Min: $150</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>California</h6> <span>Min: $110</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Colorado</h6> <span>Min: $140</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Florida</h6> <span>Min: $160</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Georgia</h6> <span>Min: $120</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Kansas</h6> <span>Min: $170</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Minnesota</h6> <span>Min: $120</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>New York</h6> <span>Min: $110</span>
-							</a></li>
-
-							<li><a href="javascript:void(0)">
-									<h6>Washington</h6> <span>Min: $130</span>
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<!-- Location Modal End -->
 
 
 	<!-- Deal Box Modal Start -->
-	<div class="modal fade theme-modal deal-modal" id="deal-box"
-		tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div>
-						<h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-						<p class="mt-1 text-content">Recommended deals for you.</p>
-					</div>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close">
-						<i class="fa-solid fa-xmark"></i>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="deal-offer-box">
-						<ul class="deal-offer-list">
-							<li class="list-1">
-								<div class="deal-offer-contain">
-									<a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-image"> <img
-										src="./reviewWritehtml_files/10.png" class="blur-up lazyload"
-										alt="">
-									</a> <a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-contain">
-										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-										<h6>
-											$52.57
-											<del>57.62</del>
-											<span>500 G</span>
-										</h6>
-									</a>
-								</div>
-							</li>
-
-							<li class="list-2">
-								<div class="deal-offer-contain">
-									<a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-image"> <img
-										src="./reviewWritehtml_files/11.png" class="blur-up lazyload"
-										alt="">
-									</a> <a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-contain">
-										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-										<h6>
-											$52.57
-											<del>57.62</del>
-											<span>500 G</span>
-										</h6>
-									</a>
-								</div>
-							</li>
-
-							<li class="list-3">
-								<div class="deal-offer-contain">
-									<a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-image"> <img
-										src="./reviewWritehtml_files/12.png" class="blur-up lazyload"
-										alt="">
-									</a> <a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-contain">
-										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-										<h6>
-											$52.57
-											<del>57.62</del>
-											<span>500 G</span>
-										</h6>
-									</a>
-								</div>
-							</li>
-
-							<li class="list-1">
-								<div class="deal-offer-contain">
-									<a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-image"> <img
-										src="./reviewWritehtml_files/13.png" class="blur-up lazyload"
-										alt="">
-									</a> <a
-										href="http://127.0.0.1:5500/themeforest-CgSO0PPn-fastkart-multipurpose-ecommerce-html-template/template/html/shop-left-sidebar.html"
-										class="deal-contain">
-										<h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-										<h6>
-											$52.57
-											<del>57.62</del>
-											<span>500 G</span>
-										</h6>
-									</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<!-- Deal Box Modal End -->
 
 	<!-- Tap to top start -->
@@ -336,33 +184,50 @@
 	<!-- Bg overlay End -->
 
 	<!-- latest jquery-->
-	<script src="./reviewWritehtml_files/jquery-3.6.0.min.js.다운로드"></script>
+	<script src="/assets/js/jquery-3.6.0.min.js"></script>
 
 	<!-- jquery ui-->
-	<script src="./reviewWritehtml_files/jquery-ui.min.js.다운로드"></script>
+	<script src="/assets/js/jquery-ui.min.js"></script>
 
 	<!-- Bootstrap js-->
-	<script src="./reviewWritehtml_files/bootstrap.bundle.min.js.다운로드"></script>
-	<script src="./reviewWritehtml_files/popper.min.js.다운로드"></script>
-	<script src="./reviewWritehtml_files/bootstrap-notify.min.js.다운로드"></script>
+	<script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+	<script src="/assets/js/bootstrap/popper.min.js"></script>
 
 	<!-- feather icon js-->
-	<script src="./reviewWritehtml_files/feather.min.js.다운로드"></script>
-	<script src="./reviewWritehtml_files/feather-icon.js.다운로드"></script>
+	<script src="/assets/js/feather/feather.min.js"></script>
+	<script src="/assets/js/feather/feather-icon.js"></script>
 
 	<!-- Lazyload Js -->
-	<script src="./reviewWritehtml_files/lazysizes.min.js.다운로드"></script>
+	<script src="/assets/js/lazysizes.min.js"></script>
 
 	<!-- Slick js-->
-	<script src="./reviewWritehtml_files/slick.js.다운로드"></script>
-	<script src="./reviewWritehtml_files/custom_slick.js.다운로드"></script>
+	<script src="/assets/js/slick/slick.js"></script>
+	<script src="/assets/js/slick/slick-animation.min.js"></script>
+	<script src="/assets/js/custom-slick-animated.js"></script>
+	<script src="/assets/js/slick/custom_slick.js"></script>
+
+	<!-- Price Range Js -->
+	<script src="/assets/js/ion.rangeSlider.min.js"></script>
+
+	<!-- sidebar open js -->
+	<script src="/assets/js/filter-sidebar.js"></script>
 
 	<!-- Quantity js -->
-	<script src="./reviewWritehtml_files/quantity.js.다운로드"></script>
+	<script src="/assets/js/quantity.js"></script>
+<!-- 	<script src="/assets/js/quantity-2.js"></script>
+	<script src="/assets/js/quantity-3.js"></script> -->
 
-	<!-- script js -->
-	<script src="./reviewWritehtml_files/script.js.다운로드"></script>
-	<!-- Code injected by live-server -->
+	<!-- Zoom Js -->
+	<script src="/assets/js/jquery.elevatezoom.js"></script>
+	<script src="/assets/js/zoom-filter.js"></script>
+
+	<!-- Timer Js -->
+	<script src="/assets/js/timer1.js"></script>
+
+	<!-- WOW js -->
+	<script src="/assets/js/wow.min.js"></script>
+	<script src="/assets/js/custom-wow.js"></script>
 	<script>
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {

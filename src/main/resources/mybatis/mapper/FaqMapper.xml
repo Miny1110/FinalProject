@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-/mabatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.exe.cozy.mapper.FaqMapper">
+	
+	<!-- faq 번호 -->
+	<select id="maxFaqNum" resultType="int">
+		select nvl(max(faqNum),0) from faq
+	</select>
+
+	<!-- faq 등록 -->
+	<insert id="insertFaqData" parameterType="FaqDto">
+		insert into faq(faqNum,faqType,faqTitle,faqContent)
+		values (#{faqNum},#{faqType},#{faqTitle},#{faqContent})
+	</insert>
+
+	<!-- faq 리스트로 가져오기-->
+	<select id="getReadFaqList" resultType="FaqDto">
+	 	select * from faq
+	</select> 
+
+	<!--faqNum 으로 읽기 -->
+	<select id="getReadFaqData" parameterType="int" resultType="FaqDto">
+		select faqNum,faqType,faqTitle,faqContent
+		from faq where faqNum=#{faqNum}
+	</select>
+
+	<!--  -->
+	<select id="getFaqType1" resultType="FaqDto">
+		select * from faq where faqType='1'
+	</select>
+	
+	<select id="getFaqType2" resultType="FaqDto">
+		select * from faq where faqType='2'
+	</select>
+	
+	<select id="getFaqType3" resultType="FaqDto">
+		select * from faq where faqType='3'
+	</select>
+	
+	<!-- faq수정 -->
+	<update id="updateFaqData" parameterType="FaqDto">
+		update faq set
+		faqTitle=#{faqTitle},faqContent=#{faqContent}
+		where faqNum=#{faqNum}
+	</update>
+
+	<!-- 공지삭제 -->
+	<delete id="deleteFaqData" parameterType="int">
+		delete faq where faqNum=#{faqNum}
+	</delete>
+
+	
+</mapper>

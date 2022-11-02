@@ -1,29 +1,29 @@
 $(function(){
     //상품금액
     let itemPrice = 0;
-    let iIndex = $('input[name="itemPrice"]').length;
+    let iIndex = $('input[name="orderitemPrice"]').length;
 
     for(let i=0;i<iIndex;i++){
-        itemPrice += parseInt($('input[name="itemPrice"]').eq(i).val())
+        itemPrice += parseInt($('input[name="orderitemPrice"]').eq(i).val())
     }
 
     let itemPriceFormat = itemPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    $('#itemPrice').html(itemPriceFormat+'원');
+    $('#orderitemPrice').html(itemPriceFormat+'원');
 
     //할인금액
     let disPrice = 0;
-    let dIndex = $('input[name="disPrice"]').length;
+    let dIndex = $('input[name="orderdisPrice"]').length;
 
     for(let i=0;i<dIndex;i++){
-        disPrice += parseInt($('input[name="disPrice"]').eq(i).val())
+        disPrice += parseInt($('input[name="orderdisPrice"]').eq(i).val())
     }
 
     let disPriceFormat = disPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    $('#disPrice').html(disPriceFormat+'원');
+    $('#orderdisPrice').html(disPriceFormat+'원');
 
     let totalPrice = 0;
-    totalPrice = (itemPrice - disPrice - $('#usePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    $('#totalPrice').html(totalPrice+'원');
+    totalPrice = (itemPrice - disPrice - $('#orderusePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    $('#ordertotalPrice').html(totalPrice+'원');
 })
 
 

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
 
-	private static final String filePath = "C:\\Users\\윤서혜\\Desktop\\Github\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
+	private static final String filePath = "E:\\GIt\\CozyHouse\\src\\main\\resources\\static\\assets\\img";
 //	private static final String filePath = "D:\\test";
 
 	public static String FileWriter(MultipartFile multipartFile) throws IOException {

@@ -123,11 +123,14 @@ public class ItemDetailController {
 	@GetMapping("reviewUpdate") /** itemreview update view */
 	public ModelAndView reviewUpdate(ReplyDto rdto, HttpServletRequest request) throws Exception {
 		int replyId = Integer.parseInt(request.getParameter("replyId"));
+		
 
 		// System.out.println("replyId:" + replyId);
 		rdto = replyService.findReply(replyId);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reviewUpdate");
+		
 		mav.addObject("replyDto", rdto);
 
 		return mav;
@@ -136,12 +139,15 @@ public class ItemDetailController {
 	// 리뷰수정
 	@PostMapping("reviewUpdate_ok")
 	public ModelAndView reviewUpdate_ok(ReplyDto rdto, HttpServletRequest request) throws Exception {
-
+		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
+		
+		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 		ModelAndView mav = new ModelAndView();
 
 		replyService.updateReply(rdto);
 		// System.out.println(rdto.getRating());
 		// System.out.println(rdto.getContent());
+		mav.addObject("idto",idto);
 		mav.setViewName("redirect:/");
 		return mav;
 	}
@@ -250,13 +256,15 @@ public class ItemDetailController {
 		@GetMapping("itemQnaAnswer") /** itemQna update view */
 		public ModelAndView reviewUpdate(ItemQuestionDto qdto, HttpServletRequest request) throws Exception {
 			int itemQueNum = Integer.parseInt(request.getParameter("itemQueNum"));
+			int itemNum = Integer.parseInt(request.getParameter("itemNum"));
 
-			
+			ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
 			
 			qdto = itemQuestionService.findItemQna(itemQueNum);
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("itemQnaAnswer");
 			mav.addObject("ItemQuestionDto", qdto);
+			mav.addObject("idto",idto);
 
 
 			return mav;

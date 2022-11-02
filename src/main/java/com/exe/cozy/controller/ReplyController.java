@@ -18,6 +18,7 @@ import com.exe.cozy.domain.ItemDetailDto;
 import com.exe.cozy.domain.PointDto;
 import com.exe.cozy.domain.ReplyDto;
 import com.exe.cozy.service.CustomerService;
+import com.exe.cozy.service.ItemDetailService;
 import com.exe.cozy.service.PointService;
 import com.exe.cozy.service.ReplyService;
 import com.exe.cozy.util.AddDate;
@@ -33,6 +34,8 @@ public class ReplyController {
 	
 	@Resource 
 	private PointService pointService;
+	@Resource
+	private ItemDetailService itemDetailService;
 	
 	@Autowired
 	AddDate addDate;
@@ -46,9 +49,15 @@ public class ReplyController {
 
 		
 		
+		ItemDetailDto idto = itemDetailService.getReadItemData(itemNum);
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reviewWrite");
 		mav.addObject("itemNum",itemNum);
+		mav.addObject("idto",idto);
 		return mav;
 
 	}
@@ -65,11 +74,13 @@ public class ReplyController {
         
         //리뷰쓰기 테스트용 아이디
         rdto.setCustomerEmail(principal.getName());
+        
+        //rdto.setCustomerEmail("rcm2008@naver.com");
        
       
         
        //point 테이블에 데이터 넣기
-       pointService.insertData(createPoint.reviewPoint(dto.getCustomerEmail()));
+       pointService.insertData(createPoint.reviewPoint(principal.getName()));
        replyService.insertReply(rdto);
 
         mav.setViewName("redirect:/");
@@ -78,6 +89,9 @@ public class ReplyController {
 	//리뷰수정
 	@PostMapping("updateReview")
     public ModelAndView updateReply(@ModelAttribute ReplyDto rdto) throws Exception {
+		
+		
+		
 		
 		ModelAndView mav = new ModelAndView();
     	replyService.updateReply(rdto);

@@ -105,52 +105,52 @@
     </section>
     <!-- Home Section End -->
 
-    <!-- Category Section Start -->
+     <!-- Category Section Start -->
     <section>
         <div class="container-fluid-lg" style="display: inline;">
             <div class="row" style="display: inline;">
                 <div class="col-12" style="display: inline;">
                     <div class="slider-9" style="display: inline;">
                         <div style="width: 400px;">
-                            <a href="shop-left-sidebar.html" class="category-box category-box-2">
+                            <a href="/category?itemMainType=1" class="category-box category-box-2">
                                 <div>
-                                    <img src="/assets/svg/2/1.svg" class="blur-up lazyload" alt="">
+                                    <img src="/assets/svg/2/electronic_noline.png" class="" alt="">
                                     <h5>가전상품</h5>
                                 </div>
                             </a>
                         </div>
 
                        <div style="width: 335px;">
-                            <a href="shop-left-sidebar.html" class="category-box category-box-2" data-wow-delay="0.2s">
+                            <a href="/category?itemMainType=2" class="category-box category-box-2" data-wow-delay="0.2s">
                                 <div>
-                                    <img src="/assets/svg/2/2.svg" class="blur-up lazyload" alt="">
+                                    <img src="/assets/svg/2/bed.png" class="blur-up lazyload" alt="">
                                     <h5>가구</h5>
                                 </div>
                             </a>
                         </div>
                         
                         <div style="width: 335px;">
-                            <a href="shop-left-sidebar.html" class="category-box category-box-2 " data-wow-delay="0.5s">
+                            <a href="/category?itemMainType=3" class="category-box category-box-2 " data-wow-delay="0.5s">
                                 <div>
-                                    <img src="/assets/svg/2/5.svg" class="blur-up lazyload" alt="">
+                                    <img src="/assets/svg/2/kitchen.png" class="blur-up lazyload" alt="">
                                     <h5>주방용품</h5>
                                 </div>
                             </a>
                         </div>
 
                         <div style="width: 335px;">
-                            <a href="shop-left-sidebar.html" class="category-box category-box-2 " data-wow-delay="0.3s">
+                            <a href="/category?itemMainType=4" class="category-box category-box-2 " data-wow-delay="0.3s">
                                 <div>
-                                    <img src="/assets/svg/2/3.svg" class="blur-up lazyload" alt="">
+                                    <img src="/assets/svg/2/cabinet.png" class="blur-up lazyload" alt="">
                                     <h5>수납 & 정리</h5>
                                 </div>
                             </a>
                         </div>
 
                         <div style="width: 335px;">
-                            <a href="shop-left-sidebar.html" class="category-box category-box-2 " data-wow-delay="0.4s">
+                            <a href="/category?itemMainType=5" class="category-box category-box-2 " data-wow-delay="0.4s">
                                 <div>
-                                    <img src="/assets/svg/2/4.svg" class="blur-up lazyload" alt="">
+                                    <img src="/assets/svg/2/laundry.png" class="blur-up lazyload" alt="">
                                     <h5>생필품</h5>
                                 </div>
                             </a>
@@ -207,7 +207,7 @@
                         <div class="timing-box">
                             <div class="timing theme-bg-color">
                                 <i data-feather="clock"></i>
-                                <h6 class="name">Expires in :</h6>
+                                <h6 class="name">오늘의딜 남은시간 :</h6>
                                 <div class="time">
                                     <ul>
                                         <li>
@@ -252,26 +252,7 @@
                                         <img th:src="@{|/assets/img/${tdto.itemImage1}|}"
                                             class="img-fluid blur-up lazyload" alt="">
                                     </a>
-                                    <ul class="product-option">
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                            <a href="compare.html">
-                                                <i data-feather="refresh-cw"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                            <a href="wishlist.html" class="notifi-wishlist">
-                                                <i data-feather="heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                  
                                 </div>
                                 <div class="product-detail">
                                     <a th:href="@{/itemDetail(itemNum=${tdto.itemNum})}">
@@ -307,24 +288,7 @@
                                         <h6 class="theme-color">In Stock</h6>
                                     </div>
 
-                                    <div class="add-to-cart-box bg-white">
-                                        <button class="btn btn-add-cart addcart_button addcart-button">Add
-                                            <i class="fa-solid fa-plus"></i></button>
-                                        <div class="cart_qty qty-box">
-                                            <div class="input-group">
-                                                <button type="button" class="qty-left-minus" data-type="minus"
-                                                    data-field="">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                                <input class="form-control input-number qty-input" type="text"
-                                                    name="quantity" value="0">
-                                                <button type="button" class="qty-right-plus" data-type="plus"
-                                                    data-field="">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>                           
                         </div>
@@ -407,24 +371,7 @@
                                         <h6 class="theme-color">In Stock</h6>
                                     </div>
 
-                                    <div class="add-to-cart-box bg-white">
-                                        <button class="btn btn-add-cart addcart_button addcart-button">Add
-                                            <i class="fa-solid fa-plus"></i></button>
-                                        <div class="cart_qty qty-box">
-                                            <div class="input-group">
-                                                <button type="button" class="qty-left-minus" data-type="minus"
-                                                    data-field="">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                                <input class="form-control input-number qty-input" type="text"
-                                                    name="quantity" value="0">
-                                                <button type="button" class="qty-right-plus" data-type="plus"
-                                                    data-field="">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -509,24 +456,7 @@
                                         <h6 class="theme-color">In Stock</h6>
                                     </div>
 
-                                    <div class="add-to-cart-box bg-white">
-                                        <button class="btn btn-add-cart addcart_button addcart-button">Add
-                                            <i class="fa-solid fa-plus"></i></button>
-                                        <div class="cart_qty qty-box">
-                                            <div class="input-group">
-                                                <button type="button" class="qty-left-minus" data-type="minus"
-                                                    data-field="">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                                <input class="form-control input-number qty-input" type="text"
-                                                    name="quantity" value="0">
-                                                <button type="button" class="qty-right-plus" data-type="plus"
-                                                    data-field="">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -703,10 +633,7 @@
     	
     	
 	});
-    
-    
-    
-    
+
     </script>
 </body>
 

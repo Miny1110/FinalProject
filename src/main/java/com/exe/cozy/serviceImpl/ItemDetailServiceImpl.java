@@ -59,6 +59,11 @@ public class ItemDetailServiceImpl implements ItemDetailService {
 	}
 
 	@Override
+	public void updateItemStock(int itemNum) throws Exception {
+		itemMapper.updateItemStock(itemNum);
+	}
+
+	@Override
 	public ItemDetailDto getReadItemData(int itemNum) throws Exception {
 		return itemMapper.getReadItemData(itemNum);
 	}

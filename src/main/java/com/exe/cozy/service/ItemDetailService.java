@@ -21,6 +21,7 @@ public interface ItemDetailService {
 	public void deleteItemData(int itemNum) throws Exception;
 
 	public void updateItemHitCount(int itemNum) throws Exception;
+	public void updateItemStock(int itemNum) throws Exception;
 
 	public ItemDetailDto getReadItemData(int itemNum) throws Exception;
 

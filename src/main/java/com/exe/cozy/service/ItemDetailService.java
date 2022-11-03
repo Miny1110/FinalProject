@@ -2,7 +2,6 @@ package com.exe.cozy.service;
 
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.exe.cozy.domain.ItemDetailDto;
@@ -22,7 +21,7 @@ public interface ItemDetailService {
 	public void deleteItemData(int itemNum) throws Exception;
 
 	public void updateItemHitCount(int itemNum) throws Exception;
-	public void updateItemStock(@Param("itemNum")int itemNum,@Param("itemStock")int itemStock) throws Exception;
+	public void updateItemStock(int itemNum,int itemStock) throws Exception;
 
 	public ItemDetailDto getReadItemData(int itemNum) throws Exception;
 

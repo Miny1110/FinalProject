@@ -95,6 +95,7 @@
 		<result column="itemNum" property="itemNum"/>
 		<result column="itemColor" property="itemColor"/>
 		<result column="itemSize" property="itemSize"/>
+		<result column="itemStock" property="itemStock"/>
 	</resultMap>
 	
 	<select id="getReviewPaging" parameterType="ReplyDto" resultMap="ReplyDto">
@@ -221,6 +222,7 @@
 			c.itemPrice,
 			c.itemDiscount,
 			c.itemNum,
+			c.itemStock,
 			(select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
 			           from file_store fs
 			          where fs.no = c.itemImage1

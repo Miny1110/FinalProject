@@ -60,11 +60,6 @@
                                         alt="">
                                 </a>
 
-                                <div class="product-header-top">
-                                    <button class="btn wishlist-button close_button">
-                                        <i data-feather="x"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
@@ -85,7 +80,6 @@
                                         </div>
                                         <h5 class="price"><span class="theme-color" th:text="${#numbers.formatInteger(dto.itemPrice-dto.itemDiscount, 0, 'COMMA') + ' 원'}"></span>
                                         <del th:text="${#numbers.formatInteger(dto.itemPrice, 0, 'COMMA') + ' 원'}"></del></h5>
-                                        
                                 </div>
 								<br>
 											

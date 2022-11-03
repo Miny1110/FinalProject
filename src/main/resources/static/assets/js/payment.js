@@ -3,10 +3,21 @@ let token = $("meta[name='_csrf']").attr("content");
 
 function requestPay() {
 
+    let name =$("#deliverName").val();
+    let tel = $("#deliverTel").val();
+    let RAddr = $("#deliverRAddr").val();
+    let JAddr = $("#deliverJAddr").val();
+    let DAddr = $("#deliverDAddr").val();
+    let ZipCode = $("#deliverZipCode").val();
+
+    if(!name || !tel || !RAddr || !ZipCode){
+        alert("배송지를 입력해주세요.");
+        return;
+    }
 
 /*   let f = document.orderForm*/
    //let payment = $("#payment").val();
-   let payment = $(':radio[name="credit"]:checked').val();
+    let payment = $(':radio[name="credit"]:checked').val();
    if(payment===""){
        payment.val("card")
    }

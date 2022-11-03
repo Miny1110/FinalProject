@@ -710,6 +710,33 @@
     margin-right: 5px
 }
 
+
+.get{
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#4597E8), to(#4597E8));
+    background: linear-gradient(-90deg, #4597E8 0%, #4597E8 100%);
+    padding:2px 4px;
+    border-radius: 4px;
+    margin-right: calc(1px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 600;
+}
+
+.getAns{
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    background: -webkit-gradient(linear, right top, left top, from(#4597E8), to(#4597E8));
+    background: linear-gradient(-90deg, #00264B 0%, #00264B 100%);
+    padding:2px 4px;
+    border-radius: 4px;
+    margin-right: calc(1px + (20 - 9) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 600;
+}
+
+
+
 .btn {
     display: -webkit-box;
     display: -ms-flexbox;

@@ -2,12 +2,18 @@ let header = $("meta[name='_csrf_header']").attr("content");
 let token = $("meta[name='_csrf']").attr("content");
 
 function cart(){
+            let customerEmail = $("#customerEmails").val();
             let iNum = $("#num").val();
             let itemNumChk = $("#itemNumChk").val();
             let size =$("#size").val();
             let sizeChk =$("#sizeChk").val();
             let color =$("#color").val();
             let colorChk =$("#colorChk").val();
+
+            if(!customerEmail){
+                alert("로그인 후 이용 가능합니다.")
+                return false;
+            }
 
             if(!size || !color){
                 alert("옵션 선택후 이용 가능합니다.")

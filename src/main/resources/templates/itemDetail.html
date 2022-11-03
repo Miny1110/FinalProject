@@ -116,6 +116,7 @@
 										</div>
 									</div>
 
+									<input type="text" id="customerEmails" th:value="${session.customerEmail}" >
 									<div class="col-12">
 										<div
 											class="bottom-slider-image left-slider no-arrow slick-top">
@@ -308,12 +309,13 @@
 												th:if="${idto.itemStock==0}">일시품절
 										</button>
 
-								
-								
+
+										<sec:authorize access="isAuthenticated()">
 										<button type="button" onclick="return cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40"
 												th:unless="${idto.itemStock==0}">장바구니
 										</button>
+										</sec:authorize>
 
 										<button onclick="return orderPay()"
                                    			 class="btn btn-md bg-dark cart-button text-white w-40"

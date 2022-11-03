@@ -96,6 +96,11 @@
             <div class="col-xxl-9">
                 <div class="cart-table" th:each="clist:${clist}">
                     <input type="hidden" th:value="${(cdto.getItemPrice()-cdto.getItemDiscount())*cdto.getItemQty()}" id="ttotalPrice">
+                    <input type="hidden" id="itemNum" th:value="${clist.itemNum}" >
+                    <input type="hidden" id="itemColor" th:value="${clist.itemColor}" >
+                    <input type="text" id="itemSize" th:value="${clist.itemSize}" hidden>
+                    <input type="text" id="itemQty" th:value="${clist.itemQty}" hidden>
+
                     <div class="table-responsive-xl" >
                         <table class="table">
                             <tbody >
@@ -243,7 +248,8 @@
 
                             <li>
                                 <h4>배송비</h4>
-                                <h4 class="price">2,500</h4>
+                                <input type="hidden" id="deliverCost">
+                                <h4 class="price" id="deliveryCost"></h4>
                             </li>
 
                             <li class="align-items-start">
@@ -756,16 +762,23 @@
 <script src="../assets/js/slick/slick.js"></script>
 <script src="../assets/js/slick/custom_slick.js"></script>
 
-<!-- Quantity js -->
-<script src="../assets/js/quantity.js"></script>
+<!-- 수량업 아작스 -->
+<script src="/assets/js/updated.js"></script>
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
 
+
+    <script>
+    function addComma(num) {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ',');
+    }
+</script>
+
 <script>
-
-
     $(function (){
+
         price()
         iprice()
         sprice()
@@ -777,6 +790,7 @@
 
                let totalPrice = 0
                let index = $('input[name="price"]').length;
+                let deliver = $('#deliveryCost').val();
                /*   let use = $('#use').val(); //사용할 포인트
             let usePoint = parseInt(use);*/
                //alert(use)
@@ -787,13 +801,19 @@
 
                totalPrice += parseInt($('input[name="price"]').eq(i).val())
            }
-//alert(use)
-           /*    if (use !== null) {
-                totalPrice = totalPrice - usePoint;
-                $('#totalPrice').html(totalPrice)
-            }*/
+
+         if(totalPrice<50000){
+             deliver = 2500
+         }else {
+             deliver=0
+         }
+         totalPrice =parseInt(totalPrice)+deliver
+
+         $('#deliveryCost').html(addComma(deliver)+" 원")
+         $('#deliverCost').val(deliver)
            $('#totalPrice').val(totalPrice)
-         $('#pointTotalPrice').html(totalPrice)
+         $('#pointTotalPrice').val(totalPrice)
+         $('#pointTotalPrice').html(addComma(totalPrice)+" 원")
 
         }
 
@@ -814,7 +834,7 @@
             itemPrice+= parseInt($('input[name="iprice"]').eq(z).val())
         }
 
-        $('#itemPrice').html(itemPrice)
+        $('#itemPrice').html(addComma(itemPrice)+" 원")
 
 
     }
@@ -835,7 +855,7 @@
         }
 
       //  alert(salePrice)
-        $('#salePrice').html(salePrice)
+        $('#salePrice').html(addComma(salePrice) +" 원")
 
     }
 

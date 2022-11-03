@@ -77,19 +77,17 @@ public class FaqController {
 	}
 	
 	
-	
 	//update
 	@GetMapping("/faq/update")
 	public ModelAndView faqUpdate(FaqDto fdto,HttpServletRequest request) throws Exception{
 		
 		int faqNum = Integer.parseInt(request.getParameter("faqNum"));
-		
 		fdto = faqService.getReadFaqData(faqNum);
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("faqUpdate");
 		mav.addObject("fdto",fdto);
+		mav.setViewName("faqUpdate");
 		
 		return mav;
 	}
@@ -99,31 +97,34 @@ public class FaqController {
 	@PostMapping("/faq/update_ok")
 	public ModelAndView faqUpdate_ok(FaqDto fdto, HttpServletRequest request) throws Exception{
 		
-		int faqNum = Integer.parseInt(request.getParameter("faqNum"));
-		
 		ModelAndView mav = new ModelAndView();
+		
 		faqService.updateFaqData(fdto);
 		
+		System.out.println(fdto.getFaqNum());
+		System.out.println(fdto.getFaqType());
+		System.out.println(fdto.getFaqTitle());
 		System.out.println(fdto.getFaqContent());
+		
 		mav.setViewName("redirect:/faq/list");
 		
 		return mav;
 	}
 	
-	/*
-	@GetMapping("/noticeDelete")
+	
+	@GetMapping("/faqDelete")
 	public ModelAndView delete_ok(HttpServletRequest request) throws Exception{
 		
-		
-		int noticeNum = Integer.parseInt(request.getParameter("noticeNum"));
+		int faqNum = Integer.parseInt(request.getParameter("faqNum"));
 		
 		ModelAndView mav = new ModelAndView();
-		noticeService.deleteNoticeData(noticeNum);
-		mav.setViewName("redirect:/notice/list");
+		faqService.deleteFaqData(faqNum);
+		
+		mav.setViewName("redirect:/faq/list");
 		
 		return mav;
 		
 	}
-	*/
+	
 	
 }

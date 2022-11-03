@@ -94,13 +94,21 @@
                             </a>
 
                             <div class="middle-box">
+                            
+                            	<div class="location-box">
+                                    <button class="btn location-button" data-bs-toggle="modal"
+                                        data-bs-target="#locationModal">
+                                        <span style="height: 36px;">&nbsp;</span>
+                                        <span class="locat-name">상품명</span>
+                                        <i class="fa-solid fa-angle-down"></i>
+                                    </button>
+                                </div>
+                            
                             	<form th:action="@{/search}" method="get" name="searchForm">
                                 <div class="search-box">
                                     <div class="input-group">
-                                    	<select  style="border: 0px; margin-right: 20px;">
-													<option value="itemName">상품명</option>
-										</select>
-                                        <input type="search" class="form-control" placeholder="제품명을 입력하세요."
+                                    	
+                                        <input type="search" class="form-control" placeholder="상품명을 입력하세요."
                                             aria-label="Recipient's username" aria-describedby="button-addon2" name="searchValue">
                                         <button class="btn" type="button" onclick="sendIt();" id="button-addon2" style="background-color: #00264B; border: 1px solid #00264B;">
                                             <i data-feather="search"></i>
@@ -235,9 +243,9 @@
                 <div class="col-12">
                     <div class="header-nav">
                         <div class="header-nav-left" >
-                            <button class="dropdown-category" style="width: 300px;">
+                            <button class="dropdown-category" style="width: 300px;" >
                                 <i data-feather="align-left"></i>
-                                <span>CATEGORY</span>
+                                <span style="letter-spacing: 5px;">CATEGORY</span>
                             </button>
 
                             <div class="category-dropdown">
@@ -249,7 +257,7 @@
                                 </div>
 
                                 <ul class="category-list">
-                                    <li class="onhover-category-list" >
+                                    <li class="onhover-category-list">
                                         <a href="/category?itemMainType=1" class="category-name">
                                             <img src="/assets/svg/2/electronic_icon.png" alt="">
                                             <h6>가전제품</h6>
@@ -429,9 +437,9 @@
                                     </div>
                                     <div class="offcanvas-body">
                                         <ul class="navbar-nav" style="padding-right: 370px;">
-                                            <li class="nav-item dropdown" >
+                                            <li class="nav-item dropdown" style="letter-spacing: 4px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">가전제품</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;" >가전제품</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>                                                       
@@ -454,9 +462,9 @@
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item dropdown">
+                                            <li class="nav-item dropdown" style="letter-spacing: 4px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">가구</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;">가구</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -479,9 +487,9 @@
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item dropdown">
+                                            <li class="nav-item dropdown" style="letter-spacing: 4px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">주방용품</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;">주방용품</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -503,9 +511,9 @@
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item dropdown">
+                                            <li class="nav-item dropdown" style="letter-spacing: 4px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">수납ㆍ정리</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;">수납ㆍ정리</a>
 
                                                 <ul class="dropdown-menu">
                                                     <li>
@@ -524,9 +532,9 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li class="nav-item dropdown">
+                                            <li class="nav-item dropdown" style="letter-spacing: 4px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">생필품</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;">생필품</a>
                                                 <ul class="dropdown-menu">
                                                     <li>
 
@@ -548,9 +556,9 @@
                                                 </ul>
                                             </li>
 
-                                            <li class="nav-item dropdown">
+                                            <li class="nav-item dropdown" style="letter-spacing: 5px;">
                                                 <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                                    data-bs-toggle="dropdown" style="font-size: 20px;">공지사항</a>
+                                                    data-bs-toggle="dropdown" style="font-size: 17px;">공지사항</a>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item" href="404.html">공지사항</a>

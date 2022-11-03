@@ -407,7 +407,7 @@
 										</div>
 									</div>
 
-									<div class="tab-pane fade" id="info" role="tabpanel"
+									<!-- <div class="tab-pane fade" id="info" role="tabpanel"
 										aria-labelledby="info-tab">
 										<div class="table-responsive">
 											<table class="table info-table">
@@ -447,7 +447,7 @@
 												</tbody>
 											</table>
 										</div>
-									</div>
+									</div> -->
 
 									<div class="tab-pane fade" id="care" role="tabpanel"
 										aria-labelledby="care-tab">
@@ -504,15 +504,15 @@
 											<!-- 문의 목록시작 -->
 										<div class="row" th:each="qdto : ${qdtoList}">
 
-										<div class="col-xxl-9" style="width:90%; text-align: left; background-color: #f8f8f8">
+										<div class="col-xxl-9" style="width:90%; text-align: left;" >
 											<div class="dashboard-title mb-2">
 												
 												
-												<h4>[질문]</h4>
+												<!-- <h4 class="get">질문</h4> -->
 													<input type="hidden" th:value="${qdto.itemQueNum}">
 											
 												<div style="float:left;">
-													<a style="margin-top: 1px;">작성자:</a> 
+													<span class="get">질문</span><a style="margin-top: 1px;">작성자:</a> 
 													<a style="display: inline; font-size: 12px; color: gray;"
 														th:text="${qdto.customerEmail}"></a>
 												</div>
@@ -527,7 +527,7 @@
 										
 											
 											</div>
-											<div>
+											
 											<div style="display: inline-block;">
 												<span style="font-weight: 1000; color: #00264B;">Q.&nbsp;</span><a style="display: inline; font-size: 15px; color: blakc;"><b
 													th:text="${qdto.itemQueTitle}"></b></a><br>
@@ -535,9 +535,9 @@
 													th:text="${qdto.itemQueContent}">내용</a><br>
 											</div>	
 											
-											<hr/>
+											
 												<div  style="float: right;">
-													<div style="display: inline-block;" sec:authorize="hasRole('ADMIN')">
+													<div style="display: inline-block;" sec:authorize="hasRole('ADMIN')"> 
 														<button class="btn-mini" 
 															th:onclick="|location.href = '@{|itemQnaAnswer?itemQueNum=${qdto.itemQueNum}&itemNum=${idto.itemNum}|}';|">답변하기</button>
 													</div>
@@ -547,21 +547,34 @@
 
 													</div>
 												</div>	
-											
 												<div class="col-xxl-9" style="text-align: left;"
 													th:if="${not #strings.isEmpty(qdto.answer.ItemAnsContent)}">
 												</div>
-												<div class="col-xxl-9" style="text-align: left;"
-													th:unless="${#strings.isEmpty(qdto.answer.ItemAnsContent)}">
-													<div class="dashboard-title mb-2">
-														<h4 style="margin-top: 1%; white-space:pre;">[답변]</h4>
-														<span style=" font-weight: 1000; color: #00264B;">A.&nbsp;</span>
-														<p style="width:100%;overflow:hidden;word-wrap:break-word;">[[${qdto.answer.ItemAnsContent}]]</p>
-													</div>
+											
+											<!--  -->
+											<div th:unless="${#strings.isEmpty(qdto.answer.ItemAnsContent)}">
+												<hr><div class="dashboard-title mb-2">
+												<div style="float:left;">
+													<span class="getAns">답변</span><a style="margin-top: 1px;">작성자: 관리자</a> 
 												</div>
-											</div>
-											<hr>
-					
+											
+												<div style="float: right;">
+													<a>답변일:</a> 
+													<a style="display: inline; font-size: 12px; color: gray; float: right;"
+														th:text="${#dates.format(qdto.answer.itemAnsCreate, 'yyyy-MM-dd')}"></a>
+												</div><br>
+									
+													</div>
+											
+												<div style="display: inline-block;">
+													<span style="font-weight: 1000; color: #00264B;">A.&nbsp;</span>
+													<a style="white-space:pre; display: inline; font-size: 12px; color: gray; "
+														th:text="${qdto.answer.itemAnsContent}">내용</a><br>
+												</div>
+												
+												<hr>
+												</div>
+										<!--  -->
 										</div>
 									</div>
 								</div>
@@ -614,10 +627,10 @@
 																			
 																			
 																			<div style="float: right; margin-top: 15px;" >
-																				<div style="display: inline-block;">
+																				<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==rdto.customerEmail}">
 																					<button  class="btn-mini" th:onclick="|location.href = '@{|reviewUpdate?replyId=${rdto.replyId}|}';|">수정하기</button>
 																				</div>
-																				<div style="display: inline-block;">
+																				<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==rdto.customerEmail}">
 																					<input class="btn-cancel-mini" type="button" value=" 삭제 " th:onclick="@{|location.href='/deleteReply?replyId=${rdto.replyId}'|}"/>
 																				</div>	
 																			</div>

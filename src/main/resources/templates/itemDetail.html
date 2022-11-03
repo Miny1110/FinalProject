@@ -302,7 +302,8 @@
 											</div>
 										</div>
 
-										<button sec:authorize="isAuthenticated()" type="button" 
+										<button type="return button"
+												onclick="return cart()"
 												class="btn btn-md bg-dark cart-button text-white w-40"
 												th:if="${idto.itemStock==0}">일시품절
 										</button>
@@ -734,6 +735,8 @@
 	<script src="/assets/js/insertCart.js"></script><!--cart에 insert관련-->
 	<script src="/assets/js/option.js"></script> <!--optionSize선택 insert관련-->
 	<script src="/assets/js/optionColor.js"></script> <!--optionSize선택 insert관련-->
+	<script src="/assets/js/orderpay.js"></script><!--바로결제 관련-->
+
 
 </body>
 

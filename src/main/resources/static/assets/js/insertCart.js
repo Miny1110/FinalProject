@@ -11,7 +11,7 @@ function cart(){
 
             if(!size || !color){
                 alert("옵션 선택후 이용 가능합니다.")
-                return ;
+                return false;
             }
 
             if(iNum===itemNumChk&&size===sizeChk&&color===colorChk){
@@ -21,9 +21,8 @@ function cart(){
 
                 if(result){
                     updateCart()
-                    return ;
                 }else{
-                return ;
+                return true;
                 }
             }else{
                 addCart()
@@ -50,6 +49,7 @@ function cart(){
 
                  if(result){
                      location.href="cart";
+                     return true;
                  }
                  else {
                      location.href="/itemDetail?itemNum="+data.itemNum;
@@ -81,6 +81,7 @@ function cart(){
 
                 if(result){
                     location.href="cart";
+                    return true;
                 }
                 else {
                     location.href="/itemDetail?itemNum="+data.itemNum;

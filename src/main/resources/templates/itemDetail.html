@@ -310,7 +310,7 @@
 
 								
 								
-										<button sec:authorize="isAuthenticated()" type="button" onclick="cart();"
+										<button type="button" onclick="return cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40"
 												th:unless="${idto.itemStock==0}">장바구니
 										</button>
@@ -462,7 +462,7 @@
 												<div class="form-floating theme-form-floating">
 												
 												<input type="hidden" name="itemNum" id="itemNum" th:value="${idto.itemNum}" >
-												<input type="hidden" name="customerEmail" id="customerEmail" th:value="${customerEmail}" >
+												<input type="text" name="customerEmail" id="customerEmail" th:value="${customerEmail}" >
 												
 												
 												

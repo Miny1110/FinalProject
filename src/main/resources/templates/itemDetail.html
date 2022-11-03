@@ -310,12 +310,12 @@
 										</button>
 
 
-										<sec:authorize access="isAuthenticated()">
+										
 										<button type="button" onclick="return cart();"
 												class="btn btn-md bg-dark cart-button text-white w-40"
 												th:unless="${idto.itemStock==0}">장바구니
 										</button>
-										</sec:authorize>
+										
 
 										<button onclick="return orderPay()"
                                    			 class="btn btn-md bg-dark cart-button text-white w-40"

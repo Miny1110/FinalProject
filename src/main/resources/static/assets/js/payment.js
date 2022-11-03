@@ -127,6 +127,7 @@ function payOrder(){
                     deliverName:$('#deliverName').val(),
                     deliverRAddr:$('#deliverRAddr').val(),
                     deliverJAddr:$('#deliverJAddr').val(),
+                    deliverMessage:$('#deliverMsg').val(),
                     orderState:payState,
                     itemStock:parseInt($('#itemStock').val())-parseInt($('#itemQty').val()),
                     payment:payName,

@@ -145,6 +145,7 @@ function payOrder(){
                     deliverName: $('#deliverName').val(),
                     deliverRAddr: $('#deliverRAddr').val(),
                     deliverJAddr: $('#deliverJAddr').val(),
+                    deliverMessage:$('#deliverMsg').val(),
                     orderState: payState,
                     payment: payName,
                     deliverDAddr: $('#deliverDAddr').val(),

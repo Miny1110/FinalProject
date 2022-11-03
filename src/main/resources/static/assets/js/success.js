@@ -22,7 +22,8 @@ $(function(){
     $('#orderdisPrice').html(disPriceFormat+'원');
 
     let totalPrice = 0;
-    totalPrice = (itemPrice - disPrice - $('#orderusePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    let deliver = $('#deliveryCosts').val();
+    totalPrice = (itemPrice - disPrice + parseInt(deliver) - $('#orderusePointData').val()).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     $('#ordertotalPrice').html(totalPrice+'원');
 })
 

@@ -133,6 +133,7 @@ function payOrder(){
                     payment: payName,
                     deliverDAddr: $('#deliverDAddr').val(),
                     deliverZipCode: $('#deliverZipCode').val(),
+                    deliverCost:$('#deliverCost').val(),
                     deliverTel: $('#deliverTel').val(),
                     usePoint: $('#use').val(),
                 }), beforeSend: function (jqXHR) {

@@ -15,7 +15,7 @@ public interface ItemMapper {
     public int getItemDataCount(String searchKey,String searchValue) throws Exception;
     public void deleteItemData(int itemNum) throws Exception;
     public void updateItemHitCount(int itemNum) throws Exception;
-    public void updateItemStock(int itemNum) throws Exception;
+    public void updateItemStock(int itemNum,int itemStock) throws Exception;
     public ItemDetailDto getReadItemData(int itemNum) throws Exception;
     public void insertFile(Map<String, Object> map);
 

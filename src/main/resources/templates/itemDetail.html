@@ -116,7 +116,7 @@
 										</div>
 									</div>
 
-									<input type="text" id="customerEmails" th:value="${session.customerEmail}" >
+									<input type="hidden" id="customerEmails" th:value="${session.customerEmail}" >
 									<div class="col-12">
 										<div
 											class="bottom-slider-image left-slider no-arrow slick-top">
@@ -386,16 +386,17 @@
 									<div class="tab-pane fade show active" id="description"
 										role="tabpanel" aria-labelledby="description-tab">
 										<div class="product-description">
-											<div class="nav-desh">
-												<p th:src="@{${idto.detailImage}} " width=1198px,
-													height=297px>상품 상세내용</p>
-											</div>
+											<div class="nav-desh"> 
+												<p>상품 상세내용</p>
+										</div>
 
 
 
-											<div class="banner-contain nav-desh">
-												<img th:src="@{|/assets/img/${idto.detailImage}|}"
-													class="bg-img blur-up lazyload" alt="">
+											 <div class="banner-contain nav-desh" style="max-width: 100%; height: auto;">
+												
+													<img th:src="@{|/assets/img/${idto.detailImage}|}"
+													style="max-width: 100%; height: auto;">
+													
 												<div
 													class="banner-details p-center banner-b-space w-100 text-center">
 													<div>
@@ -410,47 +411,7 @@
 										</div>
 									</div>
 
-									<!-- <div class="tab-pane fade" id="info" role="tabpanel"
-										aria-labelledby="info-tab">
-										<div class="table-responsive">
-											<table class="table info-table">
-												<tbody>
-													<tr>
-														<td>Specialty</td>
-														<td>Vegetarian</td>
-													</tr>
-													<tr>
-														<td>Ingredient Type</td>
-														<td>Vegetarian</td>
-													</tr>
-													<tr>
-														<td>Brand</td>
-														<td>Lavian Exotique</td>
-													</tr>
-													<tr>
-														<td>Form</td>
-														<td>Bar Brownie</td>
-													</tr>
-													<tr>
-														<td>Package Information</td>
-														<td>Box</td>
-													</tr>
-													<tr>
-														<td>Manufacturer</td>
-														<td>Prayagh Nutri Product Pvt Ltd</td>
-													</tr>
-													<tr>
-														<td>Item part number</td>
-														<td>LE 014 - 20pcs Crème Bakes (Pack of 2)</td>
-													</tr>
-													<tr>
-														<td>Net Quantity</td>
-														<td>40.00 count</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div> -->
+									
 
 									<div class="tab-pane fade" id="care" role="tabpanel"
 										aria-labelledby="care-tab">
@@ -464,7 +425,7 @@
 												<div class="form-floating theme-form-floating">
 												
 												<input type="hidden" name="itemNum" id="itemNum" th:value="${idto.itemNum}" >
-												<input type="hidden" name="customerEmail" id="customerEmail" th:value="${customerEmail}" >
+												<input type="hidden" name="customerEmail" id="customerEmail" th:value="${session.customerEmail}" >
 												
 												
 												
@@ -544,7 +505,7 @@
 														<button class="btn-mini" 
 															th:onclick="|location.href = '@{|itemQnaAnswer?itemQueNum=${qdto.itemQueNum}&itemNum=${idto.itemNum}|}';|">답변하기</button>
 													</div>
-													<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==qdto.customerEmail}">
+													<div style="display: inline-block;" th:if="${session.customerEmail==qdto.customerEmail}">
 														<button class="btn-cancel-mini"
 															th:onclick="@{|location.href='/deleteQna?itemQueNum=${qdto.itemQueNum}'|}" />삭제하기</button>
 
@@ -552,11 +513,11 @@
 												</div>	
 												<div class="col-xxl-9" style="text-align: left;"
 													th:if="${not #strings.isEmpty(qdto.answer.ItemAnsContent)}">
-												</div>
+												</div><hr>
 											
 											<!--  -->
 											<div th:unless="${#strings.isEmpty(qdto.answer.ItemAnsContent)}">
-												<hr><div class="dashboard-title mb-2">
+												<div class="dashboard-title mb-2">
 												<div style="float:left;">
 													<span class="getAns">답변</span><a style="margin-top: 1px;">작성자: 관리자</a> 
 												</div>
@@ -630,10 +591,10 @@
 																			
 																			
 																			<div style="float: right; margin-top: 15px;" >
-																				<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==rdto.customerEmail}">
+																				<div style="display: inline-block;" th:if="${session.customerEmail==rdto.customerEmail}">
 																					<button  class="btn-mini" th:onclick="|location.href = '@{|reviewUpdate?replyId=${rdto.replyId}|}';|">수정하기</button>
 																				</div>
-																				<div style="display: inline-block;" th:if="${#authentication.getPrincipal().getUsername()==rdto.customerEmail}">
+																				<div style="display: inline-block;" th:if="${session.customerEmail==rdto.customerEmail}">
 																					<input class="btn-cancel-mini" type="button" value=" 삭제 " th:onclick="@{|location.href='/deleteReply?replyId=${rdto.replyId}'|}"/>
 																				</div>	
 																			</div>

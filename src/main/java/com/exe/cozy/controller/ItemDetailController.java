@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.exe.cozy.domain.*;
 import com.exe.cozy.service.*;
@@ -133,6 +134,7 @@ public class ItemDetailController {
 		
 		mav.addObject("replyDto", rdto);
 
+	
 		return mav;
 	}
 
@@ -164,7 +166,7 @@ public class ItemDetailController {
 	}
 
 	@RequestMapping("itemDetail") /** item 상세페에지 view */
-	public ModelAndView detail(HttpServletRequest request, Principal principal) throws Exception {
+	public ModelAndView detail(HttpServletRequest request, HttpSession session) throws Exception {
 		int itemNum = Integer.parseInt(request.getParameter("itemNum"));
 
 		//test 종료시 한번에 시큐리티 예정
@@ -222,13 +224,15 @@ public class ItemDetailController {
 		ModelAndView mav = new ModelAndView();
 
 		// System.out.println(rdtoList.get(0).getRegDate());
-		mav.addObject("idto", idto);
+		mav.addObject("idto", idto);		
 		mav.addObject("rdtoList", rdtoList);
 		mav.addObject("qdtoList",qdtoList);
 		//mav.addObject("adtoList",adtoList);
 		mav.addObject("itemSizes",itemSizes);
 		mav.addObject("itemColors",itemColors);
 		mav.addObject("salePrice", salePrice);
+		
+		
 
 		// mav.addObject("params",param);
 		// mav.addObject("pageNum", pageNum);
@@ -237,22 +241,26 @@ public class ItemDetailController {
 		return mav;
 
 	}
-	//questionWrite_ok
+	//리뷰등록
 	@PostMapping("/qnaWrite_ok")
-    public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request,Principal principal) throws Exception{
+    public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request,HttpSession session) throws Exception{
 
         ModelAndView mav = new ModelAndView();
         
         int itemQnaMaxNum = itemQuestionService.itemQnaMaxNum();
         qdto.setItemQueNum(itemQnaMaxNum +1);
         
-        qdto.setCustomerEmail(principal.getName());
+        //session
+        String customerEmail = (String)session.getAttribute("customerEmail");
+        qdto.setCustomerEmail(customerEmail);
+        
        
         //itemQuestionService
         itemQuestionService.insertItemQna(qdto);
         mav.setViewName("redirect:/");
         return mav;
     }
+	
 	// 문의답변창으로 이동 itemAnswer로 변경
 		@GetMapping("itemQnaAnswer") /** itemQna update view */
 		public ModelAndView reviewUpdate(ItemQuestionDto qdto, HttpServletRequest request) throws Exception {

@@ -48,6 +48,7 @@ import com.exe.cozy.util.AlertRedirect;
 import com.exe.cozy.util.CreatePoint;
 import com.exe.cozy.util.CustomerChk;
 import com.exe.cozy.util.DeliveryDupChk;
+import com.exe.cozy.util.UpdateStock;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
@@ -69,7 +70,7 @@ public class CustomerController {
 	@Autowired CustomerChk customerChk;
 	@Autowired DeliveryDupChk deliveryDupChk;
 	@Autowired CreatePoint createPoint;
-    
+    @Autowired UpdateStock updateStock;
 	
     
     
@@ -174,21 +175,17 @@ public class CustomerController {
     //마이페이지에서 주문취소
     @PreAuthorize("isAuthenticated")
     @PostMapping("cancle")
-    public ModelAndView orderCancle(Principal principal, HttpServletRequest req) {
+    public ModelAndView orderCancle(Principal principal, HttpServletRequest req) throws Exception {
     	
     	ModelAndView mav = new ModelAndView();
     	
     	String orderNum = req.getParameter("orderNum");
     	List<OrderDetailDto> list = customerService.getOrderDetailOne(principal.getName(), orderNum);
     	
-    	for(OrderDetailDto odto : list) {
-    		System.out.println(odto.getItemDto().getItemNum());
-    		System.out.println(odto.getItemQty());
-    		//itemNum받아서 itemQty 수량 플러스하는 코드
-    	}
+    	updateStock.updateStock(list);
     	
     	int usePoint = orderService.selectUsePoint(orderNum);
-//    	orderService.updateCancleState(orderNum);
+    	orderService.updateCancleState(orderNum);
     	
     	if(usePoint!=0) {
     		PointDto dto = createPoint.orderCanclePoint(principal.getName(), usePoint, orderNum);

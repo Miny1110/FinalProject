@@ -5,6 +5,7 @@ import com.exe.cozy.domain.ItemDetailDto;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ItemMapper {
@@ -15,7 +16,7 @@ public interface ItemMapper {
     public int getItemDataCount(String searchKey,String searchValue) throws Exception;
     public void deleteItemData(int itemNum) throws Exception;
     public void updateItemHitCount(int itemNum) throws Exception;
-    public void updateItemStock(int itemNum,int itemStock) throws Exception;
+    public void updateItemStock(@Param("itemNum")int itemNum,@Param("itemStock")int itemStock) throws Exception;
     public ItemDetailDto getReadItemData(int itemNum) throws Exception;
     public void insertFile(Map<String, Object> map);
 

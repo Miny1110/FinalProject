@@ -16,7 +16,7 @@
 :root {
     --theme-color: #00264b;
     --theme-color-rgb: 13, 164, 135;
-    --theme-color1: #2282e3;
+    --theme-color1: #00264b;
     --theme-color1-rgb: 14, 148, 122;
     --theme-color2: linear-gradient(90.56deg, var(--theme-color1) 8.46%, var(--theme-color) 62.97%);
     --theme-color3: #BDBDBD;

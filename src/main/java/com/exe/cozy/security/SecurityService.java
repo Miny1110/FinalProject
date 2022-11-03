@@ -54,6 +54,7 @@ public class SecurityService implements UserDetailsService {
 
 		List<CartDto> cartList = cartMapper.listCart(customerEmail);
 
+		session.setAttribute("customerEmail",customerEmail);
 		session.setAttribute("cartsize",cartList.size());
 		session.setAttribute("cartList",cartList);
 

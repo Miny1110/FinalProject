@@ -3,6 +3,9 @@
 
 <head>
     <div th:replace="head.html :: headFragment"></div>
+    
+    <title>1대1 문의</title>
+    
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
 </head>
@@ -102,7 +105,7 @@
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50"  style="width: 70%;">
                     <section class="order-table-section section-b-space">
                         <div class="row" style="width: 100%;">
-                        	<form th:action="@{listSvcQuestion}" method="get">
+                        	<form th:action="@{/service/qnaCreate}" method="get">
                                     
 	                            <div class="table-responsive">
 	                                <table class="table order-tab-table">

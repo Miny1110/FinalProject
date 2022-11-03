@@ -43,7 +43,7 @@
 	<!-- faq수정 -->
 	<update id="updateFaqData" parameterType="FaqDto">
 		update faq set
-		faqTitle=#{faqTitle},faqContent=#{faqContent}
+		faqType=#{faqType},faqTitle=#{faqTitle},faqContent=#{faqContent}
 		where faqNum=#{faqNum}
 	</update>
 

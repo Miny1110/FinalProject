@@ -179,7 +179,7 @@
                                 </li>
 
                                 <li>
-                                    <h6 th:text="|[${orderNum.deliverMessage}]|"></h6>
+                                    <h6 th:if="${orderNum.deliverMessage}!=null" th:text="|[${orderNum.deliverMessage}]|"></h6>
                                 </li>
 
                                 <li class="pb-0">

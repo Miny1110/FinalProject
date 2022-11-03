@@ -4,6 +4,18 @@ let index =$('input[name="cartNum"]').length;
 
 function requestPay() {
 
+    let name =$("#deliverName").val();
+    let tel = $("#deliverTel").val();
+    let RAddr = $("#deliverRAddr").val();
+    let JAddr = $("#deliverJAddr").val();
+    let DAddr = $("#deliverDAddr").val();
+    let ZipCode = $("#deliverZipCode").val();
+
+    if(!name || !tel || !RAddr || !ZipCode){
+        alert("배송지를 입력해주세요.");
+        return;
+    }
+
 /*   let f = document.orderForm*/
    //let payment = $("#payment").val();
    let payment = $(':radio[name="credit"]:checked').val();
@@ -82,6 +94,10 @@ function payOrder(){
     $('input[name="cartNum"]').each(function (e){
         cartNumArray.push($(this).val());
     });
+    let itemStockArray=[];
+    $('input[name="itemStock"]').each(function (f){
+        itemStockArray.push($(this).val());
+    });
 
 
 
@@ -152,6 +168,7 @@ function payOrder(){
                                 odNum: new Date().getTime()+z,
                                 itemNum: parseInt(itemNumArray[z]),
                                 itemQty: parseInt(itemQtyArray[z]),
+                                itemStock:parseInt(itemStockArray[z])-parseInt(itemQtyArray[z]),
                                 itemSize: itemSizeArray[z],
                                 itemColor: itemColorArray[z],
                             })

@@ -265,6 +265,8 @@
                                         <input type="hidden" name="price" th:value="${(clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty()}">
                                         <input type="text" name="itemNum" th:value="${clist.getItemNum()}" hidden>
                                         <input type="text" name="itemQty" th:value="${clist.getItemQty()}" hidden>
+                                        <input type="text" name="itemStock" th:value="${clist.getItemStock()}" hidden>
+
                                         <input type="text" id="itemColor" name="itemColor" th:value="${clist.itemColor}" hidden>
                                         <input type="text" id="itemSize" name="itemSize" th:value="${clist.itemSize}" hidden>
                                     </tr>

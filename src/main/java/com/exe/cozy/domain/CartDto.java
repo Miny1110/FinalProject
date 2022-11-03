@@ -22,6 +22,7 @@ private String itemName;
 private String itemSize;
 private String itemColor;
 private int itemDiscount;
+private int itemStock;
 private int itemQty;//수량
 
 

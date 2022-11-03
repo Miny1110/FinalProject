@@ -82,6 +82,10 @@ function payOrder(){
     $('input[name="cartNum"]').each(function (e){
         cartNumArray.push($(this).val());
     });
+    let itemStockArray=[];
+    $('input[name="itemStock"]').each(function (f){
+        itemStockArray.push($(this).val());
+    });
 
 
 
@@ -152,6 +156,7 @@ function payOrder(){
                                 odNum: new Date().getTime()+z,
                                 itemNum: parseInt(itemNumArray[z]),
                                 itemQty: parseInt(itemQtyArray[z]),
+                                itemStock:parseInt(itemStockArray[z])-parseInt(itemQtyArray[z]),
                                 itemSize: itemSizeArray[z],
                                 itemColor: itemColorArray[z],
                             })

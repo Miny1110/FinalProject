@@ -124,7 +124,7 @@ public class OrderController {
     @PostMapping(value = "/order_ok")
     @ResponseBody
     public ModelAndView order_ok(HttpSession session, @ModelAttribute DeliverDto ddto,
-            HttpServletRequest request,Principal principal) throws IOException {
+            HttpServletRequest request,Principal principal) throws Exception {
         ModelAndView mav = new ModelAndView();
 //제이슨으로 받은 데이터 바꾸기
         ServletInputStream inputStream = request.getInputStream();
@@ -132,6 +132,7 @@ public class OrderController {
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
         OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
         PointDto pdto = objectMapper.readValue(messageBody, PointDto.class);
+        ItemDetailDto idto = objectMapper.readValue(messageBody, ItemDetailDto.class);
 
 
         odto.setCustomerEmail(principal.getName());
@@ -139,6 +140,13 @@ public class OrderController {
         orderService.insertOrder(odto);
         orderDetailService.insertOd(oddto);
         pointService.insertDelData(createPoint.orderPoint(principal.getName(),(odto.getUsePoint())*-1));
+
+        int itemNum = odto.getItemNum();
+        int itemStock=idto.getItemStock();
+
+        itemDetailService.updateItemStock(itemNum,itemStock);
+
+
         mav.setViewName("redirect:success_order");
 
         return mav;
@@ -179,15 +187,15 @@ public class OrderController {
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         OrderDto odto = objectMapper.readValue(messageBody, OrderDto.class);
 
-        // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
 
-        /* response.setContentType("text/html; charset=UTF-8");*/
+
 
 
         odto.setCustomerEmail(principal.getName());
 
         orderService.insertOrder(odto);
         pointService.insertDelData(createPoint.orderPoint(principal.getName(),(odto.getUsePoint())*-1));
+
         //주문했으면 삭제하기
 
         mav.setViewName("redirect:success_order");
@@ -199,12 +207,13 @@ public class OrderController {
     @PostMapping("/cartItemOrder_ok")
     @ResponseBody
     public ModelAndView cartItemOrder_ok(HttpSession session,Principal principal, @ModelAttribute DeliverDto ddto,
-                                     HttpServletRequest request) throws IOException {
+                                     HttpServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
 
         ServletInputStream inputStream = request.getInputStream();
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
        OrderDetailDto oddto = objectMapper.readValue(messageBody, OrderDetailDto.class);
+        ItemDetailDto idto = objectMapper.readValue(messageBody, ItemDetailDto.class);
         // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
         /* response.setContentType("text/html; charset=UTF-8");*/
 
@@ -213,8 +222,13 @@ public class OrderController {
         oddto.setOdNum(odMaxNum+1);*/
 
         orderDetailService.insertOd(oddto);
-        /*int cartNum = Integer.parseInt(request.getParameter("cartNum"));*/
-        /*cartService.deleteCart(cartNum);*/
+        int itemNum = oddto.getItemNum();
+        int itemStock=idto.getItemStock();
+
+        System.out.println(itemNum);
+        System.out.println(itemStock);
+
+        itemDetailService.updateItemStock(itemNum,itemStock);
         mav.setViewName("redirect:success_order");
 
         return mav;

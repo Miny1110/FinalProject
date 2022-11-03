@@ -28,7 +28,7 @@
 	<!-- 카트목록 -->
 	<select id="listCart" resultType="CartDto" parameterType="String">
 		select a.cartNum, a.itemNum, a.customerEmail, a.itemQty,a.itemSize,a.itemColor,
-		       b.itemName, b.itemPrice, b.itemDiscount,
+		       b.itemName, b.itemPrice, b.itemDiscount,b.itemStock,
 			   (select fs.UUID_FILE_NAME||'.'||fs.FILE_EXTENSION
 				from file_store fs
 				where fs.no = b.itemImage1

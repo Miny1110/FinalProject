@@ -218,8 +218,7 @@
                             <li>
                                 <h4>가용 포인트</h4>
                                 <input type="hidden" id="checkPoint" th:value="${totalPoint}">
-
-                                <h4 class="price" th:text="${totalPoint}">
+                                <h4 class="price" th:text="${#numbers.formatInteger(totalPoint,0,'COMMA') +'원'}">
 
 
 
@@ -791,9 +790,6 @@
                let totalPrice = 0
                let index = $('input[name="price"]').length;
                 let deliver = $('#deliveryCost').val();
-               /*   let use = $('#use').val(); //사용할 포인트
-            let usePoint = parseInt(use);*/
-               //alert(use)
 
 
                for(let i = 0; i < index;i++)
@@ -811,7 +807,7 @@
 
          $('#deliveryCost').html(addComma(deliver)+" 원")
          $('#deliverCost').val(deliver)
-           $('#totalPrice').val(totalPrice)
+         $('#totalPrice').val(totalPrice)
          $('#pointTotalPrice').val(totalPrice)
          $('#pointTotalPrice').html(addComma(totalPrice)+" 원")
 
@@ -875,14 +871,14 @@
             alert("보유포인트 이내로 사용가능합니다.");
             return;
         }
-        $('#usePoint').html(usePoint)
+        $('#usePoint').val(usePoint)
+        $('#usePoint').html(addComma(usePoint)+"원")
 
        $(document).ready(function price(){
            let totalPrice=0;
            let pointTotalPrice = 0
            let index = $('input[name="price"]').length;
            let use = $('#use').val(); //사용할 포인트
-           let usePoint = parseInt(use);
            let usePoint = parseInt(use);
 
 
@@ -898,7 +894,8 @@
            pointTotalPrice = pointTotalPrice - usePoint}
 
 
-           $('#pointTotalPrice').html(pointTotalPrice)
+           $('#pointTotalPrice').val(pointTotalPrice)
+           $('#pointTotalPrice').html(addComma(pointTotalPrice)+" 원")
      /*      $(document).ready(function price(){
                totalPrice=0
 

@@ -303,11 +303,9 @@
 											</div>
 										</div>
 
-										<button type="return button"
-												onclick="return cart()"
+										<input type="button" readonly="readonly" 
 												class="btn btn-md bg-dark cart-button text-white w-40"
-												th:if="${idto.itemStock==0}">일시품절
-										</button>
+												th:if="${idto.itemStock==0}" value="일시품절">
 
 
 										

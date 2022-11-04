@@ -170,6 +170,9 @@
                                                 <ul class="cart-list">
 
                                                     <li class="product-box-contain" >
+                                                        <a th:if="${session.cartsize==0}">
+                                                            <h4>장바구니가 비어있습니다.</h4>
+                                                        </a>
                                                         <div class="drop-cart" th:each="cartlist: ${session.cartList}">
                                                             <a th:href="@{/itemDetail(itemNum=${cartlist.itemNum})}" class="drop-image">
                                                                 <img th:src="@{|/assets/img/${cartlist.itemImage1}|}"
@@ -189,14 +192,15 @@
 
                                                     </li>
 
-
                                                 </ul>
-
+                                                <a th:if="${session.cartsize!=0}">
                                                 <div class="button-group">
                                                     <a href="/cart" class="btn btn-sm cart-button">장바구니로 가기</a>
-                                                    <a href="/cartOrder" class="btn btn-sm cart-button theme-bg-color
+                                                        <a href="/cartOrder" class="btn btn-sm cart-button theme-bg-color
                                                     text-white">주문하기</a>
+
                                                 </div>
+                                                </a>
                                             </div>
 
                                         </div>
@@ -616,4 +620,5 @@
 
     </header>
 <script src="/assets/js/total.js"></script>
+
 </html>

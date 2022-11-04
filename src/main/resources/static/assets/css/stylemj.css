@@ -2588,7 +2588,7 @@ input[type=number]::-webkit-outer-spin-button {
 .product-section-box .custom-nav .nav-item .nav-link:hover::after,
 .product-section-box .custom-nav .nav-item .nav-link.active::after {
     width: 100%;
-    background: #1aa488
+    background: #00264B
 }
 
 .product-section-box .offer-table {

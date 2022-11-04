@@ -61,7 +61,7 @@
                 	<h3 ></h3>
                     <div class="cart-table" style="width:1000px; height: 400px;">
                     <div class="information-box">
-						<form th:action="@{reviewWrite_ok}" method="post" th:object="${replyDto}">
+						<form name="myForm" th:action="@{reviewWrite_ok}" method="post" th:object="${replyDto}">
 							<input type="hidden" th:value="${itemNum}" name="itemNum">
                     		<input type="hidden" th:value="${customerEmail}" name="customerEmail">
 												
@@ -93,10 +93,10 @@
 								
 							<div style="float: right; margin-top: 15px;">
 								<div style="display: inline-block;">
-									<button class="btn-anii" type="submit">작성완료</button>
+									<button class="btn-anii" type="button" onclick="reviewChk();">작성완료</button>
 								</div>
 								<div style="display: inline-block;">	
-									<button class="btn-cancel" type="button"  onclick="history.back();">작성취소</button>
+									<button class="btn-cancel" type="button"  onClick="window.location.reload()">작성취소</button>
 								</div>
 							</div>
 							</div>
@@ -223,6 +223,47 @@
 		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
 	}
 	// ]]>
+</script>
+
+
+
+<script type="text/javascript">
+
+const reviewChk = () => {
+	
+	var  f = document.myForm
+	
+	str = f.rating.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\평점을 선택 해주세요.");
+		f.rating.focus();
+		return;
+	}
+	f.itemQueTitle = str;
+	
+	str = f.content.value;
+	str = str.trim();
+	
+	if(!str){
+		alert("\내용을 입력하세요.");
+		f.content.focus();
+		return;
+	}
+	f.content.value = str;
+	
+	f.submit();
+	
+}
+
+
+
+
+
+
+
+
 </script>
 
 

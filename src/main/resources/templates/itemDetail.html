@@ -416,7 +416,7 @@
 									<div class="tab-pane fade" id="care" role="tabpanel"
 										aria-labelledby="care-tab">
 										<div class="information-box">
-											<form th:action="@{qnaWrite_ok}" method="post" th:object="${itemDetailDto}">
+											<form name="myForm" method="post" th:object="${itemDetailDto}" th:action="@{qnaWrite_ok}">
 												
 
 												<h2>Q & A</h2>
@@ -445,10 +445,10 @@
 													</div>
 													<div style="float: right; margin-top: 15px;">
 													<div style="display: inline-block;">
-														<button class="btn-anii" type="submit">작성완료</button>
+														<button class="btn-anii" type="button" onclick="questionChk();">작성완료</button>
 													</div>
 													<div style="display: inline-block;">	
-														<button class="btn-cancel" type="button"  onclick="history.back();">작성취소</button>
+														<button class="btn-cancel" type="button"  onClick="window.location.reload()">작성취소</button>
 													</div>
 												</div>
 													
@@ -495,7 +495,7 @@
 											<div style="display: inline-block;">
 												<span style="font-weight: 1000; color: #00264B;">Q.&nbsp;</span><a style="display: inline; font-size: 15px; color: blakc;"><b
 													th:text="${qdto.itemQueTitle}"></b></a><br>
-												<a style="white-space:pre; display: inline; font-size: 12px; color: gray; "
+												<a style="white-space:pre-line; display: inline; font-size: 12px; color: gray; "
 													th:text="${qdto.itemQueContent}">내용</a><br>
 											</div>	
 											
@@ -532,7 +532,7 @@
 											
 												<div style="display: inline-block;">
 													<span style="font-weight: 1000; color: #00264B;">A.&nbsp;</span>
-													<a style="white-space:pre; display: inline; font-size: 12px; color: gray; "
+													<a style="white-space:pre-line; display: inline; font-size: 12px; color: gray; "
 														th:text="${qdto.answer.itemAnsContent}">내용</a><br>
 												</div>
 												
@@ -587,7 +587,7 @@
 																		</div>
 
 																		<div>
-																			<p style="width:90%;overflow:hidden;word-wrap:break-word;">[[${rdto.content}]]</p>
+																			<p style="width:90%;overflow:hidden;word-wrap:break-word; white-space:pre-line;">[[${rdto.content}]]</p>
 																			
 																			
 																			<div style="float: right; margin-top: 15px;" >
@@ -712,6 +712,50 @@
 	<script src="/assets/js/option.js"></script> <!--optionSize선택 insert관련-->
 	<script src="/assets/js/optionColor.js"></script> <!--optionSize선택 insert관련-->
 	<script src="/assets/js/orderpay.js"></script><!--바로결제 관련-->
+
+
+<script type="text/javascript">
+	const questionChk = () => {
+	
+		var  f = document.myForm
+		
+		str = f.itemQueTitle.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("\n제목을 입력하세요.");
+			f.itemQueTitle.focus();
+			return;
+		}
+		f.itemQueTitle = str;
+		
+		str = f.itemQueContent.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("\내용을 입력하세요.");
+			f.itemQueContent.focus();
+			return;
+		}
+		f.itemQueContent.value = str;
+		
+		f.submit();
+		
+	}
+
+	
+	
+
+
+
+
+
+
+
+
+</script>
+
+
 
 
 </body>

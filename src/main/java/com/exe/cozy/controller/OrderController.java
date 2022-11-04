@@ -223,7 +223,7 @@ public class OrderController {
 
         orderDetailService.insertOd(oddto);
         int itemNum = oddto.getItemNum();
-        int itemStock=idto.getItemStock();
+        int itemStock=idto.getItemStock()-oddto.getItemQty();
 
         System.out.println(itemNum);
         System.out.println(itemStock);

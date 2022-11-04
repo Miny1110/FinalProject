@@ -292,7 +292,7 @@
                     <div class="tab-pane" id="d-address" role="tabpanel" aria-labelledby="delivery-address">
                         <div class="d-flex align-items-center mb-3">
                             <h2 class="tab-title mb-0">등록된 배송지</h2>
-                            <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0" data-bs-toggle="modal" id="insertDeliver">
+                            <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0" data-bs-toggle="modal" type="button" id="insertDeliver" onclick="return addDeliver()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus me-2">
                                     <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                                 나의 배송지 추가</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -912,7 +912,9 @@
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/payment.js"></script>
+<script src="/assets/js/addDeliver.js"></script>
 <script src="/assets/js/deliver.js"></script>
+
         <script>
             function addComma(num) {
                 var regexp = /\B(?=(\d{3})+(?!\d))/g;

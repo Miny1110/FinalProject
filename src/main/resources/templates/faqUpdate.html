@@ -8,38 +8,9 @@
    
    
     <!-- Template css -->
-    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
+    <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/styleLee.css">
     
-<script type="text/javascript">
-	const sendIt = () => {
-		var f = document.myForm
-		
-		str = f.faqTitle.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			f.faqTitle.focus();
-			return;
-		}
-		
-		f.faqTitle.value = str;
-		
-		str = f.faqContent.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			f.faqContent.focue();
-			return;
-		}
-		
-		f.faqContent.value = str;
-		
-		f.action = "faq/create";
-		f.submit();
-	}
-</script>
+
     
 </head>
 
@@ -137,13 +108,13 @@
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30" style="width: 70%;">
                     
                     <div class="leave-box" style="width: 100%;">
-                    <form th:action="@{/faq/update_ok}" method="post">
+                    <form th:action="@{/faq/update_ok}" method="post" name="faqForm">
                         <div class="leave-title mt-0" style="display: inline-block">
                             <h3>faq 수정</h3>
                         </div>
 						
 							<select name="faqType" id="faqSelect" style="display: inline-block">
-                             	<option value="0" name=maxType selected="selected">선택</option>
+                             	<option value="" name=maxType selected="selected">선택</option>
                              	<option value="1" name="delivery">배송</option>
                              	<option value="2" name="canref">취소/환불</option>
                              	<option value="3" name="order">주문/결제</option>
@@ -160,7 +131,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="blog-input">
+                                    <div class="blog-input" style="white-space:pre-line">
                                         <textarea class="form-control" rows="12" th:field="*{fdto.faqContent}"></textarea>
                                     </div>
                                 </div>
@@ -170,7 +141,7 @@
                     	
                     	<div style="text-align: center">
 		                    <div style="display: inline-block">
-		                        <button type="submit" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">수정</button>
+		                        <button onclick="faqSend();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">수정</button>
 							</div>
 							<div style="display: inline-block">
 		                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >삭제</button>
@@ -205,32 +176,78 @@
     <!-- Bg overlay End -->
 
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
 
     <!-- jquery ui-->
-    <script src="../assets/js/jquery-ui.min.js"></script>
+    <script src="/assets/js/jquery-ui.min.js"></script>
 
     <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="/assets/js/bootstrap/popper.min.js"></script>
 
     <!-- feather icon js-->
-    <script src="../assets/js/feather/feather.min.js"></script>
-    <script src="../assets/js/feather/feather-icon.js"></script>
+    <script src="/assets/js/feather/feather.min.js"></script>
+    <script src="/assets/js/feather/feather-icon.js"></script>
 
     <!-- Lazyload Js -->
-    <script src="../assets/js/lazysizes.min.js"></script>
+    <script src="/assets/js/lazysizes.min.js"></script>
 
     <!-- Quantity js -->
-    <script src="../assets/js/quantity.js"></script>
+    <script src="/assets/js/quantity.js"></script>
 
     <!-- WOW js -->
-    <script src="../assets/js/wow.min.js"></script>
-    <script src="../assets/js/custom-wow.js"></script>
+    <script src="/assets/js/wow.min.js"></script>
+    <script src="/assets/js/custom-wow.js"></script>
 
     <!-- script js -->
-    <script src="../assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+
+	const faqSend = () => {
+		var f = document.faqForm
+		
+		str = f.faqType.value;
+		
+		if(!str){
+			alert("\n타입을 선택해주세요.");
+			f.faqType.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		
+		str = f.faqTitle.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("\n제목을 입력하세요.");
+			f.faqTitle.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		f.faqTitle.value = str;
+		
+		
+		str = f.faqContent.value;
+		str = str.trim();
+		
+		if(!str){
+			alert("\n내용을 입력하세요.");
+			f.faqContent.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		f.faqContent.value = str;
+		
+
+		f.submit();
+	}
+	
+</script>
 </body>
 
 </html>

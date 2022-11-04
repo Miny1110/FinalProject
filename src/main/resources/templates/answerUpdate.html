@@ -84,7 +84,8 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false"><i data-feather="shopping-bag" 
+	                                    th:onclick="'location.href=\''+ @{/faq/list} + '\''"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -140,13 +141,15 @@
 
 
 					<div class="leave-box1">
-	                    <div class="blog-detail-contain" style="align-content: center">
+	                    <div class="blog-detail-contain" style="align-content: center; white-space:pre-line;">
 	                        <p th:text="${sqdto.serviceQueContent}"></p>
 	                    </div>
                     </div>
-                    
+                    <br/>
                     <div style="text-align: center">
-	                    <div style="display: inline-block">
+	                    
+	                    <div style="display: inline-block">\
+	                    <br/>
 	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
 	                    </div>
@@ -164,7 +167,7 @@
                         	<form method="post" th:object="${ServiceAnswerDto}" name="queForm" th:action="@{/service/anqCreate_ok}">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <div class="blog-input">
+                                    <div class="blog-input" style="white-space:pre-line">
                                     
                                     	<!-- <input type="hidden" name="serviceAnsNum"/> -->
                                     	<input type="hidden" th:value="${sqdto.serviceQueNum}" name="serviceQueNum"/>
@@ -174,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            	<br/>
                                 <div style="text-align: center">
                                     <div style="display: inline-block">
 	                                    <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"

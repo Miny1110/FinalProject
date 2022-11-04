@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public Page<ItemDetailDto> selectCategory(String itemMainType, String itemSubType, int pageNum) {
-		PageHelper.startPage(pageNum, 5);
+		PageHelper.startPage(pageNum, 12);
 		return CategoryMapper.selectCategory(itemMainType, itemSubType, pageNum);
 	}
 

@@ -29,13 +29,13 @@
 		
 		if(!str){
 			alert("\n내용을 입력하세요.");
-			t.noticeContent.focue();
+			t.noticeContent.focus();
 			return;
 		}
 		
 		t.noticeContent.value = str;
 		
-		t.action = "/notice/create";
+		t.action = "/notice/create_ok";
 		t.submit();
 	}
 </script>
@@ -117,7 +117,8 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false"><i data-feather="shopping-bag"
+	                                    th:onclick="'location.href=\''+ @{/faq/list} + '\''"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -141,8 +142,10 @@
                             <h3>공지 등록</h3>
                         </div>
 						
-						<form th:action="@{notice/create}" method="post" name="myForm">
+						<form th:action="@{/notice/create}" method="post" name="myForm">
                         <div class="leave-comment">
+                            
+                            <input type="hidden" name="noticeDate" >
                             
                             <div class="row g-3">
                                 <div class="col-xxl-4 col-lg-12 col-sm-6">
@@ -153,7 +156,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="blog-input">
+                                    <div class="blog-input" style="white-space:pre-line">
                                         <textarea class="form-control" rows="12" name="noticeContent"
                                             placeholder="내용"></textarea>
                                     </div>

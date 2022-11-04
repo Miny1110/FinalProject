@@ -84,7 +84,8 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false"><i data-feather="shopping-bag"
+	                                    th:onclick="'location.href=\''+ @{/faq/list} + '\''"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -129,7 +130,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="blog-input">
+                                    <div style="white-space:pre-line" class="blog-input">
                                         <textarea class="form-control" rows="12" 
                                             th:field="*{serviceQueContent}"></textarea>
                                     </div>

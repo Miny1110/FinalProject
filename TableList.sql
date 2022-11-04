@@ -41,7 +41,8 @@ itemQty NUMBER(20),
 itemColor varchar2(100),
 itemSize varchar2(100),
 FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
-FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM));
+FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM)
+ON DELETE CASCADE);
 
 //CUSTOMER
 CREATE TABLE CUSTOMER(
@@ -160,7 +161,8 @@ deliverTel VARCHAR2(45),
 deliverMessage VARCHAR2(100),
 orderDate date default sysdate,
 usePoint number(10),
-FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail));
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
+ON DELETE CASCADE);
 
 //주문상세(주문상품정보) 10/30수정
 create table orderdetail
@@ -171,7 +173,8 @@ itemQty NUMBER(20),
 itemColor VARCHAR2(100),
 itemSize VARCHAR2(100),
 FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
-FOREIGN KEY (itemNum) REFERENCES item(itemNum));
+FOREIGN KEY (itemNum) REFERENCES item(itemNum)
+ON DELETE CASCADE);
 
 //상품리뷰
 CREATE TABLE Reply

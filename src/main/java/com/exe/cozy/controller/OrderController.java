@@ -220,10 +220,11 @@ public class OrderController {
 
         /*int odMaxNum = orderDetailService.odMaxNum();
         oddto.setOdNum(odMaxNum+1);*/
+        
 
         orderDetailService.insertOd(oddto);
         int itemNum = oddto.getItemNum();
-        int itemStock=idto.getItemStock()-oddto.getItemQty();
+        int itemStock=(idto.getItemStock()-oddto.getItemQty());
 
         System.out.println(itemNum);
         System.out.println(itemStock);

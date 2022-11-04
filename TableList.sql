@@ -40,7 +40,8 @@ customerEmail VARCHAR2(50),
 itemQty NUMBER(20),
 itemColor varchar2(100),
 itemSize varchar2(100),
-FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail),
+FOREIGN KEY (customerEmail) REFERENCES CUSTOMER(customerEmail)
+ON DELETE CASCADE,
 FOREIGN KEY (ITEMNUM) REFERENCES ITEM(ITEMNUM)
 ON DELETE CASCADE);
 
@@ -172,7 +173,8 @@ itemNum number(8),
 itemQty NUMBER(20),
 itemColor VARCHAR2(100),
 itemSize VARCHAR2(100),
-FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum),
+FOREIGN KEY (orderNum) REFERENCES COZYORDER(orderNum)
+ON DELETE CASCADE,
 FOREIGN KEY (itemNum) REFERENCES item(itemNum)
 ON DELETE CASCADE);
 

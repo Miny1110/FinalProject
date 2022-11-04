@@ -273,7 +273,12 @@
                     <div class="button-group cart-button">
                         <ul>
                             <li>
+                                <a th:if="${session.cartsize!=0}">
                                 <button onclick="location.href = '/cartOrder';" class="btn btn-animation proceed-btn fw-bold">주문하기</button>
+                                </a>
+                                <a th:unless="${session.cartsize !=0}">
+                                    <button onclick="cartalert()" class="btn btn-animation proceed-btn fw-bold">주문하기</button>
+                                </a>
                             </li>
 
                             <li>
@@ -766,6 +771,7 @@
 
 <!-- script js -->
 <script src="../assets/js/script.js"></script>
+<script src="/assets/js/cartAlert.js"></script>
 
 
     <script>

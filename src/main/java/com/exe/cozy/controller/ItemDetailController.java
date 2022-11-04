@@ -24,14 +24,11 @@ import com.exe.cozy.domain.ItemDetailInsertDto;
 import com.exe.cozy.domain.ItemQuestionDto;
 import com.exe.cozy.domain.ItemAnswerDto;
 import com.exe.cozy.domain.ReplyDto;
-import com.exe.cozy.service.ItemDetailService;
-import com.exe.cozy.service.ItemQuestionService;
-import com.exe.cozy.service.ItemAnswerService;
-import com.exe.cozy.service.ReplyService;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.exe.cozy.util.CreatePoint;
 import com.exe.cozy.util.MyPage;
 
 @Controller
@@ -50,9 +47,15 @@ public class ItemDetailController {
 	@Resource
 	private CartService cartService;
 	
+	@Resource 
+	private PointService pointService;
+	
 
 	@Autowired
 	MyPage myPage;
+	
+	@Autowired 
+	CreatePoint createPoint;
 
 	// 상품등록 창으로 이동하는거
 	@GetMapping("createItem") /** item insert view */
@@ -156,11 +159,17 @@ public class ItemDetailController {
 
 	// 리뷰삭제
 	@GetMapping("deleteReply")
-	public ModelAndView deleteReply(ReplyDto rdto, HttpServletRequest request) throws Exception {
+	public ModelAndView deleteReply(ReplyDto rdto, HttpServletRequest request,HttpSession session) throws Exception {
 		int replyId = Integer.parseInt(request.getParameter("replyId"));
 
 		ModelAndView mav = new ModelAndView();
-		replyService.deleteReply(replyId);
+		
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        rdto.setCustomerEmail(customerEmail);
+		
+        //리뷰삭제 포인트차감
+	       pointService.insertDelData(createPoint.reviewDelpoint(customerEmail));
+	       replyService.deleteReply(replyId);
 		mav.setViewName("redirect:itemDetail?itemNum=" + rdto.getItemNum());
 		return mav;
 	}

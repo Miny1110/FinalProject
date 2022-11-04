@@ -150,7 +150,7 @@ public class ItemDetailController {
 		// System.out.println(rdto.getRating());
 		// System.out.println(rdto.getContent());
 		mav.addObject("idto",idto);
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:itemDetail?itemNum=" + rdto.getItemNum());
 		return mav;
 	}
 
@@ -161,7 +161,7 @@ public class ItemDetailController {
 
 		ModelAndView mav = new ModelAndView();
 		replyService.deleteReply(replyId);
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:itemDetail?itemNum=" + rdto.getItemNum());
 		return mav;
 	}
 
@@ -241,7 +241,7 @@ public class ItemDetailController {
 		return mav;
 
 	}
-	//리뷰등록
+	//문의등록
 	@PostMapping("/qnaWrite_ok")
     public ModelAndView reviewWrite_ok(ItemQuestionDto qdto, HttpServletRequest request,HttpSession session) throws Exception{
 
@@ -257,7 +257,7 @@ public class ItemDetailController {
        
         //itemQuestionService
         itemQuestionService.insertItemQna(qdto);
-        mav.setViewName("redirect:/");
+        mav.setViewName("redirect:itemDetail?itemNum=" + qdto.getItemNum());
         return mav;
     }
 	
@@ -282,7 +282,8 @@ public class ItemDetailController {
 		// 문의답변 itemAnswer로변경
 		@PostMapping("itemQnaAnswer_ok")
 		public ModelAndView itemQnaAnswer_ok(ItemAnswerDto adto, HttpServletRequest request) throws Exception {
-
+			int itemNum = Integer.parseInt(request.getParameter("itemNum"));
+			
 			ModelAndView mav = new ModelAndView();
 			
 			int qnaAnswerMaxNum = itemAnswerService.qnaAnswerMaxNum();
@@ -294,7 +295,7 @@ public class ItemDetailController {
 			
 			// System.out.println(rdto.getRating());
 			// System.out.println(rdto.getContent());
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:itemDetail?itemNum=" + itemNum);
 			return mav;
 		}
 		
@@ -307,7 +308,7 @@ public class ItemDetailController {
 
 			ModelAndView mav = new ModelAndView();
 			itemQuestionService.deleteItemQna(itemQueNum);
-			mav.setViewName("redirect:/");
+			mav.setViewName("redirect:itemDetail?itemNum=" + qdto.getItemNum());
 			return mav;
 		}
 

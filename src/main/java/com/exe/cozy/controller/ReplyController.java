@@ -86,7 +86,7 @@ public class ReplyController {
        pointService.insertData(createPoint.reviewPoint(customerEmail));
        replyService.insertReply(rdto);
 
-        mav.setViewName("redirect:/");
+        mav.setViewName("redirect:itemDetail?itemNum=" + rdto.getItemNum());
         return mav;
     }
 	//리뷰수정

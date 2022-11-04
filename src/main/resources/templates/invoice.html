@@ -76,14 +76,14 @@
                                     <tr th:if="${#lists.size(orderDetailList)>0}" th:each="orderDetailDto : ${orderDetailList}">
                                         <td class="product-detail">
                                             <div class="product border-0">
-                                                <a href="product.left-sidebar.html" class="product-image">
+                                                <a th:href="@{/itemDetail(itemNum=${orderDetailDto.itemDto.itemNum})}" class="product-image">
                                                     <img th:src="@{|/assets/img/${orderDetailDto.itemDto.itemImage1}|}"
                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </a>
                                                 <div class="product-detail">
                                                     <ul>
                                                         <li class="name">
-                                                            <a href="product-left.html" th:text="${orderDetailDto.itemDto.itemName}"></a>
+                                                            <a th:href="@{/itemDetail(itemNum=${orderDetailDto.itemDto.itemNum})}" th:text="${orderDetailDto.itemDto.itemName}"></a>
                                                         </li>
 
                                                         <li class="text-content" th:if="${not #strings.isEmpty(orderDetailDto.itemDto.itemSize)}"

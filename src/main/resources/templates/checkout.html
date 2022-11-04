@@ -493,7 +493,7 @@
                                             <h4>가용 포인트</h4>
                                             <input type="hidden" id="checkPoint" th:value="${totalPoint}">
 
-                                            <h4 class="price" th:text="${totalPoint}">
+                                            <h4 class="price" th:text="${#numbers.formatInteger(totalPoint,0,'COMMA') +'원'}">
 
                                             </h4>
                                         </li>
@@ -961,7 +961,9 @@
                     alert("보유포인트 이내로 사용가능합니다.");
                     return;
                 }
-                $('#usePoint').html(usePoint)
+                $('#usePoint').val(usePoint)
+                $('#usePoint').html(addComma(usePoint)+"원")
+
 
                 $(document).ready(function price() {
 

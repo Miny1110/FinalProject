@@ -485,23 +485,10 @@
                                             <input type="text" id="customerEmail" th:value="${customerDto.getCustomerEmail()}" hidden>
 
 
-                                            <h4 class="price" th:text="${totalPoint}">
+                                            <h4 class="price" th:text="${#numbers.formatInteger(totalPoint,0,'COMMA') +'원'}">
 
                                             </h4>
                                         </li>
-
-                                        <li>
-                                            <h4>배송비</h4>
-                                            <input type="hidden" id="deliverCost">
-                                            <h4 class="price" id="deliveryCost"></h4>
-                                        </li>
-
-
-                                        <li>
-                                            <h4>할인금액</h4>
-                                            <h4 class="price text-end" id="salePrice"></h4>
-                                        </li>
-
                                         <div class="summery-contain">
                                             <div class="coupon-cart">
                                                 <div class="mb-3 coupon-box input-group">
@@ -509,11 +496,23 @@
                                                     <button class="btn-apply" type="button" onclick="point()">적용하기</button>
                                                 </div>
                                             </div>
-                                            <li>
-                                                <h5>포인트사용</h5>
-                                                <h5 class="price" id="usePoint"></h5>
-                                            </li>
+
                                         </div>
+
+                                        <li>
+                                            <h5>포인트사용</h5>
+                                            <h5 class="price" id="usePoint"></h5>
+                                        </li>
+                                        <li>
+                                            <h4>배송비</h4>
+                                            <input type="hidden" id="deliverCost">
+                                            <h4 class="price" id="deliveryCost"></h4>
+                                        </li>
+                                        <li>
+                                            <h4>할인금액</h4>
+                                            <h4 class="price text-end" id="salePrice"></h4>
+                                        </li>
+
 
 
 
@@ -1015,7 +1014,10 @@
             alert("보유포인트 이내로 사용가능합니다.");
             return;
         }
-        $('#usePoint').html(usePoint)
+
+        $('#usePoint').val(usePoint)
+        $('#usePoint').html(addComma(usePoint)+"원")
+
 
         $(document).ready(function price() {
             let pointTotalPrice=$('#totalPrice').val();

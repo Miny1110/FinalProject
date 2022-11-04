@@ -49,7 +49,7 @@ public class CategoryController {
     	
     	Page<ItemDetailDto> lists = CategoryService.selectCategory(itemMainType,itemSubType, pageNum);
 
-    	PageInfo<ItemDetailDto> page = new PageInfo<>(lists,5);
+    	PageInfo<ItemDetailDto> page = new PageInfo<>(lists,3);
     	
     	
     	mav.addObject("lists", lists);

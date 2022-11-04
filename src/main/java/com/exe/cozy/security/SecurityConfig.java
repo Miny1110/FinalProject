@@ -30,6 +30,8 @@ public class SecurityConfig {
 		//인증되지 않은 모든 요청을 허락
 		http
 		.authorizeRequests()
+			.antMatchers("/reviewWrite").authenticated()
+			.antMatchers("/qnaWrite_ok").authenticated()
 			.antMatchers("/customer/**").hasRole("USER") //customer주소는 user권한만 접근 가능
 			.antMatchers("/createItem").hasRole("ADMIN")
 			.antMatchers("/createItem_ok").hasRole("ADMIN")//admin주소는 admin권한만 접근 가능

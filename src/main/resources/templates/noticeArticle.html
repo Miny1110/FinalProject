@@ -87,7 +87,8 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false" th:onclick="'location.href=\''+ @{/faq/list} + '\''">
+	                                    <i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -123,12 +124,12 @@
                             
                             <div class="blog-details-quote">
                                 
-                                <h3 th:text="${ndto.noticeTitle}"></h3>
+                                <h3 style="margin-bottom: 0px " th:text="${ndto.noticeTitle}"></h3>
                             
                             </div>
                             <hr/>
 
-                            <p th:text="${ndto.noticeContent}"></p>
+                            <p style="margin-left: 2%" th:text="${ndto.noticeContent}"></p>
 
                         </div>
                     </div>

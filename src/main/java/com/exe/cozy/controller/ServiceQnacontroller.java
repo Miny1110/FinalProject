@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.exe.cozy.domain.NoticeDto;
 import com.exe.cozy.domain.ServiceAnswerDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.service.ServiceAnswerService;
@@ -34,10 +34,13 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 등록창
+	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/qnaCreate")
 	public ModelAndView createSvcQuestion(String customerEmail, Principal principal) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
+		
+		
 		mav.setViewName("questionCreate");
 		mav.addObject("customerEmail",principal.getName());
 		
@@ -46,15 +49,19 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 등록
-	//@PreAuthorize("isAuthenticated")
+	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/qnaCreate_ok")
-	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto,Principal principal, HttpServletRequest request) throws Exception{
+	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto,Principal principal, HttpServletRequest request, HttpSession session) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		int serviceQueMaxNum = svcQueService.serviceQueMaxNum();
 		sqdto.setServiceQueNum(serviceQueMaxNum + 1);
 		
 		sqdto.setCustomerEmail(principal.getName());
+
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        sqdto.setCustomerEmail(customerEmail);
+
 		
 		svcQueService.insertServiceQue(sqdto);;
 		mav.setViewName("redirect:/service/qnaList");
@@ -63,9 +70,8 @@ public class ServiceQnacontroller {
 	}
 	
 	//질문 리스트 띄우기
-	//@PreAuthorize("isAuthenticated")
 	@RequestMapping("/service/qnaList")
-	public ModelAndView listSvcQuestion(HttpServletRequest request) throws Exception{
+	public ModelAndView listSvcQuestion(ServiceQuestionDto sqdto,HttpServletRequest request,HttpSession session) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 				
@@ -83,6 +89,7 @@ public class ServiceQnacontroller {
 		
 		mav.addObject("sqlists",sqlists);
 		mav.addObject("page",page);
+		
 		mav.setViewName("questionList");
 		
 		return mav;
@@ -107,13 +114,19 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 수정창
+	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/qnaUpdate")
-	public ModelAndView qnaUpdate(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request) throws Exception{
+	public ModelAndView qnaUpdate(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request,Principal principal, HttpSession session) throws Exception{
 		
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 		
 		sqdto = svcQueService.findServiceQue(serviceQueNum);
 		ModelAndView mav = new ModelAndView();
+		
+		sqdto.setCustomerEmail(principal.getName());
+		
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        sqdto.setCustomerEmail(customerEmail);
 		
 		mav.setViewName("questionUpdate");
 		mav.addObject("ServiceQuestionDto",sqdto);
@@ -123,23 +136,36 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 수정
+	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/qnaUpdate_ok")
-	public ModelAndView qnaUpdate_ok(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request) throws Exception{
+	public ModelAndView qnaUpdate_ok(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request,Principal principal, HttpSession session) throws Exception{
 		
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 		
 		ModelAndView mav = new ModelAndView();
+		
+		sqdto.setCustomerEmail(principal.getName());
+		
 		svcQueService.updateServiceQue(sqdto);
 		mav.setViewName("redirect:/service/qnaArticle?serviceQueNum=" + serviceQueNum);
+		
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        sqdto.setCustomerEmail(customerEmail);
 		
 		return mav;
 	}
 		
 	//질문 삭제
+	@PreAuthorize("isAuthenticated")
 	@GetMapping("deleteQuestion")
-	public ModelAndView deleteSvcQuestiosn(ServiceQuestionDto sqdto, HttpServletRequest request) throws Exception {
+	public ModelAndView deleteSvcQuestiosn(ServiceQuestionDto sqdto, HttpServletRequest request,Principal principal,HttpSession session) throws Exception {
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
-
+		
+		sqdto.setCustomerEmail(principal.getName());
+		
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        sqdto.setCustomerEmail(customerEmail);
+        
 		ModelAndView mav = new ModelAndView();
 		svcQueService.deleteServiceQue(serviceQueNum);
 		mav.setViewName("redirect:/service/qnaList");
@@ -178,13 +204,17 @@ public class ServiceQnacontroller {
 	
 	
 	//답변 등록창으로 이동
+	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/anqCreate")
-	public ModelAndView createSvcAnswer(HttpServletRequest request) throws Exception{
+	public ModelAndView createSvcAnswer(HttpServletRequest request,HttpSession session) throws Exception{
 		
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 		
 		ModelAndView mav = new ModelAndView();
 		ServiceQuestionDto sqdto = svcQueService.findServiceQue1(serviceQueNum);
+		
+		String customerEmail = (String)session.getAttribute("admin@admin.com");
+        sqdto.setCustomerEmail(customerEmail);
 		
 		mav.addObject("sqdto",sqdto);
 		
@@ -196,6 +226,7 @@ public class ServiceQnacontroller {
 	
 	
 	//답변 등록
+	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/anqCreate_ok")
 	public ModelAndView anqCreate_ok(ServiceAnswerDto sadto, HttpServletRequest request) throws Exception{
 

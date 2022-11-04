@@ -85,7 +85,7 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false" th:onclick="'location.href=\''+ @{/faq/list} + '\''"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -143,8 +143,7 @@
                             </div>
                         </div>
                         
-	                    <div class="blog-detail-contain" style="align-content: center"
-	                    	>
+	                    <div class="blog-detail-contain" style="align-content: center; white-space:pre-line">
 	                        <br/>
 	                        <p style="margin-left: 2%" th:text="${sqdto.serviceQueContent}">
 	                            
@@ -154,6 +153,7 @@
                     
                     
                     <div style="text-align: center">
+                    	<br/>
 	                    <div style="display: inline-block">
 	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
@@ -176,7 +176,8 @@
                                     	 <div class="user-contain" th:if="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
                                     	 	<p>아직 답변이 없습니다. 조금만 기다려주세요.</p>
                                     	 </div>
-                                    	 <div class="user-contain" th:unless="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
+                                    	 <div class="user-contain" style="white-space:pre-line;" 
+                                    	 	th:unless="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
                                     	 	 <p th:text="${sqdto.serviceAnswer.serviceAnsContent}"></p>
                                     	 </div>
                                     </li>
@@ -187,11 +188,13 @@
                     
                     
                     <form th:action="@{/service/anqCreate}">
+                    	<br/>
 	                    <div style="text-align: center">
-	                       <div style="display: inline-block">
+	                       <div style="display: inline-block" th:if="${sqdto.serviceAnswer.serviceAnsContent==null}">
 		                       <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 		                       	type="button" th:onclick="'location.href=\'anqCreate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">등록</button>
-		                       	
+		                   </div>
+		                   <div style="display: inline-block"  th:if="${sqdto.serviceAnswer.serviceAnsContent!=null}">    	
 		                       	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 		                       	type="button" th:onclick="'location.href=\'anqUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
 		                   </div>

@@ -4,7 +4,7 @@
 <head>
 <div th:replace="head.html :: headFragment"></div>
 
-<title>공지 보기</title>
+<title>공지</title>
 
 <!-- Template css -->
 <link id="color-link" rel="stylesheet" type="text/css"
@@ -84,7 +84,7 @@
 	                            <li class="nav-item" role="presentation">
 	                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
 	                                    data-bs-target="#pills-order" type="button" role="tab" aria-controls="pills-order"
-	                                    aria-selected="false"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
+	                                    aria-selected="false" th:onclick="'location.href=\''+ @{/faq/list} + '\''"><i data-feather="shopping-bag"></i>자주묻는 질문 (FAQ)</button>
 	                            </li>
 	
 	
@@ -121,7 +121,7 @@
 							</div>
 						</form>
 						 -->
-						<div style="display: inline-block">
+						<div sec:authorize="hasRole('ADMIN')" style="display: inline-block">
 	                        <button th:onclick="|location.href = '@{|/notice/create|}';|"
 	                        	class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
 						</div>
@@ -135,7 +135,7 @@
 									<div class="blog-label">
 										<span class="time">
 										<i data-feather="calendar"></i>
-										</span><h6 th:text="${ndto.noticeDate}"/>
+										<h6 th:text="${ndto.noticeDate}"/></span>
 									</div>
 									<a th:onclick="|location.href = '@{|/notice/article?noticeNum=${ndto.noticeNum}|}';|">
 										<h3 th:text="${ndto.noticeTitle}"></h3>

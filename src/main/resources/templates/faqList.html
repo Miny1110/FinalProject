@@ -5,7 +5,7 @@
     <div th:replace="head.html :: headFragment"></div>
     <!-- Template css -->
     
-    <title>FAQ 보기</title>
+    <title>FAQ</title>
     
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
 </head>
@@ -112,7 +112,7 @@
                     
                             
                                 
-                        <div style="margin-right: 50%">
+                        <div sec:authorize="hasRole('ADMIN')" style="margin-right: 50%" >
 		                    <button th:onclick="|location.href = '@{|/faq/create|}';|"
 		                    	class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
 						</div>
@@ -179,14 +179,14 @@
 		
 		                                                <div th:id="|collapseOne${i.index}|" class="accordion-collapse collapse show"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample${i.index}|">
-		                                                    <div class="accordion-body">
+		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto1.faqContent}"></p>
 		                                                    </div>
 		                                                    
-		                                                    <div style="margin-left: 90%">
+		                                                    <div sec:authorize="hasRole('ADMIN')" style="margin-left: 90%">
 			                                                    <h6>
 											                    	<div style="display: inline-block">
-											                        	<a th:href="@{/faq/update(faqNum=${fdto1.faqNum})}">수정</a>
+											                        	<a  th:href="@{/faq/update(faqNum=${fdto1.faqNum})}">수정</a>
 																	</div>
 																	
 																	<div style="display: inline-block">
@@ -222,11 +222,11 @@
 		
 		                                                <div th:id="|collapseOne1${i.index}|" class="accordion-collapse collapse show"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample1${i.index}|">
-		                                                    <div class="accordion-body">
+		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto2.faqContent}"></p>
 		                                                    </div>
 		                                                    
-		                                                    <div style="margin-left: 90%">
+		                                                    <div sec:authorize="hasRole('ADMIN')" style="margin-left: 90%">
 			                                                    <h6>
 											                    	<div style="display: inline-block">
 											                        	<a th:href="@{/faq/update(faqNum=${fdto2.faqNum})}">수정</a>
@@ -262,11 +262,11 @@
 		
 		                                                <div th:id="|collapseOne2${i.index}|" class="accordion-collapse collapse show"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample2${i.index}|">
-		                                                    <div class="accordion-body">
+		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto3.faqContent}"></p>
 		                                                    </div>
 		                                                    
-		                                                    <div style="margin-left: 90%">
+		                                                    <div sec:authorize="hasRole('ADMIN')" style="margin-left: 90%">
 			                                                    <h6>
 											                    	<div style="display: inline-block">
 											                        	<a th:href="@{/faq/update(faqNum=${fdto3.faqNum})}">수정</a>

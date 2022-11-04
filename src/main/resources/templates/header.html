@@ -20,16 +20,14 @@
                             <div class="notification-slider">
                                 <div>
                                     <div class="timer-notification">
-                                        <h6><strong class="me-1">환영합니당</strong>사람과 공간이 함께하는 Cozy House입니다
+                                        <h6><strong class="me-1">환영합니다</strong>사람과 공간이 함께하는 Cozy House입니다
                                         </h6>
                                     </div>
                                 </div>
 
                                 <div>
                                     <div class="timer-notification">
-                                        <h6>매일 매일 진행되는 오늘의 딜을 확인하세요
-                                            <a th:href="@{/}" class="text-white">Buy Now</a>
-                                        </h6>
+                                        <h6>매일 매일 진행되는 오늘의 딜을 확인하세요</h6>
                                     </div>
                                 </div>
                             </div>
@@ -215,7 +213,7 @@
                                                 <li class="product-box-contain">
                                                     <i></i>
                                                     <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
-                                                    <a sec:authorize="isAuthenticated()" th:href="@{/customer/info}">마이페이지</a>
+                                                    <a sec:authorize="hasRole('USER')" th:href="@{/customer/info}">마이페이지</a>
                                                 </li>
 
                                                 <li class="product-box-contain">

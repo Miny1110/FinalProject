@@ -1,10 +1,19 @@
-<html lang="en"><head>
+<html lang="en">
+<head>
     <div th:replace="head.html :: headFragment"></div>
 
 	<title>로그인</title>
 
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="/assets/css/stylemj.css">
+    
+	<style id="__web-inspector-hide-shortcut-style__">
+	.__web-inspector-hide-shortcut__, .__web-inspector-hide-shortcut__ *, .__web-inspector-hidebefore-shortcut__::before, .__web-inspector-hideafter-shortcut__::after
+	{
+    	visibility: hidden !important;
+	}
+	</style>
+	
 
 </head>
 
@@ -12,7 +21,14 @@
 
 
     <!-- Loader Start -->
-    
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <!-- Loader End -->
 
     <!-- Header Start -->
@@ -103,22 +119,9 @@
                             
                         </div>
 
-                        <div class="other-log-in">
-                            <h6>or</h6>
-                        </div>
+                        
 
-                        <div class="log-in-button">
-                            <ul>
-                                <li>
-                                    <a href="https://www.google.com/" class="btn google-button w-100">
-                                        <img src="/assets/images/inner-page/google.png" class="blur-up lazyloaded" alt="">구글로 로그인하기</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.facebook.com/" class="btn google-button w-100">
-                                        <img src="/assets/images/inner-page/facebook.png" class="blur-up lazyloaded" alt="">페이스북으로 로그인하기</a>
-                                </li>
-                            </ul>
-                        </div>
+                        
 
                         <div class="other-log-in">
                             <h6></h6>

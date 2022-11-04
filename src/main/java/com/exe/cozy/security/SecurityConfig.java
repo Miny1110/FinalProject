@@ -31,7 +31,7 @@ public class SecurityConfig {
 		http
 		.authorizeRequests()
 			.antMatchers("/customer/**").hasRole("USER") //customer주소는 user권한만 접근 가능
-			.antMatchers("/admin/**").hasRole("ADMIN") //admin주소는 admin권한만 접근 가능
+			.antMatchers("/createItem").hasRole("ADMIN") //admin주소는 admin권한만 접근 가능
 			.anyRequest().permitAll() //나머지 주소는 인증없이 접근가능
 		.and()
 			.formLogin()

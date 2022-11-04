@@ -127,7 +127,7 @@ public ModelAndView  updateCart(HttpSession session, Principal principal,
 
     session.setAttribute("cartsize",cartList.size());
     session.setAttribute("cartList",cartList);
-    mav.setViewName("redirect:/cart");
+    mav.setViewName("redirect:cart");
     return mav;
 }
 

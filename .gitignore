@@ -182,3 +182,5 @@ src/main/resources/static/assets/img/bf2381de-88cc-4546-81bc-363e11a94300.jfif
 src/main/resources/static/assets/img/f1e38b89-31d8-4007-8e4b-8846272aa06f.jfif
 *.jfif
 src/main/java/com/exe/cozy/controller/ItemDetailController.java
+*.png
+src/main/java/com/exe/cozy/util/FileUtil.java

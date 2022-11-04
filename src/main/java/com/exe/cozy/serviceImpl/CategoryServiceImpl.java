@@ -28,6 +28,12 @@ public class CategoryServiceImpl implements CategoryService{
 		return CategoryMapper.selectCategory(itemMainType, itemSubType, pageNum);
 	}
 
+
+	@Override
+	public int totalCount(String itemMainType, String itemSubType) throws Exception {
+		return CategoryMapper.totalCount(itemMainType, itemSubType);
+	}
+
 	
 
 }

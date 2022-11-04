@@ -19,4 +19,6 @@ public interface CategoryMapper {
 	 //public List<ItemDetailDto> selectCategory(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType);
 	 public Page<ItemDetailDto> selectCategory(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType, @Param("pageNum")int pageNum);
 	 
+	 /*카테고리 총 개수*/
+	 public int totalCount(@Param("itemMainType")String itemMainType, @Param("itemSubType")String itemSubType) throws Exception;
 }

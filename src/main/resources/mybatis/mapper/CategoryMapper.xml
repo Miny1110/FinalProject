@@ -27,5 +27,10 @@
 		from item
 		where itemMainType = #{itemMainType} and itemSubType like '%'||#{itemSubType}||'%'  
 	</select>
-	     
+	
+	<!-- 카테고리 총 개수 구하기 -->
+	<select id="totalCount" resultType="int">
+		select count(itemName) from item
+		where itemMainType = #{itemMainType} and itemSubType like '%'||#{itemSubType}||'%'  
+	</select>     
 </mapper>	

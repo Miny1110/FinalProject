@@ -355,7 +355,7 @@ public class CustomerController {
     @ResponseBody
     public String getAnswer(@RequestParam("queNum")int queNum) throws Exception {
 
-    	ServiceAnswerDto dto = serviceAnswerService.getReadServiceAnsData(queNum);
+    	ServiceAnswerDto dto = customerService.getReadAnsData(queNum);
     	String content = dto.getServiceAnsContent();
     	
 		return content;

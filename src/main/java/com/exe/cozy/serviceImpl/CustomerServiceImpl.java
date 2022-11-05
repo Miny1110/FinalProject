@@ -10,6 +10,7 @@ import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.OrderDetailDto;
 import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceAnswerDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.exe.cozy.mapper.CustomerMapper;
 import com.exe.cozy.service.CustomerService;
@@ -125,6 +126,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void updateProfile(CustomerDto dto) {
 		customerMapper.updateProfile(dto);
+	}
+
+	@Override
+	public ServiceAnswerDto getReadAnsData(int serviceQueNum) {
+		return customerMapper.getReadAnsData(serviceQueNum);
 	}
 
 

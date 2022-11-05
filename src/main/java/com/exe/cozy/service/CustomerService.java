@@ -8,6 +8,7 @@ import com.exe.cozy.domain.CustomerDto;
 import com.exe.cozy.domain.OrderDetailDto;
 import com.exe.cozy.domain.OrderDto;
 import com.exe.cozy.domain.ReplyDto;
+import com.exe.cozy.domain.ServiceAnswerDto;
 import com.exe.cozy.domain.ServiceQuestionDto;
 import com.github.pagehelper.Page;
 
@@ -40,4 +41,6 @@ public interface CustomerService {
 	
 	public Page<OrderDto> getOrderCancleList(String customerEmail, int pageNum);
 	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail);
+	
+	public ServiceAnswerDto getReadAnsData(int serviceQueNum);
 }

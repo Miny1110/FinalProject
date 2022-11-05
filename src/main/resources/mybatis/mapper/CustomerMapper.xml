@@ -308,5 +308,9 @@
 	 	order by
 	 		serviceQueNum desc
 	 </select>
+	 
+	 <select id="getReadAnsData" resultType="ServiceAnswerDto">
+	 	select * from ServiceAnswer where serviceQueNum=#{serviceQueNum}
+	 </select>
  
 </mapper>

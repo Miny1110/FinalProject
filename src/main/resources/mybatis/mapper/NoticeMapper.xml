@@ -40,12 +40,11 @@
 	<select id="getNoticeLists" resultType="NoticeDto">
 	 select * from notice
 	 order by noticeDate desc
+	 
 	</select>
 
-
 	<!--noticeNum 으로 읽기 -->
-	<select id="getReadNoticeData" parameterType="int"
-		resultType="NoticeDto">
+	<select id="getReadNoticeData" parameterType="int" resultType="NoticeDto">
 		select noticeNum,noticeTitle,noticeContent,noticeDate
 		from notice where noticeNum=#{noticeNum}
 	</select>

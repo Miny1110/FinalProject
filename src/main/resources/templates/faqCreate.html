@@ -9,37 +9,6 @@
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
     
-<script type="text/javascript">
-	const sendIt = () => {
-		var f = document.myForm
-		
-		str = f.faqTitle.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			f.faqTitle.focus();
-			return;
-		}
-		
-		f.faqTitle.value = str;
-		
-		str = f.faqContent.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			f.faqContent.focue();
-			return;
-		}
-		
-		f.faqContent.value = str;
-		
-		f.action = "faq/create";
-		f.submit();
-	}
-</script>
-    
 </head>
 
 <body>
@@ -91,7 +60,7 @@
     <section class="blog-section section-b-space">
         <div class="container-fluid-lg">
             <div class="row g-4">
-                <div class="col-xxl-3 col-xl-4 col-lg-5"  style="width: 30%;">
+                <div class="col-xxl-3 col-xl-4 col-lg-5" style="width: 30%;">
                     <section class="user-dashboard-section section-b-space" style="width: 100%;">
                         
                     <div class="dashboard-left-sidebar">
@@ -136,13 +105,13 @@
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30" style="width: 70%;">
                     
                     <div class="leave-box" style="width: 100%;">
-                    <form th:action="@{/faq/create_ok}" method="post" >
+                    <form th:action="@{/faq/create_ok}" method="post" name="faqForm">
                         <div class="leave-title mt-0" style="display: inline-block">
                             <h3>faq 등록</h3>
                         </div>
 						
 							<select name="faqType" id="faqSelect" style="display: inline-block">
-                             	<option value="0" name=maxType selected="selected">선택</option>
+                             	<option value="" name=maxType selected="selected">선택</option>
                              	<option value="1" name="delivery">배송</option>
                              	<option value="2" name="canref">취소/환불</option>
                              	<option value="3" name="order">주문/결제</option>
@@ -154,8 +123,8 @@
                         <div class="leave-comment">
                             
                             <div class="row g-3">
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
+                                <div class="col-xxl-4 col-lg-12 col-sm-6" style="width: 100%">
+                                    <div class="blog-input" >
                                         <input type="text" class="form-control" name="faqTitle"
                                             placeholder="제목">
                                     </div>
@@ -169,20 +138,16 @@
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>
+                       
+                       	<div style="text-align: center">
+		                    <div style="display: inline-block">
+		                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" 
+		                        	onclick="faqEnroll();">등록</button>
+							</div>
+	                	</div> 
                     
-                    
-                    <div style="text-align: center">
-	                    <div style="display: inline-block">
-	                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
-						</div>
-						<div style="display: inline-block">
-	                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
-	                    </div>
-	                </div>
-	                
                     </form>
+                    </div>
                 </div>
                 
             </div>
@@ -235,6 +200,48 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+	const faqEnroll = () => {
+		var f = document.faqForm
+		
+		
+		str = f.faqType.value;
+		
+		if(!str){
+			alert("\n타입을 선택하세요.");
+			f.faqType.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		str = f.faqTitle.value;
+		
+		if(!str){
+			alert("\n제목을 입력하세요.");
+			f.faqTitle.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		f.faqTitle.value = str;
+		
+		str = f.faqContent.value;
+		
+		if(!str){
+			alert("\n내용을 입력하세요.");
+			f.faqContent.focus();
+			event.preventDefault();
+			return;
+		}
+		
+		f.faqContent.value = str;
+		
+		f.action = "/faq/create_ok";
+		f.submit();
+	}
+	</script>
+    
 </body>
 
 </html>

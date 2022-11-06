@@ -97,8 +97,7 @@
 
 	<!-- 문의삭제 -->
 	<delete id="deleteServiceQue" parameterType="int">
-		delete serviceQuestion where
-		serviceQueNum = #{serviceQueNum}
+		delete serviceQuestion where serviceQueNum = #{serviceQueNum}
 	</delete>
 
 </mapper>

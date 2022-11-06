@@ -27,9 +27,6 @@
 	<header th:replace="header.html :: headerFragment"></header>
     <!-- Header End -->
 
-    <!-- mobile fix menu start -->
-    <!-- mobile fix menu end -->
-
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
         <div class="container-fluid-lg">
@@ -104,7 +101,7 @@
 
                 
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_50"  style="width: 70%;">
-                    <section class="order-table-section section-b-space">
+                    <section class="order-table-section section-b-space" style="width: 100%;">
                         <div class="row" style="width: 100%;">
                         	<form th:action="@{/service/qnaCreate}" method="get">
                                     
@@ -112,8 +109,8 @@
 	                                <table class="table order-tab-table">
 	                                    <thead>
 	                                        <tr>
-	                                            <th style="width: 3%;">번호</th>
-	                                            <th style="width: 72%;">제목</th>
+	                                            <th style="width: 8%;">번호</th>
+	                                            <th style="width: 67%;">제목</th>
 	                                            <th style="width: 10%;">작성자</th>
 	                                            <th style="width: 15%;">작성일</th>
 	                                        </tr>
@@ -134,7 +131,7 @@
 	                         		<div style="display: display:inline; width: 100%; ">
 		                                
 		                                <div style="text-align: right">
-			                                <div style="display: inline-block">
+			                                <div style="display: inline-block" sec:authorize="hasRole('USER')">
 			                                    <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold"
 			                                    	type="button" th:onclick="@{|location.href='/service/qnaCreate'|}">문의하기</button>
 			                                </div>

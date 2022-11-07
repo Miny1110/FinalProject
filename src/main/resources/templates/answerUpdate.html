@@ -148,7 +148,7 @@
                     <br/>
                     <div style="text-align: center">
 	                    
-	                    <div style="display: inline-block">\
+	                    <div style="display: inline-block">
 	                    <br/>
 	                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 	                    		th:onclick="@{|location.href='/deleteQuestion?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
@@ -164,12 +164,13 @@
                         </div>
                         
                         <div class="leave-comment">
-                        	<form method="post" th:object="${ServiceAnswerDto}" name="queForm" th:action="@{/service/anqCreate_ok}">
+                        <form th:action="@{/service/anqUpdate_ok}" method="post">	
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="blog-input" style="white-space:pre-line">
                                     
                                     	<input type="hidden" th:value="${sqdto.serviceQueNum}" name="serviceQueNum"/>
+                                    	<input type="text" th:value="${sqdto.serviceAnswer.serviceAnsNum}" name="serviceAnsNum"/>
                                     	
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
                                             th:text="${sqdto.serviceAnswer.serviceAnsContent}" name="serviceAnsContent"></textarea>
@@ -180,17 +181,12 @@
                                 <div style="text-align: center">
                                     <div style="display: inline-block">
 	                                    <button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-	                                    	type="button" onclick="sendIt();">수정</button>
+	                                    	type="submit">수정</button>
 	                                 </div>
-	                                 <div style="display: inline-block">
-				                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-				                    		th:onclick="@{|location.href='/deleteAnswer?serviceQueNum=${sqdto.serviceQueNum}'|}">삭제</button>
-				                    </div>
+	                                 
                                 </div>
                                  
-                               
-                                  
-                            </form>     
+                              </form> 
                         </div>
                     </div>
                     
@@ -248,13 +244,7 @@
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
     
-    <script type="text/javascript">
-    function sendIt(){
-    	var f = document.queForm;
-    	 f.submit();
-    }
     
-    </script>
 </body>
 
 </html>

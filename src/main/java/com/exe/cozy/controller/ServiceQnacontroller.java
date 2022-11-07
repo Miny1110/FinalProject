@@ -188,8 +188,6 @@ public class ServiceQnacontroller {
 		sadto = svcAnsService.findServiceAns(serviceQueNum);
 		mav.addObject("sadto",sadto);
 		
-		System.out.println(sqdto.getCustomerEmail());
-		
 		mav.setViewName("answerArticle");
 		return mav;
 		
@@ -256,12 +254,18 @@ public class ServiceQnacontroller {
 		
 	//답변 수정
 	@PostMapping("/service/anqUpdate_ok")
-	public ModelAndView anqUpdate_ok(@ModelAttribute ServiceAnswerDto sadto,HttpServletRequest request) throws Exception{
+	public ModelAndView anqUpdate_ok(ServiceAnswerDto sadto,HttpServletRequest request) throws Exception{
+		System.out.println("aa");
+		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 		
+		ServiceQuestionDto sqdto = svcQueService.getReadServiceQueData(serviceQueNum);
 		ModelAndView mav = new ModelAndView();
-		svcAnsService.updateServiceAns(sadto);
 		
-		mav.setViewName("redirect:/service/qnaList");
+		svcAnsService.updateServiceAns(sadto);
+		System.out.println("bb");
+		
+		mav.addObject("sqdto",sqdto);
+		mav.setViewName("redirect:/service/anqArticle?serviceQueNum=" + serviceQueNum);
 		
 		return mav;
 	}

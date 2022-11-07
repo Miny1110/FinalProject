@@ -473,11 +473,12 @@
 
                                     <ul class="summery-contain bg-white custom-height">
                                         <li>
-                                            <span id="itemName" th:text ="${idto.itemName}"></span>
-                                                <span th:text="| X ${itemQty}|"></span>
+                                            <span id="itemName" style="width:150px;overflow:hidden; word-break:break-word;" th:text ="${idto.itemName}"></span>
+                                                <span th:text="|&nbsp;&nbsp;&nbsp;&nbsp; X ${itemQty}|"></span>
 
                                             <h4 class="price" >
                                                 <del class="text-content" th:text="|${#numbers.formatInteger(idto.getItemPrice(), 0,'COMMA')} 원|"></del>
+                                                <br/>
                                                     <th:block th:text="|${#numbers.formatInteger(saleTotalPrice, 0, 'COMMA')} 원|"></th:block>
                                                     </h4>
                                         </li>

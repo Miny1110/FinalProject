@@ -106,9 +106,14 @@ public ModelAndView  updateCart(HttpSession session, Principal principal,
     // 세션 String customerEmail = (String)session.getAttribute("customerEmail");
     List<CartDto> clist = cartService.listCart(principal.getName());
 
+
+
     cdto.setCustomerEmail(principal.getName());
     cartService.updateCart(cdto);
+    List<CartDto> cartList = cartService.listCart(principal.getName());
 
+    session.setAttribute("cartsize",cartList.size());
+    session.setAttribute("cartList",cartList);
     mav.setViewName("redirect:cart");
     return mav;
 

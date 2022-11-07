@@ -146,4 +146,16 @@ public class LogController {
     	return mav;
     }    
     
+    
+    
+//-------------------------------------------------------------------
+    @GetMapping("stateUp")
+    public ModelAndView stateUp(HttpServletRequest req) {
+    	ModelAndView mav = new ModelAndView();
+    	String orderNum = req.getParameter("orderNum");
+    	customerService.stateUp(orderNum);
+    	mav.setViewName("redirect:/");
+    	return mav;
+    }
+    
 }

@@ -133,5 +133,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.getReadAnsData(serviceQueNum);
 	}
 
+	@Override
+	public void stateUp(String orderNum) {
+		customerMapper.stateUp(orderNum);
+	}
+
 
 }

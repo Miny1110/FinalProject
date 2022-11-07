@@ -55,9 +55,9 @@
 	</update>
 	
 	<!-- 답변 삭제 -->
-	<update id="deleteServiceAns" parameterType="ServiceAnswerDto">
-		update serviceAnswer set serviceAnsContent=#{serviceAnsContent},serviceAnsDate = sysdate
+	<delete id="deleteServiceAns" parameterType="int">
+		delete serviceAnswer 
 		where serviceAnsNum = #{serviceAnsNum}
-	</update>
+	</delete>
 	
 </mapper>

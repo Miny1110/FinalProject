@@ -187,7 +187,7 @@
                     </div>
                     
                     
-                    <form th:action="@{/service/anqCreate}">
+                    
                     	<br/>
 	                    <div style="text-align: center">
 	                       <div style="display: inline-block" th:if="${sqdto.serviceAnswer.serviceAnsContent==null}">
@@ -198,8 +198,13 @@
 		                       	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
 		                       	type="button" th:onclick="'location.href=\'anqUpdate?serviceQueNum=' + @{${sqdto.serviceQueNum}} + '\''">수정</button>
 		                   </div>
+		                   
+		                   <div style="display: inline-block" th:if="${sqdto.serviceAnswer.serviceAnsContent!=null}">
+		                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
+		                    		th:onclick="@{|location.href='/deleteAnswer?serviceQueNum=${sqdto.serviceAnswer.serviceAnsNum}'|}">삭제</button>
+		                   </div>
 	                    </div>
-                    </form>
+                    
                     
                     
                 </div>

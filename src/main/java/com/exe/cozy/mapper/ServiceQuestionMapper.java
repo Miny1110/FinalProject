@@ -20,7 +20,7 @@ public interface ServiceQuestionMapper {
 
 	public ServiceQuestionDto findServiceQue(int serviceQueNum);
 	
-	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception;
+	public ServiceQuestionDto getReadServiceQueData(int serviceQueNum) throws Exception;
 
 	public List<ServiceQuestionDto> getReadServiceQueList(int serviceQueNum) throws Exception;
 	

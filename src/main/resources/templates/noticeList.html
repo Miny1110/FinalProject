@@ -138,7 +138,7 @@
 										<div class="blog-label">
 											<span class="time">
 											<i data-feather="calendar"></i>
-											<h6 th:text="${ndto.noticeDate}"/></span>
+											<h6 th:text="${#dates.format(ndto.noticeDate,'yyyy-MM-dd')}"/></span>
 										</div>
 										<a th:onclick="|location.href = '@{|/notice/article?noticeNum=${ndto.noticeNum}|}';|">
 											<h3 th:text="${ndto.noticeTitle}"></h3>

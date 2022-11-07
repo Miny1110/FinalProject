@@ -21,7 +21,7 @@ public interface ServiceQuestionService {
 	
 	
 	/* 문의목록불러오기 */
-	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception;
+	public ServiceQuestionDto getReadServiceQueData(int serviceQueNum) throws Exception;
 
 	public List<ServiceQuestionDto> getReadServiceQueList(int serviceQueNum) throws Exception;
 	

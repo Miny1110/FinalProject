@@ -1,5 +1,7 @@
 package com.exe.cozy.domain;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +12,5 @@ public class NoticeDto {
 	private int noticeNum;
 	private String noticeTitle;
 	private String noticeContent;
-	private String noticeDate;
+	private Date noticeDate;
 }

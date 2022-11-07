@@ -45,7 +45,7 @@ public class ServiceQuestionServiceImpl  implements ServiceQuestionService{
 	
 
 	@Override
-	public List<ServiceQuestionDto> getReadServiceQueData(int serviceQueNum) throws Exception {
+	public ServiceQuestionDto getReadServiceQueData(int serviceQueNum) throws Exception {
 		
 		return svcQueMapper.getReadServiceQueData(serviceQueNum);
 	}

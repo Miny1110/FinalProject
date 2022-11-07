@@ -113,7 +113,7 @@
                                         </a>
                                         <div class="product-detail">
                                             <ul>
-                                                <li class="name">
+                                                <li class="name" style="width:250px;overflow:hidden; word-break:break-word;">
 
                                                     <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}" th:text="${clist.itemName}"></a>
 
@@ -124,15 +124,6 @@
 
                                                 <li class="text-content"><span class="text-title"   th:text ="|색상 :${clist.itemColor}|"></span></li>
 
-                                                <li>
-                                                    <h5 class="text-content d-inline-block">Price :</h5>
-                                                    <span>$35.10</span>
-                                                    <span class="text-content">$45.68</span>
-                                                </li>
-
-                                                <li>
-                                                    <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                </li>
 
                                                 <li class="quantity-price-box">
                                                     <div class="cart_qty">
@@ -167,18 +158,18 @@
                                 </td>
 
                                 <td class="quantity">
-                                    <h4 class="table-title text-content" >수량</h4>
+                                    <h4 class="table-title text-content" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수량</h4>
                                     <div class="quantity-price">
                                         <div class="cart_qty">
                                             <div class="input-group">
-                                                <button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
+                                                <!--<button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
                                                     <i class="fa fa-minus ms-0" aria-hidden="true"></i>
-                                                </button>
+                                                </button>-->
                                                 <input class="form-control input-number qty-input" type="text" name="quantity"
                                                 th:value="${clist.itemQty}">
-                                                <button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
+                                              <!-- <button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
                                                     <i class="fa fa-plus ms-0" aria-hidden="true"></i>
-                                                </button>
+                                                </button>-->
                                             </div>
                                         </div>
                                     </div>

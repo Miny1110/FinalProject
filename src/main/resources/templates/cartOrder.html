@@ -183,7 +183,7 @@
                                                 </a>
                                                 <div class="product-detail">
                                                     <ul>
-                                                        <li class="name">
+                                                        <li class="name" style="width:350px;overflow:hidden; word-break:break-word;">
                                                             <a th:href="@{/itemDetail(itemNum=${clist.itemNum})}"class="text-title"
                                                                th:text="${clist.itemName}"></a>
                                                         </li>
@@ -245,7 +245,7 @@
                                         </td>
 
                                         <td class="quantity">
-                                            <h4 class="table-title text-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수량</h4>
+                                            <h4 class="table-title text-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수량</h4>
                                             <div class="quantity-price">
                                                 <div class="cart_qty">
                                                     <div class="input-group">
@@ -463,11 +463,12 @@
 
                                     <ul class="summery-contain bg-white custom-height"  >
                                         <li th:each="clist:${clist}">
-                                            <span id="itemName" th:text ="${clist.itemName}"></span>
-                                            <span th:text="|   X   ${clist.itemQty}|"></span>
+                                            <span id="itemName" style="width:150px;overflow:hidden; word-break:break-word;" th:text ="${clist.itemName}"></span>
+                                            <span th:text="|&nbsp;&nbsp;&nbsp;&nbsp; X   ${clist.itemQty}|"></span>
                                             <h4 class="price">
                                                 <del class="text-content" th:text="${#numbers.formatInteger(clist.getItemPrice()*clist.getItemQty(), 0, 'COMMA')+' 원'}"></del>
-                                                <th:block th:text="${#numbers.formatInteger((clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty(), 0, 'COMMA')+' 원'}"></th:block>
+                                                <br/>
+                                                <span th:text="${#numbers.formatInteger((clist.getItemPrice()-clist.getItemDiscount())*clist.getItemQty(), 0, 'COMMA')+' 원'}"></span>
                                             </h4>
                                         </li>
 

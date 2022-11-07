@@ -56,7 +56,7 @@
 
     <!-- Faq Section Start -->
     <section class="faq-box-contain section-b-space">
-        <div class="container">
+        <div class="container-fluid-lg">
             <div class="row g-4">
                 <div class="col-xxl-3 col-lg-4 col-lg-5" style="width: 30%;">
                     <section class="user-dashboard-section section-b-space" style="width: 100%;">
@@ -101,7 +101,7 @@
                 
                 
                 
-                <div class="col-xxl-9 col-lg-8" style="width: 70%;">
+                <div class="col-xxl-9 col-lg-8" style="width: 65%;">
                 	<div class="faq-contain p-sticky" style="text-align: center" >
                         <h2>자주하는 질문</h2>
                         <br/>
@@ -125,22 +125,21 @@
 		                <div class="row">
 		                    <div class="col-12">
 		                    
-		                         <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist" style="margin-left: 33.3%">
+		                    	<ul class="nav nav-tabs custom-nav" id="myTab" role="tablist" style="margin-left: 33.3%">
 		                            <li class="nav-item" role="presentation">
 		                                <div class="faq-box-icon" style="text-align: center">
-		                                        <img src="../assets/images/inner-page/faq/start.png" class="blur-up lazyload" style="width: 60px" alt="">
+		                                	<img src="../assets/images/inner-page/faq/start.png" class="blur-up lazyload" style="width: 60px" alt="">
 		                                </div>
 		                                
 		                                <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
 		                                    data-bs-target="#description" type="button" role="tab" aria-controls="description"
 		                                    aria-selected="true" style="color:#00264B">&nbsp&nbsp배송&nbsp&nbsp </button>
-		                                
 		                            </li>
 		
 		                            <li class="nav-item" role="presentation">
 		                                
 		                                <div class="faq-box-icon" style="text-align: center">
-		                                    <img src="../assets/images/inner-page/faq/help.png" class="blur-up lazyload" style="width: 60px" alt="">
+		                                	<img src="../assets/images/inner-page/faq/help.png" class="blur-up lazyload" style="width: 60px" alt="">
 		                                </div>
 		                                
 		                                <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info"
@@ -156,19 +155,17 @@
 		                                
 		                                <button class="nav-link" id="care-tab" data-bs-toggle="tab" data-bs-target="#care"
 		                                    type="button" role="tab" aria-controls="care" aria-selected="false" style="color:#00264B">취소/환불</button>
-		                                    
-		                                
-		                                    
 		                            </li>
 		                        </ul>
 		                         
 		                        <div class="tab-content custom-tab" id="myTabContent">
-		                            <div class="tab-pane fade show active" id="description" role="tabpanel"
-		                                aria-labelledby="description-tab">
+		                        
+		                        	<!-- 배송 버튼 -->
+		                            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
 		                                <div class="col-xxl-7 ms-auto" style="width: 100%;">
 		                                    <div class="faq-accordion" th:each="fdto1, i: ${flist1}" >
-		                                        <div class="accordion" th:id="|accordionExample${i.index}|">
-		                                            <div class="accordion-item">
+		                                    	<div class="accordion" th:id="|accordionExample${i.index}|">
+		                                        	<div class="accordion-item">
 		
 		                                                <h2 class="accordion-header" id="headingOne">
 		                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -177,8 +174,9 @@
 		                                                    </button>
 		                                                </h2>
 		
-		                                                <div th:id="|collapseOne${i.index}|" class="accordion-collapse collapse show"
+		                                                <div th:id="|collapseOne${i.index}|" class="accordion-collapse collapse"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample${i.index}|">
+		                                                    
 		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto1.faqContent}"></p>
 		                                                    </div>
@@ -195,18 +193,17 @@
 										                    	</h6>
 										                    	<br/>
 									                    	</div>
-		                                                </div>
-		                                                
-		                                                
-		                                                
-		                                                
-		                                            </div>
+		                                             	</div>
+		                                             </div>
 		                                        </div>
-		                                        <br/>
+		                                       <br/> 
 		                                    </div>
 		                                </div>
 		                            </div>
-		
+									
+									
+		                            
+		                            <!-- 주문/결제 버튼 -->
 		                            <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
 		                                <div class="col-xxl-7 ms-auto" style="width: 100%;">
 		                                    <div class="faq-accordion" th:each="fdto2, i : ${flist2}">
@@ -220,7 +217,7 @@
 		                                                    </button>
 		                                                </h2>
 		
-		                                                <div th:id="|collapseOne1${i.index}|" class="accordion-collapse collapse show"
+		                                                <div th:id="|collapseOne1${i.index}|" class="accordion-collapse collapse"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample1${i.index}|">
 		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto2.faqContent}"></p>
@@ -239,14 +236,16 @@
 										                    	<br/>
 									                    	</div>
 		                                                </div>
-		                                                
 		                                            </div>
 		                                        </div>
 		                                        <br/>
 		                                    </div>
 		                                </div>
 		                            </div>
-		
+		                            
+		                            
+									
+									<!-- 취소/환불 버튼 -->
 		                            <div class="tab-pane fade" id="care" role="tabpanel" aria-labelledby="care-tab">
 		                                <div class="col-xxl-7 ms-auto" style="width: 100%;">
 		                                    <div class="faq-accordion" th:each="fdto3, i : ${flist3}">
@@ -260,7 +259,7 @@
 		                                                    </button>
 		                                                </h2>
 		
-		                                                <div th:id="|collapseOne2${i.index}|" class="accordion-collapse collapse show"
+		                                                <div th:id="|collapseOne2${i.index}|" class="accordion-collapse collapse"
 		                                                    aria-labelledby="headingOne" th:data-bs-parent="|#accordionExample2${i.index}|">
 		                                                    <div style="white-space:pre-line" class="accordion-body">
 		                                                        <p th:text="${fdto3.faqContent}"></p>
@@ -279,7 +278,6 @@
 										                    	<br/>
 									                    	</div>
 		                                                </div>
-		                                                
 		                                            </div>
 		                                        </div>
 		                                        <br/>
@@ -293,11 +291,10 @@
 		                    </div>
 		                </div>
 		            </div>
+		        </form> 
 		        </section>
 		        <!-- Faq Question section End -->
-                
-                
-            </form> 
+             
             </div>
           
         </div>

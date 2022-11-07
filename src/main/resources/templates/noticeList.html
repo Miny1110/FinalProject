@@ -10,6 +10,7 @@
 <link id="color-link" rel="stylesheet" type="text/css"
 	href="../assets/css/styleLee.css">
 
+<!-- 
 <script type="text/javascript">
     	function sendIt() {
     		var f = document.searchForm;
@@ -17,7 +18,9 @@
     		f.action = "/noticeList";
     		f.submit();
     	}
-    </script>
+</script>
+ -->
+
 
 </head>
 
@@ -129,21 +132,20 @@
 						<!--공지 제목 부분-->
 						
 						<div class="col-12" th:each="ndto : ${nlists}">
-						<form th:action="@{/notice/list}" method="get">
-							<div class="blog-box blog-list wow fadeInUp">
-								<div class="blog-contain blog-contain-2">
-									<div class="blog-label">
-										<span class="time">
-										<i data-feather="calendar"></i>
-										<h6 th:text="${ndto.noticeDate}"/></span>
+							<form th:action="@{/notice/list}" method="get">
+								<div class="blog-box blog-list wow fadeInUp">
+									<div class="blog-contain blog-contain-2" style="width: 100%">
+										<div class="blog-label">
+											<span class="time">
+											<i data-feather="calendar"></i>
+											<h6 th:text="${ndto.noticeDate}"/></span>
+										</div>
+										<a th:onclick="|location.href = '@{|/notice/article?noticeNum=${ndto.noticeNum}|}';|">
+											<h3 th:text="${ndto.noticeTitle}"></h3>
+										</a>
 									</div>
-									<a th:onclick="|location.href = '@{|/notice/article?noticeNum=${ndto.noticeNum}|}';|">
-										<h3 th:text="${ndto.noticeTitle}"></h3>
-									</a>
-
 								</div>
-							</div>
-						</form>
+							</form>
 						</div>
 						
 
@@ -235,6 +237,20 @@
 
 	<!-- script js -->
 	<script src="../assets/js/script.js"></script>
+	
+	<script>
+	
+	const getFormatDate = (date) => {
+	    const year = date.getFullYear();
+	    const month = (1 + date.getMonth());
+	    const day = date.getDate();
+	    return `${year}-${month}-${day}일`;
+	}
+
+	const dateFormat = getFormatDate(noticeDate); //날짜 형식을 dataFormat에 입력
+	
+	</script>
+	
 </body>
 
 </html>

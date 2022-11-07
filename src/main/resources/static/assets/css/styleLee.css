@@ -18002,7 +18002,7 @@ header .offcanvas-backdrop{
     margin-top:8px
 }
 .blog-section .blog-detail-contain .blog-details-quote{
-    padding:calc(18px + (60 - 18) * ((20vw - 320px) / (1920 - 320))) calc(18px + (60 - 58) * ((100vw - 320px) / (1920 - 320))) calc(18px + (60 - 18) * ((20vw - 320px) / (1920 - 320))) calc(1px + (180 - 152) * ((100vw - 320px) / (1920 - 320)));
+    padding:calc(30px + (60 - 18) * ((20vw - 320px) / (1920 - 320))) calc(18px + (60 - 58) * ((100vw - 320px) / (1920 - 320))) calc(30px + (60 - 18) * ((20vw - 320px) / (1920 - 320))) calc(1px + (180 - 152) * ((100vw - 320px) / (1920 - 320)));
     border-radius:10px;
     margin-bottom:calc(12px + (20 - 12) * ((100vw - 320px) / (1920 - 320)));
     background-color:#4a5568;
@@ -20038,7 +20038,7 @@ header .offcanvas-backdrop{
     background-color:#e7e7e7;
     color:#222;
     padding:calc(10px + (14 - 10) * ((100vw - 320px) / (1920 - 320))) calc(12px + (20 - 12) * ((10vw - 320px) / (1920 - 320)));
-    font-size:calc(17px + (20 - 17) * ((100vw - 320px) / (1920 - 320)));
+    font-size:calc(16px + (20 - 17) * ((100vw - 320px) / (1920 - 320)));
     font-weight:400
 }
 .order-tab-table tbody{

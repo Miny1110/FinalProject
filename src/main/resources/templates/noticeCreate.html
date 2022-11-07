@@ -8,39 +8,6 @@
    
     <!-- Template css -->
     <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/styleLee.css">
-    
-<script type="text/javascript">
-	const sendIt = () => {
-		var t = document.myForm
-		
-		str = t.noticeTitle.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n제목을 입력하세요.");
-			t.noticeTitle.focus();
-			return;
-		}
-		
-		t.noticeTitle.value = str;
-		
-		str = t.noticeContent.value;
-		str = str.trim();
-		
-		if(!str){
-			alert("\n내용을 입력하세요.");
-			t.noticeContent.focus();
-			return;
-		}
-		
-		t.noticeContent.value = str;
-		
-		t.action = "/notice/create_ok";
-		t.submit();
-	}
-</script>
-    
-    
 </head>
 
 <body>
@@ -60,8 +27,6 @@
     <header th:replace="header.html :: headerFragment"></header>
     <!-- Header End -->
 
-    <!-- mobile fix menu start -->
-    <!-- mobile fix menu end -->
 
     <!-- Breadcrumb Section Start -->
     <section class="breadscrumb-section pt-0">
@@ -136,47 +101,46 @@
                     
 
                 <div class="col-xxl-9 col-xl-8 col-lg-7 ratio_30" style="width: 70%;">
-                    
-                    <div class="leave-box" style="width: 100%;">
-                        <div class="leave-title mt-0">
-                            <h3>공지 등록</h3>
-                        </div>
-						
-						<form th:action="@{/notice/create}" method="post" name="myForm">
-                        <div class="leave-comment">
-                            
-                            <input type="hidden" name="noticeDate" >
-                            
-                            <div class="row g-3">
-                                <div class="col-xxl-4 col-lg-12 col-sm-6">
-                                    <div class="blog-input">
-                                        <input type="text" class="form-control" name="noticeTitle"
-                                            placeholder="제목">
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="blog-input" style="white-space:pre-line">
-                                        <textarea class="form-control" rows="12" name="noticeContent"
-                                            placeholder="내용"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    
-                    
-                    <div style="text-align: center">
-	                    <div style="display: inline-block">
-	                        <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
-						</div>
-						<div style="display: inline-block">
-	                        <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >취소</button>
+                    <form th:action="@{/notice/create_ok}" method="post" name="noticeForm">
+	                    <div class="leave-box" style="width: 100%;">
+	                        
+	                        <div class="leave-title mt-0">
+	                            <h3>공지 등록</h3>
+	                        </div>
+							
+							
+	                        <div class="leave-comment">
+	                            <input type="hidden" name="noticeDate">
+	                            
+		                            <div class="row g-3">
+		                                <div class="col-xxl-4 col-lg-12 col-sm-6" style="width: 100%">
+		                                    <div class="blog-input">
+		                                        <input type="text" class="form-control" name="noticeTitle"
+		                                            placeholder="제목">
+		                                    </div>
+		                                </div>
+		
+		                                <div class="col-12">
+		                                    <div class="blog-input" style="white-space:pre-line">
+		                                        <textarea class="form-control" rows="12" name="noticeContent"
+		                                            placeholder="내용"></textarea>
+		                                    </div>
+		                                </div>
+		                            </div>
+	                        </div>
+	                        
+		                    <div style="text-align: center">
+			                    <div style="display: inline-block">
+			                        <button onclick="noticeAlert();" 
+			                        	class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
+								</div>
+							</div>
+		                    
 	                    </div>
-	                </div>
-	                
-                    </form>
+                    
+                    
+	                    
+	                </form>
                 </div>
                 
             </div>
@@ -229,6 +193,46 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+		const noticeAlert = () => {
+			var t = document.noticeForm
+			
+			str = t.noticeTitle.value;
+			str = str.trim();
+			
+			if(!str){
+				alert("\n제목을 입력하세요.");
+				t.noticeTitle.focus();
+				event.preventDefault();
+				return;
+			}
+			
+			t.noticeTitle.value = str;
+			
+			str = t.noticeContent.value;
+			str = str.trim();
+			
+			if(!str){
+				alert("\n내용을 입력하세요.");
+				t.noticeContent.focus();
+				event.preventDefault();
+				return;
+			}
+			
+			t.noticeContent.value = str;
+			
+			
+			t.submit();
+		}
+	</script>
+    
+    <script type="text/javascript">
+    
+    	function goBack(){
+    		window.history.back();
+    	}
+    </script>
 </body>
 
 </html>

@@ -74,13 +74,15 @@
                                         <div class="product-detail">
                                             <ul>
                                                 <li class="name">
-                                                    <a th:href="@{/itemDetail(itemNum=${odto.itemDto.itemNum})}"
+                                                    <a th:href="@{/itemDetail(itemNum=${odto.itemDto.itemNum})}" class="text-title"
                                                        th:text="${odto.itemDto.itemName}"></a>
                                                 </li>
 
-                                                <li class="text-content" th:text="|사이즈 : ${odto.itemSize}|"></li>
+                                                <li class="text-content" style="display: flex;">
+                                                <span class="text-title" th:text="|사이즈 : ${odto.itemSize}|"></span></li>
 
-                                                <li class="text-content" th:text="|색상 : ${odto.itemColor}|"></li>
+                                                <li class="text-content" style="display: flex;"><span class="text-title"
+                                                        th:text="|색상 : ${odto.itemColor}|"></span></li>
                                             </ul>
                                         </div>
                                     </div>

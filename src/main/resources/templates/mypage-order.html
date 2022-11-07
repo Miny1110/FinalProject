@@ -192,8 +192,10 @@
                                                        <ul class="product-size">
                                                         <li>
                                                             <div class="size-box">
-                                                                <h6 class="text-content">가격 : </h6>
-                                                                <h5 th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice, 0, 'COMMA') + ' 원'}"></h5>
+                                                                <h6 class="text-content">가격:&nbsp;</h6>
+                                                                <del class="theme-color" th:if="${orderDetailDto.itemDto.itemDiscount!=0}"
+                                            						th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice, 0, 'COMMA') + ' 원'}"></del>
+                                                                <h5 th:text="${#numbers.formatInteger(orderDetailDto.itemDto.itemPrice-orderDetailDto.itemDto.itemDiscount, 0, 'COMMA') + ' 원'}"></h5>
                                                             </div>
                                                         </li>
 

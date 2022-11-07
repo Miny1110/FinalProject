@@ -44,4 +44,7 @@ public interface CustomerMapper {
 	public List<OrderDetailDto> getOrderCancleDetailList(String customerEmail);
 	
 	public ServiceAnswerDto getReadAnsData(int serviceQueNum);
+	
+	
+	public void stateUp(String orderNum);
 }

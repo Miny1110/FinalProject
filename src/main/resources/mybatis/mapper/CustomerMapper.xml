@@ -313,4 +313,9 @@
 	 	select * from ServiceAnswer where serviceQueNum=#{serviceQueNum}
 	 </select>
  
+ 
+ 	<update id="stateUp">
+ 		update cozyorder set orderState='배송완료' where orderNum=#{orderNum}
+ 	</update>
+ 
 </mapper>

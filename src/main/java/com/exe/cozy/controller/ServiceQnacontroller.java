@@ -34,7 +34,6 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 등록창
-	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/qnaCreate")
 	public ModelAndView createSvcQuestion(String customerEmail, Principal principal) throws Exception{
 		
@@ -49,18 +48,14 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 등록
-	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/qnaCreate_ok")
-	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto,Principal principal, HttpServletRequest request, HttpSession session) throws Exception{
+	public ModelAndView createSvcQuestion_ok(ServiceQuestionDto sqdto,Principal principal, HttpServletRequest request) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 		int serviceQueMaxNum = svcQueService.serviceQueMaxNum();
 		sqdto.setServiceQueNum(serviceQueMaxNum + 1);
 		
 		sqdto.setCustomerEmail(principal.getName());
-
-		String customerEmail = (String)session.getAttribute("customerEmail");
-        sqdto.setCustomerEmail(customerEmail);
 
 		
 		svcQueService.insertServiceQue(sqdto);;
@@ -71,7 +66,7 @@ public class ServiceQnacontroller {
 	
 	//질문 리스트 띄우기
 	@RequestMapping("/service/qnaList")
-	public ModelAndView listSvcQuestion(ServiceQuestionDto sqdto,HttpServletRequest request,HttpSession session) throws Exception{
+	public ModelAndView listSvcQuestion(ServiceQuestionDto sqdto,HttpServletRequest request) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
 				
@@ -114,7 +109,6 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 수정창
-	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/qnaUpdate")
 	public ModelAndView qnaUpdate(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request,Principal principal, HttpSession session) throws Exception{
 		
@@ -136,7 +130,6 @@ public class ServiceQnacontroller {
 	
 	
 	//질문 수정
-	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/qnaUpdate_ok")
 	public ModelAndView qnaUpdate_ok(@ModelAttribute ServiceQuestionDto sqdto,HttpServletRequest request,Principal principal, HttpSession session) throws Exception{
 		
@@ -156,7 +149,6 @@ public class ServiceQnacontroller {
 	}
 		
 	//질문 삭제
-	@PreAuthorize("isAuthenticated")
 	@GetMapping("deleteQuestion")
 	public ModelAndView deleteSvcQuestiosn(ServiceQuestionDto sqdto, HttpServletRequest request,Principal principal,HttpSession session) throws Exception {
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
@@ -196,6 +188,7 @@ public class ServiceQnacontroller {
 		sadto = svcAnsService.findServiceAns(serviceQueNum);
 		mav.addObject("sadto",sadto);
 		
+		System.out.println(sqdto.getCustomerEmail());
 		
 		mav.setViewName("answerArticle");
 		return mav;
@@ -204,7 +197,6 @@ public class ServiceQnacontroller {
 	
 	
 	//답변 등록창으로 이동
-	@PreAuthorize("isAuthenticated")
 	@GetMapping("/service/anqCreate")
 	public ModelAndView createSvcAnswer(HttpServletRequest request,HttpSession session) throws Exception{
 		
@@ -213,8 +205,8 @@ public class ServiceQnacontroller {
 		ModelAndView mav = new ModelAndView();
 		ServiceQuestionDto sqdto = svcQueService.findServiceQue1(serviceQueNum);
 		
-		String customerEmail = (String)session.getAttribute("admin@admin.com");
-        sqdto.setCustomerEmail(customerEmail);
+		String customerEmail = (String)session.getAttribute("customerEmail");
+        sqdto.setCustomerEmail(sqdto.getCustomerEmail());
 		
 		mav.addObject("sqdto",sqdto);
 		
@@ -226,13 +218,16 @@ public class ServiceQnacontroller {
 	
 	
 	//답변 등록
-	@PreAuthorize("isAuthenticated")
 	@PostMapping("/service/anqCreate_ok")
-	public ModelAndView anqCreate_ok(ServiceAnswerDto sadto, HttpServletRequest request) throws Exception{
+	public ModelAndView anqCreate_ok(ServiceQuestionDto sqdto,ServiceAnswerDto sadto, HttpServletRequest request, HttpSession session) throws Exception{
 
 		ModelAndView mav = new ModelAndView();
 		int serviceAnsMaxNum = svcAnsService.serviceAnsMaxNum();
 		sadto.setServiceAnsNum(serviceAnsMaxNum + 1);
+		
+		String customerEmail = (String)session.getAttribute("admin@.com");
+        sqdto.setCustomerEmail(customerEmail);
+		
 		svcAnsService.insertServiceAns(sadto);
 		int serviceQueNum = sadto.getServiceQueNum();
 

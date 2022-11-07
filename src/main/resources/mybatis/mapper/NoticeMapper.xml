@@ -13,7 +13,7 @@
 	<!-- 공지 등록 -->
 	<insert id="insertNoticeData" parameterType="NoticeDto">
 		insert into notice(noticeNum,noticeTitle,noticeContent,noticeDate)
-		values (#{noticeNum},#{noticeTitle},#{noticeContent},sysdate)
+		values (#{noticeNum},#{noticeTitle},#{noticeContent},to_char(sysdate, 'yyyy-MM-dd'))
 	</insert>
 
 	<select id="getNoticeDataCount" parameterType="hashMap"

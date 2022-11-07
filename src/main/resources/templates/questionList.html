@@ -118,9 +118,13 @@
 	                                    <tbody th:each="sqdto : ${sqlists}">
 	                                        <tr>
 	                                            <td th:text="${sqdto.serviceQueNum}"></td>
-	                                            <td sec:authorize="hasRole('USER')"><a th:onclick="|location.href = '@{|qnaArticle?serviceQueNum=${sqdto.serviceQueNum}|}';|">[[*{sqdto.serviceQueTitle}]]</a></td>
-	                                            			<!-- a th:href="'qnaArticle?' + 'serviceQueNum=' + @{${sqdto.serviceQueNum}}" -->
-	                                            <td sec:authorize="hasRole('ADMIN')"><a th:onclick="|location.href = '@{|anqArticle?serviceQueNum=${sqdto.serviceQueNum}|}';|">[[*{sqdto.serviceQueTitle}]]</a></td>
+	                                            
+	                                            <td>
+	                                            	<a sec:authorize="isAnonymous()" th:text="${sqdto.serviceQueTitle}"></a>
+	                                            	<a sec:authorize="hasRole('USER')" th:onclick="|location.href = '@{|qnaArticle?serviceQueNum=${sqdto.serviceQueNum}|}';|">[[*{sqdto.serviceQueTitle}]]</a>
+	                                            	<a sec:authorize="hasRole('ADMIN')" th:onclick="|location.href = '@{|anqArticle?serviceQueNum=${sqdto.serviceQueNum}|}';|">[[*{sqdto.serviceQueTitle}]]</a>
+	                                            </td>
+	                                            
 	                                            <td th:text="${sqdto.customerEmail}"></td>
 	                                            <td th:text="${sqdto.serviceQueDate}"></td>
 	                                        </tr>
@@ -132,7 +136,7 @@
 		                                
 		                                <div style="text-align: right">
 			                                <div style="display: inline-block" sec:authorize="hasRole('USER')">
-			                                    <button onclick="sendIt();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold"
+			                                    <button class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold"
 			                                    	type="button" th:onclick="@{|location.href='/service/qnaCreate'|}">문의하기</button>
 			                                </div>
 			                            </div>
@@ -226,6 +230,9 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    
+    
 </body>
 
 </html>

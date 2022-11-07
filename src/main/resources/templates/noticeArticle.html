@@ -134,16 +134,21 @@
                         </div>
                     </div>
                     
-                    <div style="text-align: center">
+                    
+                    <div style="text-align: center" sec:authorize="hasRole('ADMIN')">
+                    
 	                    <div style="display: inline-block">
 	                        <button type="button" th:onclick="'location.href=\'update?noticeNum=' + @{${ndto.noticeNum}} + '\''" 
 	                        	class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">수정</button>
 						</div>
+						
 						<div style="display: inline-block">
 	                        <button th:onclick="@{|location.href='/noticeDelete?noticeNum=${ndto.noticeNum}'|}"
 	                        	class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold" >삭제</button>
 	                    </div>
+	                    
 	                </div>
+	                
                     
                     </div>
                 </div>

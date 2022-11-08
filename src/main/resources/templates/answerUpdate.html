@@ -166,12 +166,11 @@
                         <div class="leave-comment">
                         <form th:action="@{/service/anqUpdate_ok}" method="post">	
                             <div class="row g-3">
+                            <input type="hidden" th:value="${sqdto.serviceQueNum}" name="serviceQueNum"/>
+                            <input type="hidden" th:value="${sqdto.serviceAnswer.serviceAnsNum}" name="serviceAnsNum"/>
                                 <div class="col-12">
-                                    <div class="blog-input" style="white-space:pre-line">
+                                    <div class="blog-input">
                                     
-                                    	<input type="hidden" th:value="${sqdto.serviceQueNum}" name="serviceQueNum"/>
-                                    	<input type="text" th:value="${sqdto.serviceAnswer.serviceAnsNum}" name="serviceAnsNum"/>
-                                    	
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"
                                             th:text="${sqdto.serviceAnswer.serviceAnsContent}" name="serviceAnsContent"></textarea>
                                     </div>

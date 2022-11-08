@@ -255,14 +255,13 @@ public class ServiceQnacontroller {
 	//답변 수정
 	@PostMapping("/service/anqUpdate_ok")
 	public ModelAndView anqUpdate_ok(ServiceAnswerDto sadto,HttpServletRequest request) throws Exception{
-		System.out.println("aa");
+		
 		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
 		
 		ServiceQuestionDto sqdto = svcQueService.getReadServiceQueData(serviceQueNum);
 		ModelAndView mav = new ModelAndView();
 		
 		svcAnsService.updateServiceAns(sadto);
-		System.out.println("bb");
 		
 		mav.addObject("sqdto",sqdto);
 		mav.setViewName("redirect:/service/anqArticle?serviceQueNum=" + serviceQueNum);
@@ -273,13 +272,15 @@ public class ServiceQnacontroller {
 	
 	//답변 삭제
 	@GetMapping("deleteAnswer")
-	public ModelAndView deleteReply(ServiceAnswerDto sadto, HttpServletRequest request) throws Exception {
+	public ModelAndView deleteReply(ServiceAnswerDto sadto,HttpServletRequest request) throws Exception {
 		
-		int serviceQueNum = Integer.parseInt(request.getParameter("serviceQueNum"));
+		int serviceAnsNum = Integer.parseInt(request.getParameter("serviceAnsNum"));
 		
 		ModelAndView mav = new ModelAndView();
-		svcAnsService.deleteServiceAns(serviceQueNum);
-		mav.setViewName("redirect:/service/anqArticle?serviceQueNum=" + serviceQueNum);
+		
+		svcAnsService.deleteServiceAns(serviceAnsNum);
+		
+		mav.setViewName("redirect:/service/qnaList");
 		return mav;
 	}
 	

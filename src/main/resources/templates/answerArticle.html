@@ -172,6 +172,7 @@
                             <div class="user-comment-box1">
                                 <ul>
                                     <li>
+                                   <input type="hidden" th:value="${sqdto.serviceAnswer.serviceAnsNum}">
                                    
                                     	 <div class="user-contain" th:if="${#strings.isEmpty(sqdto.serviceAnswer.serviceAnsContent)}">
                                     	 	<p>아직 답변이 없습니다. 조금만 기다려주세요.</p>
@@ -201,7 +202,7 @@
 		                   
 		                   <div style="display: inline-block" th:if="${sqdto.serviceAnswer.serviceAnsContent!=null}">
 		                    	<button class="btn btn-animation ms-xxl-auto mt-xxl-0 mt-3 btn-md fw-bold"
-		                    		th:onclick="@{|location.href='/deleteAnswer?serviceQueNum=${sqdto.serviceAnswer.serviceAnsNum}'|}">삭제</button>
+		                    		th:onclick="@{|location.href='/deleteAnswer?serviceAnsNum=${sqdto.serviceAnswer.serviceAnsNum}'|}">삭제</button>
 		                   </div>
 	                    </div>
                     

@@ -28,7 +28,7 @@ public interface ServiceAnswerMapper {
 	/* 답변 수정*/
 	public void updateServiceAns(ServiceAnswerDto sadto) throws Exception;
 	
-	/* 문의 삭제*/
+	/* 답변 삭제*/
 	public void deleteServiceAns(int serviceAnsNum) throws Exception;
 
 }

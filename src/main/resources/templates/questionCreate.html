@@ -112,7 +112,7 @@
                         </div>
                         
                     
-						<form th:action="@{/service/qnaCreate_ok}" method="post" th:object="${ServiceQuestionDto}">
+						<form th:action="@{/service/qnaCreate_ok}" method="post" name="queForm" >
                         <div class="leave-comment">
                         
                             <input type="hidden" value="customerEmail" name="customerEmail">
@@ -136,7 +136,7 @@
                             
                             <div style="text-align: center">
                                 <div style="display: inline-block">
-                                    <button type="submit" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
+                                    <button onclick="queAlert();" class="btn btn-animation ms-xxl-auto mt-xxl-1 mt-3 btn-md fw-bold">등록</button>
                                 </div>
                             </div>
                             </form>
@@ -192,6 +192,42 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
+    
+    <script type="text/javascript">
+		const queAlert = () => {
+			var t = document.queForm
+			
+			str = t.serviceQueTitle.value;
+			
+			
+			if(!str){
+				alert("\n제목을 입력하세요.");
+				t.serviceQueTitle.focus();
+				event.preventDefault();
+				return;
+			}
+			
+			t.serviceQueTitle.value = str;
+			
+			
+			str = t.serviceQueContent.value;
+			
+			
+			if(!str){
+				alert("\n내용을 입력하세요.");
+				t.serviceQueContent.focus();
+				event.preventDefault();
+				return;
+			}
+			
+			t.serviceQueContent.value = str;
+			
+			
+			t.submit();
+		}
+	</script>
+    
+    
 </body>
 
 </html>
